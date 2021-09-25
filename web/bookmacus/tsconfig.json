@@ -1,8 +1,11 @@
 {
   "compilerOptions": {
-    "preserveConstEnums": true,
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -15,11 +18,9 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "baseUrl": "./src"
+    "jsx": "react-jsx"
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "**/*.spec.ts"]
+  "include": [
+    "src"
+  ]
 }
