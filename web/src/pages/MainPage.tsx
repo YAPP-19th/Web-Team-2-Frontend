@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
 const MainWrapper = styled.div`
@@ -45,7 +45,7 @@ const Bookmark = styled.div`
   background-color: ${(props) => props.theme.color.test4};
 `;
 
-const MainPage: React.FC = () => {
+function MainPage(): ReactElement {
   return (
     <MainWrapper>
       <Header>헤더 영역</Header>
@@ -58,6 +58,6 @@ const MainPage: React.FC = () => {
       </MainLayout>
     </MainWrapper>
   );
-};
+}
 
 export default MainPage;
