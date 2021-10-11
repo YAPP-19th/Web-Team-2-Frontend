@@ -15,7 +15,7 @@ module.exports = {
     '@typescript-eslint/no-use-before-define': ['error'],
     'import/extensions': 'off',
     'import/no-unresolved': 'off',
-    'arrow-body-style': ['error', 'always'],
+    'arrow-body-style': 'off',
     'react/prop-types': 'off',
     'react/require-default-props': 'off',
     'react/jsx-filename-extension': [

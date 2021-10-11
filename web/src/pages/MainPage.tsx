@@ -10,8 +10,8 @@ const MainWrapper = styled.div`
 const Header = styled.header`
   width: 100%;
   height: 48px;
-  background-color: #f5e0e0;
-  color: #000;
+  background-color: ${(props) => props.theme.color.test1};
+  color: black;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -26,7 +26,7 @@ const MainLayout = styled.div`
 
 const Aside = styled.aside`
   width: 240px;
-  background-color: #f5f3e0;
+  background-color: ${(props) => props.theme.color.test2};
 `;
 
 const ContentLayout = styled.div`
@@ -37,12 +37,12 @@ const ContentLayout = styled.div`
 
 const Remainder = styled.div`
   height: 200px;
-  background-color: #e0e9f5;
+  background-color: ${(props) => props.theme.color.test3};
 `;
 
 const Bookmark = styled.div`
   flex: 1 1 0;
-  background-color: #f1e0f5;
+  background-color: ${(props) => props.theme.color.test4};
 `;
 
 const MainPage: React.FC = () => {
