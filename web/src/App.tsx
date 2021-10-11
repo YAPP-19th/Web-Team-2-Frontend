@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import MainView from './pages/MainView';
+import MainView from './pages/MainPage';
 
 const App: React.FC = () => {
   return (
