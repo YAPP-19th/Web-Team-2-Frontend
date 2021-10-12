@@ -1,13 +1,21 @@
-import React from 'react';
-import { Switch, Route } from 'react-router-dom';
-import MainView from './pages/MainView';
+import React, { ReactElement } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
+import GlobalStyle from './assets/styles/globalStyle';
+import { theme } from './assets/styles/theme';
+import MainView from './pages/MainPage';
 
-const App: React.FC = () => {
+function App(): ReactElement {
   return (
-    <Switch>
-      <Route path="/" component={MainView} />
-    </Switch>
+    <>
+      <GlobalStyle />
+      <ThemeProvider theme={theme}>
+        <Switch>
+          <Route path="/" component={MainView} />
+        </Switch>
+      </ThemeProvider>
+    </>
   );
-};
+}
 
 export default App;
