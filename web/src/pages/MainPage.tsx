@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import SideBar from '../components/sidebar/SideBar';
 
 const MainWrapper = styled.div`
   height: 100%;
@@ -24,11 +25,6 @@ const MainLayout = styled.div`
   flex: 1 1 0;
 `;
 
-const Aside = styled.aside`
-  width: 240px;
-  background-color: ${(props) => props.theme.color.test2};
-`;
-
 const ContentLayout = styled.div`
   flex: 1 1 0;
   display: flex;
@@ -50,7 +46,7 @@ function MainPage(): ReactElement {
     <MainWrapper>
       <Header>헤더 영역</Header>
       <MainLayout>
-        <Aside>사이드 영역</Aside>
+        <SideBar />
         <ContentLayout>
           <Remainder>리마인더영역</Remainder>
           <Bookmark>북마크영역</Bookmark>
