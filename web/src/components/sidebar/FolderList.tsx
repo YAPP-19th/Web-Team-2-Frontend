@@ -10,7 +10,7 @@ import Tree, {
   TreeItem,
 } from '@atlaskit/tree';
 import styled from 'styled-components';
-import { FolderIcon } from 'assets/icons';
+import { ArrowDownIcon, ArrowSideIcon, FolderIcon } from 'assets/icons';
 import atlassianTree from './data/atlassianTreeMock.json';
 
 const FolderListWrapper = styled.div``;
@@ -18,8 +18,21 @@ const FolderListWrapper = styled.div``;
 const FolderItemBlock = styled.div`
   display: flex;
   align-items: center;
+  width: 166px;
   height: 28px;
+  font-size: 12px;
   padding: 5px 2px 5px 8px;
+  border-radius: 4px;
+  &:hover {
+    background-color: #f3f2ef;
+  }
+`;
+
+const ArrowButton = styled.button`
+  padding: 0;
+  svg {
+    margin-right: 2px;
+  }
 `;
 
 function FolderList(): ReactElement {
@@ -49,13 +62,13 @@ function FolderList(): ReactElement {
 
     if (item.children && item.children.length > 0) {
       return item.isExpanded ? (
-        <button type="button" onClick={() => onCollapse(item.id)}>
-          -
-        </button>
+        <ArrowButton type="button" onClick={() => onCollapse(item.id)}>
+          <ArrowDownIcon />
+        </ArrowButton>
       ) : (
-        <button type="button" onClick={() => onExpand(item.id)}>
-          +
-        </button>
+        <ArrowButton type="button" onClick={() => onExpand(item.id)}>
+          <ArrowSideIcon />
+        </ArrowButton>
       );
     }
     return null;

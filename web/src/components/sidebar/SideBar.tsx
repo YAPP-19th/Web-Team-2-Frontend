@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import FolderList from './FolderList';
 
 const SideBarWrapper = styled.div`
-  width: 240px;
+  width: 240px; // 정확한 값을 추후에 서정님에게 물어봐야 할 거 같음
   padding: 20px 0;
   position: relative;
-  background-color: #e7e7e7;
+  background-color: #fff;
 `;
 
 function SideBar(): ReactElement {
