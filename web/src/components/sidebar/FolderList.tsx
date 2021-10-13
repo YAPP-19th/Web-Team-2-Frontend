@@ -44,6 +44,10 @@ const FolderItemBlock = styled.div`
   }
 `;
 
+const FolderButton = styled.button`
+  margin-right: 8px;
+`;
+
 const ArrowButton = styled.button`
   padding: 0;
   svg {
@@ -85,13 +89,13 @@ function FolderList(): ReactElement {
   ) => {
     if (onCheckFirstNode(item.id)) {
       return item.isExpanded ? (
-        <button type="button" onClick={() => onCollapse(item.id)}>
+        <FolderButton type="button" onClick={() => onCollapse(item.id)}>
           <FolderIcon />
-        </button>
+        </FolderButton>
       ) : (
-        <button type="button" onClick={() => onExpand(item.id)}>
+        <FolderButton type="button" onClick={() => onExpand(item.id)}>
           <FolderIcon />
-        </button>
+        </FolderButton>
       );
     }
 
