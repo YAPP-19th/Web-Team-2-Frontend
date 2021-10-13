@@ -10,7 +10,13 @@ import Tree, {
   TreeItem,
 } from '@atlaskit/tree';
 import styled from 'styled-components';
-import { ArrowDownIcon, ArrowSideIcon, FolderIcon } from 'assets/icons';
+import {
+  ArrowDownIcon,
+  ArrowSideIcon,
+  FolderIcon,
+  MoreIcon,
+  PlusIcon,
+} from 'assets/icons';
 import atlassianTree from './data/atlassianTreeMock.json';
 
 const FolderListWrapper = styled.div``;
@@ -18,6 +24,7 @@ const FolderListWrapper = styled.div``;
 const FolderItemBlock = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   width: 166px;
   height: 28px;
   font-size: 12px;
@@ -25,6 +32,15 @@ const FolderItemBlock = styled.div`
   border-radius: 4px;
   &:hover {
     background-color: #f3f2ef;
+    .right {
+      display: flex;
+    }
+  }
+  .title {
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 `;
 
@@ -32,6 +48,25 @@ const ArrowButton = styled.button`
   padding: 0;
   svg {
     margin-right: 2px;
+  }
+`;
+const FolderLeftBox = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const FolderRightBox = styled.div`
+  display: none;
+  align-items: center;
+`;
+
+const FolderETCButton = styled.button`
+  margin-right: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:last-child {
+    margin-right: 1px;
   }
 `;
 
@@ -87,27 +122,50 @@ function FolderList(): ReactElement {
         {...provided.dragHandleProps}
       >
         {item.children && item.children.length > 0 ? (
-          <FolderItemBlock
-            role="button"
-            tabIndex={0}
-            onKeyDown={
-              item.isExpanded
-                ? () => onCollapse(item.id)
-                : () => onExpand(item.id)
-            }
-            onClick={
-              item.isExpanded
-                ? () => onCollapse(item.id)
-                : () => onExpand(item.id)
-            }
-          >
-            <span>{getIcon(item, onExpand, onCollapse)}</span>
-            <span>{item.data ? item.data.title : ''}</span>
+          <FolderItemBlock>
+            <FolderLeftBox>
+              <span>{getIcon(item, onExpand, onCollapse)}</span>
+              <span
+                className="title"
+                role="button"
+                tabIndex={0}
+                onKeyDown={
+                  item.isExpanded
+                    ? () => onCollapse(item.id)
+                    : () => onExpand(item.id)
+                }
+                onClick={
+                  item.isExpanded
+                    ? () => onCollapse(item.id)
+                    : () => onExpand(item.id)
+                }
+              >
+                {item.data ? item.data.title : ''}
+              </span>
+            </FolderLeftBox>
+            <FolderRightBox className="right">
+              <FolderETCButton type="button">
+                <PlusIcon />
+              </FolderETCButton>
+              <FolderETCButton type="button">
+                <MoreIcon />
+              </FolderETCButton>
+            </FolderRightBox>
           </FolderItemBlock>
         ) : (
           <FolderItemBlock>
-            <span>{getIcon(item, onExpand, onCollapse)}</span>
-            <span>{item.data ? item.data.title : ''}</span>
+            <FolderLeftBox>
+              <span>{getIcon(item, onExpand, onCollapse)}</span>
+              <span className="title">{item.data ? item.data.title : ''}</span>
+            </FolderLeftBox>
+            <FolderRightBox className="right">
+              <FolderETCButton type="button">
+                <PlusIcon />
+              </FolderETCButton>
+              <FolderETCButton type="button">
+                <MoreIcon />
+              </FolderETCButton>
+            </FolderRightBox>
           </FolderItemBlock>
         )}
       </div>
@@ -127,7 +185,6 @@ function FolderList(): ReactElement {
     destination?: TreeDestinationPosition,
   ) => {
     if (!destination) return;
-
     const newTree = moveItemOnTree(tree, source, destination);
     setTree(newTree);
   };
