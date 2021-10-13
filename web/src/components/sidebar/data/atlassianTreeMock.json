@@ -147,6 +147,18 @@
       "children": [],
       "data": { "title": "새로 만든거" },
       "isExpanded": false
+    },
+    "123456": {
+      "id": "123456",
+      "children": [],
+      "data": { "title": "새로 만든거56" },
+      "isExpanded": false
+    },
+    "123478": {
+      "id": "123478",
+      "children": [],
+      "data": { "title": "새로 만든거78" },
+      "isExpanded": false
     }
   }
 }

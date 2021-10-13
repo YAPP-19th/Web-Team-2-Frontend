@@ -10,18 +10,43 @@ import Tree, {
   TreeItem,
 } from '@atlaskit/tree';
 import styled from 'styled-components';
+import { FolderIcon } from 'assets/icons';
 import atlassianTree from './data/atlassianTreeMock.json';
 
 const FolderListWrapper = styled.div``;
 
+const FolderItemBlock = styled.div`
+  display: flex;
+  align-items: center;
+  height: 28px;
+  padding: 5px 2px 5px 8px;
+`;
+
 function FolderList(): ReactElement {
   const [tree, setTree] = useState<TreeData>(atlassianTree);
+
+  const onCheckFirstNode = (itemId: ItemId) => {
+    const firstNode = tree.items.userId.children; // 나중에 유저 구현되면 userId를 실제 유저Id 들어오게 설정
+    return firstNode.includes(itemId);
+  };
 
   const getIcon = (
     item: TreeItem,
     onExpand: (itemId: ItemId) => void,
     onCollapse: (itemId: ItemId) => void,
   ) => {
+    if (onCheckFirstNode(item.id)) {
+      return item.isExpanded ? (
+        <button type="button" onClick={() => onCollapse(item.id)}>
+          <FolderIcon />
+        </button>
+      ) : (
+        <button type="button" onClick={() => onExpand(item.id)}>
+          <FolderIcon />
+        </button>
+      );
+    }
+
     if (item.children && item.children.length > 0) {
       return item.isExpanded ? (
         <button type="button" onClick={() => onCollapse(item.id)}>
@@ -49,7 +74,7 @@ function FolderList(): ReactElement {
         {...provided.dragHandleProps}
       >
         {item.children && item.children.length > 0 ? (
-          <div
+          <FolderItemBlock
             role="button"
             tabIndex={0}
             onKeyDown={
@@ -65,12 +90,12 @@ function FolderList(): ReactElement {
           >
             <span>{getIcon(item, onExpand, onCollapse)}</span>
             <span>{item.data ? item.data.title : ''}</span>
-          </div>
+          </FolderItemBlock>
         ) : (
-          <>
+          <FolderItemBlock>
             <span>{getIcon(item, onExpand, onCollapse)}</span>
             <span>{item.data ? item.data.title : ''}</span>
-          </>
+          </FolderItemBlock>
         )}
       </div>
     );
