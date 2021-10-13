@@ -1,8 +1,8 @@
 {
-  "rootId": "1",
+  "rootId": "userId",
   "items": {
-    "1": {
-      "id": "1",
+    "userId": {
+      "id": "userId",
       "children": [
         "1-0",
         "1-1",
@@ -14,178 +14,139 @@
         "1-7",
         "1-8"
       ],
-      "hasChildren": true,
-      "isExpanded": true,
-      "isChildrenLoading": false,
-      "data": { "title": "Title 1" }
+      "data": { "title": "이건 타이틀 표시 안됌" }
     },
     "1-0": {
       "id": "1-0",
-      "children": [],
-      "hasChildren": false,
-      "isExpanded": false,
-      "isChildrenLoading": false,
-      "data": { "title": "Title 1-0" }
+      "children": ["1234"],
+      "data": { "title": "Title 1-0" },
+      "isExpanded": true
     },
     "1-1": {
       "id": "1-1",
       "children": [],
-      "hasChildren": false,
-      "isExpanded": false,
-      "isChildrenLoading": false,
-      "data": { "title": "Title 1-1" }
+      "data": { "title": "Title 1-1" },
+      "isExpanded": false
     },
     "1-2": {
       "id": "1-2",
       "children": ["1-2-0", "1-2-1", "1-2-2", "1-2-3"],
-      "hasChildren": true,
-      "isExpanded": true,
-      "isChildrenLoading": false,
-      "data": { "title": "Title 2" }
+      "data": { "title": "Title 2" },
+      "isExpanded": true
     },
     "1-2-0": {
       "id": "1-2-0",
       "children": [],
-      "hasChildren": false,
-      "isExpanded": false,
-      "isChildrenLoading": false,
-      "data": { "title": "Title 2-0" }
+      "data": { "title": "Title 2-0" },
+      "isExpanded": false
     },
     "1-2-1": {
       "id": "1-2-1",
       "children": [],
-      "hasChildren": false,
-      "isExpanded": false,
-      "isChildrenLoading": false,
-      "data": { "title": "Title 2-1" }
+      "data": { "title": "Title 2-1" },
+      "isExpanded": false
     },
     "1-2-2": {
       "id": "1-2-2",
       "children": [],
-      "hasChildren": false,
-      "isExpanded": false,
-      "isChildrenLoading": false,
-      "data": { "title": "Title 2-2" }
+      "data": { "title": "Title 2-2" },
+      "isExpanded": false
     },
     "1-2-3": {
       "id": "1-2-3",
       "children": [],
-      "hasChildren": false,
-      "isExpanded": false,
-      "isChildrenLoading": false,
-      "data": { "title": "Title 2-3" }
+      "data": { "title": "Title 2-3" },
+      "isExpanded": false
     },
     "1-3": {
       "id": "1-3",
       "children": [],
-      "hasChildren": false,
-      "isExpanded": false,
-      "isChildrenLoading": false,
-      "data": { "title": "Title 1-3" }
+      "data": { "title": "Title 1-3" },
+      "isExpanded": false
     },
     "1-4": {
       "id": "1-4",
       "children": [],
-      "hasChildren": false,
-      "isExpanded": false,
-      "isChildrenLoading": false,
-      "data": { "title": "Title 1-4" }
+      "data": { "title": "Title 1-4" },
+      "isExpanded": false
     },
     "1-5": {
       "id": "1-5",
       "children": [],
-      "hasChildren": false,
-      "isExpanded": false,
-      "isChildrenLoading": false,
-      "data": { "title": "Title 1-5" }
+      "data": { "title": "Title 1-5" },
+      "isExpanded": false
     },
     "1-6": {
       "id": "1-6",
       "children": ["1-6-0", "1-6-1", "1-6-2", "1-6-3", "1-6-4"],
-      "hasChildren": true,
-      "isExpanded": true,
-      "isChildrenLoading": false,
-      "data": { "title": "Title 6" }
+      "data": { "title": "Title 6" },
+      "isExpanded": true
     },
     "1-6-0": {
       "id": "1-6-0",
       "children": [],
-      "hasChildren": false,
-      "isExpanded": false,
-      "isChildrenLoading": false,
-      "data": { "title": "Title 6-0" }
+      "data": { "title": "Title 6-0" },
+      "isExpanded": false
     },
     "1-6-1": {
       "id": "1-6-1",
       "children": [],
-      "hasChildren": false,
-      "isExpanded": false,
-      "isChildrenLoading": false,
-      "data": { "title": "Title 6-1" }
+      "data": { "title": "Title 6-1" },
+      "isExpanded": false
     },
     "1-6-2": {
       "id": "1-6-2",
       "children": ["1-6-2-0", "1-6-2-1", "1-6-2-2"],
-      "hasChildren": true,
-      "isExpanded": true,
-      "isChildrenLoading": false,
-      "data": { "title": "Title 2" }
+      "data": { "title": "Title 6-2" },
+      "isExpanded": true
     },
     "1-6-2-0": {
       "id": "1-6-2-0",
       "children": [],
-      "hasChildren": false,
-      "isExpanded": false,
-      "isChildrenLoading": false,
-      "data": { "title": "Title 2-0" }
+      "data": { "title": "Title 2-0" },
+      "isExpanded": false
     },
     "1-6-2-1": {
       "id": "1-6-2-1",
       "children": [],
-      "hasChildren": false,
-      "isExpanded": false,
-      "isChildrenLoading": false,
-      "data": { "title": "Title 2-1" }
+      "data": { "title": "Title 2-1" },
+      "isExpanded": false
     },
     "1-6-2-2": {
       "id": "1-6-2-2",
       "children": [],
-      "hasChildren": false,
-      "isExpanded": false,
-      "isChildrenLoading": false,
-      "data": { "title": "Title 2-2" }
+      "data": { "title": "Title 2-2" },
+      "isExpanded": false
     },
     "1-6-3": {
       "id": "1-6-3",
       "children": [],
-      "hasChildren": false,
-      "isExpanded": false,
-      "isChildrenLoading": false,
-      "data": { "title": "Title 6-3" }
+      "data": { "title": "Title 6-3" },
+      "isExpanded": false
     },
     "1-6-4": {
       "id": "1-6-4",
       "children": [],
-      "hasChildren": false,
-      "isExpanded": false,
-      "isChildrenLoading": false,
-      "data": { "title": "Title 6-4" }
+      "data": { "title": "Title 6-4" },
+      "isExpanded": false
     },
     "1-7": {
       "id": "1-7",
       "children": [],
-      "hasChildren": false,
-      "isExpanded": false,
-      "isChildrenLoading": false,
-      "data": { "title": "Title 1-7" }
+      "data": { "title": "Title 1-7" },
+      "isExpanded": false
     },
     "1-8": {
       "id": "1-8",
       "children": [],
-      "hasChildren": false,
-      "isExpanded": false,
-      "isChildrenLoading": false,
-      "data": { "title": "Title 1-8" }
+      "data": { "title": "Title 1-8" },
+      "isExpanded": false
+    },
+    "1234": {
+      "id": "1234",
+      "children": [],
+      "data": { "title": "새로 만든거" },
+      "isExpanded": false
     }
   }
 }

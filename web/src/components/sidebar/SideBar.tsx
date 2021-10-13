@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
-import Example from './FolderList';
+import FolderList from './FolderList';
 
 const SideBarWrapper = styled.div`
   width: 240px;
@@ -12,7 +12,7 @@ const SideBarWrapper = styled.div`
 function SideBar(): ReactElement {
   return (
     <SideBarWrapper>
-      <Example />
+      <FolderList />
     </SideBarWrapper>
   );
 }

@@ -48,8 +48,30 @@ function FolderList(): ReactElement {
         {...provided.draggableProps}
         {...provided.dragHandleProps}
       >
-        <span className="test">{getIcon(item, onExpand, onCollapse)}</span>
-        <span>{item.data ? item.data.title : ''}</span>
+        {item.children && item.children.length > 0 ? (
+          <div
+            role="button"
+            tabIndex={0}
+            onKeyDown={
+              item.isExpanded
+                ? () => onCollapse(item.id)
+                : () => onExpand(item.id)
+            }
+            onClick={
+              item.isExpanded
+                ? () => onCollapse(item.id)
+                : () => onExpand(item.id)
+            }
+          >
+            <span>{getIcon(item, onExpand, onCollapse)}</span>
+            <span>{item.data ? item.data.title : ''}</span>
+          </div>
+        ) : (
+          <>
+            <span>{getIcon(item, onExpand, onCollapse)}</span>
+            <span>{item.data ? item.data.title : ''}</span>
+          </>
+        )}
       </div>
     );
   };
@@ -66,15 +88,14 @@ function FolderList(): ReactElement {
     source: TreeSourcePosition,
     destination?: TreeDestinationPosition,
   ) => {
-    if (!destination) {
-      return;
-    }
-    const test = moveItemOnTree(tree, source, destination);
-    setTree(test);
+    if (!destination) return;
+
+    const newTree = moveItemOnTree(tree, source, destination);
+    setTree(newTree);
   };
 
   return (
-    <FolderListWrapper>
+    <FolderListWrapper style={{ height: '100%', overflow: 'auto' }}>
       <Tree
         tree={tree}
         renderItem={renderItem}
@@ -82,6 +103,7 @@ function FolderList(): ReactElement {
         onCollapse={onCollapse}
         onDragEnd={onDragEnd}
         isDragEnabled
+        isNestingEnabled
       />
     </FolderListWrapper>
   );
