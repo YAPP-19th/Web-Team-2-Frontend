@@ -1,6 +1,4 @@
 import React, { ReactElement, useState } from 'react';
-import Navigation, { AkNavigationItem } from '@atlaskit/navigation';
-import Button from '@atlaskit/button';
 import Tree, {
   mutateTree,
   moveItemOnTree,
@@ -11,7 +9,6 @@ import Tree, {
   RenderItemParams,
   TreeItem,
 } from '@atlaskit/tree';
-import { FaCaretRight, FaCaretDown } from 'react-icons/fa';
 import styled from 'styled-components';
 import atlassianTree from './data/atlassianTreeMock.json';
 
@@ -27,21 +24,13 @@ function FolderList(): ReactElement {
   ) => {
     if (item.children && item.children.length > 0) {
       return item.isExpanded ? (
-        <Button
-          spacing="none"
-          appearance="subtle-link"
-          onClick={() => onCollapse(item.id)}
-        >
-          <FaCaretDown />
-        </Button>
+        <button type="button" onClick={() => onCollapse(item.id)}>
+          -
+        </button>
       ) : (
-        <Button
-          spacing="none"
-          appearance="subtle-link"
-          onClick={() => onExpand(item.id)}
-        >
-          <FaCaretRight />
-        </Button>
+        <button type="button" onClick={() => onExpand(item.id)}>
+          +
+        </button>
       );
     }
     return null;
@@ -52,16 +41,15 @@ function FolderList(): ReactElement {
     onExpand,
     onCollapse,
     provided,
-    snapshot,
   }: RenderItemParams) => {
     return (
-      <div ref={provided.innerRef} {...provided.draggableProps}>
-        <AkNavigationItem
-          isDragging={snapshot.isDragging}
-          text={item.data ? item.data.title : ''}
-          icon={getIcon(item, onExpand, onCollapse)}
-          dnd={{ dragHandleProps: provided.dragHandleProps }}
-        />
+      <div
+        ref={provided.innerRef}
+        {...provided.draggableProps}
+        {...provided.dragHandleProps}
+      >
+        <span className="test">{getIcon(item, onExpand, onCollapse)}</span>
+        <span>{item.data ? item.data.title : ''}</span>
       </div>
     );
   };
@@ -87,16 +75,14 @@ function FolderList(): ReactElement {
 
   return (
     <FolderListWrapper>
-      <Navigation>
-        <Tree
-          tree={tree}
-          renderItem={renderItem}
-          onExpand={onExpand}
-          onCollapse={onCollapse}
-          onDragEnd={onDragEnd}
-          isDragEnabled
-        />
-      </Navigation>
+      <Tree
+        tree={tree}
+        renderItem={renderItem}
+        onExpand={onExpand}
+        onCollapse={onCollapse}
+        onDragEnd={onDragEnd}
+        isDragEnabled
+      />
     </FolderListWrapper>
   );
 }

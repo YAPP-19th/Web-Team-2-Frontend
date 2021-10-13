@@ -5,6 +5,7 @@ import Example from './FolderList';
 const SideBarWrapper = styled.div`
   width: 240px;
   padding: 20px 0;
+  position: relative;
   background-color: #e7e7e7;
 `;
 
