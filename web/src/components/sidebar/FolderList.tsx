@@ -7,17 +7,11 @@ import Tree, {
   TreeDestinationPosition,
   ItemId,
   RenderItemParams,
-  TreeItem,
 } from '@atlaskit/tree';
 import styled from 'styled-components';
-import {
-  ArrowDownIcon,
-  ArrowSideIcon,
-  FolderIcon,
-  MoreIcon,
-  PlusIcon,
-} from 'assets/icons';
+import { MoreIcon, PlusIcon } from 'assets/icons';
 import atlassianTree from './data/atlassianTreeMock.json';
+import FolderItemIcon from './FolderItemIcon';
 
 const FolderListWrapper = styled.div``;
 
@@ -44,16 +38,6 @@ const FolderItemBlock = styled.div`
   }
 `;
 
-const FolderButton = styled.button`
-  margin-right: 8px;
-`;
-
-const ArrowButton = styled.button`
-  padding: 0;
-  svg {
-    margin-right: 2px;
-  }
-`;
 const FolderLeftBox = styled.div`
   display: flex;
   align-items: center;
@@ -77,42 +61,6 @@ const FolderETCButton = styled.button`
 function FolderList(): ReactElement {
   const [tree, setTree] = useState<TreeData>(atlassianTree);
 
-  const onCheckFirstNode = (itemId: ItemId) => {
-    const firstNode = tree.items.userId.children; // 나중에 유저 구현되면 userId를 실제 유저Id 들어오게 설정
-    return firstNode.includes(itemId);
-  };
-
-  const getIcon = (
-    item: TreeItem,
-    onExpand: (itemId: ItemId) => void,
-    onCollapse: (itemId: ItemId) => void,
-  ) => {
-    if (onCheckFirstNode(item.id)) {
-      return item.isExpanded ? (
-        <FolderButton type="button" onClick={() => onCollapse(item.id)}>
-          <FolderIcon />
-        </FolderButton>
-      ) : (
-        <FolderButton type="button" onClick={() => onExpand(item.id)}>
-          <FolderIcon />
-        </FolderButton>
-      );
-    }
-
-    if (item.children && item.children.length > 0) {
-      return item.isExpanded ? (
-        <ArrowButton type="button" onClick={() => onCollapse(item.id)}>
-          <ArrowDownIcon />
-        </ArrowButton>
-      ) : (
-        <ArrowButton type="button" onClick={() => onExpand(item.id)}>
-          <ArrowSideIcon />
-        </ArrowButton>
-      );
-    }
-    return null;
-  };
-
   const renderItem = ({
     item,
     onExpand,
@@ -125,53 +73,43 @@ function FolderList(): ReactElement {
         {...provided.draggableProps}
         {...provided.dragHandleProps}
       >
-        {item.children && item.children.length > 0 ? (
-          <FolderItemBlock>
-            <FolderLeftBox>
-              <span>{getIcon(item, onExpand, onCollapse)}</span>
+        <FolderItemBlock>
+          <FolderLeftBox>
+            <span>
+              <FolderItemIcon
+                tree={tree}
+                item={item}
+                onCollapse={onCollapse}
+                onExpand={onExpand}
+              />
+            </span>
+            {item.children && item.children.length > 0 ? (
               <span
                 className="title"
                 role="button"
                 tabIndex={0}
-                onKeyDown={
-                  item.isExpanded
-                    ? () => onCollapse(item.id)
-                    : () => onExpand(item.id)
+                onKeyDown={() =>
+                  item.isExpanded ? onCollapse(item.id) : onExpand(item.id)
                 }
-                onClick={
-                  item.isExpanded
-                    ? () => onCollapse(item.id)
-                    : () => onExpand(item.id)
+                onClick={() =>
+                  item.isExpanded ? onCollapse(item.id) : onExpand(item.id)
                 }
               >
                 {item.data ? item.data.title : ''}
               </span>
-            </FolderLeftBox>
-            <FolderRightBox className="right">
-              <FolderETCButton type="button">
-                <PlusIcon />
-              </FolderETCButton>
-              <FolderETCButton type="button">
-                <MoreIcon />
-              </FolderETCButton>
-            </FolderRightBox>
-          </FolderItemBlock>
-        ) : (
-          <FolderItemBlock>
-            <FolderLeftBox>
-              <span>{getIcon(item, onExpand, onCollapse)}</span>
+            ) : (
               <span className="title">{item.data ? item.data.title : ''}</span>
-            </FolderLeftBox>
-            <FolderRightBox className="right">
-              <FolderETCButton type="button">
-                <PlusIcon />
-              </FolderETCButton>
-              <FolderETCButton type="button">
-                <MoreIcon />
-              </FolderETCButton>
-            </FolderRightBox>
-          </FolderItemBlock>
-        )}
+            )}
+          </FolderLeftBox>
+          <FolderRightBox className="right">
+            <FolderETCButton type="button">
+              <PlusIcon />
+            </FolderETCButton>
+            <FolderETCButton type="button">
+              <MoreIcon />
+            </FolderETCButton>
+          </FolderRightBox>
+        </FolderItemBlock>
       </div>
     );
   };
