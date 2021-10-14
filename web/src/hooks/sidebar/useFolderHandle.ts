@@ -37,6 +37,7 @@ export default function useFolderHandle(): ReturnType {
   ) => {
     if (!destination) return;
     const newTree = moveItemOnTree(folders, source, destination);
+    console.log('부모Id', destination);
     setFolders(newTree);
   };
 

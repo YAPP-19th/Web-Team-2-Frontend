@@ -132,6 +132,7 @@ function FolderList(): ReactElement {
         renderItem={FolderItem}
         onExpand={onExpand}
         onCollapse={onCollapse}
+        onDragStart={(itemId) => console.log('이동하는 애', { id: itemId })}
         onDragEnd={onDragEnd}
         offsetPerLevel={16} // 한 깊이당 padding 값
         isDragEnabled
