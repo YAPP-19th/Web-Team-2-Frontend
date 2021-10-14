@@ -22,6 +22,7 @@ function FolderList(): ReactElement {
         onExpand={onExpand}
         onCollapse={onCollapse}
         onDragEnd={onDragEnd}
+        offsetPerLevel={16} // 한 깊이당 padding 값
         isDragEnabled
         isNestingEnabled
       />
