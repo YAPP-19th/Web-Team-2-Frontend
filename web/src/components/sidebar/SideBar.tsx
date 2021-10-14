@@ -7,6 +7,7 @@ const SideBarWrapper = styled.div`
   padding: 20px 0;
   position: relative;
   background-color: #fff;
+  overflow: auto;
 `;
 
 function SideBar(): ReactElement {

@@ -1,4 +1,4 @@
-import { TreeData } from '@atlaskit/tree';
+import { ItemId, TreeData } from '@atlaskit/tree';
 import { atom } from 'recoil';
 
 const initialState: TreeData = {
@@ -15,4 +15,9 @@ const initialState: TreeData = {
 export const folderState = atom<TreeData>({
   key: 'folderState',
   default: initialState,
+});
+
+export const folderMenuState = atom<ItemId>({
+  key: 'folderMenuState',
+  default: '' as ItemId,
 });
