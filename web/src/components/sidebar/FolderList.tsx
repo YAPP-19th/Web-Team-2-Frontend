@@ -1,14 +1,8 @@
 import React, { ReactElement } from 'react';
-import Tree, {
-  mutateTree,
-  moveItemOnTree,
-  TreeSourcePosition,
-  TreeDestinationPosition,
-  ItemId,
-} from '@atlaskit/tree';
+import Tree from '@atlaskit/tree';
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
-import { folderState } from 'recoil/atoms/folderState';
+import useFoldersEffect from 'hooks/sidebar/useFoldersEffect';
+import useFolderHandle from 'hooks/sidebar/useFolderHandle';
 import FolderItem from './FolderItem';
 
 const FolderListWrapper = styled.div`
@@ -17,29 +11,13 @@ const FolderListWrapper = styled.div`
 `;
 
 function FolderList(): ReactElement {
-  const [tree, setTree] = useRecoilState(folderState);
-
-  const onExpand = (itemId: ItemId) => {
-    setTree(mutateTree(tree, itemId, { isExpanded: true }));
-  };
-
-  const onCollapse = (itemId: ItemId) => {
-    setTree(mutateTree(tree, itemId, { isExpanded: false }));
-  };
-
-  const onDragEnd = (
-    source: TreeSourcePosition,
-    destination?: TreeDestinationPosition,
-  ) => {
-    if (!destination) return;
-    const newTree = moveItemOnTree(tree, source, destination);
-    setTree(newTree);
-  };
+  useFoldersEffect();
+  const { folders, onCollapse, onDragEnd, onExpand } = useFolderHandle();
 
   return (
     <FolderListWrapper>
       <Tree
-        tree={tree}
+        tree={folders}
         renderItem={FolderItem}
         onExpand={onExpand}
         onCollapse={onCollapse}

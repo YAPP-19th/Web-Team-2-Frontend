@@ -1,8 +1,18 @@
 import { TreeData } from '@atlaskit/tree';
-import tempData from 'components/sidebar/data/atlassianTreeMock.json';
 import { atom } from 'recoil';
+
+const initialState: TreeData = {
+  rootId: '',
+  items: {
+    '': {
+      id: '',
+      children: [],
+      data: '',
+    },
+  },
+};
 
 export const folderState = atom<TreeData>({
   key: 'folderState',
-  default: tempData,
+  default: initialState,
 });
