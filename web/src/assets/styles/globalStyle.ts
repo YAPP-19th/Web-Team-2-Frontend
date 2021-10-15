@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
     padding: 0;
     margin: 0;
-    font-family: Open-Sans, Helvetica, Sans-Serif;
+    font-family: 'Noto Sans KR', sans-serif;
     font-size: 10px;
   }
   * {

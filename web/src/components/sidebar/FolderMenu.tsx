@@ -18,15 +18,31 @@ const FolderMenuWrapper = styled.div`
 `;
 
 const MenuInner = styled.div<{ top: number; left: number }>`
-  background-color: red;
-  width: 80px;
-  height: 116px;
+  /* width: 62px;
+  height: 90px; */
   border-radius: 4px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+  background-color: #fff;
   position: fixed;
   z-index: 9999;
   top: ${(props) => props.top}px;
   left: ${(props) => props.left + 20}px;
+`;
+
+const MenuItem = styled.div`
+  width: 62px;
+  height: 29px;
+  padding: 7px 2px 7px 8px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  &:hover {
+    background-color: #f3f2ef;
+    cursor: pointer;
+  }
+  span {
+    font-size: 10px;
+  }
 `;
 
 function FolderMenu({ top, left }: FolderMenuProps): ReactElement {
@@ -35,7 +51,15 @@ function FolderMenu({ top, left }: FolderMenuProps): ReactElement {
   return (
     <FolderMenuWrapper onClick={onReset}>
       <MenuInner top={top} left={left} onClick={(e) => e.stopPropagation()}>
-        FolderMenu
+        <MenuItem>
+          <span>이름 변경</span>
+        </MenuItem>
+        <MenuItem>
+          <span>이동</span>
+        </MenuItem>
+        <MenuItem>
+          <span>삭제</span>
+        </MenuItem>
       </MenuInner>
     </FolderMenuWrapper>
   );
