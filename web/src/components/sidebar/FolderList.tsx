@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useCallback, useRef, useState } from 'react';
 import Tree, { ItemId, RenderItemParams } from '@atlaskit/tree';
 import styled from 'styled-components';
 import useFoldersEffect from 'hooks/sidebar/useFoldersEffect';
@@ -11,6 +11,7 @@ import FolderMenu from './FolderMenu';
 
 const FolderListWrapper = styled.div`
   height: 100%;
+  position: relative;
   /* overflow: auto; */
 `;
 const FolderItemWrapper = styled.div``;
@@ -61,9 +62,16 @@ const FolderETCButton = styled.button`
 
 function FolderList(): ReactElement {
   const [isOpen, setIsOpen] = useRecoilState(folderMenuState);
+  const [top, setTop] = useState<number>(0);
+  const [left, setLeft] = useState<number>(0);
 
-  const onToggleMenu = (itemId: ItemId) => {
+  const onToggleMenu = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    itemId: ItemId,
+  ) => {
     setIsOpen(itemId);
+    setTop(e.currentTarget.getBoundingClientRect().top);
+    setLeft(e.currentTarget.getBoundingClientRect().left);
   };
 
   const FolderItem = ({
@@ -111,12 +119,12 @@ function FolderList(): ReactElement {
             </FolderETCButton>
             <FolderETCButton
               type="button"
-              onClick={() => onToggleMenu(item.id)}
+              onClick={(e) => onToggleMenu(e, item.id)}
             >
               <MoreIcon />
             </FolderETCButton>
           </FolderRightBox>
-          {isOpen === item.id && <FolderMenu />}
+          {isOpen === item.id && <FolderMenu top={top} left={left} />}
         </FolderItemBlock>
       </FolderItemWrapper>
     );

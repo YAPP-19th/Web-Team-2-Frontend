@@ -1,11 +1,15 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
-const FolderMenuWrapper = styled.div`
-  //position:fixed로 하고 현재 위치 구해서 그 top , left 위치로 이동시키도록 해야함
-  position: absolute;
-  top: 0;
-  right: -85px;
+interface FolderMenuProps {
+  top: number;
+  left: number;
+}
+
+const FolderMenuWrapper = styled.div<{ top: number; left: number }>`
+  position: fixed;
+  top: ${(props) => props.top}px;
+  left: ${(props) => props.left + 20}px;
   z-index: 100;
 `;
 
@@ -17,9 +21,9 @@ const MenuInner = styled.div`
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
 `;
 
-function FolderMenu(): ReactElement {
+function FolderMenu({ top, left }: FolderMenuProps): ReactElement {
   return (
-    <FolderMenuWrapper>
+    <FolderMenuWrapper top={top} left={left}>
       <MenuInner>FolderMenu</MenuInner>
     </FolderMenuWrapper>
   );
