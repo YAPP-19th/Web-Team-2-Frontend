@@ -13,9 +13,10 @@ import FolderMenu from './FolderMenu';
 import FolderDeleteModal from './FolderDeleteModal';
 
 const FolderListWrapper = styled.div`
-  height: 100%;
-  position: relative;
+  /* height: 100%; */
   /* overflow: auto; */
+  position: relative;
+  margin-bottom: 28px;
 `;
 const FolderItemWrapper = styled.div`
   width: 166px;
