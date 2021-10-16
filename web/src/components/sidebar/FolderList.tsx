@@ -38,17 +38,19 @@ const FolderItemBlock = styled.div`
       display: flex;
     }
   }
-  .title {
-    cursor: pointer;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
 `;
 
 const FolderLeftBox = styled.div`
   display: flex;
   align-items: center;
+`;
+
+const FolderTitle = styled.span<{ isFirst: boolean }>`
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+  ${(props) => props.isFirst && `font-weight: 500`}
 `;
 
 const FolderRightBox = styled.div`
@@ -73,6 +75,8 @@ function FolderList(): ReactElement {
   const [top, setTop] = useState<number>(0);
   const [left, setLeft] = useState<number>(0);
   const [isDeleteModal, onToggleDeleteModal] = useModal();
+
+  const { onCheckFirstNode } = useFolderHandle();
 
   const onToggleMenu = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -107,23 +111,18 @@ function FolderList(): ReactElement {
                 />
               </span>
               {item.children && item.children.length > 0 ? (
-                <span
-                  className="title"
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={() =>
-                    item.isExpanded ? onCollapse(item.id) : onExpand(item.id)
-                  }
+                <FolderTitle
+                  isFirst={onCheckFirstNode(item.id)}
                   onClick={() =>
                     item.isExpanded ? onCollapse(item.id) : onExpand(item.id)
                   }
                 >
                   {item.data ? item.data.title : ''}
-                </span>
+                </FolderTitle>
               ) : (
-                <span className="title">
+                <FolderTitle isFirst={onCheckFirstNode(item.id)}>
                   {item.data ? item.data.title : ''}
-                </span>
+                </FolderTitle>
               )}
             </FolderLeftBox>
             <FolderRightBox className="right">
