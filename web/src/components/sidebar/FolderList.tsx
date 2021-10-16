@@ -1,13 +1,16 @@
-import React, { ReactElement, useCallback, useRef, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import Tree, { ItemId, RenderItemParams } from '@atlaskit/tree';
 import styled from 'styled-components';
 import useFoldersEffect from 'hooks/sidebar/useFoldersEffect';
 import useFolderHandle from 'hooks/sidebar/useFolderHandle';
 import { MoreIcon, PlusIcon } from 'assets/icons';
 import { useRecoilState } from 'recoil';
-import { folderMenuState } from 'recoil/atoms/folderState';
+import { folderMenuState, selectedFolderState } from 'recoil/atoms/folderState';
+import Modal from 'components/common/Modal';
+import useModal from 'hooks/common/useModal';
 import FolderItemIcon from './FolderItemIcon';
 import FolderMenu from './FolderMenu';
+import FolderDeleteModal from './FolderDeleteModal';
 
 const FolderListWrapper = styled.div`
   height: 100%;
@@ -64,14 +67,18 @@ const FolderETCButton = styled.button`
 
 function FolderList(): ReactElement {
   const [isOpen, setIsOpen] = useRecoilState(folderMenuState);
+  const [selectedFolder, setSelectedFolder] =
+    useRecoilState(selectedFolderState);
   const [top, setTop] = useState<number>(0);
   const [left, setLeft] = useState<number>(0);
+  const [isDeleteModal, onToggleDeleteModal] = useModal();
 
   const onToggleMenu = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     itemId: ItemId,
   ) => {
     setIsOpen(itemId);
+    setSelectedFolder(itemId);
     setTop(e.currentTarget.getBoundingClientRect().top);
     setLeft(e.currentTarget.getBoundingClientRect().left);
   };
@@ -131,7 +138,23 @@ function FolderList(): ReactElement {
             </FolderRightBox>
           </FolderItemBlock>
         </FolderItemWrapper>
-        {isOpen === item.id && <FolderMenu top={top} left={left} />}
+        {isOpen === item.id && (
+          <FolderMenu
+            top={top}
+            left={left}
+            onToggleDeleteModal={onToggleDeleteModal}
+          />
+        )}
+        {selectedFolder === item.id && isDeleteModal && (
+          <Modal
+            width={400}
+            height={180}
+            isModal={isDeleteModal}
+            onToggleModal={onToggleDeleteModal}
+          >
+            <FolderDeleteModal selectedFolder={selectedFolder} />
+          </Modal>
+        )}
       </>
     );
   };

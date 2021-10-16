@@ -6,6 +6,7 @@ import styled from 'styled-components';
 interface FolderMenuProps {
   top: number;
   left: number;
+  onToggleDeleteModal: () => void;
 }
 
 const FolderMenuWrapper = styled.div`
@@ -18,8 +19,6 @@ const FolderMenuWrapper = styled.div`
 `;
 
 const MenuInner = styled.div<{ top: number; left: number }>`
-  /* width: 62px;
-  height: 90px; */
   border-radius: 4px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
   background-color: #fff;
@@ -40,28 +39,40 @@ const MenuItem = styled.div`
     background-color: #f3f2ef;
     cursor: pointer;
   }
-  span {
-    font-size: 10px;
-  }
 `;
 
-function FolderMenu({ top, left }: FolderMenuProps): ReactElement {
+const MenuItemButton = styled.div`
+  font-size: 10px;
+`;
+
+function FolderMenu({
+  top,
+  left,
+  onToggleDeleteModal,
+}: FolderMenuProps): ReactElement {
   const onReset = useResetRecoilState(folderMenuState);
 
   return (
-    <FolderMenuWrapper onClick={onReset}>
-      <MenuInner top={top} left={left} onClick={(e) => e.stopPropagation()}>
-        <MenuItem>
-          <span>이름 변경</span>
-        </MenuItem>
-        <MenuItem>
-          <span>이동</span>
-        </MenuItem>
-        <MenuItem>
-          <span>삭제</span>
-        </MenuItem>
-      </MenuInner>
-    </FolderMenuWrapper>
+    <>
+      <FolderMenuWrapper onClick={onReset}>
+        <MenuInner top={top} left={left} onClick={(e) => e.stopPropagation()}>
+          <MenuItem>
+            <MenuItemButton>이름 변경</MenuItemButton>
+          </MenuItem>
+          <MenuItem>
+            <MenuItemButton>이동</MenuItemButton>
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              onToggleDeleteModal();
+              onReset();
+            }}
+          >
+            <MenuItemButton>삭제</MenuItemButton>
+          </MenuItem>
+        </MenuInner>
+      </FolderMenuWrapper>
+    </>
   );
 }
 
