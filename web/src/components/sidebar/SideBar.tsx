@@ -1,6 +1,7 @@
 import { PlusWhiteIcon } from 'assets/icons';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import AllFolder from './AllFolder';
 import FolderList from './FolderList';
 import TrashBox from './TrashBox';
 
@@ -41,6 +42,7 @@ const StorageButton = styled.button`
 function SideBar(): ReactElement {
   return (
     <SideBarWrapper>
+      <AllFolder />
       <FolderList />
 
       <StorageBox>
