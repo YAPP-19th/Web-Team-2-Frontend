@@ -1,18 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 import { normalize } from 'styled-normalize';
-import NotoSansKRMedium from '../fonts/NotoSansKR-Medium.otf';
-import NotoSansKRRegular from '../fonts/NotoSansKR-Regular.otf';
 
 const GlobalStyle = createGlobalStyle`
-  @font-face {
-    font-family: 'Noto Sans KR Regular';
-    src: url(${NotoSansKRRegular});
-  }
-  @font-face {
-    font-family: 'Noto Sans KR Medium';
-    src: url(${NotoSansKRMedium});
-  }
-  
   ${normalize}
   html,
   body {
@@ -20,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
     padding: 0;
     margin: 0;
-    font-family: 'Noto Sans KR Regular', 'Noto Sans KR Medium', sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
     font-size: 10px;
   }
   * {
