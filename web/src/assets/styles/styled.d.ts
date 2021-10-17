@@ -10,7 +10,8 @@ declare module 'styled-components' {
       test3: string;
       test4: string;
       primary: string;
-      gray: string;
+      gray0: string;
+      gray1: string;
       white0: string;
       black0: string;
     };
