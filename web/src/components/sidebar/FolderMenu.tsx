@@ -21,7 +21,7 @@ const FolderMenuWrapper = styled.div`
 const MenuInner = styled.div<{ top: number; left: number }>`
   border-radius: 4px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
-  background-color: #fff;
+  background-color: ${(props) => props.theme.color.white0};
   position: fixed;
   z-index: 9999;
   top: ${(props) => props.top}px;

@@ -10,6 +10,9 @@ declare module 'styled-components' {
       test3: string;
       test4: string;
       primary: string;
+      gray: string;
+      white0: string;
+      black0: string;
     };
   }
 }

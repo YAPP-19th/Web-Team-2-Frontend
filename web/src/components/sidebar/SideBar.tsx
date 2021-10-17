@@ -2,12 +2,13 @@ import { PlusWhiteIcon } from 'assets/icons';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import FolderList from './FolderList';
+import TrashBox from './TrashBox';
 
 const SideBarWrapper = styled.div`
   width: 240px; // 정확한 값을 추후에 서정님에게 물어봐야 할 거 같음
   padding: 20px 0;
   position: relative;
-  background-color: #fff;
+  background-color: ${(props) => props.theme.color.white0};
   overflow: auto;
 `;
 
@@ -33,7 +34,7 @@ const StorageButton = styled.button`
   span {
     font-size: 14px;
     font-weight: 500;
-    color: #fff;
+    color: ${(props) => props.theme.color.white0};
   }
 `;
 
@@ -48,6 +49,7 @@ function SideBar(): ReactElement {
           <span>보관함 추가</span>
         </StorageButton>
       </StorageBox>
+      <TrashBox />
     </SideBarWrapper>
   );
 }
