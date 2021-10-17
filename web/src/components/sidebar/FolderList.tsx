@@ -1,16 +1,16 @@
-import React, { ReactElement, useState } from 'react';
 import Tree, { ItemId, RenderItemParams } from '@atlaskit/tree';
-import styled from 'styled-components';
-import useFoldersEffect from 'hooks/sidebar/useFoldersEffect';
-import useFolderHandle from 'hooks/sidebar/useFolderHandle';
 import { MoreIcon, PlusIcon } from 'assets/icons';
-import { useRecoilState } from 'recoil';
-import { folderMenuState, selectedFolderState } from 'recoil/atoms/folderState';
 import Modal from 'components/common/Modal';
 import useModal from 'hooks/common/useModal';
+import useFolderHandle from 'hooks/sidebar/useFolderHandle';
+import useFoldersEffect from 'hooks/sidebar/useFoldersEffect';
+import React, { ReactElement, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { folderMenuState, selectedFolderState } from 'recoil/atoms/folderState';
+import styled from 'styled-components';
+import FolderDeleteModal from './FolderDeleteModal';
 import FolderItemIcon from './FolderItemIcon';
 import FolderMenu from './FolderMenu';
-import FolderDeleteModal from './FolderDeleteModal';
 
 const FolderListWrapper = styled.div`
   /* height: 100%; */
@@ -169,6 +169,7 @@ function FolderList(): ReactElement {
         renderItem={FolderItem}
         onExpand={onExpand}
         onCollapse={onCollapse}
+        // eslint-disable-next-line no-console
         onDragStart={(itemId) => console.log('이동하는 애', { id: itemId })}
         onDragEnd={onDragEnd}
         offsetPerLevel={16} // 한 깊이당 padding 값

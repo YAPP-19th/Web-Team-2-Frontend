@@ -37,8 +37,8 @@ export default function useFolderHandle(): ReturnType {
   ) => {
     if (!destination) return;
     const newTree = moveItemOnTree(folders, source, destination);
-    console.log('새로운 부모Id', destination);
-    console.log('기존 부모Id', source);
+    // console.log('새로운 부모Id', destination);
+    // console.log('기존 부모Id', source);
     setFolders(newTree);
   };
 

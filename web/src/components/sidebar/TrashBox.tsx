@@ -1,4 +1,4 @@
-import { SelectedTrashIcon, UnselectedTrashIcon } from 'assets/icons';
+import { UnselectedTrashIcon } from 'assets/icons';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
@@ -24,7 +24,7 @@ TODO - recoil state로 폴더 select 상태 정의 필요
 
 const UnselectedTrash = styled(UnselectedTrashIcon)``;
 
-const SelectedTrash = styled(SelectedTrashIcon)``;
+// const SelectedTrash = styled(SelectedTrashIcon)``;
 
 const TrashName = styled.span`
   height: 100%;
