@@ -27,6 +27,12 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
+
+  #root {
+    height: 100%;
+  }
+
+
   /** 버튼회색배경, 보더 없애기, 커서 포인터 주기**/
   button {
     border: 0 none;
