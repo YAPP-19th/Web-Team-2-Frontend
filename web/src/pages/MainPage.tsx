@@ -1,3 +1,4 @@
+import Reminder from 'components/reminder';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import SideBar from '../components/sidebar/SideBar';
@@ -27,13 +28,9 @@ const MainLayout = styled.div`
 
 const ContentLayout = styled.div`
   flex: 1 1 0;
+  padding: 20px 28px;
   display: flex;
   flex-direction: column;
-`;
-
-const Remainder = styled.div`
-  height: 200px;
-  background-color: ${(props) => props.theme.color.test3};
 `;
 
 const Bookmark = styled.div`
@@ -48,7 +45,7 @@ function MainPage(): ReactElement {
       <MainLayout>
         <SideBar />
         <ContentLayout>
-          <Remainder>리마인더영역</Remainder>
+          <Reminder />
           <Bookmark>북마크영역</Bookmark>
         </ContentLayout>
       </MainLayout>
