@@ -1,6 +1,7 @@
 export { ReactComponent as ArrowDownIcon } from './Arrow_down.svg';
 export { ReactComponent as ArrowSideIcon } from './Arrow_side.svg';
 export { ReactComponent as FolderIcon } from './Folder.svg';
+export { ReactComponent as ArrowUp16Icon } from './Icons_Arrow_16.svg';
 export { ReactComponent as AllFolderIcon } from './Icons_List_unselected_16.svg';
 export { ReactComponent as SelectedTrashIcon } from './Icons_trash_selected.svg';
 export { ReactComponent as UnselectedTrashIcon } from './Icons_trash_unselected.svg';
