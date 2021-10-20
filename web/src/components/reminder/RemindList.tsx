@@ -24,7 +24,7 @@ const mockData = [
 
 const RemindListWrapper = styled.div`
   display: flex;
-  margin-bottom: 40px;
+  margin-bottom: 19px;
 `;
 
 const commonIconBlockStyle = css`

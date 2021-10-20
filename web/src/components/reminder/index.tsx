@@ -34,6 +34,13 @@ const RightText = styled.span`
   margin-right: 4px;
 `;
 
+const DividerLine = styled.div`
+  width: 100%;
+  height: 1px;
+  margin-bottom: 20px;
+  background-color: ${(props) => props.theme.color.lightGray1};
+`;
+
 function Reminder(): ReactElement {
   return (
     <ReminderWrapper>
@@ -45,6 +52,7 @@ function Reminder(): ReactElement {
         </RightBox>
       </Title>
       <RemindList />
+      <DividerLine />
     </ReminderWrapper>
   );
 }
