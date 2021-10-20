@@ -1,5 +1,6 @@
+import { Back24Icon, Next24Icon } from 'assets/icons';
 import React, { ReactElement } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import RemindListItem from './RemindListItem';
 
 const mockData = [
@@ -26,12 +27,49 @@ const RemindListWrapper = styled.div`
   margin-bottom: 40px;
 `;
 
+const commonIconBlockStyle = css`
+  position: relative;
+  width: 24px;
+`;
+
+const BackIconBlock = styled.div`
+  ${commonIconBlockStyle}
+`;
+
+const NextIconBlock = styled.div`
+  ${commonIconBlockStyle}
+  margin-left:24px;
+`;
+
+const commonButtonStyle = css`
+  position: absolute;
+  top: 50%;
+  transform: translate(0%, -50%);
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+`;
+
+const BackButton = styled(Back24Icon)`
+  ${commonButtonStyle}
+`;
+
+const NextButton = styled(Next24Icon)`
+  ${commonButtonStyle}
+`;
+
 function RemindList(): ReactElement {
   return (
     <RemindListWrapper>
+      <BackIconBlock>
+        <BackButton />
+      </BackIconBlock>
       {mockData.map((data) => (
         <RemindListItem key={data.id} title={data.title} />
       ))}
+      <NextIconBlock>
+        <NextButton />
+      </NextIconBlock>
     </RemindListWrapper>
   );
 }
