@@ -1,5 +1,5 @@
-import { ArrowUp16Icon } from 'assets/icons';
-import React, { ReactElement } from 'react';
+import { ArrowDown16Icon, ArrowUp16Icon } from 'assets/icons';
+import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
 import RemindList from './RemindList';
 
@@ -22,7 +22,7 @@ const LeftBox = styled.div`
   color: ${(props) => props.theme.color.black1};
 `;
 
-const RightBox = styled.div`
+const RightBox = styled.button`
   color: ${(props) => props.theme.color.gray1};
   font-size: 12px;
   display: flex;
@@ -42,16 +42,21 @@ const DividerLine = styled.div`
 `;
 
 function Reminder(): ReactElement {
+  const [isOpen, setIsOpen] = useState(true);
+  const onToggleRemind = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <ReminderWrapper>
       <Title>
         <LeftBox>리마인드</LeftBox>
-        <RightBox>
-          <RightText>접기</RightText>
-          <ArrowUp16Icon />
+        <RightBox onClick={onToggleRemind}>
+          <RightText>{isOpen ? '접기' : '펼치기'}</RightText>
+          {isOpen ? <ArrowUp16Icon /> : <ArrowDown16Icon />}
         </RightBox>
       </Title>
-      <RemindList />
+      {isOpen && <RemindList />}
       <DividerLine />
     </ReminderWrapper>
   );

@@ -2,6 +2,7 @@ export { ReactComponent as ArrowDownIcon } from './Arrow_down.svg';
 export { ReactComponent as ArrowSideIcon } from './Arrow_side.svg';
 export { ReactComponent as FolderIcon } from './Folder.svg';
 export { ReactComponent as ArrowUp16Icon } from './Icons_Arrow_16.svg';
+export { ReactComponent as ArrowDown16Icon } from './Icons_Arrow_down_16.svg';
 export { ReactComponent as Back24Icon } from './Icons_Back_24.svg';
 export { ReactComponent as AllFolderIcon } from './Icons_List_unselected_16.svg';
 export { ReactComponent as Next24Icon } from './Icons_Next_24.svg';
