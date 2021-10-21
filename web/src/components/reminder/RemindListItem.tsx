@@ -12,6 +12,7 @@ const RemindListItemWrapper = styled.div`
   display: flex;
   border-radius: 10px;
   margin-left: 24px;
+  margin-bottom: 2px;
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.15);
 `;
 
@@ -40,7 +41,7 @@ const RightBoxText = styled.p`
   margin: 0;
   overflow-wrap: break-word;
   font-size: 10px;
-  line-height: normal;
+  line-height: 1.5;
   max-height: 42px;
   display: -webkit-box;
   -webkit-line-clamp: 3;

@@ -1,5 +1,5 @@
 import { ArrowDown16Icon, ArrowUp16Icon } from 'assets/icons';
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import useToggle from 'hooks/common/useToggle';
 import RemindList from './RemindList';
