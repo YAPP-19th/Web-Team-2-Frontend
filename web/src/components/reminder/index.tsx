@@ -1,6 +1,7 @@
 import { ArrowDown16Icon, ArrowUp16Icon } from 'assets/icons';
 import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
+import useToggle from 'hooks/common/useToggle';
 import RemindList from './RemindList';
 
 const ReminderWrapper = styled.div``;
@@ -42,10 +43,7 @@ const DividerLine = styled.div`
 `;
 
 function Reminder(): ReactElement {
-  const [isOpen, setIsOpen] = useState(true);
-  const onToggleRemind = () => {
-    setIsOpen(!isOpen);
-  };
+  const [isOpen, onToggleRemind] = useToggle(true);
 
   return (
     <ReminderWrapper>
