@@ -11,7 +11,7 @@ const RemindListItemWrapper = styled.div`
   height: 96px;
   display: flex;
   border-radius: 10px;
-  margin-left: 24px;
+  margin-right: 24px;
   margin-bottom: 2px;
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.15);
 `;

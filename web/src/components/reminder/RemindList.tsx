@@ -49,7 +49,7 @@ const RemindListWrapper = styled.div`
 
 const RemindListContainer = styled.div`
   overflow: hidden;
-  width: 795px;
+  width: 790px;
 `;
 
 const RemindListBlock = styled.div`
@@ -64,12 +64,13 @@ const commonIconBlockStyle = css`
 
 const BackIconBlock = styled.div<{ isShow: boolean }>`
   ${commonIconBlockStyle}
+  margin-right:24px;
   visibility: ${(props) => !props.isShow && 'hidden'};
+  /* display: ${(props) => !props.isShow && 'none'}; */
 `;
 
 const NextIconBlock = styled.div`
   ${commonIconBlockStyle}
-  margin-left:24px;
 `;
 
 const commonButtonStyle = css`
