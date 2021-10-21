@@ -10,7 +10,7 @@ const mockData = [
   },
   {
     id: 2,
-    title: 'Reminder 2',
+    title: 'Reminder 2asdasdasdas zdasdaasdasdasdsdasdasdasdasd',
   },
   {
     id: 3,

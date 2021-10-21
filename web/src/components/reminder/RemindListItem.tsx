@@ -1,3 +1,4 @@
+import { Symbol36Icon } from 'assets/icons';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
@@ -15,6 +16,9 @@ const RemindListItemWrapper = styled.div`
 `;
 
 const LeftBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 94px;
   height: 100%;
   border-radius: 10px 0 0 10px;
@@ -25,13 +29,35 @@ const RightBox = styled.div`
   width: 80px;
   height: 100%;
   border-radius: 0 10px 10px 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 42px 12px 12px 10px;
+  position: relative;
+`;
+
+const RightBoxText = styled.p`
+  word-break: break-all;
+  margin: 0;
+  overflow-wrap: break-word;
+  font-size: 10px;
+  line-height: normal;
+  max-height: 42px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 function RemindListItem({ title }: RemindListItemProps): ReactElement {
   return (
     <RemindListItemWrapper>
-      <LeftBox />
-      <RightBox>{title}</RightBox>
+      <LeftBox>
+        <Symbol36Icon />
+      </LeftBox>
+      <RightBox>
+        <RightBoxText>{title}</RightBoxText>
+      </RightBox>
     </RemindListItemWrapper>
   );
 }
