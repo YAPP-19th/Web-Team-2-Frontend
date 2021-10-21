@@ -1,4 +1,4 @@
-import { Symbol36Icon } from 'assets/icons';
+import { Symbol36Icon, X16Icon } from 'assets/icons';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
@@ -49,6 +49,13 @@ const RightBoxText = styled.p`
   text-overflow: ellipsis;
 `;
 
+const DeleteButton = styled(X16Icon)`
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  cursor: pointer;
+`;
+
 function RemindListItem({ title }: RemindListItemProps): ReactElement {
   return (
     <RemindListItemWrapper>
@@ -56,6 +63,7 @@ function RemindListItem({ title }: RemindListItemProps): ReactElement {
         <Symbol36Icon />
       </LeftBox>
       <RightBox>
+        <DeleteButton />
         <RightBoxText>{title}</RightBoxText>
       </RightBox>
     </RemindListItemWrapper>
