@@ -40,16 +40,25 @@ const mockData = [
     id: 9,
     title: 'Reminder 4',
   },
+  {
+    id: 10,
+    title: 'Reminder 4',
+  },
+  {
+    id: 11,
+    title: 'Reminder 4',
+  },
 ];
 
 const RemindListWrapper = styled.div`
   display: flex;
   margin-bottom: 17px;
+  position: relative;
 `;
 
 const RemindListContainer = styled.div`
   overflow: hidden;
-  width: 790px;
+  width: 100%;
 `;
 
 const RemindListBlock = styled.div`
@@ -58,19 +67,24 @@ const RemindListBlock = styled.div`
 `;
 
 const commonIconBlockStyle = css`
-  position: relative;
   width: 24px;
+  z-index: 100;
 `;
 
 const BackIconBlock = styled.div<{ isShow: boolean }>`
   ${commonIconBlockStyle}
-  margin-right:24px;
-  visibility: ${(props) => !props.isShow && 'hidden'};
-  /* display: ${(props) => !props.isShow && 'none'}; */
+  position:absolute;
+  height: 100%;
+  left: 0px;
+  margin-right: 24px;
+  display: ${(props) => !props.isShow && 'none'};
 `;
 
 const NextIconBlock = styled.div`
   ${commonIconBlockStyle}
+  position:absolute;
+  height: 100%;
+  right: 0px;
 `;
 
 const commonButtonStyle = css`
@@ -92,7 +106,7 @@ const NextButton = styled(Next24Icon)`
 
 function RemindList(): ReactElement {
   const TOTAL_SLIDES = mockData.length;
-  const SHOW_SLIDE_LENGTH = 4;
+  const SHOW_SLIDE_LENGTH = 2;
   const [currentSlide, setCurrentSlide] = useState(SHOW_SLIDE_LENGTH);
   const slideRef = useRef<HTMLDivElement>(null);
 
@@ -115,9 +129,12 @@ function RemindList(): ReactElement {
   useEffect(() => {
     if (slideRef.current) {
       slideRef.current.style.transition = 'all 0.5s ease-in-out';
-      slideRef.current.style.transform = `translateX(-${Math.floor(
-        currentSlide / (SHOW_SLIDE_LENGTH + 1),
-      )}00%)`; // +1로 준 이유는 첫화면에 리마인드 아이템을 4개를 보여줘야 해서 0%를 맞춰주기 위해 +1 을함
+      // slideRef.current.style.transform = `translateX(-${Math.floor(
+      //   currentSlide / (SHOW_SLIDE_LENGTH + 1),
+      // )}00%)`; // +1로 준 이유는 첫화면에 리마인드 아이템을 4개를 보여줘야 해서 0%를 맞춰주기 위해 +1 을함
+      slideRef.current.style.transform = `translateX(-${
+        198 * (currentSlide - SHOW_SLIDE_LENGTH)
+      }px)`;
     }
   }, [currentSlide]);
 
@@ -136,7 +153,7 @@ function RemindList(): ReactElement {
           ))}
         </RemindListBlock>
       </RemindListContainer>
-      {currentSlide <= TOTAL_SLIDES && (
+      {TOTAL_SLIDES - currentSlide > SHOW_SLIDE_LENGTH && (
         <NextIconBlock onClick={nextSlide}>
           <NextButton />
         </NextIconBlock>
