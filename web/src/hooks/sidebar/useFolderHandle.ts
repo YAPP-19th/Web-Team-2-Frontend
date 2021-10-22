@@ -9,7 +9,7 @@ import {
 import { useRecoilState } from 'recoil';
 import { folderState } from 'recoil/atoms/folderState';
 
-interface ReturnType {
+interface ReturnTypes {
   folders: TreeData;
   onExpand: (itemId: ItemId) => void;
   onCollapse: (itemId: ItemId) => void;
@@ -20,7 +20,7 @@ interface ReturnType {
   onCheckFirstNode: (itemId: ItemId) => boolean;
 }
 
-export default function useFolderHandle(): ReturnType {
+export default function useFolderHandle(): ReturnTypes {
   const [folders, setFolders] = useRecoilState(folderState);
 
   const onExpand = (itemId: ItemId) => {

@@ -1,8 +1,8 @@
 import { Back24Icon, Next24Icon } from 'assets/icons';
-import React, { ReactElement, useEffect, useRef, useState } from 'react';
+import React, { ReactElement } from 'react';
 import styled, { css } from 'styled-components';
+import useReminderHandleEffect from 'hooks/reminder/useReminderHandleEffect';
 import RemindListItem from './RemindListItem';
-import mockData from './data/remindMock.json';
 
 const RemindListWrapper = styled.div`
   display: flex;
@@ -57,56 +57,33 @@ const NextButton = styled(Next24Icon)`
 `;
 
 function RemindList(): ReactElement {
-  const TOTAL_SLIDES = mockData.reminds.length;
-  const SHOW_SLIDE_LENGTH = 2;
-  const [currentSlide, setCurrentSlide] = useState(SHOW_SLIDE_LENGTH);
-  const slideRef = useRef<HTMLDivElement>(null);
-
-  const nextSlide = () => {
-    if (currentSlide >= TOTAL_SLIDES) {
-      // 더 이상 넘어갈 슬라이드가 없으면 슬라이드를 초기화
-      setCurrentSlide(0);
-    } else {
-      setCurrentSlide(currentSlide + SHOW_SLIDE_LENGTH);
-    }
-  };
-  const prevSlide = () => {
-    if (currentSlide === 0) {
-      setCurrentSlide(TOTAL_SLIDES);
-    } else {
-      setCurrentSlide(currentSlide - SHOW_SLIDE_LENGTH);
-    }
-  };
-
-  useEffect(() => {
-    if (slideRef.current) {
-      slideRef.current.style.transition = 'all 0.5s ease-in-out';
-      // slideRef.current.style.transform = `translateX(-${Math.floor(
-      //   currentSlide / (SHOW_SLIDE_LENGTH + 1),
-      // )}00%)`; // +1로 준 이유는 첫화면에 리마인드 아이템을 4개를 보여줘야 해서 0%를 맞춰주기 위해 +1 을함
-      slideRef.current.style.transform = `translateX(-${
-        198 * (currentSlide - SHOW_SLIDE_LENGTH)
-      }px)`;
-    }
-  }, [currentSlide]);
+  const {
+    reminds,
+    currentSlide,
+    slideRef,
+    onNextSlide,
+    onBackSlide,
+    SHOW_SLIDE_LENGTH,
+    TOTAL_SLIDES,
+  } = useReminderHandleEffect();
 
   return (
     <RemindListWrapper>
       <BackIconBlock
-        onClick={prevSlide}
+        onClick={onBackSlide}
         isShow={currentSlide !== SHOW_SLIDE_LENGTH}
       >
         <BackButton />
       </BackIconBlock>
       <RemindListContainer>
         <RemindListBlock ref={slideRef}>
-          {mockData.reminds.map((data) => (
+          {reminds.map((data) => (
             <RemindListItem key={data.id} title={data.title} />
           ))}
         </RemindListBlock>
       </RemindListContainer>
       <NextIconBlock
-        onClick={nextSlide}
+        onClick={onNextSlide}
         isShow={TOTAL_SLIDES - currentSlide > SHOW_SLIDE_LENGTH}
       >
         <NextButton />
