@@ -20,24 +20,22 @@ const RemindListBlock = styled.div`
   width: 100%;
 `;
 
-const commonIconBlockStyle = css`
+const commonIconBlockStyle = css<{ isShow: boolean }>`
   width: 24px;
+  height: 100%;
   z-index: 100;
+  position: absolute;
+  display: ${(props) => !props.isShow && 'none'};
 `;
 
-const BackIconBlock = styled.div<{ isShow: boolean }>`
+const BackIconBlock = styled.div`
   ${commonIconBlockStyle}
-  position:absolute;
-  height: 100%;
   left: 0px;
   margin-right: 24px;
-  display: ${(props) => !props.isShow && 'none'};
 `;
 
 const NextIconBlock = styled.div`
   ${commonIconBlockStyle}
-  position:absolute;
-  height: 100%;
   right: 0px;
 `;
 
@@ -107,11 +105,12 @@ function RemindList(): ReactElement {
           ))}
         </RemindListBlock>
       </RemindListContainer>
-      {TOTAL_SLIDES - currentSlide > SHOW_SLIDE_LENGTH && (
-        <NextIconBlock onClick={nextSlide}>
-          <NextButton />
-        </NextIconBlock>
-      )}
+      <NextIconBlock
+        onClick={nextSlide}
+        isShow={TOTAL_SLIDES - currentSlide > SHOW_SLIDE_LENGTH}
+      >
+        <NextButton />
+      </NextIconBlock>
     </RemindListWrapper>
   );
 }
