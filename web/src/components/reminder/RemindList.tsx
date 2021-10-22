@@ -2,53 +2,7 @@ import { Back24Icon, Next24Icon } from 'assets/icons';
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import RemindListItem from './RemindListItem';
-
-const mockData = [
-  {
-    id: 1,
-    title: 'Reminder 1',
-  },
-  {
-    id: 2,
-    title: 'Reminder 2asdasdasdas zdasdaasdasdasdsdasdasdasdasd',
-  },
-  {
-    id: 3,
-    title: 'Reminder 3',
-  },
-  {
-    id: 4,
-    title: 'Reminder 4',
-  },
-  {
-    id: 5,
-    title: 'Raseminder 4',
-  },
-  {
-    id: 6,
-    title: 'Reminder 4',
-  },
-  {
-    id: 7,
-    title: 'Reminder 4',
-  },
-  {
-    id: 8,
-    title: 'Reminder 4',
-  },
-  {
-    id: 9,
-    title: 'Reminder 4',
-  },
-  {
-    id: 10,
-    title: 'Reminder 4',
-  },
-  {
-    id: 11,
-    title: 'Reminder 4',
-  },
-];
+import mockData from './data/remindMock.json';
 
 const RemindListWrapper = styled.div`
   display: flex;
@@ -105,7 +59,7 @@ const NextButton = styled(Next24Icon)`
 `;
 
 function RemindList(): ReactElement {
-  const TOTAL_SLIDES = mockData.length;
+  const TOTAL_SLIDES = mockData.reminds.length;
   const SHOW_SLIDE_LENGTH = 2;
   const [currentSlide, setCurrentSlide] = useState(SHOW_SLIDE_LENGTH);
   const slideRef = useRef<HTMLDivElement>(null);
@@ -148,7 +102,7 @@ function RemindList(): ReactElement {
       </BackIconBlock>
       <RemindListContainer>
         <RemindListBlock ref={slideRef}>
-          {mockData.map((data) => (
+          {mockData.reminds.map((data) => (
             <RemindListItem key={data.id} title={data.title} />
           ))}
         </RemindListBlock>
