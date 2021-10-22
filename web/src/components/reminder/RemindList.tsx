@@ -69,11 +69,8 @@ function RemindList(): ReactElement {
 
   return (
     <RemindListWrapper>
-      <BackIconBlock
-        onClick={onBackSlide}
-        isShow={currentSlide !== SHOW_SLIDE_LENGTH}
-      >
-        <BackButton />
+      <BackIconBlock isShow={currentSlide !== SHOW_SLIDE_LENGTH}>
+        <BackButton onClick={onBackSlide} />
       </BackIconBlock>
       <RemindListContainer>
         <RemindListBlock ref={slideRef}>
@@ -82,11 +79,8 @@ function RemindList(): ReactElement {
           ))}
         </RemindListBlock>
       </RemindListContainer>
-      <NextIconBlock
-        onClick={onNextSlide}
-        isShow={TOTAL_SLIDES - currentSlide > SHOW_SLIDE_LENGTH}
-      >
-        <NextButton />
+      <NextIconBlock isShow={TOTAL_SLIDES - currentSlide > SHOW_SLIDE_LENGTH}>
+        <NextButton onClick={onNextSlide} />
       </NextIconBlock>
     </RemindListWrapper>
   );
