@@ -16,7 +16,7 @@ const RemindListItemWrapper = styled.div`
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.15);
 `;
 
-const LeftBox = styled.div`
+const RemindItemLeftBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,7 +26,7 @@ const LeftBox = styled.div`
   background-color: ${(props) => props.theme.color.lightGray0};
 `;
 
-const RightBox = styled.div`
+const RemindItemRightBox = styled.div`
   width: 80px;
   height: 100%;
   border-radius: 0 10px 10px 0;
@@ -57,16 +57,17 @@ const DeleteButton = styled(X16Icon)`
   cursor: pointer;
 `;
 
-function RemindListItem({ title }: RemindListItemProps): ReactElement {
+function RemindListItem(props: RemindListItemProps): ReactElement {
+  const { title } = props;
   return (
     <RemindListItemWrapper>
-      <LeftBox>
+      <RemindItemLeftBox>
         <Symbol36Icon />
-      </LeftBox>
-      <RightBox>
+      </RemindItemLeftBox>
+      <RemindItemRightBox>
         <DeleteButton />
         <RightBoxText>{title}</RightBoxText>
-      </RightBox>
+      </RemindItemRightBox>
     </RemindListItemWrapper>
   );
 }

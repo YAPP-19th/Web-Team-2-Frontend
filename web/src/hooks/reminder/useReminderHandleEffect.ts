@@ -20,19 +20,11 @@ export default function useReminderHandleEffect(): ReturnTypes {
   const slideRef = useRef<HTMLDivElement>(null);
 
   const onNextSlide = () => {
-    if (currentSlide >= TOTAL_SLIDES) {
-      // 더 이상 넘어갈 슬라이드가 없으면 슬라이드를 초기화
-      setCurrentSlide(0);
-    } else {
-      setCurrentSlide(currentSlide + SHOW_SLIDE_LENGTH);
-    }
+    // 더 이상 넘어갈 슬라이드가 없으면 슬라이드를 초기화
+    setCurrentSlide(currentSlide + SHOW_SLIDE_LENGTH);
   };
   const onBackSlide = () => {
-    if (currentSlide === 0) {
-      setCurrentSlide(TOTAL_SLIDES);
-    } else {
-      setCurrentSlide(currentSlide - SHOW_SLIDE_LENGTH);
-    }
+    setCurrentSlide(currentSlide - SHOW_SLIDE_LENGTH);
   };
 
   useEffect(() => {
