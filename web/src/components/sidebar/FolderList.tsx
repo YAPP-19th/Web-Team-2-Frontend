@@ -7,6 +7,7 @@ import useFoldersEffect from 'hooks/sidebar/useFoldersEffect';
 import React, { ReactElement, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { folderMenuState, selectedFolderState } from 'recoil/atoms/folderState';
+import { useFolderAction } from 'recoil/selectors/folderSelector';
 import styled from 'styled-components';
 import FolderDeleteModal from './FolderDeleteModal';
 import FolderItemIcon from './FolderItemIcon';
@@ -78,6 +79,7 @@ function FolderList(): ReactElement {
   const [isDeleteModal, onToggleDeleteModal] = useToggle();
 
   const { onCheckFirstNode } = useFolderHandle();
+  const { create } = useFolderAction();
 
   const onToggleMenu = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -127,7 +129,7 @@ function FolderList(): ReactElement {
               )}
             </FolderLeftBox>
             <FolderRightBox className="right">
-              <FolderETCButton type="button">
+              <FolderETCButton type="button" onClick={() => create(item.id)}>
                 <PlusIcon />
               </FolderETCButton>
               <FolderETCButton
