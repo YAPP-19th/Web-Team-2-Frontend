@@ -19,11 +19,11 @@ const Title = styled.div`
   width: 100%;
 `;
 
-const LeftBox = styled.div`
+const TitleText = styled.div`
   color: ${(props) => props.theme.color.black1};
 `;
 
-const RightBox = styled.button`
+const RemindToggleButton = styled.button`
   color: ${(props) => props.theme.color.gray1};
   font-size: 12px;
   display: flex;
@@ -31,7 +31,7 @@ const RightBox = styled.button`
   cursor: pointer;
 `;
 
-const RightText = styled.span`
+const ToggleText = styled.span`
   margin-right: 4px;
 `;
 
@@ -48,11 +48,11 @@ function Reminder(): ReactElement {
   return (
     <ReminderWrapper>
       <Title>
-        <LeftBox>리마인드</LeftBox>
-        <RightBox onClick={onToggleRemind}>
-          <RightText>{isOpen ? '접기' : '펼치기'}</RightText>
+        <TitleText>리마인드</TitleText>
+        <RemindToggleButton onClick={onToggleRemind}>
+          <ToggleText>{isOpen ? '접기' : '펼치기'}</ToggleText>
           {isOpen ? <ArrowUp16Icon /> : <ArrowDown16Icon />}
-        </RightBox>
+        </RemindToggleButton>
       </Title>
       {isOpen && <RemindList />}
       <DividerLine />
