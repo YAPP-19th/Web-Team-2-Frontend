@@ -1,7 +1,7 @@
 import Reminder from 'components/reminder';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
-import SideBar from '../components/sidebar/SideBar';
+import SideBar from 'components/sidebar';
 
 const MainWrapper = styled.div`
   height: 100%;
