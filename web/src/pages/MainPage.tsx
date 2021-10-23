@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import SideBar from 'components/sidebar';
 
 const MainWrapper = styled.div`
-  height: 100%;
   display: flex;
   flex-direction: column;
 `;

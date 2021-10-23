@@ -14,10 +14,9 @@ import FolderItemIcon from './FolderItemIcon';
 import FolderMenu from './FolderMenu';
 
 const FolderListWrapper = styled.div`
-  /* height: 100%; */
-  /* overflow: auto; */
   position: relative;
   margin-bottom: 28px;
+  /* overflow: auto; */
 `;
 const FolderItemWrapper = styled.div`
   width: 166px;
@@ -104,7 +103,13 @@ function FolderList(): ReactElement {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <FolderItemBlock>
+          <FolderItemBlock
+            onMouseDown={() =>
+              item.isExpanded && item.children.length > 0
+                ? onCollapse(item.id)
+                : onExpand(item.id)
+            }
+          >
             <FolderLeftBox>
               <span>
                 <FolderItemIcon
@@ -113,22 +118,14 @@ function FolderList(): ReactElement {
                   onExpand={onExpand}
                 />
               </span>
-              {item.children && item.children.length > 0 ? (
-                <FolderTitle
-                  isFirst={onCheckFirstNode(item.id)}
-                  onClick={() =>
-                    item.isExpanded ? onCollapse(item.id) : onExpand(item.id)
-                  }
-                >
-                  {item.data ? item.data.title : ''}
-                </FolderTitle>
-              ) : (
-                <FolderTitle isFirst={onCheckFirstNode(item.id)}>
-                  {item.data ? item.data.title : ''}
-                </FolderTitle>
-              )}
+              <FolderTitle isFirst={onCheckFirstNode(item.id)}>
+                {item.data ? item.data.title : ''}
+              </FolderTitle>
             </FolderLeftBox>
-            <FolderRightBox className="right">
+            <FolderRightBox
+              className="right"
+              onMouseDown={(e) => e.stopPropagation()}
+            >
               <FolderETCButton type="button" onClick={() => create(item.id)}>
                 <PlusIcon />
               </FolderETCButton>

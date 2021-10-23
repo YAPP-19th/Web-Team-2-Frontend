@@ -33,6 +33,7 @@ const Text = styled.span`
 
 function CabinetBox(): ReactElement {
   const { create } = useCabinetAction();
+
   return (
     <CabinetBoxWrapper>
       <CabinetButton type="button" onClick={create}>
