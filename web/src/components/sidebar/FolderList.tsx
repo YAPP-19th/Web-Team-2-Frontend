@@ -30,7 +30,7 @@ const FolderItemBlock = styled.div`
   width: 166px;
   height: 28px;
   font-size: 12px;
-  padding: 5px 2px 5px 8px;
+  padding: 5px 2px;
   border-radius: 4px;
   &:hover {
     background-color: #f3f2ef;

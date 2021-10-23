@@ -10,40 +10,33 @@ interface FolderItemIconProps {
   onCollapse: (itemId: ItemId) => void;
 }
 
-const FolderButton = styled.button`
-  margin-right: 8px;
-`;
+const FolderItemIconWrapper = styled.div``;
 
-const ArrowButton = styled.button`
+const ArrowButton = styled.button<{ isShow: boolean }>`
   padding: 0;
+  width: 16px;
+  height: 16px;
+  visibility: ${(props) => !props.isShow && 'hidden'};
   svg {
     margin-right: 2px;
   }
+`;
+
+const FolderIconStyled = styled(FolderIcon)`
+  margin-right: 4px;
 `;
 
 function FolderItemIcon({
   item,
   onExpand,
   onCollapse,
-}: FolderItemIconProps): ReactElement | null {
+}: FolderItemIconProps): ReactElement {
   const { onCheckFirstNode } = useFolderHandle();
 
-  if (onCheckFirstNode(item.id)) {
-    return (
-      <FolderButton
-        type="button"
-        onClick={() =>
-          item.isExpanded ? onCollapse(item.id) : onExpand(item.id)
-        }
-      >
-        <FolderIcon />
-      </FolderButton>
-    );
-  }
-
-  if (item.children && item.children.length > 0) {
-    return (
+  return (
+    <FolderItemIconWrapper>
       <ArrowButton
+        isShow={item.children.length > 0}
         type="button"
         onClick={() =>
           item.isExpanded ? onCollapse(item.id) : onExpand(item.id)
@@ -51,9 +44,10 @@ function FolderItemIcon({
       >
         {item.isExpanded ? <ArrowDownIcon /> : <ArrowSideIcon />}
       </ArrowButton>
-    );
-  }
-  return null;
+
+      {onCheckFirstNode(item.id) && <FolderIconStyled />}
+    </FolderItemIconWrapper>
+  );
 }
 
 export default FolderItemIcon;
