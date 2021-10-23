@@ -27,8 +27,7 @@ const FolderItemBlock = styled.div`
   align-items: center;
   justify-content: space-between;
   position: relative;
-  min-width: 105px;
-  max-width: 166px;
+  width: 166px;
   height: 28px;
   font-size: 12px;
   padding: 5px 2px;
