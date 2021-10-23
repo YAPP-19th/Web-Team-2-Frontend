@@ -1,5 +1,5 @@
 import Tree, { ItemId, RenderItemParams } from '@atlaskit/tree';
-import { MoreIcon, PlusIcon } from 'assets/icons';
+import { More16Icon, PlusIcon } from 'assets/icons';
 import Modal from 'components/common/Modal';
 import useToggle from 'hooks/common/useToggle';
 import useFolderHandle from 'hooks/sidebar/useFolderHandle';
@@ -134,7 +134,7 @@ function FolderList(): ReactElement {
                 type="button"
                 onClick={(e) => onToggleMenu(e, item.id)}
               >
-                <MoreIcon />
+                <More16Icon />
               </FolderETCButton>
             </FolderRightBox>
           </FolderItemBlock>

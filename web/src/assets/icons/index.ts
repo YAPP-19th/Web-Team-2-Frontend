@@ -10,6 +10,6 @@ export { ReactComponent as Symbol36Icon } from './Icons_Symbol_36.svg';
 export { ReactComponent as SelectedTrashIcon } from './Icons_trash_selected.svg';
 export { ReactComponent as UnselectedTrashIcon } from './Icons_trash_unselected.svg';
 export { ReactComponent as X16Icon } from './Icons_x_16.svg';
-export { ReactComponent as MoreIcon } from './More.svg';
+export { ReactComponent as More16Icon } from './More_16.svg';
 export { ReactComponent as PlusIcon } from './Plus.svg';
 export { ReactComponent as PlusWhiteIcon } from './Plus_white.svg';
