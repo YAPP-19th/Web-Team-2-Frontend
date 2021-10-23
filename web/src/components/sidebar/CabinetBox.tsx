@@ -7,7 +7,7 @@ const CabinetBoxWrapper = styled.div`
 `;
 
 const CabinetButton = styled.button`
-  width: 166px;
+  width: 170px;
   height: 40px;
   border-radius: 8px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
@@ -21,7 +21,7 @@ const PlusIcon = styled(PlusWhiteIcon)`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 12px;
+  margin-right: 10px;
 `;
 
 const Text = styled.span`
