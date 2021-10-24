@@ -1,4 +1,5 @@
 import { ItemId } from '@atlaskit/tree';
+import produce from 'immer';
 import { useCallback } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { folderState } from 'recoil/atoms/folderState';
@@ -26,21 +27,19 @@ export function useCabinetAction(): CabinetActionReturnTypes {
       },
     };
 
-    set((prev) => ({
-      ...prev,
-      items: { ...prev.items, [newCabinetId]: cabinet },
-    }));
+    set((prev) =>
+      produce(prev, (draft) => {
+        const newObj = draft; // eslint로 인해서 매개변수를 직접 변경하지 못하여 새롭게 할당
+        newObj.items[newCabinetId] = cabinet;
+      }),
+    );
 
-    set((prev) => ({
-      ...prev,
-      items: {
-        ...prev.items,
-        userId: {
-          ...prev.items.userId,
-          children: [...prev.items.userId.children, newCabinetId],
-        },
-      },
-    }));
+    set((prev) =>
+      produce(prev, (draft) => {
+        const newObj = draft;
+        newObj.items.userId.children.push(newCabinetId); // userId 부분은 나중에 login 구현되면 실제 유저 아이디 넣는곳임 newObj.items[userId].children.push(newCabinetId);
+      }),
+    );
   }, [set]);
 
   return {
@@ -61,22 +60,21 @@ export function useFolderAction(): FolderActionReturnTypes {
           title: '제목없음',
         },
       };
-      set((prev) => ({
-        ...prev,
-        items: { ...prev.items, [newFolderId]: folder },
-      }));
 
-      set((prev) => ({
-        ...prev,
-        items: {
-          ...prev.items,
-          [parentId]: {
-            ...prev.items[parentId],
-            children: [...prev.items[parentId].children, newFolderId],
-            isExpanded: true,
-          },
-        },
-      }));
+      set((prev) =>
+        produce(prev, (draft) => {
+          const newObj = draft;
+          newObj.items[newFolderId] = folder;
+        }),
+      );
+
+      set((prev) =>
+        produce(prev, (draft) => {
+          const newObj = draft;
+          newObj.items[parentId].children.push(newFolderId);
+          newObj.items[parentId].isExpanded = true;
+        }),
+      );
     },
     [set],
   );
