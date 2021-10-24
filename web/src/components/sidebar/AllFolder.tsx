@@ -26,7 +26,7 @@ const AllFolderName = styled.span`
   color: ${(props) => props.theme.color.gray1};
   font-size: 14px;
   width: 133px;
-  line-height: 19px;
+  line-height: 1.5;
 `;
 
 function AllFolder(): ReactElement {
