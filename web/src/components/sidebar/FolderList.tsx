@@ -1,7 +1,7 @@
 import Tree, { ItemId, RenderItemParams } from '@atlaskit/tree';
 import { MoreIcon, PlusIcon } from 'assets/icons';
 import Modal from 'components/common/Modal';
-import useModal from 'hooks/common/useModal';
+import useToggle from 'hooks/common/useToggle';
 import useFolderHandle from 'hooks/sidebar/useFolderHandle';
 import useFoldersEffect from 'hooks/sidebar/useFoldersEffect';
 import React, { ReactElement, useState } from 'react';
@@ -74,7 +74,7 @@ function FolderList(): ReactElement {
     useRecoilState(selectedFolderState);
   const [top, setTop] = useState<number>(0);
   const [left, setLeft] = useState<number>(0);
-  const [isDeleteModal, onToggleDeleteModal] = useModal();
+  const [isDeleteModal, onToggleDeleteModal] = useToggle();
 
   const { onCheckFirstNode } = useFolderHandle();
 

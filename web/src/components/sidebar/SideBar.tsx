@@ -6,7 +6,7 @@ import FolderList from './FolderList';
 import TrashBox from './TrashBox';
 
 const SideBarWrapper = styled.div`
-  width: 240px; // 정확한 값을 추후에 서정님에게 물어봐야 할 거 같음
+  width: 170px; // 정확한 값을 추후에 서정님에게 물어봐야 할 거 같음
   padding: 20px 0;
   position: relative;
   background-color: ${(props) => props.theme.color.white0};

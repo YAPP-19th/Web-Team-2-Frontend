@@ -1,3 +1,4 @@
+import Reminder from 'components/reminder';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import SideBar from '../components/sidebar/SideBar';
@@ -19,7 +20,7 @@ const Header = styled.header`
 `;
 
 const MainLayout = styled.div`
-  width: 1200px; // 아직 확정된 값이 없어서 임의로 줌
+  width: 1100px; // 아직 확정된 값이 없어서 임의로 줌
   margin: 0 auto;
   display: flex;
   flex: 1 1 0;
@@ -27,17 +28,17 @@ const MainLayout = styled.div`
 
 const ContentLayout = styled.div`
   flex: 1 1 0;
+  padding: 20px 28px;
   display: flex;
   flex-direction: column;
 `;
 
-const Remainder = styled.div`
-  height: 200px;
-  background-color: ${(props) => props.theme.color.test3};
+const ContentInner = styled.div`
+  width: 867px;
+  height: 100%;
 `;
 
 const Bookmark = styled.div`
-  flex: 1 1 0;
   background-color: ${(props) => props.theme.color.test4};
 `;
 
@@ -48,8 +49,10 @@ function MainPage(): ReactElement {
       <MainLayout>
         <SideBar />
         <ContentLayout>
-          <Remainder>리마인더영역</Remainder>
-          <Bookmark>북마크영역</Bookmark>
+          <ContentInner>
+            <Reminder />
+            <Bookmark>북마크영역</Bookmark>
+          </ContentInner>
         </ContentLayout>
       </MainLayout>
     </MainWrapper>
