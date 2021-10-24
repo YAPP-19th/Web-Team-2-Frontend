@@ -31,12 +31,6 @@ export function useCabinetAction(): CabinetActionReturnTypes {
       produce(prev, (draft) => {
         const newObj = draft; // eslint로 인해서 매개변수를 직접 변경하지 못하여 새롭게 할당
         newObj.items[newCabinetId] = cabinet;
-      }),
-    );
-
-    set((prev) =>
-      produce(prev, (draft) => {
-        const newObj = draft;
         newObj.items.userId.children.push(newCabinetId); // userId 부분은 나중에 login 구현되면 실제 유저 아이디 넣는곳임 newObj.items[userId].children.push(newCabinetId);
       }),
     );
@@ -65,12 +59,6 @@ export function useFolderAction(): FolderActionReturnTypes {
         produce(prev, (draft) => {
           const newObj = draft;
           newObj.items[newFolderId] = folder;
-        }),
-      );
-
-      set((prev) =>
-        produce(prev, (draft) => {
-          const newObj = draft;
           newObj.items[parentId].children.push(newFolderId);
           newObj.items[parentId].isExpanded = true;
         }),
