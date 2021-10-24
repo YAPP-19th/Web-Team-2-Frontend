@@ -19,10 +19,6 @@ const AllFolderIconBox = styled.div`
   }
 `;
 
-/**
-TODO - 파비콘으로 교체
-*/
-
 const AllFolderFavicon = styled(AllFolderIcon)``;
 
 const AllFolderName = styled.span`
@@ -30,7 +26,7 @@ const AllFolderName = styled.span`
   color: ${(props) => props.theme.color.gray1};
   font-size: 14px;
   width: 133px;
-  line-height: 21px;
+  line-height: 1.5;
 `;
 
 function AllFolder(): ReactElement {

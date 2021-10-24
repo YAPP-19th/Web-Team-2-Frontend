@@ -1,5 +1,5 @@
 import Tree, { ItemId, RenderItemParams } from '@atlaskit/tree';
-import { MoreIcon, PlusIcon } from 'assets/icons';
+import { More16Icon, PlusIcon } from 'assets/icons';
 import Modal from 'components/common/Modal';
 import useToggle from 'hooks/common/useToggle';
 import useFolderHandle from 'hooks/sidebar/useFolderHandle';
@@ -7,16 +7,16 @@ import useFoldersEffect from 'hooks/sidebar/useFoldersEffect';
 import React, { ReactElement, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { folderMenuState, selectedFolderState } from 'recoil/atoms/folderState';
+import { useFolderAction } from 'recoil/selectors/folderSelector';
 import styled from 'styled-components';
 import FolderDeleteModal from './FolderDeleteModal';
 import FolderItemIcon from './FolderItemIcon';
 import FolderMenu from './FolderMenu';
 
 const FolderListWrapper = styled.div`
-  /* height: 100%; */
-  /* overflow: auto; */
   position: relative;
   margin-bottom: 28px;
+  /* overflow: auto; */
 `;
 const FolderItemWrapper = styled.div`
   width: 166px;
@@ -27,10 +27,11 @@ const FolderItemBlock = styled.div`
   align-items: center;
   justify-content: space-between;
   position: relative;
-  width: 166px;
+  min-width: 105px;
+  max-width: 166px;
   height: 28px;
   font-size: 12px;
-  padding: 5px 2px 5px 8px;
+  padding: 5px 2px;
   border-radius: 4px;
   &:hover {
     background-color: #f3f2ef;
@@ -77,6 +78,7 @@ function FolderList(): ReactElement {
   const [isDeleteModal, onToggleDeleteModal] = useToggle();
 
   const { onCheckFirstNode } = useFolderHandle();
+  const { create } = useFolderAction();
 
   const onToggleMenu = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -101,7 +103,13 @@ function FolderList(): ReactElement {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <FolderItemBlock>
+          <FolderItemBlock
+            onMouseDown={() =>
+              item.isExpanded && item.children.length > 0
+                ? onCollapse(item.id)
+                : onExpand(item.id)
+            }
+          >
             <FolderLeftBox>
               <span>
                 <FolderItemIcon
@@ -110,30 +118,22 @@ function FolderList(): ReactElement {
                   onExpand={onExpand}
                 />
               </span>
-              {item.children && item.children.length > 0 ? (
-                <FolderTitle
-                  isFirst={onCheckFirstNode(item.id)}
-                  onClick={() =>
-                    item.isExpanded ? onCollapse(item.id) : onExpand(item.id)
-                  }
-                >
-                  {item.data ? item.data.title : ''}
-                </FolderTitle>
-              ) : (
-                <FolderTitle isFirst={onCheckFirstNode(item.id)}>
-                  {item.data ? item.data.title : ''}
-                </FolderTitle>
-              )}
+              <FolderTitle isFirst={onCheckFirstNode(item.id)}>
+                {item.data ? item.data.title : ''}
+              </FolderTitle>
             </FolderLeftBox>
-            <FolderRightBox className="right">
-              <FolderETCButton type="button">
+            <FolderRightBox
+              className="right"
+              onMouseDown={(e) => e.stopPropagation()}
+            >
+              <FolderETCButton type="button" onClick={() => create(item.id)}>
                 <PlusIcon />
               </FolderETCButton>
               <FolderETCButton
                 type="button"
                 onClick={(e) => onToggleMenu(e, item.id)}
               >
-                <MoreIcon />
+                <More16Icon />
               </FolderETCButton>
             </FolderRightBox>
           </FolderItemBlock>

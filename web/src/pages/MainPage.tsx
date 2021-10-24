@@ -1,11 +1,10 @@
 import Header from 'components/header';
 import Reminder from 'components/reminder';
-import SideBar from 'components/sidebar/SideBar';
+import SideBar from 'components/sidebar';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
 const MainWrapper = styled.div`
-  height: 100%;
   display: flex;
   flex-direction: column;
 `;

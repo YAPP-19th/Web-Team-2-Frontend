@@ -43,7 +43,7 @@ export default function useFolderHandle(): ReturnTypes {
   };
 
   const onCheckFirstNode = (itemId: ItemId) => {
-    const firstNode = folders.items.userId.children; // 나중에 유저 구현되면 userId를 실제 유저Id 들어오게 설정
+    const firstNode = folders.items.userId.children; // 나중에 유저 구현되면 userId를 실제 유저Id 들어오게 설정 ex) folders.items[userId].children
     return firstNode.includes(itemId);
   };
 
