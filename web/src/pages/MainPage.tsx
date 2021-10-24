@@ -1,8 +1,8 @@
+import Header from 'components/header';
 import Reminder from 'components/reminder';
+import SideBar from 'components/sidebar/SideBar';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
-import Header from '../components/header';
-import SideBar from '../components/sidebar/SideBar';
 
 const MainWrapper = styled.div`
   height: 100%;
