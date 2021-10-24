@@ -13,3 +13,4 @@ export { ReactComponent as X16Icon } from './Icons_x_16.svg';
 export { ReactComponent as More16Icon } from './More_16.svg';
 export { ReactComponent as PlusIcon } from './Plus.svg';
 export { ReactComponent as PlusWhiteIcon } from './Plus_white.svg';
+export { ReactComponent as CheckBoxSelectedIcon } from './Checkbox_selected.svg';

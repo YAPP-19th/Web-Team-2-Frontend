@@ -9,6 +9,9 @@ const BookmarkWrapper = styled.div``;
 const BookmarkNav = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  height: 24px;
+  margin-bottom: 28px;
 `;
 
 function Bookmark(): ReactElement {
