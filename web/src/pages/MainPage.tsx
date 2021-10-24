@@ -1,22 +1,13 @@
+import Header from 'components/header';
 import Reminder from 'components/reminder';
+import SideBar from 'components/sidebar/SideBar';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
-import SideBar from '../components/sidebar/SideBar';
 
 const MainWrapper = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-`;
-
-const Header = styled.header`
-  width: 100%;
-  height: 48px;
-  background-color: ${(props) => props.theme.color.test1};
-  color: ${(props) => props.theme.color.black0};
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
 const MainLayout = styled.div`
@@ -45,7 +36,7 @@ const Bookmark = styled.div`
 function MainPage(): ReactElement {
   return (
     <MainWrapper>
-      <Header>헤더 영역</Header>
+      <Header />
       <MainLayout>
         <SideBar />
         <ContentLayout>
