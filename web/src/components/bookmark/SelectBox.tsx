@@ -13,7 +13,6 @@ const SelectForm = styled.div`
 `;
 
 const SelectText = styled.span`
-  font-size: 12px;
   height: 17px;
   margin-right: 4px;
 `;
@@ -26,7 +25,6 @@ const SelectButton = styled.button`
 const SelectOption = styled.div`
   display: flex;
   align-items: center;
-  font-size: 12px;
 `;
 
 const Option = styled.div`

@@ -12,6 +12,7 @@ const BookmarkNav = styled.div`
   align-items: center;
   height: 24px;
   margin-bottom: 28px;
+  font-size: 12px;
 `;
 
 function Bookmark(): ReactElement {

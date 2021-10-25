@@ -8,6 +8,8 @@ export { ReactComponent as Back24Icon } from './Icons_Back_24.svg';
 export { ReactComponent as CheckBoxIcon } from './Icons_Checkbox.svg';
 export { ReactComponent as Next24Icon } from './Icons_Next_24.svg';
 export { ReactComponent as Symbol36Icon } from './Icons_Symbol_36.svg';
+export { ReactComponent as ToggleOffIcon } from './Icons_Toggle_off.svg';
+export { ReactComponent as ToggleOnIcon } from './Icons_Toggle_on.svg';
 export { ReactComponent as SelectedTrashIcon } from './Icons_trash_selected.svg';
 export { ReactComponent as UnselectedTrashIcon } from './Icons_trash_unselected.svg';
 export { ReactComponent as X16Icon } from './Icons_x_16.svg';
