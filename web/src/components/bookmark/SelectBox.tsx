@@ -1,4 +1,5 @@
-import { CheckBoxSelectedIcon } from 'assets/icons';
+import { CheckBoxIcon, CheckBoxSelectedIcon } from 'assets/icons';
+import useToggle from 'hooks/common/useToggle';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
@@ -22,17 +23,34 @@ const SelectButton = styled.button`
   align-items: center;
 `;
 
-const SelectedIcon = styled(CheckBoxSelectedIcon)``;
+const SelectOption = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+`;
+
+const Option = styled.div`
+  height: 17px;
+  margin-left: 16px;
+  cursor: pointer;
+`;
 
 function SelectBox(): ReactElement {
+  const [isChecked, onCheckedToggle] = useToggle();
   return (
     <SelectBoxWrapper>
       <SelectForm>
         <SelectText>선택</SelectText>
-        <SelectButton>
-          <SelectedIcon />
+        <SelectButton onClick={onCheckedToggle}>
+          {isChecked ? <CheckBoxSelectedIcon /> : <CheckBoxIcon />}
         </SelectButton>
       </SelectForm>
+      {isChecked && (
+        <SelectOption>
+          <Option>삭제</Option>
+          <Option>이동</Option>
+        </SelectOption>
+      )}
     </SelectBoxWrapper>
   );
 }
