@@ -29,10 +29,11 @@ const MenuItem = styled.div<{ isSelected: boolean }>`
   justify-content: flex-start;
   align-items: center;
   &:hover {
-    background-color: #f3f2ef;
+    background-color: ${(props) => props.theme.color.lightGray0};
     cursor: pointer;
   }
-  ${(props) => props.isSelected && `background-color: #f3f2ef;`}
+  ${(props) =>
+    props.isSelected && `background-color: ${props.theme.color.lightGray0};`}
 `;
 
 const MenuItemText = styled.span``;

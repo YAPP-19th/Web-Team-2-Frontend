@@ -1,4 +1,5 @@
 import { DropDownIcon, ToggleOffIcon, ToggleOnIcon } from 'assets/icons';
+import { UnionIMG } from 'assets/images';
 import useToggle from 'hooks/common/useToggle';
 import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
@@ -12,14 +13,39 @@ const FilterBoxWrapper = styled.div`
 const RemindToggle = styled.div`
   display: flex;
   align-items: center;
+  position: relative;
 `;
 
 const RemindToggleText = styled.span`
   margin-right: 12px;
+  &:hover {
+    .ballon {
+      display: block;
+    }
+  }
 `;
 
 const RemindToggleButton = styled.button`
   margin-right: 41px;
+`;
+
+const RemindTextBallon = styled.div`
+  position: absolute;
+  left: 18px;
+  bottom: 36px;
+  display: none;
+`;
+
+const BallonImage = styled.img``;
+
+const BallonText = styled.span`
+  position: absolute;
+  top: 9px;
+  left: 13px;
+  color: ${(props) => props.theme.color.primary};
+  font-size: 10px;
+  font-weight: 500;
+  line-height: normal;
 `;
 
 const FilterMenuButton = styled.div`
@@ -44,7 +70,15 @@ function FilterBox(): ReactElement {
     <>
       <FilterBoxWrapper>
         <RemindToggle>
-          <RemindToggleText>리마인드 도토리</RemindToggleText>
+          <RemindToggleText>
+            리마인드 도토리
+            <RemindTextBallon className="ballon">
+              <BallonImage src={UnionIMG} />
+              <BallonText>
+                깜빡하면 안 되는 도토리 &nbsp; 한눈에 보기!
+              </BallonText>
+            </RemindTextBallon>
+          </RemindToggleText>
           <RemindToggleButton onClick={onRemindToggle}>
             {isRemind ? <ToggleOnIcon /> : <ToggleOffIcon />}
           </RemindToggleButton>
