@@ -1,4 +1,4 @@
-import { ToggleOffIcon, ToggleOnIcon } from 'assets/icons';
+import { DropDownIcon, ToggleOffIcon, ToggleOnIcon } from 'assets/icons';
 import useToggle from 'hooks/common/useToggle';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
@@ -17,7 +17,17 @@ const RemindToggleText = styled.span`
   margin-right: 12px;
 `;
 
-const RemindToggleButton = styled.button``;
+const RemindToggleButton = styled.button`
+  margin-right: 41px;
+`;
+
+const FilterMenuButton = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+`;
+
+const FilterMenuText = styled.span``;
 
 function FilterBox(): ReactElement {
   const [isRemind, onRemindToggle] = useToggle(true);
@@ -30,6 +40,11 @@ function FilterBox(): ReactElement {
           {isRemind ? <ToggleOnIcon /> : <ToggleOffIcon />}
         </RemindToggleButton>
       </RemindToggle>
+
+      <FilterMenuButton>
+        <FilterMenuText>최신순</FilterMenuText>
+        <DropDownIcon />
+      </FilterMenuButton>
     </FilterBoxWrapper>
   );
 }

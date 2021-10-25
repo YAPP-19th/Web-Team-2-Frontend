@@ -13,6 +13,7 @@ const BookmarkNav = styled.div`
   height: 24px;
   margin-bottom: 28px;
   font-size: 12px;
+  color: ${(props) => props.theme.color.black1};
 `;
 
 function Bookmark(): ReactElement {

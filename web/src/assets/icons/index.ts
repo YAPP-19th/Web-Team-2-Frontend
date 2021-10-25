@@ -6,6 +6,7 @@ export { ReactComponent as ArrowUp16Icon } from './Icons_Arrow_16.svg';
 export { ReactComponent as ArrowDown16Icon } from './Icons_Arrow_down_16.svg';
 export { ReactComponent as Back24Icon } from './Icons_Back_24.svg';
 export { ReactComponent as CheckBoxIcon } from './Icons_Checkbox.svg';
+export { ReactComponent as DropDownIcon } from './Icons_Drop.svg';
 export { ReactComponent as Next24Icon } from './Icons_Next_24.svg';
 export { ReactComponent as Symbol36Icon } from './Icons_Symbol_36.svg';
 export { ReactComponent as ToggleOffIcon } from './Icons_Toggle_off.svg';
