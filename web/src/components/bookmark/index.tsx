@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import BookmarkPath from './BookmarkPath';
 import SelectBox from './SelectBox';
 import FilterBox from './FilterBox';
+import BookmarkList from './BookmarkList';
 
 const BookmarkWrapper = styled.div``;
 
@@ -24,6 +25,7 @@ function Bookmark(): ReactElement {
         <SelectBox />
         <FilterBox />
       </BookmarkNav>
+      <BookmarkList />
     </BookmarkWrapper>
   );
 }
