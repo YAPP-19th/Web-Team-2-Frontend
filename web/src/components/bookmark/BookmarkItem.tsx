@@ -2,13 +2,15 @@ import {
   BellSelectedIcon,
   BellUnSelectedIcon,
   CheckBox36Icon,
+  CheckBoxSelected36Icon,
   Copy24Icon,
   More24Icon,
   Symbol36Icon,
 } from 'assets/icons';
 import { ellipsis } from 'assets/styles/utilStyles';
-import React, { ReactElement } from 'react';
-import { IBookmark } from 'recoil/atoms/bookmarkState';
+import React, { ReactElement, useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { IBookmark, selectedBookmarksState } from 'recoil/atoms/bookmarkState';
 import styled from 'styled-components';
 
 interface BookmarkItemProps {
@@ -127,14 +129,24 @@ const SelectedStyled = styled.div`
 `;
 
 function BookmarkItem({ bookmark }: BookmarkItemProps): ReactElement {
-  const { title, description, url, remind } = bookmark;
+  const { id, title, description, url, remind } = bookmark;
+  const [selectedBookmarks, setSelectedBookmarks] = useRecoilState(
+    selectedBookmarksState,
+  );
+  const [isChecked, setIsChecked] = useState(false);
+  useEffect(() => {
+    if (selectedBookmarks.length > 0) {
+      setIsChecked(selectedBookmarks.some((b) => b.id === id));
+    }
+  }, []);
+
   return (
     <BookmarkItemWrapper>
       <BookmarkThumbnail>
         {/* @TODO(dohyun) 만약에 썸네일이 있으면 img 보여주고 없으면 기본 로고 보여주기 */}
         <SymbolIcon />
         <CheckBox>
-          <CheckBox36Icon />
+          {isChecked ? <CheckBoxSelected36Icon /> : <CheckBox36Icon />}
         </CheckBox>
       </BookmarkThumbnail>
 
@@ -166,7 +178,7 @@ function BookmarkItem({ bookmark }: BookmarkItemProps): ReactElement {
         </BookmarkInfo>
       </BookmarkContent>
 
-      <SelectedStyled />
+      {isChecked && <SelectedStyled />}
     </BookmarkItemWrapper>
   );
 }

@@ -15,8 +15,8 @@ function BookmarkList(): ReactElement {
   const bookmarks = useRecoilValue(bookmarksState);
   return (
     <BookmarkListWrapper>
-      {bookmarks.map((bookmark) => (
-        <BookmarkItem bookmark={bookmark} />
+      {bookmarks.map((bookmark, index) => (
+        <BookmarkItem bookmark={bookmark} key={index} />
       ))}
     </BookmarkListWrapper>
   );

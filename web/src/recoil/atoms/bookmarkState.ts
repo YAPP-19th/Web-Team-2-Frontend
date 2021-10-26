@@ -14,3 +14,8 @@ export const bookmarksState = atom<IBookmark[]>({
   key: 'bookmarksState',
   default: [],
 });
+
+export const selectedBookmarksState = atom<IBookmark[]>({
+  key: 'selectedBookmarksState',
+  default: [],
+});

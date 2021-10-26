@@ -1,6 +1,11 @@
 import { CheckBoxIcon, CheckBoxSelectedIcon } from 'assets/icons';
 import useToggle from 'hooks/common/useToggle';
 import React, { ReactElement } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import {
+  selectedBookmarksState,
+  bookmarksState,
+} from 'recoil/atoms/bookmarkState';
 import styled from 'styled-components';
 
 const SelectBoxWrapper = styled.div`
@@ -35,11 +40,19 @@ const Option = styled.div`
 
 function SelectBox(): ReactElement {
   const [isChecked, onCheckedToggle] = useToggle();
+  const bookmarks = useRecoilValue(bookmarksState);
+  const setSelectedBookmarks = useSetRecoilState(selectedBookmarksState);
+
+  const onCheck = () => {
+    onCheckedToggle();
+    setSelectedBookmarks(bookmarks);
+  };
+
   return (
     <SelectBoxWrapper>
       <SelectForm>
         <SelectText>선택</SelectText>
-        <SelectButton onClick={onCheckedToggle}>
+        <SelectButton onClick={onCheck}>
           {isChecked ? <CheckBoxSelectedIcon /> : <CheckBoxIcon />}
         </SelectButton>
       </SelectForm>
