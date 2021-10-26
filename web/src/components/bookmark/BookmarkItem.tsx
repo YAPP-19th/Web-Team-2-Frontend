@@ -1,6 +1,7 @@
 import {
   BellSelectedIcon,
   BellUnSelectedIcon,
+  CheckBox36Icon,
   Copy24Icon,
   More24Icon,
   Symbol36Icon,
@@ -30,6 +31,13 @@ const BookmarkThumbnail = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+`;
+
+const CheckBox = styled.div`
+  position: absolute;
+  top: 8px;
+  left: 8px;
 `;
 
 const SymbolIcon = styled(Symbol36Icon)`
@@ -39,6 +47,7 @@ const SymbolIcon = styled(Symbol36Icon)`
 
 const BookmarkContent = styled.div`
   padding: 14px 20px 15px;
+  width: 273px;
 `;
 
 const Title = styled.div`
@@ -110,6 +119,9 @@ function BookmarkItem({ bookmark }: BookmarkItemProps): ReactElement {
       <BookmarkThumbnail>
         {/* @TODO(dohyun) 만약에 썸네일이 있으면 img 보여주고 없으면 기본 로고 보여주기 */}
         <SymbolIcon />
+        <CheckBox>
+          <CheckBox36Icon />
+        </CheckBox>
       </BookmarkThumbnail>
 
       <BookmarkContent>
