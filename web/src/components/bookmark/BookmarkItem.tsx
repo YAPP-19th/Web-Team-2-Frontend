@@ -21,7 +21,8 @@ const BookmarkItemWrapper = styled.div`
     margin-right: 0px;
   }
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.15);
-  border-radius: 10px;
+  border-radius: 8px;
+  position: relative;
 `;
 
 const BookmarkThumbnail = styled.div`
@@ -112,6 +113,19 @@ const BookmarkOption = styled.div`
 
 const OptionButton = styled.button``;
 
+const SelectedStyled = styled.div`
+  width: 100%;
+  height: 100%;
+  border: solid 1px #48bf91;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 174, 199, 0.1);
+  border-radius: 8px;
+`;
+
 function BookmarkItem({ bookmark }: BookmarkItemProps): ReactElement {
   const { title, description, url, remind } = bookmark;
   return (
@@ -151,6 +165,8 @@ function BookmarkItem({ bookmark }: BookmarkItemProps): ReactElement {
           </BookmarkOption>
         </BookmarkInfo>
       </BookmarkContent>
+
+      <SelectedStyled />
     </BookmarkItemWrapper>
   );
 }
