@@ -5,6 +5,7 @@ import {
   More24Icon,
   Symbol36Icon,
 } from 'assets/icons';
+import { ellipsis } from 'assets/styles/utilStyles';
 import React, { ReactElement } from 'react';
 import { IBookmark } from 'recoil/atoms/bookmarkState';
 import styled from 'styled-components';
@@ -45,11 +46,9 @@ const Title = styled.div`
   font-weight: 500;
   line-height: 1.5;
   width: 233px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
   color: ${(props) => props.theme.color.black0};
   margin-bottom: 8px;
+  ${ellipsis};
 `;
 
 const Description = styled.div`
@@ -57,11 +56,9 @@ const Description = styled.div`
   font-weight: normal;
   line-height: 1.42;
   width: 233px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
   color: ${(props) => props.theme.color.black1};
   margin-bottom: 23.5px;
+  ${ellipsis};
 `;
 
 const DividerLine = styled.div`
@@ -91,13 +88,11 @@ const BookmarkFavicon = styled.div`
 const BookmarkLink = styled.a`
   width: 110px;
   font-size: 12px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
   font-weight: normal;
   line-height: 1.42;
   text-decoration: none;
   color: #aaa;
+  ${ellipsis}
 `;
 
 const BookmarkOption = styled.div`
