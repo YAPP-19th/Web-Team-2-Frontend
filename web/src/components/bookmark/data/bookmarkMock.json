@@ -4,31 +4,36 @@
       "id": 1,
       "title": "네이버",
       "url": "http://www.naver.com",
-      "description": "네이버"
+      "description": "네이버네이버네이버네이버네이버네이버네이버네이버",
+      "remind": true
     },
     {
       "id": 2,
       "title": "카카오",
       "url": "http://www.kakao.com",
-      "description": "카카오"
+      "description": "카카오",
+      "remind": false
     },
     {
       "id": 3,
       "title": "페이스북",
       "url": "http://www.facebook.com",
-      "description": "페이스북"
+      "description": "페이스북",
+      "remind": true
     },
     {
       "id": 4,
-      "title": "구글",
+      "title": "구글구글구글구글구글구글구글구글구글구글",
       "url": "http://www.google.com",
-      "description": "구글"
+      "description": "구글",
+      "remind": true
     },
     {
       "id": 5,
       "title": "애플",
       "url": "http://www.apple.com",
-      "description": "애플"
+      "description": "애플",
+      "remind": false
     }
   ]
 }

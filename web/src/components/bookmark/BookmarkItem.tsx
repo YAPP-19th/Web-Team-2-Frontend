@@ -1,7 +1,151 @@
+import {
+  BellSelectedIcon,
+  BellUnSelectedIcon,
+  Copy24Icon,
+  More24Icon,
+  Symbol36Icon,
+} from 'assets/icons';
 import React, { ReactElement } from 'react';
+import { IBookmark } from 'recoil/atoms/bookmarkState';
+import styled from 'styled-components';
 
-function BookmarkItem(): ReactElement {
-  return <div>BookmarkItem</div>;
+interface BookmarkItemProps {
+  bookmark: IBookmark;
+}
+
+const BookmarkItemWrapper = styled.div`
+  margin: 0 24px 40px 0px;
+  &:nth-child(3n) {
+    margin-right: 0px;
+  }
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+`;
+
+const BookmarkThumbnail = styled.div`
+  width: 273px;
+  height: 168px;
+  background-color: #f3f2ef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const SymbolIcon = styled(Symbol36Icon)`
+  width: 60px;
+  height: 60px;
+`;
+
+const BookmarkContent = styled.div`
+  padding: 14px 20px 15px;
+`;
+
+const Title = styled.div`
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  width: 233px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  color: ${(props) => props.theme.color.black0};
+  margin-bottom: 8px;
+`;
+
+const Description = styled.div`
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 1.42;
+  width: 233px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  color: ${(props) => props.theme.color.black1};
+  margin-bottom: 23.5px;
+`;
+
+const DividerLine = styled.div`
+  width: 100%;
+  height: 1px;
+  margin-bottom: 13.5px;
+  background-color: ${(props) => props.theme.color.lightGray0};
+`;
+
+const BookmarkInfo = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const BookmarkLinkBox = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const BookmarkFavicon = styled.div`
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  background-color: ${(props) => props.theme.color.lightGray0};
+`;
+
+const BookmarkLink = styled.a`
+  width: 110px;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-weight: normal;
+  line-height: 1.42;
+  text-decoration: none;
+  color: #aaa;
+`;
+
+const BookmarkOption = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 90px;
+`;
+
+const OptionButton = styled.button``;
+
+function BookmarkItem({ bookmark }: BookmarkItemProps): ReactElement {
+  const { title, description, url, remind } = bookmark;
+  return (
+    <BookmarkItemWrapper>
+      <BookmarkThumbnail>
+        {/* @TODO(dohyun) 만약에 썸네일이 있으면 img 보여주고 없으면 기본 로고 보여주기 */}
+        <SymbolIcon />
+      </BookmarkThumbnail>
+
+      <BookmarkContent>
+        <Title>{title}</Title>
+
+        <Description>{description}</Description>
+
+        <DividerLine />
+        <BookmarkInfo>
+          <BookmarkLinkBox>
+            <BookmarkFavicon />
+            <BookmarkLink href={url} target="_blank" rel="noopener noreferrer">
+              {url}
+            </BookmarkLink>
+          </BookmarkLinkBox>
+
+          <BookmarkOption>
+            <OptionButton>
+              {remind ? <BellSelectedIcon /> : <BellUnSelectedIcon />}
+            </OptionButton>
+            <OptionButton>
+              <Copy24Icon />
+            </OptionButton>
+            <OptionButton>
+              <More24Icon />
+            </OptionButton>
+          </BookmarkOption>
+        </BookmarkInfo>
+      </BookmarkContent>
+    </BookmarkItemWrapper>
+  );
 }
 
 export default BookmarkItem;

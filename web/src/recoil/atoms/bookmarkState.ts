@@ -1,13 +1,16 @@
 import { atom } from 'recoil';
 
-interface IBookmark {
+export interface IBookmark {
   id: number;
   title: string;
   url: string;
   description: string;
+  remind: boolean;
+  nickname?: string;
+  folder?: string;
 }
 
 export const bookmarksState = atom<IBookmark[]>({
-  key: 'bookmarks',
+  key: 'bookmarksState',
   default: [],
 });
