@@ -12,6 +12,7 @@ const FilterMenuWrapper = styled.div`
   position: absolute;
   top: 24px;
   right: 5px;
+  z-index: 101;
 `;
 
 const FilterMenuInner = styled.div`

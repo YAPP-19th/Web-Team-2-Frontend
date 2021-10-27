@@ -58,7 +58,7 @@ const FilterMenuButton = styled.div`
 const FilterMenuText = styled.span``;
 
 function FilterBox(): ReactElement {
-  const [isRemind, onRemindToggle] = useToggle(true);
+  const [isRemind, onRemindToggle] = useToggle();
   const [isOpenFilterMenu, onToggleFilterMenu] = useToggle(false);
   const [menuText, setMenuText] = useState<string>('최신순');
 
