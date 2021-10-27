@@ -9,6 +9,12 @@ interface ModalProps {
   children: React.ReactNode;
 }
 
+interface InnerProps {
+  width: number;
+  height: number;
+  isModal: boolean;
+}
+
 const ModalWrapper = styled.div`
   position: fixed;
   width: 100%;
@@ -18,7 +24,7 @@ const ModalWrapper = styled.div`
   z-index: 9999;
 `;
 
-const Inner = styled.div<{ width: number; height: number; isModal: boolean }>`
+const Inner = styled.div<InnerProps>`
   position: absolute;
   z-index: 9999;
   background-color: ${(props) => props.theme.color.white0};
