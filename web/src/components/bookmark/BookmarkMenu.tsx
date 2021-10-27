@@ -1,4 +1,5 @@
-import React, { ReactElement, useEffect, useRef } from 'react';
+import useLayerClose from 'hooks/common/useLayerClose';
+import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
 interface BookmarkMenuProps {
@@ -38,25 +39,15 @@ function BookmarkMenu({
   onToggleOpenMenu,
 }: BookmarkMenuProps): ReactElement {
   const BookmarkMenuItems = ['이동', '편집', '삭제'];
-  const BookmarkMenuEl = useRef<HTMLDivElement>(null);
 
-  const onClickOutSide = (e: MouseEvent) => {
-    const { target } = e;
-
-    if (isOpen && !BookmarkMenuEl.current?.contains(target as Node)) {
-      onToggleOpenMenu('');
-    }
+  const onClose = () => {
+    onToggleOpenMenu('');
   };
 
-  useEffect(() => {
-    window.addEventListener('click', onClickOutSide);
-    return () => {
-      window.removeEventListener('click', onClickOutSide);
-    };
-  }, []);
+  const { targetEl } = useLayerClose(isOpen, onClose);
 
   return (
-    <BookmarkMenuWrapper ref={BookmarkMenuEl}>
+    <BookmarkMenuWrapper ref={targetEl}>
       <BookmarkMenuInner>
         {BookmarkMenuItems.map((item) => (
           <BookmarkMenuItem key={item}>{item}</BookmarkMenuItem>
