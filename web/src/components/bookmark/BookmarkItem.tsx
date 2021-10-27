@@ -33,7 +33,7 @@ const BookmarkItemWrapper = styled.div`
 const BookmarkThumbnail = styled.div`
   width: 273px;
   height: 168px;
-  background-color: #f3f2ef;
+  background-color: ${(props) => props.theme.color.lightGray0};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -193,9 +193,7 @@ function BookmarkItem({
 
       <BookmarkContent>
         <Title>{title}</Title>
-
         <Description>{description}</Description>
-
         <DividerLine />
         <BookmarkInfo>
           <BookmarkLinkBox>
