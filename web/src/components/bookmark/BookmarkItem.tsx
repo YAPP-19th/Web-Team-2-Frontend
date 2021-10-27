@@ -12,9 +12,12 @@ import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { IBookmark, selectedBookmarksState } from 'recoil/atoms/bookmarkState';
 import styled from 'styled-components';
+import BookmarkMenu from './BookmarkMenu';
 
 interface BookmarkItemProps {
   bookmark: IBookmark;
+  isOpenMenuId: string;
+  onToggleOpenMenu: (id: string) => void;
 }
 
 const BookmarkItemWrapper = styled.div`
@@ -114,7 +117,9 @@ const BookmarkOption = styled.div`
   width: 90px;
 `;
 
-const OptionButton = styled.button``;
+const OptionButton = styled.button`
+  position: relative;
+`;
 
 const SelectedStyled = styled.div`
   width: 100%;
@@ -133,7 +138,11 @@ const UrlTextArea = styled.textarea`
   display: none;
 `;
 
-function BookmarkItem({ bookmark }: BookmarkItemProps): ReactElement {
+function BookmarkItem({
+  bookmark,
+  isOpenMenuId,
+  onToggleOpenMenu,
+}: BookmarkItemProps): ReactElement {
   const { id, title, description, url, remind } = bookmark;
   const [selectedBookmarks, setSelectedBookmarks] = useRecoilState(
     selectedBookmarksState,
@@ -205,14 +214,25 @@ function BookmarkItem({ bookmark }: BookmarkItemProps): ReactElement {
               <Copy24Icon />
             </OptionButton>
 
-            <OptionButton>
+            <OptionButton
+              onClick={(e) => {
+                onToggleOpenMenu(id);
+                e.stopPropagation();
+              }}
+            >
               <More24Icon />
+              {isOpenMenuId === id && (
+                <BookmarkMenu
+                  isOpen={isOpenMenuId === id}
+                  onToggleOpenMenu={onToggleOpenMenu}
+                />
+              )}
             </OptionButton>
           </BookmarkOption>
         </BookmarkInfo>
       </BookmarkContent>
 
-      <UrlTextArea ref={copyUrlRef} style={{ display: 'none' }} value={url} />
+      <UrlTextArea readOnly ref={copyUrlRef} value={url} />
 
       {isChecked && <SelectedStyled />}
     </BookmarkItemWrapper>

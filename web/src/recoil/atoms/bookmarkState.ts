@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 
 export interface IBookmark {
-  id: number;
+  id: string;
   title: string;
   url: string;
   description: string;
