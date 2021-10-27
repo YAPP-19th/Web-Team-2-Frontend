@@ -8,7 +8,7 @@ import {
   Symbol36Icon,
 } from 'assets/icons';
 import { ellipsis } from 'assets/styles/utilStyles';
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { IBookmark, selectedBookmarksState } from 'recoil/atoms/bookmarkState';
 import styled from 'styled-components';
@@ -129,12 +129,17 @@ const SelectedStyled = styled.div`
   border-radius: 8px;
 `;
 
+const UrlTextArea = styled.textarea`
+  display: none;
+`;
+
 function BookmarkItem({ bookmark }: BookmarkItemProps): ReactElement {
   const { id, title, description, url, remind } = bookmark;
   const [selectedBookmarks, setSelectedBookmarks] = useRecoilState(
     selectedBookmarksState,
   );
   const [isChecked, setIsChecked] = useState(false);
+  const copyUrlRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     setIsChecked(
@@ -156,6 +161,13 @@ function BookmarkItem({ bookmark }: BookmarkItemProps): ReactElement {
     } else {
       setSelectedBookmarks([...selectedBookmarks, bookmark]);
     }
+  };
+
+  const onCopyUrl = async () => {
+    copyUrlRef.current?.select();
+    await navigator.clipboard.writeText(url);
+    // eslint-disable-next-line no-alert
+    alert('복사 성공!(나중에 팝업으로 대체)'); // @Todo(dohyun) 복사성공 팝업창 디자인 나오면 팝업으로 교체
   };
 
   return (
@@ -188,15 +200,19 @@ function BookmarkItem({ bookmark }: BookmarkItemProps): ReactElement {
             <OptionButton>
               {remind ? <BellSelectedIcon /> : <BellUnSelectedIcon />}
             </OptionButton>
-            <OptionButton>
+
+            <OptionButton onClick={onCopyUrl}>
               <Copy24Icon />
             </OptionButton>
+
             <OptionButton>
               <More24Icon />
             </OptionButton>
           </BookmarkOption>
         </BookmarkInfo>
       </BookmarkContent>
+
+      <UrlTextArea ref={copyUrlRef} style={{ display: 'none' }} value={url} />
 
       {isChecked && <SelectedStyled />}
     </BookmarkItemWrapper>
