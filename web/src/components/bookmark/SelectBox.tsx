@@ -1,7 +1,6 @@
 import { CheckBoxIcon, CheckBoxSelectedIcon } from 'assets/icons';
-import useToggle from 'hooks/common/useToggle';
-import React, { ReactElement } from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import React, { ReactElement, useEffect, useState } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   selectedBookmarksState,
   bookmarksState,
@@ -39,14 +38,24 @@ const Option = styled.div`
 `;
 
 function SelectBox(): ReactElement {
-  const [isChecked, onCheckedToggle] = useToggle();
+  const [isChecked, setIsChecked] = useState(false);
   const bookmarks = useRecoilValue(bookmarksState);
-  const setSelectedBookmarks = useSetRecoilState(selectedBookmarksState);
+  const [selectedBookmarks, setSelectedBookmarks] = useRecoilState(
+    selectedBookmarksState,
+  );
 
   const onCheck = () => {
-    onCheckedToggle();
-    setSelectedBookmarks(bookmarks);
+    setIsChecked(!isChecked);
+    setSelectedBookmarks(
+      selectedBookmarks.length === bookmarks.length ? [] : bookmarks,
+    );
   };
+
+  useEffect(() => {
+    if (bookmarks.length > 0) {
+      setIsChecked(selectedBookmarks.length === bookmarks.length);
+    }
+  }, [selectedBookmarks, bookmarks]);
 
   return (
     <SelectBoxWrapper>
@@ -56,7 +65,7 @@ function SelectBox(): ReactElement {
           {isChecked ? <CheckBoxSelectedIcon /> : <CheckBoxIcon />}
         </SelectButton>
       </SelectForm>
-      {isChecked && (
+      {selectedBookmarks.length > 0 && (
         <SelectOption>
           <Option>삭제</Option>
           <Option>이동</Option>

@@ -37,10 +37,11 @@ const BookmarkThumbnail = styled.div`
   position: relative;
 `;
 
-const CheckBox = styled.div`
+const CheckBox = styled.button`
   position: absolute;
   top: 8px;
   left: 8px;
+  z-index: 100;
 `;
 
 const SymbolIcon = styled(Symbol36Icon)`
@@ -134,18 +135,35 @@ function BookmarkItem({ bookmark }: BookmarkItemProps): ReactElement {
     selectedBookmarksState,
   );
   const [isChecked, setIsChecked] = useState(false);
+
   useEffect(() => {
-    if (selectedBookmarks.length > 0) {
-      setIsChecked(selectedBookmarks.some((b) => b.id === id));
+    setIsChecked(
+      selectedBookmarks.some((selectedBookmark) => selectedBookmark.id === id),
+    );
+  }, [selectedBookmarks]);
+
+  const onToggleCheckBox = () => {
+    const isExist = selectedBookmarks.some(
+      (selectedBookmark) => selectedBookmark.id === id,
+    );
+
+    if (isExist) {
+      setSelectedBookmarks(
+        selectedBookmarks.filter(
+          (selectedBookmark) => selectedBookmark.id !== id,
+        ),
+      );
+    } else {
+      setSelectedBookmarks([...selectedBookmarks, bookmark]);
     }
-  }, []);
+  };
 
   return (
     <BookmarkItemWrapper>
       <BookmarkThumbnail>
         {/* @TODO(dohyun) 만약에 썸네일이 있으면 img 보여주고 없으면 기본 로고 보여주기 */}
         <SymbolIcon />
-        <CheckBox>
+        <CheckBox onClick={onToggleCheckBox}>
           {isChecked ? <CheckBoxSelected36Icon /> : <CheckBox36Icon />}
         </CheckBox>
       </BookmarkThumbnail>
