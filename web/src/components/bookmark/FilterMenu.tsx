@@ -1,4 +1,5 @@
-import React, { ReactElement, useEffect, useRef } from 'react';
+import useLayerClose from 'hooks/common/useLayerClose';
+import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
 interface FilterMenuProps {
@@ -52,24 +53,10 @@ function FilterMenu({
     '적게 방문한 순',
   ];
 
-  const FilterMenuEl = useRef<HTMLDivElement>(null);
-
-  const onClickOutSide = (e: MouseEvent) => {
-    const { target } = e;
-    if (isOpenFilterMenu && !FilterMenuEl.current?.contains(target as Node)) {
-      onToggleFilterMenu();
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener('click', onClickOutSide);
-    return () => {
-      window.removeEventListener('click', onClickOutSide);
-    };
-  }, []);
+  const { targetEl } = useLayerClose(isOpenFilterMenu, onToggleFilterMenu);
 
   return (
-    <FilterMenuWrapper ref={FilterMenuEl}>
+    <FilterMenuWrapper ref={targetEl}>
       <FilterMenuInner>
         {filterMenuItems.map((item, index) => (
           <MenuItem
