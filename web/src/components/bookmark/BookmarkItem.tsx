@@ -163,9 +163,11 @@ function BookmarkItem({ bookmark }: BookmarkItemProps): ReactElement {
       <BookmarkThumbnail>
         {/* @TODO(dohyun) 만약에 썸네일이 있으면 img 보여주고 없으면 기본 로고 보여주기 */}
         <SymbolIcon />
-        <CheckBox onClick={onToggleCheckBox}>
-          {isChecked ? <CheckBoxSelected36Icon /> : <CheckBox36Icon />}
-        </CheckBox>
+        {selectedBookmarks.length > 0 && (
+          <CheckBox onClick={onToggleCheckBox}>
+            {isChecked ? <CheckBoxSelected36Icon /> : <CheckBox36Icon />}
+          </CheckBox>
+        )}
       </BookmarkThumbnail>
 
       <BookmarkContent>
