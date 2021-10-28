@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components';
 import MyPageHead from './MyPageHead';
 
 const ConfigurationWrapper = styled.div`
-  padding: 28px 0 111px;
+  padding: 16px 0 104px;
   width: 100%;
   color: ${(props) => props.theme.color.black1};
 `;
@@ -17,7 +17,7 @@ const LeftBlockText = styled.span`
 `;
 
 const RemindToggleBlock = styled.div`
-  margin-bottom: 31px;
+  margin-bottom: 16px;
   display: flex;
   align-items: center;
 `;
@@ -56,7 +56,7 @@ const RemindSettingButton = styled.button<{ isSelected: boolean }>`
 function Configuration(): ReactElement {
   const remindCycle = ['3일', '7일', '14일', '30일'];
   const [isRemind, onToggleRemind] = useToggle(true);
-  const [selectedCycle, setSelectedCycle] = useState('7일');
+  const [selectedCycle, setSelectedCycle] = useState('7일'); // @TODO(dohyun) 나중에 유저데이터에서 유저가 설정한 리마인드 주기를 기본값으로 설정
 
   const onChangeSelectedCycle = (cycle: string) => {
     setSelectedCycle(cycle);

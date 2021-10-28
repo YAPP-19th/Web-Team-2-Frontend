@@ -42,7 +42,7 @@ const ProfileEditButton = styled.button`
   height: 36px;
   color: ${(props) => props.theme.color.black1};
   border-radius: 6px;
-  border: solid 1px #aaa; // @TODO(dohyun): 색상이 확실하지 않아서 임시로 해둠 나중에 수정 예정
+  border: solid 1px ${(props) => props.theme.color.lightGray3};
 `;
 
 function Profile(): ReactElement {
