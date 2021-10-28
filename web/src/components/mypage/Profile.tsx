@@ -2,9 +2,7 @@ import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import MyPageHead from './MyPageHead';
 
-const ProfileWrapper = styled.div``;
-
-const ProfileContent = styled.div`
+const ProfileWrapper = styled.div`
   padding: 24px 0 104px;
   width: 100%;
   display: flex;
@@ -49,10 +47,9 @@ const ProfileEditButton = styled.button`
 
 function Profile(): ReactElement {
   return (
-    <ProfileWrapper>
+    <>
       <MyPageHead headText="프로필" />
-
-      <ProfileContent>
+      <ProfileWrapper>
         <ProfileLeftBlock>
           <ProfileImageBox>
             <ProfileImage />
@@ -63,8 +60,8 @@ function Profile(): ReactElement {
         <ProfileRightBlock>
           <ProfileEditButton>프로필 편집</ProfileEditButton>
         </ProfileRightBlock>
-      </ProfileContent>
-    </ProfileWrapper>
+      </ProfileWrapper>
+    </>
   );
 }
 export default Profile;
