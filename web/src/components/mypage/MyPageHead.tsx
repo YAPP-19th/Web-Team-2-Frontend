@@ -5,7 +5,9 @@ interface MyPageHeadProps {
   headText: string;
 }
 
-const MyPageHeadWrapper = styled.div``;
+const MyPageHeadWrapper = styled.div`
+  width: 100%;
+`;
 
 const HeadTextStyled = styled.h2`
   font-size: 18px;
