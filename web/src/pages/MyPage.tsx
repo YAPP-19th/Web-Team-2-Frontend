@@ -10,7 +10,7 @@ const MyPageWrapper = styled.div`
 `;
 
 const MyPageInner = styled.div`
-  padding: 48px 0 138px;
+  padding-top: 48px;
 `;
 
 function MyPage(): ReactElement {
