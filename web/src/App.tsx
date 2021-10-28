@@ -1,3 +1,5 @@
+import Header from 'components/header';
+import MyPage from 'pages/MyPage';
 import React, { ReactElement } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
@@ -10,8 +12,10 @@ function App(): ReactElement {
     <>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
+        <Header />
         <Switch>
-          <Route path="/" component={MainView} />
+          <Route path="/" exact component={MainView} />
+          <Route path="/mypage" exact component={MyPage} />
         </Switch>
       </ThemeProvider>
     </>
