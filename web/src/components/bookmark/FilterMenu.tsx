@@ -46,6 +46,7 @@ function FilterMenu({
   menuText,
   onChangeMenuText,
 }: FilterMenuProps): ReactElement {
+  // @TODO(dohyun) 필터 기능 구현시 수정 예정
   const filterMenuItems = [
     '최신순',
     '오래된 순',
