@@ -7,7 +7,7 @@ const ProfileWrapper = styled.div``;
 function Profile(): ReactElement {
   return (
     <ProfileWrapper>
-      <MyPageHead />
+      <MyPageHead headText="프로필" />
     </ProfileWrapper>
   );
 }

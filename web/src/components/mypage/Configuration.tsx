@@ -7,7 +7,7 @@ const ConfigurationWrapper = styled.div``;
 function Configuration(): ReactElement {
   return (
     <ConfigurationWrapper>
-      <MyPageHead />
+      <MyPageHead headText="환경 설정" />
     </ConfigurationWrapper>
   );
 }

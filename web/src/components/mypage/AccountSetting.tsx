@@ -7,7 +7,7 @@ const AccountSettingWrapper = styled.div``;
 function AccountSetting(): ReactElement {
   return (
     <AccountSettingWrapper>
-      <MyPageHead />
+      <MyPageHead headText="계정 설정" />
     </AccountSettingWrapper>
   );
 }
