@@ -31,7 +31,7 @@ const AccountButton = styled.button`
   color: ${(props) => props.theme.color.black1};
 `;
 
-const LogoutText = styled.span`
+const LogoutText = styled.button`
   color: ${(props) => props.theme.color.lightGray3};
 `;
 
