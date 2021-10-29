@@ -1,3 +1,4 @@
+import DividerLine from 'components/common/DividerLine';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
@@ -17,9 +18,7 @@ const HeadTextStyled = styled.h2`
   margin-bottom: 15px;
 `;
 
-const DividerLine = styled.div`
-  width: 100%;
-  height: 1px;
+const DividerLineStyled = styled(DividerLine)`
   background-color: ${(props) => props.theme.color.lightGray2};
 `;
 
@@ -27,7 +26,7 @@ function MyPageHead({ headText }: MyPageHeadProps): ReactElement {
   return (
     <MyPageHeadWrapper>
       <HeadTextStyled>{headText}</HeadTextStyled>
-      <DividerLine />
+      <DividerLineStyled />
     </MyPageHeadWrapper>
   );
 }

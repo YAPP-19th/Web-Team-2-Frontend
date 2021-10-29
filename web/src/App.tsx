@@ -14,8 +14,8 @@ function App(): ReactElement {
       <ThemeProvider theme={theme}>
         <Header />
         <Switch>
-          <Route path="/" exact component={MainPage} />
-          <Route path="/mypage" exact component={MyPage} />
+          <Route exact path="/" component={MainPage} />
+          <Route exact path="/mypage" component={MyPage} />
         </Switch>
       </ThemeProvider>
     </>
