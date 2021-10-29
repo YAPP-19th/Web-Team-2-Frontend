@@ -34,8 +34,8 @@ const MenuItem = styled.div<{ isSelected: boolean }>`
     background-color: ${(props) => props.theme.color.lightGray0};
     cursor: pointer;
   }
-  ${(props) =>
-    props.isSelected && `background-color: ${props.theme.color.lightGray0};`}
+  background-color: ${(props) =>
+    props.isSelected && props.theme.color.lightGray0};
 `;
 
 const MenuItemText = styled.span``;
@@ -46,6 +46,7 @@ function FilterMenu({
   menuText,
   onChangeMenuText,
 }: FilterMenuProps): ReactElement {
+  // @TODO(dohyun) 필터 기능 구현시 수정 예정
   const filterMenuItems = [
     '최신순',
     '오래된 순',

@@ -25,7 +25,7 @@ const BookmarkItemWrapper = styled.div`
   &:nth-child(3n) {
     margin-right: 0px;
   }
-  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 4px 0 ${(props) => props.theme.color.shadow0};
   border-radius: 8px;
   position: relative;
 `;
@@ -124,13 +124,13 @@ const OptionButton = styled.button`
 const SelectedStyled = styled.div`
   width: 100%;
   height: 100%;
-  border: solid 1px #48bf91;
+  border: solid 1px ${(props) => props.theme.color.primary};
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 174, 199, 0.1);
+  background-color: ${(props) => props.theme.color.shadow1};
   border-radius: 8px;
 `;
 
