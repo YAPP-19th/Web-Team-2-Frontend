@@ -16,24 +16,22 @@ const RemindToggle = styled.div`
   position: relative;
 `;
 
-const RemindToggleText = styled.span`
-  margin-right: 12px;
-  &:hover {
-    .ballon {
-      display: block;
-    }
-  }
-`;
-
-const RemindToggleButton = styled.button`
-  margin-right: 41px;
-`;
-
 const RemindTextBallon = styled.div`
   position: absolute;
   left: 18px;
   bottom: 36px;
   display: none;
+`;
+
+const RemindToggleText = styled.span`
+  margin-right: 12px;
+  &:hover ${RemindTextBallon} {
+    display: block;
+  }
+`;
+
+const RemindToggleButton = styled.button`
+  margin-right: 41px;
 `;
 
 const BallonImage = styled.img``;
@@ -72,7 +70,7 @@ function FilterBox(): ReactElement {
         <RemindToggle>
           <RemindToggleText>
             리마인드 도토리
-            <RemindTextBallon className="ballon">
+            <RemindTextBallon>
               <BallonImage src={UnionIMG} />
               <BallonText>
                 깜빡하면 안 되는 도토리 &nbsp; 한눈에 보기!

@@ -1,7 +1,7 @@
 import { ToggleOffIcon, ToggleOnIcon } from 'assets/icons';
 import useToggle from 'hooks/common/useToggle';
 import React, { ReactElement, useState } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import MyPageHead from './MyPageHead';
 
 const ConfigurationWrapper = styled.div`
@@ -40,17 +40,16 @@ const RemindSettingButton = styled.button<{ isSelected: boolean }>`
   height: 32px;
   font-size: 14px;
   line-height: 1.5;
-  color: ${(props) => props.theme.color.gray0};
   border-radius: 20px;
-  border: 1.5px solid ${(props) => props.theme.color.lightGray2};
-
-  ${(props) =>
-    props.isSelected &&
-    css`
-      background-color: ${props.theme.color.primary};
-      color: ${props.theme.color.white0};
-      border: 1.5px solid ${props.theme.color.primary};
-    `}
+  color: ${(props) =>
+    props.isSelected ? props.theme.color.white0 : props.theme.color.gray0};
+  border: 1.5px solid
+    ${(props) =>
+      props.isSelected
+        ? props.theme.color.primary
+        : props.theme.color.lightGray2};
+  background-color: ${(props) =>
+    props.isSelected ? props.theme.color.primary : 'transparent'};
 `;
 
 function Configuration(): ReactElement {

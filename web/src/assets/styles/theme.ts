@@ -18,6 +18,8 @@ const theme: DefaultTheme = {
     white0: '#fff',
     black0: '#000',
     black1: '#323232',
+    shadow0: 'rgba(0, 0, 0, 0.15)',
+    shadow1: 'rgba(0, 174, 199, 0.1)',
   },
 };
 
