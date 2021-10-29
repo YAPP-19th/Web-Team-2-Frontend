@@ -22,7 +22,7 @@ module.exports = {
       'error',
       { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
     ],
-    'react/no-array-index-key': 'warn',
+    'react/no-array-index-key': 'off',
     'react/jsx-props-no-spreading': 'off',
     'jsx-a11y/no-noninteractive-element-interactions': 'off',
   },
