@@ -30,9 +30,10 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
   }
 
-  /** a태그, 링크태그 색깔 기본값으로 하기 */
-  a:link { color: red; text-decoration: none;}
-  a:visited { color: black; text-decoration: none;}
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 `;
 
 export default GlobalStyle;

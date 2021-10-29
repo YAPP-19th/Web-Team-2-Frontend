@@ -43,7 +43,7 @@ const FooterMenuBlock = styled.div`
 
 const FooterMenuItem = styled(Link)``;
 
-const DivideLine = styled.div`
+const VerticalLine = styled.div`
   width: 1px;
   height: 17px;
   margin: 0 19px 0 20px;
@@ -65,9 +65,9 @@ function Footer(): ReactElement {
           </LogoBox>
           <FooterMenuBlock>
             <FooterMenuItem to="#">서비스 이용약관</FooterMenuItem>
-            <DivideLine />
+            <VerticalLine />
             <FooterMenuItem to="#">개인정보 처리방침</FooterMenuItem>
-            <DivideLine />
+            <VerticalLine />
             <FooterMenuItem to="#">피드백</FooterMenuItem>
           </FooterMenuBlock>
         </FooterLeftBox>
