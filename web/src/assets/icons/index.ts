@@ -5,6 +5,8 @@ export { ReactComponent as FolderIcon } from './Folder.svg';
 export { ReactComponent as ArrowUp16Icon } from './Icons_Arrow_16.svg';
 export { ReactComponent as ArrowDown16Icon } from './Icons_Arrow_down_16.svg';
 export { ReactComponent as Back24Icon } from './Icons_Back_24.svg';
+export { ReactComponent as BellIcon } from './Icons_Bell_24.svg';
+export { ReactComponent as BellNewIcon } from './Icons_Bell_New_24.svg';
 export { ReactComponent as BellSelectedIcon } from './Icons_Bell_selected.svg';
 export { ReactComponent as BellUnSelectedIcon } from './Icons_Bell_unselected.svg';
 export { ReactComponent as CheckBoxIcon } from './Icons_Checkbox.svg';
