@@ -19,17 +19,13 @@ const BellIconBox = styled.div`
   }
 `;
 
-const DefaultBellIcon = styled(BellIcon)``;
-
-const NewBellIcon = styled(BellNewIcon)``;
-
 function Info(): ReactElement {
-  const [bellAlarm, setBellAlarm] = useRecoilState<boolean>(bellState);
+  const [bellAlarm, setBellAlarm] = useRecoilState(bellState);
 
   return (
     <HeaderInfo>
       <BellIconBox onClick={() => setBellAlarm(!bellAlarm)}>
-        {bellAlarm ? <NewBellIcon /> : <DefaultBellIcon />}
+        {bellAlarm ? <BellNewIcon /> : <BellIcon />}
       </BellIconBox>
     </HeaderInfo>
   );
