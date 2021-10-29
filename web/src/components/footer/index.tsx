@@ -19,13 +19,13 @@ const FooterInner = styled.div`
   justify-content: space-between;
 `;
 
-const FooterLeftBox = styled.div`
+const FooterLinkGroup = styled.div`
   display: flex;
   align-items: center;
   width: 500px;
 `;
 
-const LogoBox = styled.div`
+const Logo = styled.div`
   width: 78px;
   height: 18px;
   margin-right: 85px;
@@ -36,7 +36,7 @@ const LogoImage = styled.img`
   height: 100%;
 `;
 
-const FooterMenuBlock = styled.div`
+const FooterMenu = styled.div`
   display: flex;
   color: ${(props) => props.theme.color.gray1};
 `;
@@ -59,18 +59,19 @@ function Footer(): ReactElement {
   return (
     <FooterWrapper>
       <FooterInner>
-        <FooterLeftBox>
-          <LogoBox>
+        <FooterLinkGroup>
+          <Logo>
             <LogoImage src={LogoBlackIMG} />
-          </LogoBox>
-          <FooterMenuBlock>
+          </Logo>
+
+          <FooterMenu>
             <FooterMenuItem to="#">서비스 이용약관</FooterMenuItem>
             <VerticalLine />
             <FooterMenuItem to="#">개인정보 처리방침</FooterMenuItem>
             <VerticalLine />
             <FooterMenuItem to="#">피드백</FooterMenuItem>
-          </FooterMenuBlock>
-        </FooterLeftBox>
+          </FooterMenu>
+        </FooterLinkGroup>
         <CopyRightText>Copyright © Dotoriham All rights reserved</CopyRightText>
       </FooterInner>
     </FooterWrapper>
