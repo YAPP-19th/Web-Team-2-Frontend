@@ -1,4 +1,5 @@
 import Header from 'components/header';
+import Footer from 'components/footer';
 import MyPage from 'pages/MyPage';
 import React, { ReactElement } from 'react';
 import { Route, Switch } from 'react-router-dom';
@@ -17,6 +18,7 @@ function App(): ReactElement {
           <Route exact path="/" component={MainPage} />
           <Route exact path="/mypage" component={MyPage} />
         </Switch>
+        <Footer />
       </ThemeProvider>
     </>
   );

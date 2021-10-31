@@ -8,6 +8,7 @@ const theme: DefaultTheme = {
     test3: '#e0e9f5',
     test4: '#f1e0f5',
     primary: '#48bf91',
+    border0: '#d4d2cf',
     gray0: '#848484',
     gray1: '#5b5b5b',
     lightGray0: '#f3f2ef',

@@ -29,6 +29,11 @@ const GlobalStyle = createGlobalStyle`
     cursor: pointer;
     padding: 0;
   }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 `;
 
 export default GlobalStyle;
