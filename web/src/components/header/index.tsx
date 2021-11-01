@@ -11,7 +11,7 @@ const HeaderLayout = styled.header`
 `;
 
 const HeaderInner = styled.div`
-  width: ${(props) => props.theme.size.desktop};
+  width: ${(props) => props.theme.basicWidth};
   height: 48px;
   margin: 0 auto;
   color: ${(props) => props.theme.color.black0};

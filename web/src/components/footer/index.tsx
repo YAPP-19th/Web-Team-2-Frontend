@@ -12,7 +12,7 @@ const FooterWrapper = styled.footer`
 
 const FooterInner = styled.div`
   height: 100%;
-  width: ${(props) => props.theme.size.desktop};
+  width: ${(props) => props.theme.basicWidth};
   margin: 0 auto;
   display: flex;
   align-items: center;

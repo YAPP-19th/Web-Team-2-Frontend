@@ -9,7 +9,7 @@ import { theme } from './assets/styles/theme';
 import MainPage from './pages/MainPage';
 
 const AppLayout = styled.div`
-  width: ${(props) => props.theme.size.desktop};
+  width: ${(props) => props.theme.basicWidth};
   margin: 0 auto;
 `;
 

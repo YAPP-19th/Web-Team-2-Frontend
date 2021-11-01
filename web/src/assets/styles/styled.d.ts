@@ -2,11 +2,8 @@ import 'styled-components';
 
 declare module 'styled-components' {
   export interface DefaultTheme {
-    size: {
-      desktop: string;
-      tablet: string;
-      mobile: string;
-    };
+    basicWidth: string;
+
     color: {
       test1: string;
       test2: string;
