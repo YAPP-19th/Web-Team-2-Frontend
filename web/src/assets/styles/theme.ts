@@ -1,7 +1,12 @@
 import { DefaultTheme } from 'styled-components';
 
 const theme: DefaultTheme = {
-  basicWidth: '1024px',
+  size: {
+    desktop: '1065px',
+    // @TODO(dohyun) 반응형 디자인 나오면 아래 px은 수정 될 수 있음
+    tablet: '768px',
+    mobile: '375px',
+  },
   color: {
     test1: '#f5e0e0',
     test2: '#f5f3e0',

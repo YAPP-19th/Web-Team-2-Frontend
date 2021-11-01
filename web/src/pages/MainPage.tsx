@@ -5,19 +5,17 @@ import styled from 'styled-components';
 import Bookmark from 'components/bookmark';
 
 const MainWrapper = styled.div`
-  width: 1100px; // 아직 확정된 값이 없어서 임의로 줌
-  margin: 0 auto;
   display: flex;
 `;
 
 const ContentLayout = styled.div`
-  padding: 20px 28px;
+  padding: 20px 0 0 28px;
   display: flex;
   flex-direction: column;
 `;
 
 const ContentInner = styled.div`
-  width: 874px;
+  width: 867px;
   height: 100%;
 `;
 
