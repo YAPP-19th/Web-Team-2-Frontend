@@ -6,11 +6,10 @@ import styled from 'styled-components';
 
 const HeaderInfo = styled.div`
   background-color: skyblue;
-  width: 255px;
+  width: 72px;
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
 `;
 
 const BellIconBox = styled.div`

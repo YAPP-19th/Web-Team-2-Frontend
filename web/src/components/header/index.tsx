@@ -7,8 +7,13 @@ import SearchBar from './SearchBar';
 
 const HeaderLayout = styled.header`
   width: 100%;
+  border-bottom: 1px solid ${(props) => props.theme.color.border0};
+`;
+
+const HeaderInner = styled.div`
+  width: ${(props) => props.theme.size.desktop};
   height: 48px;
-  background-color: ${(props) => props.theme.color.test1};
+  margin: 0 auto;
   color: ${(props) => props.theme.color.black0};
   display: flex;
   align-items: center;
@@ -18,10 +23,12 @@ const HeaderLayout = styled.header`
 function Header(): ReactElement {
   return (
     <HeaderLayout>
-      <Logo />
-      <Folder />
-      <SearchBar />
-      <Info />
+      <HeaderInner>
+        <Logo />
+        <Folder />
+        <SearchBar />
+        <Info />
+      </HeaderInner>
     </HeaderLayout>
   );
 }

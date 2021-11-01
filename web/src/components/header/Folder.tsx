@@ -3,7 +3,8 @@ import styled from 'styled-components';
 
 const HeaderFolder = styled.div`
   background-color: pink;
-  width: 424px;
+  width: 290px;
+  margin-right: 7px;
   height: 100%;
 `;
 
