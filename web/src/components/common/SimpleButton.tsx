@@ -2,8 +2,7 @@ import React, { ReactElement } from 'react';
 import styled, { css } from 'styled-components';
 
 interface ButtonProps {
-  variant: 'primary' | 'secondary';
-  borderColor?: 'border0' | 'border1';
+  variant: 'primary' | 'secondary' | 'tertiary';
   width: string;
   height: string;
 }
@@ -19,34 +18,45 @@ const SimpleButtonStyled = styled.button<ButtonProps>`
   border-radius: 8px;
   line-height: 1.5;
   font-size: 14px;
-  ${(props) =>
-    props.variant === 'primary'
-      ? css`
+
+  ${(props) => {
+    switch (props.variant) {
+      case 'primary':
+        return css`
           background-color: ${props.theme.color.primary};
           color: ${props.theme.color.white0};
           font-weight: 500;
           border: none;
-        `
-      : css`
+        `;
+      case 'secondary':
+        return css`
           background-color: ${props.theme.color.white0};
           color: ${props.theme.color.black1};
-          border: 1px solid
-            ${props.borderColor === 'border0'
-              ? props.theme.color.border0
-              : props.theme.color.border1};
-        `}
+          border: 1px solid ${props.theme.color.border1};
+        `;
+      case 'tertiary':
+        return css`
+          background-color: ${props.theme.color.white0};
+          color: ${props.theme.color.black1};
+          border: 1px solid ${props.theme.color.border0};
+        `;
+      default:
+        return css``;
+    }
+  }}
+
   &:disabled {
     background-color: ${(props) => props.theme.color.border0};
     color: ${(props) => props.theme.color.white0};
     line-height: 1.42;
     border: none;
+    cursor: not-allowed;
   }
 `;
 
 function SimpleButton({
   label,
   variant,
-  borderColor,
   width,
   height,
   ...rest
@@ -54,7 +64,6 @@ function SimpleButton({
   return (
     <SimpleButtonStyled
       variant={variant}
-      borderColor={borderColor}
       width={width}
       height={height}
       {...rest}

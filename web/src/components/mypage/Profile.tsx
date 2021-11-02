@@ -52,7 +52,6 @@ function Profile(): ReactElement {
         <ProfileRightBlock>
           <SimpleButton
             label="프로필 편집"
-            borderColor="border1"
             variant="secondary"
             width="174px"
             height="36px"
