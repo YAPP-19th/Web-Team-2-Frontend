@@ -1,4 +1,4 @@
-import { CheckBoxIcon, CheckBoxSelectedIcon } from 'assets/icons';
+import CheckBox from 'components/common/CheckBox';
 import React, { ReactElement, useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
@@ -21,7 +21,7 @@ const SelectText = styled.span`
   margin-right: 4px;
 `;
 
-const SelectButton = styled.button`
+const SelectButton = styled(CheckBox)`
   display: flex;
   align-items: center;
 `;
@@ -61,9 +61,11 @@ function SelectBox(): ReactElement {
     <SelectBoxWrapper>
       <SelectForm>
         <SelectText>선택</SelectText>
-        <SelectButton onClick={onCheck}>
-          {isChecked ? <CheckBoxSelectedIcon /> : <CheckBoxIcon />}
-        </SelectButton>
+        <SelectButton
+          onClick={onCheck}
+          variant="secondary"
+          isChecked={isChecked}
+        />
       </SelectForm>
       {selectedBookmarks.length > 0 && (
         <SelectOption>
