@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 
 interface ButtonProps {
   variant: 'primary' | 'secondary';
-  borderColor?: string;
+  borderColor?: 'border0' | 'border1';
   width: string;
   height: string;
 }
@@ -30,7 +30,10 @@ const SimpleButtonStyled = styled.button<ButtonProps>`
       : css`
           background-color: ${props.theme.color.white0};
           color: ${props.theme.color.black1};
-          border: 1px solid ${props.borderColor};
+          border: 1px solid
+            ${props.borderColor === 'border0'
+              ? props.theme.color.border0
+              : props.theme.color.border1};
         `}
   &:disabled {
     background-color: ${(props) => props.theme.color.border0};

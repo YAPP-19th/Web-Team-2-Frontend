@@ -11,6 +11,7 @@ declare module 'styled-components' {
       test4: string;
       primary: string;
       border0: string;
+      border1: string;
       gray0: string;
       gray1: string;
       lightGray0: string;
