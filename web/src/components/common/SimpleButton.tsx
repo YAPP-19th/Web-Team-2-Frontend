@@ -46,8 +46,8 @@ const SimpleButtonStyled = styled.button<ButtonProps>`
   }}
 
   &:disabled {
-    background-color: ${(props) => props.theme.color.border0};
-    color: ${(props) => props.theme.color.white0};
+    background-color: ${(props) => props.theme.color.lightGray0};
+    color: ${(props) => props.theme.color.border1};
     line-height: 1.42;
     border: none;
     cursor: not-allowed;

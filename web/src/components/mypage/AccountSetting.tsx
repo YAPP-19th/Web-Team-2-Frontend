@@ -46,6 +46,7 @@ function AccountSetting(): ReactElement {
             variant="secondary"
             width="174px"
             height="36px"
+            disabled
           />
         </AccountInfoBlock>
 
