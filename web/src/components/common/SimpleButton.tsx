@@ -1,28 +1,24 @@
 import React, { ReactElement } from 'react';
 import styled, { css } from 'styled-components';
 
-interface SimpleButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  label: string;
+interface ButtonProps {
   variant: 'primary' | 'secondary';
   borderColor?: string;
   width: string;
   height: string;
 }
 
-interface ButtonStyledProps {
-  variant: 'primary' | 'secondary';
-  borderColor?: string;
-  width: string;
-  height: string;
-}
-const SimpleButtonStyled = styled.button<ButtonStyledProps>`
+type SimpleButtonProps = {
+  label: string;
+} & React.ButtonHTMLAttributes<HTMLButtonElement> &
+  ButtonProps;
+
+const SimpleButtonStyled = styled.button<ButtonProps>`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   border-radius: 8px;
   line-height: 1.5;
   font-size: 14px;
-
   ${(props) =>
     props.variant === 'primary'
       ? css`
@@ -36,7 +32,6 @@ const SimpleButtonStyled = styled.button<ButtonStyledProps>`
           color: ${props.theme.color.black1};
           border: 1px solid ${props.borderColor};
         `}
-
   &:disabled {
     background-color: ${(props) => props.theme.color.border0};
     color: ${(props) => props.theme.color.white0};
