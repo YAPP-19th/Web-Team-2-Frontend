@@ -1,5 +1,6 @@
-import { DropDownIcon, ToggleOffIcon, ToggleOnIcon } from 'assets/icons';
+import { DropDownIcon } from 'assets/icons';
 import { UnionIMG } from 'assets/images';
+import ToggleIconButton from 'components/common/ToggleIconButton';
 import useToggle from 'hooks/common/useToggle';
 import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
@@ -30,7 +31,7 @@ const RemindToggleText = styled.span`
   }
 `;
 
-const RemindToggleButton = styled.button`
+const RemindToggleButton = styled(ToggleIconButton)`
   margin-right: 41px;
 `;
 
@@ -77,9 +78,7 @@ function FilterBox(): ReactElement {
               </BallonText>
             </RemindTextBallon>
           </RemindToggleText>
-          <RemindToggleButton onClick={onRemindToggle}>
-            {isRemind ? <ToggleOnIcon /> : <ToggleOffIcon />}
-          </RemindToggleButton>
+          <RemindToggleButton isToggled={isRemind} onClick={onRemindToggle} />
         </RemindToggle>
 
         <FilterMenuButton onClick={onToggleFilterMenu}>
