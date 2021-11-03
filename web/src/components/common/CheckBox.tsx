@@ -7,28 +7,38 @@ import {
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
-interface CheckBoxProps extends React.HTMLAttributes<HTMLButtonElement> {
-  variant: 'primary' | 'secondary';
+interface CheckedProps {
   isChecked: boolean;
 }
 
+interface CheckBoxProps
+  extends React.HTMLAttributes<HTMLButtonElement>,
+    CheckedProps {
+  variant: 'primary' | 'secondary';
+}
+
 const CheckBoxStyled = styled.button``;
+
+function PrimaryCheckBox({ isChecked }: CheckedProps): ReactElement {
+  return <>{isChecked ? <CheckBoxSelected36Icon /> : <CheckBox36Icon />}</>;
+}
+
+function SecondaryCheckBox({ isChecked }: CheckedProps): ReactElement {
+  return <>{isChecked ? <CheckBoxSelectedIcon /> : <CheckBoxIcon />}</>;
+}
 
 function CheckBox({
   variant,
   isChecked,
   ...rest
 }: CheckBoxProps): ReactElement {
-  if (variant === 'primary') {
-    return (
-      <CheckBoxStyled {...rest}>
-        {isChecked ? <CheckBoxSelected36Icon /> : <CheckBox36Icon />}
-      </CheckBoxStyled>
-    );
-  }
   return (
     <CheckBoxStyled {...rest}>
-      {isChecked ? <CheckBoxSelectedIcon /> : <CheckBoxIcon />}
+      {variant === 'primary' ? (
+        <PrimaryCheckBox isChecked={isChecked} />
+      ) : (
+        <SecondaryCheckBox isChecked={isChecked} />
+      )}
     </CheckBoxStyled>
   );
 }
