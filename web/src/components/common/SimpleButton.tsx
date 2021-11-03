@@ -5,17 +5,19 @@ interface ButtonProps {
   variant: 'primary' | 'secondary' | 'tertiary';
   width: string;
   height: string;
+  borderRadius?: string;
 }
 
-type SimpleButtonProps = {
+interface SimpleButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    ButtonProps {
   label: string;
-} & React.ButtonHTMLAttributes<HTMLButtonElement> &
-  ButtonProps;
+}
 
 const SimpleButtonStyled = styled.button<ButtonProps>`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
-  border-radius: 8px;
+  border-radius: ${(props) => props.borderRadius};
   line-height: 1.5;
   font-size: 14px;
 
@@ -59,6 +61,7 @@ function SimpleButton({
   variant,
   width,
   height,
+  borderRadius = '6px',
   ...rest
 }: SimpleButtonProps): ReactElement {
   return (
@@ -66,6 +69,7 @@ function SimpleButton({
       variant={variant}
       width={width}
       height={height}
+      borderRadius={borderRadius}
       {...rest}
     >
       {label}
