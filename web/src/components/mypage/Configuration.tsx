@@ -1,3 +1,4 @@
+import ChipButton from 'components/common/ChipButton';
 import ToggleIconButton from 'components/common/ToggleIconButton';
 import useToggle from 'hooks/common/useToggle';
 import React, { ReactElement, useState } from 'react';
@@ -33,23 +34,6 @@ const RemindSettingButtonGroup = styled.div`
   flex: 1;
 `;
 
-const RemindSettingButton = styled.button<{ isSelected: boolean }>`
-  width: 75px;
-  height: 32px;
-  font-size: 14px;
-  line-height: 1.5;
-  border-radius: 20px;
-  color: ${(props) =>
-    props.isSelected ? props.theme.color.white0 : props.theme.color.gray0};
-  border: 1.5px solid
-    ${(props) =>
-      props.isSelected
-        ? props.theme.color.primary
-        : props.theme.color.lightGray2};
-  background-color: ${(props) =>
-    props.isSelected ? props.theme.color.primary : 'transparent'};
-`;
-
 function Configuration(): ReactElement {
   const remindCycle = ['3일', '7일', '14일', '30일'];
   const [isRemind, onToggleRemind] = useToggle(true);
@@ -74,13 +58,12 @@ function Configuration(): ReactElement {
 
           <RemindSettingButtonGroup>
             {remindCycle.map((cycle) => (
-              <RemindSettingButton
-                isSelected={cycle === selectedCycle}
-                onClick={() => onChangeSelectedCycle(cycle)}
+              <ChipButton
+                label={cycle}
+                variant={cycle === selectedCycle ? 'primary' : 'secondary'}
                 key={cycle}
-              >
-                {cycle}
-              </RemindSettingButton>
+                onClick={() => onChangeSelectedCycle(cycle)}
+              />
             ))}
           </RemindSettingButtonGroup>
         </RemindSettingBlock>
