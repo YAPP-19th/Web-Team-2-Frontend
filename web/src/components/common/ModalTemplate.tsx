@@ -32,6 +32,7 @@ const Inner = styled.div<InnerProps>`
   margin: auto;
   width: ${(props) => props.width};
   height: ${(props) => props.height};
+  border-radius: 12px;
 `;
 
 const Background = styled.div`

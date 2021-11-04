@@ -1,6 +1,6 @@
 import Tree, { ItemId, RenderItemParams } from '@atlaskit/tree';
 import { More16Icon, PlusIcon } from 'assets/icons';
-import Modal from 'components/common/ModalTemplate';
+import SmallModal from 'components/common/SmallModal';
 import useToggle from 'hooks/common/useToggle';
 import useFolderHandle from 'hooks/sidebar/useFolderHandle';
 import useFoldersEffect from 'hooks/sidebar/useFoldersEffect';
@@ -9,7 +9,6 @@ import { useRecoilState } from 'recoil';
 import { folderMenuState, selectedFolderState } from 'recoil/atoms/folderState';
 import { useFolderAction } from 'recoil/selectors/folderSelector';
 import styled from 'styled-components';
-import FolderDeleteModal from './FolderDeleteModal';
 import FolderItemIcon from './FolderItemIcon';
 import FolderMenu from './FolderMenu';
 
@@ -146,14 +145,15 @@ function FolderList(): ReactElement {
           />
         )}
         {selectedFolder === item.id && isDeleteModal && (
-          <Modal
-            width="400px"
-            height="180px"
+          <SmallModal
             isModal={isDeleteModal}
             onToggleModal={onToggleDeleteModal}
-          >
-            <FolderDeleteModal selectedFolder={selectedFolder} />
-          </Modal>
+            title="이 폴더를 삭제할까요?"
+            content="폴더에 있는 모든 내용들이 <br/> 휴지통으로 들어가요!"
+            buttonName="삭제"
+            // eslint-disable-next-line no-console
+            onClick={() => console.log('API생성되면 추가하겠음!')}
+          />
         )}
       </>
     );
