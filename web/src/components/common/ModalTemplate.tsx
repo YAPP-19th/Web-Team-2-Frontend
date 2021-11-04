@@ -1,21 +1,18 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
-interface ModalProps {
-  width: number;
-  height: number;
+interface InnerProps {
+  width: string;
+  height: string;
   isModal: boolean;
+}
+
+interface ModalTemplateProps extends InnerProps {
   onToggleModal: () => void;
   children: React.ReactNode;
 }
 
-interface InnerProps {
-  width: number;
-  height: number;
-  isModal: boolean;
-}
-
-const ModalWrapper = styled.div`
+const ModalTemplateWrapper = styled.div`
   position: fixed;
   width: 100%;
   height: 100%;
@@ -33,8 +30,8 @@ const Inner = styled.div<InnerProps>`
   right: 0;
   left: 0;
   margin: auto;
-  width: ${(props) => props.width}px;
-  height: ${(props) => props.height}px;
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
 `;
 
 const Background = styled.div`
@@ -48,15 +45,15 @@ const Background = styled.div`
   opacity: 0.6;
 `;
 
-function Modal({
+function ModalTemplate({
   width,
   height,
   isModal,
   onToggleModal,
   children,
-}: ModalProps): ReactElement {
+}: ModalTemplateProps): ReactElement {
   return (
-    <ModalWrapper onMouseDown={onToggleModal}>
+    <ModalTemplateWrapper onMouseDown={onToggleModal}>
       <Inner
         onMouseDown={(e) => e.stopPropagation()}
         width={width}
@@ -66,8 +63,8 @@ function Modal({
         {children}
       </Inner>
       <Background />
-    </ModalWrapper>
+    </ModalTemplateWrapper>
   );
 }
 
-export default Modal;
+export default ModalTemplate;

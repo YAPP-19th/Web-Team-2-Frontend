@@ -1,6 +1,6 @@
 import Tree, { ItemId, RenderItemParams } from '@atlaskit/tree';
 import { More16Icon, PlusIcon } from 'assets/icons';
-import Modal from 'components/common/Modal';
+import Modal from 'components/common/ModalTemplate';
 import useToggle from 'hooks/common/useToggle';
 import useFolderHandle from 'hooks/sidebar/useFolderHandle';
 import useFoldersEffect from 'hooks/sidebar/useFoldersEffect';
@@ -147,8 +147,8 @@ function FolderList(): ReactElement {
         )}
         {selectedFolder === item.id && isDeleteModal && (
           <Modal
-            width={400}
-            height={180}
+            width="400px"
+            height="180px"
             isModal={isDeleteModal}
             onToggleModal={onToggleDeleteModal}
           >
