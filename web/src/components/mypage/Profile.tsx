@@ -1,3 +1,4 @@
+import SimpleButton from 'components/common/SimpleButton';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import MyPageHead from './MyPageHead';
@@ -36,15 +37,6 @@ const ProfileNickname = styled.span`
 
 const ProfileRightBlock = styled.div``;
 
-const ProfileEditButton = styled.button`
-  font-size: 14px;
-  width: 174px;
-  height: 36px;
-  color: ${(props) => props.theme.color.black1};
-  border-radius: 6px;
-  border: solid 1px ${(props) => props.theme.color.lightGray3};
-`;
-
 function Profile(): ReactElement {
   return (
     <>
@@ -58,7 +50,12 @@ function Profile(): ReactElement {
         </ProfileLeftBlock>
 
         <ProfileRightBlock>
-          <ProfileEditButton>프로필 편집</ProfileEditButton>
+          <SimpleButton
+            label="프로필 편집"
+            variant="secondary"
+            width="174px"
+            height="36px"
+          />
         </ProfileRightBlock>
       </ProfileWrapper>
     </>
