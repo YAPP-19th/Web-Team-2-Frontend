@@ -7,7 +7,7 @@ import SearchBar from './SearchBar';
 
 const HeaderLayout = styled.header`
   width: 100%;
-  border-bottom: 1px solid ${(props) => props.theme.color.border0};
+  border-bottom: 1px solid ${(props) => props.theme.color.grayLight};
 `;
 
 const HeaderInner = styled.div`

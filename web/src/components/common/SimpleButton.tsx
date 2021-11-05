@@ -40,7 +40,7 @@ const SimpleButtonStyled = styled.button<ButtonProps>`
         return css`
           background-color: ${props.theme.color.white0};
           color: ${props.theme.color.black1};
-          border: 1px solid ${props.theme.color.border0};
+          border: 1px solid ${props.theme.color.grayLight};
         `;
       default:
         return css``;

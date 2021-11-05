@@ -7,7 +7,7 @@ const FooterWrapper = styled.footer`
   height: 57px;
   line-height: 1.42;
   font-size: 12px;
-  border-top: 1px solid ${(props) => props.theme.color.border0};
+  border-top: 1px solid ${(props) => props.theme.color.grayLight};
 `;
 
 const FooterInner = styled.div`
