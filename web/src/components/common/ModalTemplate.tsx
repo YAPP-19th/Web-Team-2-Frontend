@@ -24,7 +24,7 @@ const ModalTemplateWrapper = styled.div`
 const Inner = styled.div<InnerProps>`
   position: absolute;
   z-index: 9999;
-  background-color: ${(props) => props.theme.color.white0};
+  background-color: ${(props) => props.theme.color.white};
   top: 0;
   bottom: 0;
   right: 0;

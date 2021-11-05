@@ -26,19 +26,19 @@ const SimpleButtonStyled = styled.button<ButtonProps>`
       case 'primary':
         return css`
           background-color: ${props.theme.color.primary};
-          color: ${props.theme.color.white0};
+          color: ${props.theme.color.white};
           font-weight: 500;
           border: none;
         `;
       case 'secondary':
         return css`
-          background-color: ${props.theme.color.white0};
+          background-color: ${props.theme.color.white};
           color: ${props.theme.color.black1};
           border: 1px solid ${props.theme.color.gray};
         `;
       case 'tertiary':
         return css`
-          background-color: ${props.theme.color.white0};
+          background-color: ${props.theme.color.white};
           color: ${props.theme.color.black1};
           border: 1px solid ${props.theme.color.grayLight};
         `;
