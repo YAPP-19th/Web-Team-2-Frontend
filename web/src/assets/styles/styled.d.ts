@@ -3,7 +3,6 @@ import 'styled-components';
 declare module 'styled-components' {
   export interface DefaultTheme {
     basicWidth: string;
-
     color: {
       test1: string;
       test2: string;
@@ -23,6 +22,16 @@ declare module 'styled-components' {
       black1: string;
       shadow0: string;
       shadow1: string;
+      primaryDark: string;
+      error: string;
+      black: string;
+      grayDarkest: string;
+      grayDarker: string;
+      grayDark: string;
+      gray: string;
+      grayLight: string;
+      grayLightest: string;
+      white: string;
     };
   }
 }

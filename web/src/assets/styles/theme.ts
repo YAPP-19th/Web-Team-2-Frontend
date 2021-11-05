@@ -21,6 +21,16 @@ const theme: DefaultTheme = {
     black1: '#323232',
     shadow0: 'rgba(0, 0, 0, 0.15)',
     shadow1: 'rgba(0, 174, 199, 0.1)',
+    primaryDark: '#00AEC7',
+    error: '#F4364C',
+    black: '#000000',
+    grayDarkest: '#323232',
+    grayDarker: '#696969',
+    grayDark: '#AFAFAF',
+    gray: '#AAAAAA',
+    grayLight: '#D4D2CF',
+    grayLightest: '#F3F2EF',
+    white: '#FFFFFF',
   },
 };
 
