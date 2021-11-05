@@ -38,7 +38,7 @@ const LogoImage = styled.img`
 
 const FooterMenu = styled.div`
   display: flex;
-  color: ${(props) => props.theme.color.gray1};
+  color: ${(props) => props.theme.color.grayDarker};
 `;
 
 const FooterMenuItem = styled(Link)``;

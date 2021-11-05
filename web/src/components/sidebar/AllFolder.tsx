@@ -23,7 +23,7 @@ const AllFolderFavicon = styled(AllFolderIcon)``;
 
 const AllFolderName = styled.span`
   height: 100%;
-  color: ${(props) => props.theme.color.gray1};
+  color: ${(props) => props.theme.color.grayDarker};
   font-size: 14px;
   width: 133px;
   line-height: 1.5;

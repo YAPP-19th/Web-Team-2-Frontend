@@ -24,7 +24,7 @@ const TitleText = styled.div`
 `;
 
 const RemindToggleButton = styled.button`
-  color: ${(props) => props.theme.color.gray1};
+  color: ${(props) => props.theme.color.grayDarker};
   font-size: 12px;
   display: flex;
   align-items: center;
