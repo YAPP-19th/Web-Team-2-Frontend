@@ -1,4 +1,4 @@
-import { ToggleOffIcon, ToggleOnIcon } from 'assets/icons';
+import ToggleIconButton from 'components/common/ToggleIconButton';
 import useToggle from 'hooks/common/useToggle';
 import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
@@ -21,8 +21,6 @@ const RemindToggleBlock = styled.div`
   display: flex;
   align-items: center;
 `;
-
-const RemindToggleButton = styled.button``;
 
 const RemindSettingBlock = styled.div`
   display: flex;
@@ -68,9 +66,7 @@ function Configuration(): ReactElement {
       <ConfigurationWrapper>
         <RemindToggleBlock>
           <LeftBlockText>리마인드 알람 받기</LeftBlockText>
-          <RemindToggleButton onClick={onToggleRemind}>
-            {isRemind ? <ToggleOnIcon /> : <ToggleOffIcon />}
-          </RemindToggleButton>
+          <ToggleIconButton isToggled={isRemind} onClick={onToggleRemind} />
         </RemindToggleBlock>
 
         <RemindSettingBlock>
