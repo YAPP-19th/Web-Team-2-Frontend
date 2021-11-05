@@ -25,7 +25,7 @@ const AccountText = styled.span`
 `;
 
 const LogoutText = styled.button`
-  color: ${(props) => props.theme.color.lightGray3};
+  color: ${(props) => props.theme.color.gray};
 `;
 
 function AccountSetting(): ReactElement {

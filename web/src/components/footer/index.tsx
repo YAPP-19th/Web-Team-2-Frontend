@@ -47,7 +47,7 @@ const VerticalLine = styled.div`
   width: 1px;
   height: 17px;
   margin: 0 19px 0 20px;
-  background-color: ${(props) => props.theme.color.lightGray3};
+  background-color: ${(props) => props.theme.color.gray};
 `;
 
 const CopyRightText = styled.span`
