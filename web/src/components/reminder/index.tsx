@@ -39,7 +39,7 @@ const DividerLine = styled.div`
   width: 100%;
   height: 1px;
   margin-bottom: 20px;
-  background-color: ${(props) => props.theme.color.lightGray1};
+  background-color: ${(props) => props.theme.color.grayLightest};
 `;
 
 function Reminder(): ReactElement {

@@ -32,7 +32,7 @@ const BookmarkItemWrapper = styled.div`
 const BookmarkThumbnail = styled.div`
   width: 273px;
   height: 168px;
-  background-color: ${(props) => props.theme.color.lightGray0};
+  background-color: ${(props) => props.theme.color.grayLightest};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -80,7 +80,7 @@ const DividerLine = styled.div`
   width: 100%;
   height: 1px;
   margin-bottom: 13.5px;
-  background-color: ${(props) => props.theme.color.lightGray0};
+  background-color: ${(props) => props.theme.color.grayLightest};
 `;
 
 const BookmarkInfo = styled.div`
@@ -97,7 +97,7 @@ const BookmarkFavicon = styled.div`
   width: 16px;
   height: 16px;
   margin-right: 8px;
-  background-color: ${(props) => props.theme.color.lightGray0};
+  background-color: ${(props) => props.theme.color.grayLightest};
 `;
 
 const BookmarkLink = styled.a`

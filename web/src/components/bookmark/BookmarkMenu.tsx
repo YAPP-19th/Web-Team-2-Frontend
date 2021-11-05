@@ -29,7 +29,7 @@ const BookmarkMenuItem = styled.div`
   justify-content: flex-start;
   align-items: center;
   &:hover {
-    background-color: ${(props) => props.theme.color.lightGray0};
+    background-color: ${(props) => props.theme.color.grayLightest};
     cursor: pointer;
   }
 `;
