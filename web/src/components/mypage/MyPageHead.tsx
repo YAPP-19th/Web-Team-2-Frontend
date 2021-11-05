@@ -19,7 +19,7 @@ const HeadTextStyled = styled.h2`
 `;
 
 const DividerLineStyled = styled(DividerLine)`
-  background-color: ${(props) => props.theme.color.lightGray2};
+  background-color: ${(props) => props.theme.color.grayLight};
 `;
 
 function MyPageHead({ headText }: MyPageHeadProps): ReactElement {

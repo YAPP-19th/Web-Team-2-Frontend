@@ -26,7 +26,7 @@ const ChipButtonStyled = styled.button<ButtonProps>`
         `
       : css`
           color: ${props.theme.color.grayDark};
-          border: 1px solid ${props.theme.color.lightGray2};
+          border: 1px solid ${props.theme.color.grayLight};
         `}
 `;
 
