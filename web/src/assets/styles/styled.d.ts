@@ -8,7 +8,6 @@ declare module 'styled-components' {
       test2: string;
       test3: string;
       test4: string;
-      primary: string;
       border0: string;
       border1: string;
       gray0: string;
@@ -20,8 +19,7 @@ declare module 'styled-components' {
       white0: string;
       black0: string;
       black1: string;
-      shadow0: string;
-      shadow1: string;
+      primary: string;
       primaryDark: string;
       error: string;
       black: string;
@@ -32,6 +30,12 @@ declare module 'styled-components' {
       grayLight: string;
       grayLightest: string;
       white: string;
+      lightGreen: string;
+      skyBlue: string;
+      purpleDark: string;
+      purple: string;
+      shadow0: string;
+      shadow1: string;
     };
   }
 }
