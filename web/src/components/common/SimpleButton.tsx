@@ -34,7 +34,7 @@ const SimpleButtonStyled = styled.button<ButtonProps>`
         return css`
           background-color: ${props.theme.color.white0};
           color: ${props.theme.color.black1};
-          border: 1px solid ${props.theme.color.border1};
+          border: 1px solid ${props.theme.color.gray};
         `;
       case 'tertiary':
         return css`
@@ -49,7 +49,7 @@ const SimpleButtonStyled = styled.button<ButtonProps>`
 
   &:disabled {
     background-color: ${(props) => props.theme.color.lightGray0};
-    color: ${(props) => props.theme.color.border1};
+    color: ${(props) => props.theme.color.gray};
     line-height: 1.42;
     border: none;
     cursor: not-allowed;
