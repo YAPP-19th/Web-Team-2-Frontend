@@ -11,9 +11,9 @@ const FooterWrapper = styled.footer`
 `;
 
 const FooterInner = styled.div`
-  padding: 0 56px;
   height: 100%;
-  width: 100%;
+  width: ${(props) => props.theme.basicWidth};
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -26,14 +26,14 @@ const FooterLinkGroup = styled.div`
 `;
 
 const Logo = styled.div`
-  width: 78px;
+  width: 170px;
   height: 18px;
-  margin-right: 85px;
+  margin-right: 28px;
 `;
 
 const LogoImage = styled.img`
-  width: 100%;
-  height: 100%;
+  width: 78px;
+  height: 18px;
 `;
 
 const FooterMenu = styled.div`

@@ -1,7 +1,7 @@
 import { DefaultTheme } from 'styled-components';
 
 const theme: DefaultTheme = {
-  basicWidth: '1024px',
+  basicWidth: '1065px',
   color: {
     test1: '#f5e0e0',
     test2: '#f5f3e0',

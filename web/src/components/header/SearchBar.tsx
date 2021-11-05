@@ -3,7 +3,8 @@ import styled from 'styled-components';
 
 const HeaderSearchBar = styled.div`
   background-color: green;
-  width: 372px;
+  width: 471px;
+  margin-right: 27px;
   height: 100%;
 `;
 
