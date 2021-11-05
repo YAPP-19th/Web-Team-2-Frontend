@@ -20,7 +20,7 @@ const Title = styled.div`
 `;
 
 const TitleText = styled.div`
-  color: ${(props) => props.theme.color.black1};
+  color: ${(props) => props.theme.color.grayDarkest};
 `;
 
 const RemindToggleButton = styled.button`

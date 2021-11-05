@@ -9,7 +9,7 @@ const PathText = styled.span`
   font-size: 14px;
   line-height: 1.5;
   font-weight: normal;
-  color: ${(props) => props.theme.color.black1};
+  color: ${(props) => props.theme.color.grayDarkest};
 `;
 
 function BookmarkPath(): ReactElement {

@@ -33,13 +33,13 @@ const SimpleButtonStyled = styled.button<ButtonProps>`
       case 'secondary':
         return css`
           background-color: ${props.theme.color.white};
-          color: ${props.theme.color.black1};
+          color: ${props.theme.color.grayDarkest};
           border: 1px solid ${props.theme.color.gray};
         `;
       case 'tertiary':
         return css`
           background-color: ${props.theme.color.white};
-          color: ${props.theme.color.black1};
+          color: ${props.theme.color.grayDarkest};
           border: 1px solid ${props.theme.color.grayLight};
         `;
       default:

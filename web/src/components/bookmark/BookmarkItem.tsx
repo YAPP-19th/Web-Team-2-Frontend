@@ -71,7 +71,7 @@ const Description = styled.div`
   font-weight: normal;
   line-height: 1.42;
   width: 233px;
-  color: ${(props) => props.theme.color.black1};
+  color: ${(props) => props.theme.color.grayDarkest};
   margin-bottom: 23.5px;
   ${ellipsis};
 `;

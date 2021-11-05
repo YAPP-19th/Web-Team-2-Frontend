@@ -8,7 +8,7 @@ import MyPageHead from './MyPageHead';
 const ConfigurationWrapper = styled.div`
   padding: 16px 0 104px;
   width: 100%;
-  color: ${(props) => props.theme.color.black1};
+  color: ${(props) => props.theme.color.grayDarkest};
 `;
 
 const LeftBlockText = styled.span`

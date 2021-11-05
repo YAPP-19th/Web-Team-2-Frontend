@@ -7,7 +7,7 @@ const AccountSettingWrapper = styled.div`
   padding: 28px 0 138px;
   font-size: 14px;
   line-height: 1.5;
-  color: ${(props) => props.theme.color.black1};
+  color: ${(props) => props.theme.color.grayDarkest};
 `;
 
 const AccountInfoBlock = styled.div`
