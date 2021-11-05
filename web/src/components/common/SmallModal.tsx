@@ -30,7 +30,7 @@ const SmallModalContent = styled.div`
   height: 42px;
   font-size: 14px;
   line-height: 1.5;
-  color: ${(props) => props.theme.color.gray0};
+  color: ${(props) => props.theme.color.grayDark};
   text-align: center;
   margin-bottom: 24px;
 `;
@@ -40,7 +40,7 @@ const SmallModalButtonGroup = styled.div`
 `;
 
 const CancelButton = styled(SimpleButton)`
-  color: ${(props) => props.theme.color.gray0};
+  color: ${(props) => props.theme.color.grayDark};
   margin-right: 8px;
 `;
 

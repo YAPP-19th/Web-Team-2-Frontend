@@ -52,7 +52,7 @@ const VerticalLine = styled.div`
 
 const CopyRightText = styled.span`
   font-family: 'Roboto';
-  color: ${(props) => props.theme.color.gray0};
+  color: ${(props) => props.theme.color.grayDark};
 `;
 
 function Footer(): ReactElement {
