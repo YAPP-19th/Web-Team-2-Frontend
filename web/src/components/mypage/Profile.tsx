@@ -32,7 +32,7 @@ const ProfileImage = styled.img`
 const ProfileNickname = styled.span`
   font-size: 16px;
   font-weight: 500;
-  color: ${(props) => props.theme.color.black0};
+  color: ${(props) => props.theme.color.black};
 `;
 
 const ProfileRightBlock = styled.div``;

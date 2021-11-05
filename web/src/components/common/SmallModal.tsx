@@ -20,7 +20,7 @@ const SmallModalTitle = styled.div`
   text-align: center;
   font-size: 16px;
   font-weight: 500;
-  color: ${(props) => props.theme.color.black0};
+  color: ${(props) => props.theme.color.black};
   height: 23px;
   line-height: normal;
   margin-bottom: 18px;

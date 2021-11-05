@@ -61,7 +61,7 @@ const Title = styled.div`
   font-weight: 500;
   line-height: 1.5;
   width: 233px;
-  color: ${(props) => props.theme.color.black0};
+  color: ${(props) => props.theme.color.black};
   margin-bottom: 8px;
   ${ellipsis};
 `;

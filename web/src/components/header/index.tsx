@@ -14,7 +14,7 @@ const HeaderInner = styled.div`
   width: ${(props) => props.theme.basicWidth};
   height: 48px;
   margin: 0 auto;
-  color: ${(props) => props.theme.color.black0};
+  color: ${(props) => props.theme.color.black};
   display: flex;
   align-items: center;
   justify-content: center;
