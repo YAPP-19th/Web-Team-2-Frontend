@@ -17,7 +17,7 @@ const BookmarkMenuWrapper = styled.div`
 const BookmarkMenuInner = styled.div`
   border-radius: 4px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
-  background-color: ${(props) => props.theme.color.white0};
+  background-color: ${(props) => props.theme.color.white};
   z-index: 9999;
 `;
 
@@ -29,7 +29,7 @@ const BookmarkMenuItem = styled.div`
   justify-content: flex-start;
   align-items: center;
   &:hover {
-    background-color: ${(props) => props.theme.color.lightGray0};
+    background-color: ${(props) => props.theme.color.grayLightest};
     cursor: pointer;
   }
 `;

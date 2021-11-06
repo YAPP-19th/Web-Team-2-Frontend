@@ -26,21 +26,21 @@ const SimpleButtonStyled = styled.button<ButtonProps>`
       case 'primary':
         return css`
           background-color: ${props.theme.color.primary};
-          color: ${props.theme.color.white0};
+          color: ${props.theme.color.white};
           font-weight: 500;
           border: none;
         `;
       case 'secondary':
         return css`
-          background-color: ${props.theme.color.white0};
-          color: ${props.theme.color.black1};
-          border: 1px solid ${props.theme.color.border1};
+          background-color: ${props.theme.color.white};
+          color: ${props.theme.color.grayDarkest};
+          border: 1px solid ${props.theme.color.gray};
         `;
       case 'tertiary':
         return css`
-          background-color: ${props.theme.color.white0};
-          color: ${props.theme.color.black1};
-          border: 1px solid ${props.theme.color.border0};
+          background-color: ${props.theme.color.white};
+          color: ${props.theme.color.grayDarkest};
+          border: 1px solid ${props.theme.color.grayLight};
         `;
       default:
         return css``;
@@ -48,8 +48,8 @@ const SimpleButtonStyled = styled.button<ButtonProps>`
   }}
 
   &:disabled {
-    background-color: ${(props) => props.theme.color.lightGray0};
-    color: ${(props) => props.theme.color.border1};
+    background-color: ${(props) => props.theme.color.grayLightest};
+    color: ${(props) => props.theme.color.gray};
     line-height: 1.42;
     border: none;
     cursor: not-allowed;

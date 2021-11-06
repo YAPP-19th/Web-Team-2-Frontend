@@ -7,7 +7,7 @@ const FooterWrapper = styled.footer`
   height: 57px;
   line-height: 1.42;
   font-size: 12px;
-  border-top: 1px solid ${(props) => props.theme.color.border0};
+  border-top: 1px solid ${(props) => props.theme.color.grayLight};
 `;
 
 const FooterInner = styled.div`
@@ -38,7 +38,7 @@ const LogoImage = styled.img`
 
 const FooterMenu = styled.div`
   display: flex;
-  color: ${(props) => props.theme.color.gray1};
+  color: ${(props) => props.theme.color.grayDarker};
 `;
 
 const FooterMenuItem = styled(Link)``;
@@ -47,12 +47,12 @@ const VerticalLine = styled.div`
   width: 1px;
   height: 17px;
   margin: 0 19px 0 20px;
-  background-color: ${(props) => props.theme.color.lightGray3};
+  background-color: ${(props) => props.theme.color.gray};
 `;
 
 const CopyRightText = styled.span`
   font-family: 'Roboto';
-  color: ${(props) => props.theme.color.gray0};
+  color: ${(props) => props.theme.color.grayDark};
 `;
 
 function Footer(): ReactElement {

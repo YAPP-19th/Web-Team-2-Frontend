@@ -26,13 +26,13 @@ const ProfileImage = styled.img`
   width: 100%;
   height: 100%;
   border-radius: 40px;
-  background-color: ${(props) => props.theme.color.lightGray2};
+  background-color: ${(props) => props.theme.color.grayLight};
 `;
 
 const ProfileNickname = styled.span`
   font-size: 16px;
   font-weight: 500;
-  color: ${(props) => props.theme.color.black0};
+  color: ${(props) => props.theme.color.black};
 `;
 
 const ProfileRightBlock = styled.div``;

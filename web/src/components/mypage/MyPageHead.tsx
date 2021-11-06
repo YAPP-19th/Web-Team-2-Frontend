@@ -14,12 +14,12 @@ const HeadTextStyled = styled.h2`
   font-size: 18px;
   font-weight: 500;
   line-height: normal;
-  color: ${(props) => props.theme.color.black1};
+  color: ${(props) => props.theme.color.grayDarkest};
   margin-bottom: 15px;
 `;
 
 const DividerLineStyled = styled(DividerLine)`
-  background-color: ${(props) => props.theme.color.lightGray2};
+  background-color: ${(props) => props.theme.color.grayLight};
 `;
 
 function MyPageHead({ headText }: MyPageHeadProps): ReactElement {

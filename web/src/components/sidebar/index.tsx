@@ -9,7 +9,7 @@ const SideBarWrapper = styled.div`
   width: 170px;
   padding: 20px 0;
   position: relative;
-  background-color: ${(props) => props.theme.color.white0};
+  background-color: ${(props) => props.theme.color.white};
   overflow: auto;
 `;
 

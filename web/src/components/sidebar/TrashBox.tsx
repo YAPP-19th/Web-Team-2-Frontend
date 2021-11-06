@@ -28,7 +28,7 @@ const UnselectedTrash = styled(UnselectedTrashIcon)``;
 
 const TrashName = styled.span`
   height: 100%;
-  color: ${(props) => props.theme.color.gray0};
+  color: ${(props) => props.theme.color.grayDark};
   font-size: 14px;
   width: 133px;
   line-height: 21px;

@@ -9,7 +9,7 @@ interface SimpleInputProps extends React.HTMLAttributes<HTMLInputElement> {
 const SimpleInputStyled = styled.input`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
-  border: 1px solid ${(props) => props.theme.color.border0};
+  border: 1px solid ${(props) => props.theme.color.grayLight};
   padding: 5.5px 12px 5.5px 10px;
   border-radius: 4px;
   outline: none;

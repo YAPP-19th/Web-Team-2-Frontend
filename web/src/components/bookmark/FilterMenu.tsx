@@ -19,7 +19,7 @@ const FilterMenuWrapper = styled.div`
 const FilterMenuInner = styled.div`
   border-radius: 4px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
-  background-color: ${(props) => props.theme.color.white0};
+  background-color: ${(props) => props.theme.color.white};
   z-index: 9999;
 `;
 
@@ -31,11 +31,11 @@ const MenuItem = styled.div<{ isSelected: boolean }>`
   justify-content: flex-start;
   align-items: center;
   &:hover {
-    background-color: ${(props) => props.theme.color.lightGray0};
+    background-color: ${(props) => props.theme.color.grayLightest};
     cursor: pointer;
   }
   background-color: ${(props) =>
-    props.isSelected && props.theme.color.lightGray0};
+    props.isSelected && props.theme.color.grayLightest};
 `;
 
 const MenuItemText = styled.span``;

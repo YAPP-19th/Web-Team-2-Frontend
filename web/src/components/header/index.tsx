@@ -7,14 +7,14 @@ import SearchBar from './SearchBar';
 
 const HeaderLayout = styled.header`
   width: 100%;
-  border-bottom: 1px solid ${(props) => props.theme.color.border0};
+  border-bottom: 1px solid ${(props) => props.theme.color.grayLight};
 `;
 
 const HeaderInner = styled.div`
   width: ${(props) => props.theme.basicWidth};
   height: 48px;
   margin: 0 auto;
-  color: ${(props) => props.theme.color.black0};
+  color: ${(props) => props.theme.color.black};
   display: flex;
   align-items: center;
   justify-content: center;

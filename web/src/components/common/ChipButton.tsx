@@ -20,13 +20,13 @@ const ChipButtonStyled = styled.button<ButtonProps>`
   ${(props) =>
     props.variant === 'primary'
       ? css`
-          color: ${props.theme.color.white0};
+          color: ${props.theme.color.white};
           border: 1px solid ${props.theme.color.primary};
           background-color: ${props.theme.color.primary};
         `
       : css`
-          color: ${props.theme.color.gray0};
-          border: 1px solid ${props.theme.color.lightGray2};
+          color: ${props.theme.color.grayDark};
+          border: 1px solid ${props.theme.color.grayLight};
         `}
 `;
 

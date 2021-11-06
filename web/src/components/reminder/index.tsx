@@ -20,11 +20,11 @@ const Title = styled.div`
 `;
 
 const TitleText = styled.div`
-  color: ${(props) => props.theme.color.black1};
+  color: ${(props) => props.theme.color.grayDarkest};
 `;
 
 const RemindToggleButton = styled.button`
-  color: ${(props) => props.theme.color.gray1};
+  color: ${(props) => props.theme.color.grayDarker};
   font-size: 12px;
   display: flex;
   align-items: center;
@@ -39,7 +39,7 @@ const DividerLine = styled.div`
   width: 100%;
   height: 1px;
   margin-bottom: 20px;
-  background-color: ${(props) => props.theme.color.lightGray1};
+  background-color: ${(props) => props.theme.color.grayLightest};
 `;
 
 function Reminder(): ReactElement {

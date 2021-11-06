@@ -28,7 +28,7 @@ const PlusIcon = styled(PlusWhiteIcon)`
 const Text = styled.span`
   font-size: 14px;
   font-weight: 500;
-  color: ${(props) => props.theme.color.white0};
+  color: ${(props) => props.theme.color.white};
 `;
 
 function CabinetBox(): ReactElement {
