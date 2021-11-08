@@ -33,7 +33,9 @@ function GoogleLoginButton(): ReactElement {
   return (
     <GoogleLogin
       clientId={GOOGLE_CLIENT_ID}
+      // eslint-disable-next-line no-console
       onSuccess={() => console.log('oo')}
+      // eslint-disable-next-line no-console
       onFailure={() => console.log('xx')}
       render={(renderProps) => (
         <GoogleButton onClick={renderProps.onClick}>

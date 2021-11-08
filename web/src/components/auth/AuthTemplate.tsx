@@ -7,16 +7,13 @@ interface AuthTemplateProps {
   AuthType: 'login' | 'register';
 }
 
-const AuthTemplateWrapper = styled.div`
-  width: 321px;
-  margin: 0 auto;
-  margin-top: 36px;
-`;
+const AuthTemplateWrapper = styled.div``;
 
 const AuthTitle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 36px;
   margin-bottom: 28px;
 `;
 
@@ -28,6 +25,11 @@ const AuthTitleTxt = styled.span`
   font-size: 20px;
   color: ${(props) => props.theme.color.primary};
   font-weight: bold;
+`;
+
+const AuthTemplateInner = styled.div`
+  width: 321px;
+  margin: 0 auto;
 `;
 
 function AuthTemplate({ children, AuthType }: AuthTemplateProps): ReactElement {
@@ -42,7 +44,7 @@ function AuthTemplate({ children, AuthType }: AuthTemplateProps): ReactElement {
         <Logo />
         <AuthTitleTxt>{title}</AuthTitleTxt>
       </AuthTitle>
-      {children}
+      <AuthTemplateInner>{children}</AuthTemplateInner>
     </AuthTemplateWrapper>
   );
 }
