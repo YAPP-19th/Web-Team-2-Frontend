@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react';
 import GoogleLogin from 'react-google-login';
-import { GOOGLE_CLIENT_ID } from 'utils/config';
 import { GoogleIMG } from 'assets/images';
 import styled from 'styled-components';
+import useGoogleLogin from 'hooks/auth/useGoogleLogin';
 
 const GoogleImg = styled.img`
   width: 36px;
@@ -30,13 +30,12 @@ const GoogleButtonText = styled.span`
 `;
 
 function GoogleLoginButton(): ReactElement {
+  const { clientId, onGoogleLogin } = useGoogleLogin();
+
   return (
     <GoogleLogin
-      clientId={GOOGLE_CLIENT_ID}
-      // eslint-disable-next-line no-console
-      onSuccess={() => console.log('oo')}
-      // eslint-disable-next-line no-console
-      onFailure={() => console.log('xx')}
+      clientId={clientId}
+      onSuccess={onGoogleLogin}
       render={(renderProps) => (
         <GoogleButton onClick={renderProps.onClick}>
           <GoogleImg src={GoogleIMG} alt="google" />
