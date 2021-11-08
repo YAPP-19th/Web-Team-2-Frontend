@@ -19,6 +19,7 @@ declare module 'styled-components' {
       skyBlue: string;
       purpleDark: string;
       purple: string;
+      link0: string;
       shadow0: string;
       shadow1: string;
     };

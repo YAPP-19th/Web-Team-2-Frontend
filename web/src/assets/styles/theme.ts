@@ -18,6 +18,7 @@ const theme: DefaultTheme = {
     skyBlue: '#00B7EB',
     purpleDark: '#4A25AA',
     purple: '#963CBD',
+    link0: '#0BAA78',
     shadow0: 'rgba(0, 0, 0, 0.15)',
     shadow1: 'rgba(0, 174, 199, 0.1)',
   },
