@@ -1,10 +1,11 @@
+import AuthForm from 'components/auth/AuthForm';
 import AuthTemplate from 'components/auth/AuthTemplate';
 import React, { ReactElement } from 'react';
 
 function LoginPage(): ReactElement {
   return (
     <AuthTemplate AuthType="login">
-      <h1>Login</h1>
+      <AuthForm AuthType="login" />
     </AuthTemplate>
   );
 }
