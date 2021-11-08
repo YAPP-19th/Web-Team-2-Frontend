@@ -23,6 +23,7 @@ export { ReactComponent as SelectedTrashIcon } from './Icons_trash_selected.svg'
 export { ReactComponent as UnselectedTrashIcon } from './Icons_trash_unselected.svg';
 export { ReactComponent as X16Icon } from './Icons_x_16.svg';
 export { ReactComponent as AllFolderIcon } from './List_unselected_16.svg';
+export { ReactComponent as Logo32Icon } from './Logo_32.svg';
 export { ReactComponent as More16Icon } from './More_16.svg';
 export { ReactComponent as PlusIcon } from './Plus.svg';
 export { ReactComponent as PlusWhiteIcon } from './Plus_white.svg';
