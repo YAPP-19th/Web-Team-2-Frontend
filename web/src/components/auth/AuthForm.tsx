@@ -1,17 +1,14 @@
 import SimpleButton from 'components/common/SimpleButton';
 import SimpleInput from 'components/common/SimpleInput';
+import useAuthForm from 'hooks/auth/useAuthForm';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
-import AuthDivider from './AuthDivider';
-import GoogleLoginButton from './GoogleLoginButton';
 
 interface AuthFormProps {
   AuthType: 'login' | 'register';
 }
 
-const AuthFormWrapper = styled.div``;
-
-const Form = styled.form``;
+const AuthFormWrapper = styled.form``;
 
 const AuthInput = styled(SimpleInput)`
   padding: 15px 0 18px 24px;
@@ -28,41 +25,46 @@ const AuthButton = styled(SimpleButton)`
 `;
 
 function AuthForm({ AuthType }: AuthFormProps): ReactElement {
+  const { form, onChange, onLogin, onRegister } = useAuthForm();
+  const { email, password } = form;
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // eslint-disable-next-line no-unused-expressions
-    AuthType === 'login' ? console.log('login') : console.log('register');
+    return AuthType === 'login' ? onLogin() : onRegister();
   };
 
   return (
-    <AuthFormWrapper>
-      <GoogleLoginButton />
-      <AuthDivider />
+    <AuthFormWrapper onSubmit={onSubmit}>
+      <AuthInput
+        width="100%"
+        height="56px"
+        borderRadius="8px"
+        placeholder="이메일"
+        required
+        type="email"
+        name="email"
+        onChange={onChange}
+        value={email}
+      />
+      <AuthInput
+        width="100%"
+        height="56px"
+        borderRadius="8px"
+        placeholder="비밀번호"
+        required
+        type="password"
+        name="password"
+        onChange={onChange}
+        value={password}
+      />
 
-      <Form onSubmit={onSubmit}>
-        <AuthInput
-          width="100%"
-          height="56px"
-          borderRadius="8px"
-          placeholder="이메일"
-          type="email"
-        />
-        <AuthInput
-          width="100%"
-          height="56px"
-          borderRadius="8px"
-          placeholder="비밀번호"
-          type="password"
-        />
-
-        <AuthButton
-          label={AuthType === 'login' ? '로그인' : '회원가입'}
-          variant="primary"
-          width="100%"
-          height="56px"
-          borderRadius="8px"
-        />
-      </Form>
+      <AuthButton
+        label={AuthType === 'login' ? '로그인' : '회원가입'}
+        variant="primary"
+        width="100%"
+        height="56px"
+        borderRadius="8px"
+      />
     </AuthFormWrapper>
   );
 }

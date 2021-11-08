@@ -1,6 +1,8 @@
 import { Logo32Icon } from 'assets/icons';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import AuthDivider from './AuthDivider';
+import GoogleLoginButton from './GoogleLoginButton';
 
 interface AuthTemplateProps {
   children: React.ReactNode;
@@ -27,7 +29,7 @@ const AuthTitleTxt = styled.span`
   font-weight: bold;
 `;
 
-const AuthTemplateInner = styled.div`
+const AuthInner = styled.div`
   width: 321px;
   margin: 0 auto;
 `;
@@ -44,7 +46,12 @@ function AuthTemplate({ children, AuthType }: AuthTemplateProps): ReactElement {
         <Logo />
         <AuthTitleTxt>{title}</AuthTitleTxt>
       </AuthTitle>
-      <AuthTemplateInner>{children}</AuthTemplateInner>
+
+      <AuthInner>
+        <GoogleLoginButton />
+        <AuthDivider />
+        {children}
+      </AuthInner>
     </AuthTemplateWrapper>
   );
 }
