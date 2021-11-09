@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import MainPage from 'pages/MainPage';
 import MyPage from 'pages/MyPage';
+import RegisterPage from 'pages/RegisterPage';
 import LoginPage from 'pages/LoginPage';
 import GlobalStyle from './assets/styles/globalStyle';
 import { theme } from './assets/styles/theme';
@@ -33,6 +34,7 @@ function App(): ReactElement {
             <Route path="/" element={<MainPage />} />
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
           </Routes>
         </AppLayout>
         <Footer />
