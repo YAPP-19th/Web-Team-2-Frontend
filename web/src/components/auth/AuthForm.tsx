@@ -3,6 +3,7 @@ import SimpleInput from 'components/common/SimpleInput';
 import useAuthForm from 'hooks/auth/useAuthForm';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import Agreement from './Agreement';
 import ErrorText from './ErrorText';
 
 interface AuthFormProps {
@@ -12,7 +13,6 @@ interface AuthFormProps {
 const AuthFormWrapper = styled.form``;
 
 const AuthFormRow = styled.div`
-  position: relative;
   margin-bottom: 20px;
 `;
 
@@ -75,6 +75,9 @@ function AuthForm({ AuthType }: AuthFormProps): ReactElement {
         {passwordError && <ErrorText text={passwordError} />}
         {authError && <ErrorText text={authError} />}
       </AuthFormRow>
+
+      {AuthType === 'register' && <Agreement />}
+
       <AuthFormRow>
         <AuthButton
           label={AuthType === 'login' ? '로그인' : '회원가입'}
