@@ -22,6 +22,7 @@ const AuthTitleTxt = styled.span`
   font-size: 20px;
   color: ${(props) => props.theme.color.primary};
   font-weight: bold;
+  font-family: Cafe24Ssurround;
 `;
 
 function AuthTitle({ AuthType }: AuthTitleProps): ReactElement {
