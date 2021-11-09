@@ -57,7 +57,8 @@ export default function useAuthentication(): AuthenticationTypes {
   const onCheckPasswordValid = (password: string) => {
     const num = /[0-9]/;
     const eng = /[a-zA-Z]/;
-    const special = /[~!@#$%^&*()_+|<>?:{}]/;
+    const special = /[~!@#$%^&*()_+|<>?:{}=-]/;
+    validCount.current = 0;
     if (num.test(password)) validCount.current += 1;
     if (eng.test(password)) validCount.current += 1;
     if (special.test(password)) validCount.current += 1;
