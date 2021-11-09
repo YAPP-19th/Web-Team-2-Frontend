@@ -12,6 +12,12 @@ const AuthLinkedWrapper = styled.div`
   line-height: 1.5;
 `;
 
+const LinkedItem = styled.div`
+  &:first-child {
+    margin-bottom: 12px;
+  }
+`;
+
 const LinkedInfo = styled.span`
   margin-right: 16px;
   color: ${(props) => props.theme.color.grayDarkest};
@@ -23,24 +29,36 @@ const Linked = styled(Link)`
 `;
 
 function AuthLinked({ AuthType }: AuthLinkedProps): ReactElement {
-  const loginlinked = {
-    info: '비밀번호를 잊으셨나요?',
-    label: '비밀번호 재설정',
-    link: '/', // @TODO(dohyun) 비밀번호 재설정 라우팅 설정후 추가
-  };
+  const loginlinked = [
+    {
+      info: '비밀번호를 잊으셨나요?',
+      label: '비밀번호 재설정',
+      link: '/', // @TODO(dohyun) 비밀번호 재설정 라우팅 설정후 추가
+    },
+    {
+      info: '처음 방문하셨나요?',
+      label: '회원가입',
+      link: '/register',
+    },
+  ];
 
-  const registerlinked = {
-    info: '이미 회원이신가요?',
-    label: '로그인',
-    link: '/login',
-  };
+  const registerlinked = [
+    {
+      info: '이미 회원이신가요?',
+      label: '로그인',
+      link: '/login',
+    },
+  ];
 
   const linked = AuthType === 'login' ? loginlinked : registerlinked;
-  const { info, label, link } = linked;
   return (
     <AuthLinkedWrapper>
-      <LinkedInfo>{info}</LinkedInfo>
-      <Linked to={link}>{label}</Linked>
+      {linked.map((item) => (
+        <LinkedItem key={item.label}>
+          <LinkedInfo>{item.info}</LinkedInfo>
+          <Linked to={item.link}>{item.label}</Linked>
+        </LinkedItem>
+      ))}
     </AuthLinkedWrapper>
   );
 }
