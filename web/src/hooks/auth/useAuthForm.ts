@@ -39,16 +39,16 @@ export default function useAuthForm(): AuthFormTypes {
   };
 
   const onLogin = () => {
-    // eslint-disable-next-line no-console
-    console.log(form, 'login');
     if (!onCheckEmailEmpty(email) || !onCheckPasswordEmpty(password))
       return false;
     // @TODO(dohyun): API 생기면 작성
     // 만약 실패했으면 onChangeAuthError("계정을 찾을 수 없습니다. 이메일 또는 비밀번호를 다시 확인해주세요") 호출
     // 아래는 테스트용
     onChangeAuthError(
-      '계정을 찾을 수 없습니다. 이메일 또는 비밀번호를 다시 확인해주세요',
+      '계정을 찾을 수 없습니다. 이메일 또는 비밀번호를 다시 확인해주세요.',
     );
+    // eslint-disable-next-line no-console
+    console.log(form, 'login');
     return true;
   };
 

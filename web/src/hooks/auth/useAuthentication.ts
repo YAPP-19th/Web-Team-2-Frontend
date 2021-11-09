@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 interface AuthenticationTypes {
   emailError: string | null;
@@ -16,7 +16,7 @@ export default function useAuthentication(): AuthenticationTypes {
   const [emailError, setEmailError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string | null>(null);
   const [authError, setAuthError] = useState<string | null>(null);
-  const [validCount, setValidCount] = useState<number>(0);
+  const validCount = useRef(0);
 
   const onCheckEmailEmpty = (email: string) => {
     if (email === '') {
@@ -58,12 +58,11 @@ export default function useAuthentication(): AuthenticationTypes {
     const num = /[0-9]/;
     const eng = /[a-zA-Z]/;
     const special = /[~!@#$%^&*()_+|<>?:{}]/;
-    setValidCount(0);
-    if (num.test(password)) setValidCount((prev) => prev + 1);
-    if (eng.test(password)) setValidCount((prev) => prev + 1);
-    if (special.test(password)) setValidCount((prev) => prev + 1);
+    if (num.test(password)) validCount.current += 1;
+    if (eng.test(password)) validCount.current += 1;
+    if (special.test(password)) validCount.current += 1;
 
-    if (password.length < 8 || password.length > 16 || validCount < 2) {
+    if (password.length < 8 || password.length > 16 || validCount.current < 2) {
       setPasswordError(
         '영문 대소문자, 숫자, 특수문자 중 2종류 이상을 조합하여 8~16자의 비밀번호를 생성해주세요.',
       );
