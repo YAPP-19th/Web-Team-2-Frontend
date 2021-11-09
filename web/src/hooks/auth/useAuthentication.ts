@@ -4,11 +4,12 @@ interface AuthenticationTypes {
   emailError: string | null;
   passwordError: string | null;
   authError: string | null;
-  onCheckEmailEmpty: (email: string) => void;
-  onCheckPasswordEmpty: (password: string) => void;
-  onCheckEmailExist: (email: string) => void;
-  onCheckEmailValid: (email: string) => void;
-  onCheckPasswordValid: (password: string) => void;
+  onCheckEmailEmpty: (email: string) => boolean;
+  onCheckPasswordEmpty: (password: string) => boolean;
+  onCheckEmailExist: (email: string) => boolean;
+  onCheckEmailValid: (email: string) => boolean;
+  onCheckPasswordValid: (password: string) => boolean;
+  onChangeAuthError: (error: string) => void;
 }
 
 export default function useAuthentication(): AuthenticationTypes {
@@ -18,26 +19,39 @@ export default function useAuthentication(): AuthenticationTypes {
   const [validCount, setValidCount] = useState<number>(0);
 
   const onCheckEmailEmpty = (email: string) => {
-    return setEmailError(email === '' ? '이메일을 입력해주세요' : null);
+    if (email === '') {
+      setEmailError('이메일을 입력해주세요.');
+      return false;
+    }
+    setEmailError(null);
+    return true;
   };
 
   const onCheckPasswordEmpty = (password: string) => {
-    return setPasswordError(password === '' ? '비밀번호를 입력해주세요' : null);
+    if (password === '') {
+      setPasswordError('비밀번호를 입력해주세요.');
+      return false;
+    }
+    setPasswordError(null);
+    return true;
   };
 
   const onCheckEmailExist = (email: string) => {
     // @TODO(dohyun) 이미 가입한 이메일인지 아닌지 백앤드에 요청후 결과를 받아온다.
     // 만약 존재하는 이메일일 경우 setEmailError("이미 가입한 이메일 주소입니다") 같은 멘트 넣어주면 됌
-    // eslint-disable-next-line no-console
-    console.log(email);
+    if (email) {
+      return true;
+    }
+    return false;
   };
 
   const onCheckEmailValid = (email: string) => {
-    setEmailError(
-      email.includes('@') && email.includes('.')
-        ? null
-        : '이메일 주소가 올바르지 않습니다',
-    );
+    if (email.includes('@') && email.includes('.')) {
+      setEmailError(null);
+      return true;
+    }
+    setEmailError('이메일 형식이 올바르지 않습니다');
+    return false;
   };
 
   const onCheckPasswordValid = (password: string) => {
@@ -49,11 +63,18 @@ export default function useAuthentication(): AuthenticationTypes {
     if (eng.test(password)) setValidCount((prev) => prev + 1);
     if (special.test(password)) setValidCount((prev) => prev + 1);
 
-    setPasswordError(
-      password.length < 8 || password.length > 16 || validCount < 2
-        ? '영문 대소문자, 숫자, 특수문자 중 2종류 이상을 조합하여 8~16자의 비밀번호를 생성해주세요.'
-        : null,
-    );
+    if (password.length < 8 || password.length > 16 || validCount < 2) {
+      setPasswordError(
+        '영문 대소문자, 숫자, 특수문자 중 2종류 이상을 조합하여 8~16자의 비밀번호를 생성해주세요.',
+      );
+      return false;
+    }
+    setPasswordError(null);
+    return true;
+  };
+
+  const onChangeAuthError = (error: string) => {
+    setAuthError(error);
   };
 
   return {
@@ -65,5 +86,6 @@ export default function useAuthentication(): AuthenticationTypes {
     onCheckEmailExist,
     onCheckEmailValid,
     onCheckPasswordValid,
+    onChangeAuthError,
   };
 }
