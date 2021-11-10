@@ -1,7 +1,7 @@
 import { ArrowSideIcon } from 'assets/icons';
 import CheckBox from 'components/common/CheckBox';
 import DividerLine from 'components/common/DividerLine';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
 
 const AgreementWrapper = styled.div`
@@ -59,7 +59,7 @@ const Divider = styled(DividerLine)`
 `;
 
 function Agreement(): ReactElement {
-  const AgreementList = [
+  const [agreementList, setAgreementList] = useState([
     {
       id: 1,
       name: 'Terms and conditions',
@@ -83,24 +83,71 @@ function Agreement(): ReactElement {
       option: '선택',
       text: '리마인드 알람 수신에 동의합니다.',
     },
-  ];
+  ]);
+
+  // 체크 박스 토글
+  const onToggleCheckBox = (id: number) => {
+    setAgreementList(
+      agreementList.map((item) =>
+        item.id === id ? { ...item, checked: !item.checked } : item,
+      ),
+    );
+  };
+
+  // 전체 체크가 되어있는지 확인
+  const onCheckIsAllChecked = () => {
+    return agreementList.every((item) => item.checked);
+  };
+
+  // 전체 선택
+  const onSelectAllCheckBox = () => {
+    setAgreementList(
+      agreementList.map((item) => ({
+        ...item,
+        checked: true,
+      })),
+    );
+  };
+
+  // 전체 취소
+  const onCancelAllCheckBox = () => {
+    setAgreementList(
+      agreementList.map((item) => ({
+        ...item,
+        checked: false,
+      })),
+    );
+  };
+
+  // 전체선택 토글
+  const onToggleAllCheckBox = () => {
+    return onCheckIsAllChecked()
+      ? onCancelAllCheckBox()
+      : onSelectAllCheckBox();
+  };
 
   return (
     <AgreementWrapper>
       <AgreeListRow>
         <AgreeListItem>
-          <AgreeCheckBox type="button" variant="secondary" isChecked />
+          <AgreeCheckBox
+            type="button"
+            variant="secondary"
+            onClick={onToggleAllCheckBox}
+            isChecked={onCheckIsAllChecked()}
+          />
           <AgreeText>전체 동의</AgreeText>
         </AgreeListItem>
       </AgreeListRow>
       <Divider />
-      {AgreementList.map((item) => (
+      {agreementList.map((item) => (
         <AgreeListRow key={item.id}>
           <AgreeListItem>
             <AgreeCheckBox
               type="button"
               variant="secondary"
               isChecked={item.checked}
+              onClick={() => onToggleCheckBox(item.id)}
             />
             <AgreeOption isEssential={item.option === '필수'}>
               [{item.option}]
