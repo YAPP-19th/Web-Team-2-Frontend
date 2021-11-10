@@ -2,7 +2,7 @@ import Header from 'components/header';
 import Footer from 'components/footer';
 import MyPage from 'pages/MyPage';
 import React, { ReactElement } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyle from './assets/styles/globalStyle';
 import { theme } from './assets/styles/theme';
@@ -20,10 +20,10 @@ function App(): ReactElement {
       <ThemeProvider theme={theme}>
         <Header />
         <AppLayout>
-          <Switch>
-            <Route exact path="/" component={MainPage} />
-            <Route exact path="/mypage" component={MyPage} />
-          </Switch>
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/mypage" element={<MyPage />} />
+          </Routes>
         </AppLayout>
         <Footer />
       </ThemeProvider>
