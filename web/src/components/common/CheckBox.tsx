@@ -12,7 +12,7 @@ interface CheckedProps {
 }
 
 interface CheckBoxProps
-  extends React.HTMLAttributes<HTMLButtonElement>,
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     CheckedProps {
   variant: 'primary' | 'secondary';
 }

@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
 interface ToggleIconButtonProps
-  extends React.HTMLAttributes<HTMLButtonElement> {
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isToggled: boolean;
 }
 
