@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useAuthentication from './useAuthentication';
 
 interface AuthFormTypes {
@@ -12,6 +12,18 @@ interface AuthFormTypes {
   emailError: string | null;
   passwordError: string | null;
   authError: string | null;
+  agreementList: {
+    id: number;
+    name: string;
+    checked: boolean;
+    option: string;
+    text: string;
+    icon: boolean;
+  }[];
+  onToggleCheckBox: (id: number) => void;
+  onCheckIsAllChecked: () => boolean;
+  onToggleAllCheckBox: () => void;
+  disabled: boolean;
 }
 
 export default function useAuthForm(): AuthFormTypes {
@@ -19,8 +31,34 @@ export default function useAuthForm(): AuthFormTypes {
     email: '',
     password: '',
   });
-
   const { email, password } = form;
+  const [disabled, setDisabled] = useState(true);
+  const [agreementList, setAgreementList] = useState([
+    {
+      id: 1,
+      name: 'Terms and conditions',
+      checked: false,
+      option: '필수',
+      text: '이용약관에 동의합니다',
+      icon: true,
+    },
+    {
+      id: 2,
+      name: 'Personal information',
+      checked: false,
+      option: '필수',
+      text: '개인정보 수집/이용에 동의합니다',
+      icon: true,
+    },
+    {
+      id: 3,
+      name: 'Remind',
+      checked: false,
+      option: '선택',
+      text: '리마인드 알람 수신에 동의합니다.',
+      icon: false,
+    },
+  ]);
 
   const {
     authError,
@@ -37,6 +75,61 @@ export default function useAuthForm(): AuthFormTypes {
       [e.target.name]: e.target.value,
     });
   };
+
+  // 체크 박스 토글
+  const onToggleCheckBox = (id: number) => {
+    setAgreementList(
+      agreementList.map((item) =>
+        item.id === id ? { ...item, checked: !item.checked } : item,
+      ),
+    );
+  };
+
+  // 전체 체크가 되어있는지 확인
+  const onCheckIsAllChecked = () => {
+    return agreementList.every((item) => item.checked);
+  };
+
+  // 전체 선택
+  const onSelectAllCheckBox = () => {
+    setAgreementList(
+      agreementList.map((item) => ({
+        ...item,
+        checked: true,
+      })),
+    );
+  };
+
+  // 전체 취소
+  const onCancelAllCheckBox = () => {
+    setAgreementList(
+      agreementList.map((item) => ({
+        ...item,
+        checked: false,
+      })),
+    );
+  };
+
+  // 전체선택 토글
+  const onToggleAllCheckBox = () => {
+    return onCheckIsAllChecked()
+      ? onCancelAllCheckBox()
+      : onSelectAllCheckBox();
+  };
+
+  const onCheckEssential = () => {
+    for (let i = 0; i < agreementList.length; i += 1) {
+      if (agreementList[i].option === '필수' && !agreementList[i].checked) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  useEffect(() => {
+    setDisabled(!onCheckEssential());
+    console.log(!onCheckEssential());
+  }, [agreementList]);
 
   const onLogin = () => {
     if (!onCheckEmailEmpty(email) || !onCheckPasswordEmpty(password))
@@ -66,5 +159,10 @@ export default function useAuthForm(): AuthFormTypes {
     emailError,
     passwordError,
     authError,
+    onToggleCheckBox,
+    onToggleAllCheckBox,
+    onCheckIsAllChecked,
+    agreementList,
+    disabled,
   };
 }

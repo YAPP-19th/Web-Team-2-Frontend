@@ -1,8 +1,23 @@
 import { ArrowSideIcon } from 'assets/icons';
 import CheckBox from 'components/common/CheckBox';
 import DividerLine from 'components/common/DividerLine';
-import React, { ReactElement, useState } from 'react';
+import useAuthForm from 'hooks/auth/useAuthForm';
+import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+
+interface AgreementProps {
+  agreementList: {
+    id: number;
+    name: string;
+    checked: boolean;
+    option: string;
+    text: string;
+    icon: boolean;
+  }[];
+  onToggleAllCheckBox: () => void;
+  onCheckIsAllChecked: () => boolean;
+  onToggleCheckBox: (id: number) => void;
+}
 
 const AgreementWrapper = styled.div`
   margin-bottom: 24px;
@@ -49,83 +64,17 @@ const AgreeText = styled.div`
   line-height: 21px;
 `;
 
-const ArrowIcon = styled(ArrowSideIcon)`
-  float: right;
-`;
-
 const Divider = styled(DividerLine)`
   background-color: ${(props) => props.theme.color.grayLight};
   margin-bottom: 12px;
 `;
 
-function Agreement(): ReactElement {
-  const [agreementList, setAgreementList] = useState([
-    {
-      id: 1,
-      name: 'Terms and conditions',
-      checked: false,
-      option: '필수',
-      text: '이용약관에 동의합니다',
-      icon: <ArrowIcon />,
-    },
-    {
-      id: 2,
-      name: 'Personal information',
-      checked: false,
-      option: '필수',
-      text: '개인정보 수집/이용에 동의합니다',
-      icon: <ArrowIcon />,
-    },
-    {
-      id: 3,
-      name: 'Remind',
-      checked: false,
-      option: '선택',
-      text: '리마인드 알람 수신에 동의합니다.',
-    },
-  ]);
-
-  // 체크 박스 토글
-  const onToggleCheckBox = (id: number) => {
-    setAgreementList(
-      agreementList.map((item) =>
-        item.id === id ? { ...item, checked: !item.checked } : item,
-      ),
-    );
-  };
-
-  // 전체 체크가 되어있는지 확인
-  const onCheckIsAllChecked = () => {
-    return agreementList.every((item) => item.checked);
-  };
-
-  // 전체 선택
-  const onSelectAllCheckBox = () => {
-    setAgreementList(
-      agreementList.map((item) => ({
-        ...item,
-        checked: true,
-      })),
-    );
-  };
-
-  // 전체 취소
-  const onCancelAllCheckBox = () => {
-    setAgreementList(
-      agreementList.map((item) => ({
-        ...item,
-        checked: false,
-      })),
-    );
-  };
-
-  // 전체선택 토글
-  const onToggleAllCheckBox = () => {
-    return onCheckIsAllChecked()
-      ? onCancelAllCheckBox()
-      : onSelectAllCheckBox();
-  };
-
+function Agreement({
+  onToggleCheckBox,
+  onCheckIsAllChecked,
+  onToggleAllCheckBox,
+  agreementList,
+}: AgreementProps): ReactElement {
   return (
     <AgreementWrapper>
       <AgreeListRow>
@@ -154,7 +103,9 @@ function Agreement(): ReactElement {
             </AgreeOption>
             <AgreeText>{item.text}</AgreeText>
           </AgreeListItem>
-          <AgreeItemButton type="button">{item.icon}</AgreeItemButton>
+          <AgreeItemButton type="button">
+            {item.icon && <ArrowSideIcon />}
+          </AgreeItemButton>
         </AgreeListRow>
       ))}
     </AgreementWrapper>
