@@ -32,17 +32,10 @@ function AuthForm({ AuthType }: auth.IAuthType): ReactElement {
   const [disabled, setDisabled] = useState(true);
   const AuthState = useRecoilValue(authState);
 
-  const {
-    form,
-    onChange,
-    onLogin,
-    onRegister,
-    authError,
-    emailError,
-    passwordError,
-    onBlur,
-  } = useAuthForm();
+  const { form, onChange, onLogin, onRegister, errorMessage, onBlur } =
+    useAuthForm();
   const { email, password } = form;
+  const { authError, passwordError, emailError } = errorMessage;
 
   useEffect(() => {
     const isDisabled =
