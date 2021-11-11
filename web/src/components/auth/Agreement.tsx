@@ -1,22 +1,11 @@
 import { ArrowSideIcon } from 'assets/icons';
 import CheckBox from 'components/common/CheckBox';
 import DividerLine from 'components/common/DividerLine';
-import useAuthForm from 'hooks/auth/useAuthForm';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useCallback, useState } from 'react';
 import styled from 'styled-components';
 
-interface AgreementProps {
-  agreementList: {
-    id: number;
-    name: string;
-    checked: boolean;
-    option: string;
-    text: string;
-    icon: boolean;
-  }[];
-  onToggleAllCheckBox: () => void;
-  onCheckIsAllChecked: () => boolean;
-  onToggleCheckBox: (id: number) => void;
+interface IEssentialState {
+  [index: string]: boolean;
 }
 
 const AgreementWrapper = styled.div`
@@ -69,12 +58,49 @@ const Divider = styled(DividerLine)`
   margin-bottom: 12px;
 `;
 
-function Agreement({
-  onToggleCheckBox,
-  onCheckIsAllChecked,
-  onToggleAllCheckBox,
-  agreementList,
-}: AgreementProps): ReactElement {
+function Agreement(): ReactElement {
+  const [essentialState, setEssentialState] = useState<IEssentialState>({
+    termsAndConditions: false,
+    privacyPolicy: false,
+  });
+  const [remindState, setRemindState] = useState(false);
+  const { termsAndConditions, privacyPolicy } = essentialState;
+
+  // 전체 상태 변화
+  const onChangeAllState = useCallback(
+    (state: boolean) => {
+      setEssentialState({
+        termsAndConditions: state,
+        privacyPolicy: state,
+      });
+      setRemindState(state);
+    },
+    [setEssentialState, setRemindState],
+  );
+
+  // 전체 체크되어있는지 확인
+  const onCheckIsAllSelect = useCallback(() => {
+    return termsAndConditions && privacyPolicy && remindState;
+  }, [termsAndConditions, privacyPolicy, remindState]);
+
+  // 전체 동의 토글 (전체 체크되어있으면 false(해제), 아니면 true(선택))
+  const onToggleAllAgree = () => {
+    return onChangeAllState(!onCheckIsAllSelect());
+  };
+
+  const onToggleEssentialState = useCallback(
+    (name: string) => {
+      setEssentialState({
+        ...essentialState,
+        [name]: !essentialState[name],
+      });
+    },
+    [essentialState],
+  );
+
+  const onToggleRemindState = useCallback(() => {
+    setRemindState(!remindState);
+  }, [remindState]);
   return (
     <AgreementWrapper>
       <AgreeListRow>
@@ -82,32 +108,59 @@ function Agreement({
           <AgreeCheckBox
             type="button"
             variant="secondary"
-            onClick={onToggleAllCheckBox}
-            isChecked={onCheckIsAllChecked()}
+            isChecked={onCheckIsAllSelect()}
+            onClick={onToggleAllAgree}
           />
           <AgreeText>전체 동의</AgreeText>
         </AgreeListItem>
       </AgreeListRow>
       <Divider />
-      {agreementList.map((item) => (
-        <AgreeListRow key={item.id}>
-          <AgreeListItem>
-            <AgreeCheckBox
-              type="button"
-              variant="secondary"
-              isChecked={item.checked}
-              onClick={() => onToggleCheckBox(item.id)}
-            />
-            <AgreeOption isEssential={item.option === '필수'}>
-              [{item.option}]
-            </AgreeOption>
-            <AgreeText>{item.text}</AgreeText>
-          </AgreeListItem>
-          <AgreeItemButton type="button">
-            {item.icon && <ArrowSideIcon />}
-          </AgreeItemButton>
-        </AgreeListRow>
-      ))}
+
+      <AgreeListRow>
+        <AgreeListItem>
+          <AgreeCheckBox
+            type="button"
+            variant="secondary"
+            isChecked={termsAndConditions}
+            onClick={() => onToggleEssentialState('termsAndConditions')}
+          />
+          <AgreeOption isEssential>[필수]</AgreeOption>
+          <AgreeText>이용약관에 동의합니다</AgreeText>
+        </AgreeListItem>
+        <AgreeItemButton type="button">
+          <ArrowSideIcon />
+        </AgreeItemButton>
+      </AgreeListRow>
+
+      <AgreeListRow>
+        <AgreeListItem>
+          <AgreeCheckBox
+            type="button"
+            variant="secondary"
+            isChecked={privacyPolicy}
+            onClick={() => onToggleEssentialState('privacyPolicy')}
+          />
+          <AgreeOption isEssential>[필수]</AgreeOption>
+          <AgreeText>개인정보 수집/이용에 동의합니다</AgreeText>
+        </AgreeListItem>
+        <AgreeItemButton type="button">
+          <ArrowSideIcon />
+        </AgreeItemButton>
+      </AgreeListRow>
+
+      <AgreeListRow>
+        <AgreeListItem>
+          <AgreeCheckBox
+            type="button"
+            variant="secondary"
+            name="remindState"
+            isChecked={remindState}
+            onClick={onToggleRemindState}
+          />
+          <AgreeOption isEssential={false}>[선택]</AgreeOption>
+          <AgreeText>리마인드 알람 수신에 동의합니다.</AgreeText>
+        </AgreeListItem>
+      </AgreeListRow>
     </AgreementWrapper>
   );
 }

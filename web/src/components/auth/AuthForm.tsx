@@ -38,11 +38,6 @@ function AuthForm({ AuthType }: AuthFormProps): ReactElement {
     authError,
     emailError,
     passwordError,
-    disabled,
-    agreementList,
-    onToggleAllCheckBox,
-    onCheckIsAllChecked,
-    onToggleCheckBox,
   } = useAuthForm();
   const { email, password } = form;
 
@@ -81,14 +76,7 @@ function AuthForm({ AuthType }: AuthFormProps): ReactElement {
         {authError && <ErrorText text={authError} />}
       </AuthFormRow>
 
-      {AuthType === 'register' && (
-        <Agreement
-          agreementList={agreementList}
-          onToggleCheckBox={onToggleCheckBox}
-          onCheckIsAllChecked={onCheckIsAllChecked}
-          onToggleAllCheckBox={onToggleAllCheckBox}
-        />
-      )}
+      {AuthType === 'register' && <Agreement />}
 
       <AuthFormRow>
         <AuthButton
@@ -97,7 +85,6 @@ function AuthForm({ AuthType }: AuthFormProps): ReactElement {
           width="100%"
           height="56px"
           borderRadius="8px"
-          disabled={AuthType === 'register' ? disabled : false}
         />
       </AuthFormRow>
     </AuthFormWrapper>
