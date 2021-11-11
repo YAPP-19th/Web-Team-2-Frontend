@@ -70,12 +70,7 @@ export default function useAuthForm(): AuthFormTypes {
       case 'email':
         return onChangeAuthState('email', !onCheckEmail());
       case 'password':
-        if (onCheckPassword()) {
-          onChangeAuthState('password', false);
-          return false;
-        }
-        onChangeAuthState('password', true);
-        break;
+        return onChangeAuthState('password', !onCheckPassword());
       default:
         break;
     }
