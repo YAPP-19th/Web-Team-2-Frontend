@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { authState } from 'recoil/atoms/authState';
 import useAuthentication from './useAuthentication';
 
 interface AuthFormTypes {
@@ -12,9 +14,11 @@ interface AuthFormTypes {
   emailError: string | null;
   passwordError: string | null;
   authError: string | null;
+  onBlur: (e: React.FocusEvent<HTMLInputElement>) => boolean;
 }
 
 export default function useAuthForm(): AuthFormTypes {
+  const [auth, setAuth] = useRecoilState(authState);
   const [form, setForm] = useState({
     email: '',
     password: '',
@@ -26,7 +30,10 @@ export default function useAuthForm(): AuthFormTypes {
     emailError,
     onChangeAuthError,
     onCheckEmailEmpty,
+    onCheckEmailExist,
+    onCheckEmailValid,
     onCheckPasswordEmpty,
+    onCheckPasswordValid,
     passwordError,
   } = useAuthentication();
 
@@ -35,6 +42,49 @@ export default function useAuthForm(): AuthFormTypes {
       ...form,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const { name } = e.target;
+    switch (name) {
+      case 'email':
+        if (
+          !onCheckEmailEmpty(email) ||
+          !onCheckEmailValid(email) ||
+          !onCheckEmailExist(email)
+        ) {
+          setAuth({
+            ...auth,
+            email: false,
+          });
+          return false;
+        }
+        setAuth({
+          ...auth,
+          email: true,
+        });
+
+        break;
+      case 'password':
+        if (
+          !onCheckPasswordEmpty(password) ||
+          !onCheckPasswordValid(password)
+        ) {
+          setAuth({
+            ...auth,
+            password: false,
+          });
+          return false;
+        }
+        setAuth({
+          ...auth,
+          password: true,
+        });
+        break;
+      default:
+        break;
+    }
+    return true;
   };
 
   const onLogin = () => {
@@ -65,5 +115,6 @@ export default function useAuthForm(): AuthFormTypes {
     emailError,
     passwordError,
     authError,
+    onBlur,
   };
 }

@@ -1,7 +1,9 @@
 import SimpleButton from 'components/common/SimpleButton';
 import SimpleInput from 'components/common/SimpleInput';
 import useAuthForm from 'hooks/auth/useAuthForm';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { authState } from 'recoil/atoms/authState';
 import styled from 'styled-components';
 import Agreement from './Agreement';
 import ErrorText from './ErrorText';
@@ -30,6 +32,9 @@ const AuthButton = styled(SimpleButton)`
 `;
 
 function AuthForm({ AuthType }: AuthFormProps): ReactElement {
+  const [disabled, setDisabled] = useState(true);
+  const auth = useRecoilValue(authState);
+
   const {
     form,
     onChange,
@@ -38,8 +43,17 @@ function AuthForm({ AuthType }: AuthFormProps): ReactElement {
     authError,
     emailError,
     passwordError,
+    onBlur,
   } = useAuthForm();
   const { email, password } = form;
+
+  useEffect(() => {
+    if (auth.email && auth.isAgree && auth.password) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  }, [auth]);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -58,6 +72,7 @@ function AuthForm({ AuthType }: AuthFormProps): ReactElement {
           name="email"
           onChange={onChange}
           value={email}
+          onBlur={AuthType === 'register' ? onBlur : undefined}
         />
         {emailError && <ErrorText text={emailError} />}
       </AuthFormRow>
@@ -71,6 +86,7 @@ function AuthForm({ AuthType }: AuthFormProps): ReactElement {
           name="password"
           onChange={onChange}
           value={password}
+          onBlur={AuthType === 'register' ? onBlur : undefined}
         />
         {passwordError && <ErrorText text={passwordError} />}
         {authError && <ErrorText text={authError} />}
@@ -85,6 +101,7 @@ function AuthForm({ AuthType }: AuthFormProps): ReactElement {
           width="100%"
           height="56px"
           borderRadius="8px"
+          disabled={AuthType === 'register' ? disabled : false}
         />
       </AuthFormRow>
     </AuthFormWrapper>

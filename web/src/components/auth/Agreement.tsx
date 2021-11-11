@@ -1,7 +1,9 @@
 import { ArrowSideIcon } from 'assets/icons';
 import CheckBox from 'components/common/CheckBox';
 import DividerLine from 'components/common/DividerLine';
-import React, { ReactElement, useCallback, useState } from 'react';
+import React, { ReactElement, useCallback, useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { authState } from 'recoil/atoms/authState';
 import styled from 'styled-components';
 
 interface IEssentialState {
@@ -65,6 +67,7 @@ function Agreement(): ReactElement {
   });
   const [remindState, setRemindState] = useState(false);
   const { termsAndConditions, privacyPolicy } = essentialState;
+  const [auth, setAuth] = useRecoilState(authState);
 
   // 전체 상태 변화
   const onChangeAllState = useCallback(
@@ -101,6 +104,16 @@ function Agreement(): ReactElement {
   const onToggleRemindState = useCallback(() => {
     setRemindState(!remindState);
   }, [remindState]);
+
+  useEffect(() => {
+    if (termsAndConditions && privacyPolicy) {
+      setAuth({
+        ...auth,
+        isAgree: true,
+      });
+    }
+  }, [termsAndConditions, privacyPolicy]);
+
   return (
     <AgreementWrapper>
       <AgreeListRow>
