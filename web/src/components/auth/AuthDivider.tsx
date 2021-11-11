@@ -1,15 +1,15 @@
+import DividerLine from 'components/common/DividerLine';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
-const Divider = styled.div`
+const AuthDividerStyled = styled.div`
   display: flex;
   align-items: center;
   margin: 28px 0;
 `;
 
-const DividerLine = styled.div`
+const Divider = styled(DividerLine)`
   width: 123px;
-  height: 1px;
   background-color: ${(props) => props.theme.color.grayDark};
 `;
 
@@ -24,11 +24,11 @@ const DividerText = styled.span`
 
 function AuthDivider(): ReactElement {
   return (
-    <Divider>
-      <DividerLine />
+    <AuthDividerStyled>
+      <Divider />
       <DividerText>or</DividerText>
-      <DividerLine />
-    </Divider>
+      <Divider />
+    </AuthDividerStyled>
   );
 }
 

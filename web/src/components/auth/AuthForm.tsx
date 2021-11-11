@@ -1,16 +1,17 @@
 import SimpleButton from 'components/common/SimpleButton';
 import SimpleInput from 'components/common/SimpleInput';
 import useAuthForm from 'hooks/auth/useAuthForm';
+<<<<<<< HEAD
 import React, { ReactElement, useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { authState } from 'recoil/atoms/authState';
+=======
+import { auth } from 'models/auth';
+import React, { ReactElement } from 'react';
+>>>>>>> 685050604823a060180d55be53dc55285d3b0a91
 import styled from 'styled-components';
 import Agreement from './Agreement';
 import ErrorText from './ErrorText';
-
-interface AuthFormProps {
-  AuthType: 'login' | 'register';
-}
 
 const AuthFormWrapper = styled.form``;
 
@@ -31,10 +32,14 @@ const AuthButton = styled(SimpleButton)`
   font-size: 16px;
 `;
 
+<<<<<<< HEAD
 function AuthForm({ AuthType }: AuthFormProps): ReactElement {
   const [disabled, setDisabled] = useState(true);
   const auth = useRecoilValue(authState);
 
+=======
+function AuthForm({ AuthType }: auth.IAuthType): ReactElement {
+>>>>>>> 685050604823a060180d55be53dc55285d3b0a91
   const {
     form,
     onChange,

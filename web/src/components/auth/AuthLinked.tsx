@@ -1,10 +1,7 @@
+import { auth } from 'models/auth';
 import React, { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-
-interface AuthLinkedProps {
-  AuthType: 'login' | 'register';
-}
 
 const AuthLinkedWrapper = styled.div`
   margin-top: 24px;
@@ -28,7 +25,7 @@ const Linked = styled(Link)`
   text-decoration: underline;
 `;
 
-function AuthLinked({ AuthType }: AuthLinkedProps): ReactElement {
+function AuthLinked({ AuthType }: auth.IAuthType): ReactElement {
   const loginlinked = [
     {
       info: '비밀번호를 잊으셨나요?',
