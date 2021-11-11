@@ -101,17 +101,16 @@ function Agreement(): ReactElement {
     [essentialState],
   );
 
+  // 리마인드 여부 토글
   const onToggleRemindState = useCallback(() => {
     setRemindState(!remindState);
   }, [remindState]);
 
   useEffect(() => {
-    if (termsAndConditions && privacyPolicy) {
-      setAuth({
-        ...auth,
-        isAgree: true,
-      });
-    }
+    setAuth({
+      ...auth,
+      isAgree: termsAndConditions && privacyPolicy,
+    });
   }, [termsAndConditions, privacyPolicy]);
 
   return (

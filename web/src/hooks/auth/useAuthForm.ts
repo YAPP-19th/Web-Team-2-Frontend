@@ -44,42 +44,37 @@ export default function useAuthForm(): AuthFormTypes {
     });
   };
 
+  const onChangeAuthState = (name: string, value: boolean) => {
+    setAuth({
+      ...auth,
+      [name]: value,
+    });
+    return value;
+  };
+
+  const onCheckEmail = () => {
+    return (
+      !onCheckEmailEmpty(email) ||
+      !onCheckEmailValid(email) ||
+      !onCheckEmailExist(email)
+    );
+  };
+
+  const onCheckPassword = () => {
+    return !onCheckPasswordEmpty(password) || !onCheckPasswordValid(password);
+  };
+
   const onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     const { name } = e.target;
     switch (name) {
       case 'email':
-        if (
-          !onCheckEmailEmpty(email) ||
-          !onCheckEmailValid(email) ||
-          !onCheckEmailExist(email)
-        ) {
-          setAuth({
-            ...auth,
-            email: false,
-          });
-          return false;
-        }
-        setAuth({
-          ...auth,
-          email: true,
-        });
-
-        break;
+        return onChangeAuthState('email', !onCheckEmail());
       case 'password':
-        if (
-          !onCheckPasswordEmpty(password) ||
-          !onCheckPasswordValid(password)
-        ) {
-          setAuth({
-            ...auth,
-            password: false,
-          });
+        if (onCheckPassword()) {
+          onChangeAuthState('password', false);
           return false;
         }
-        setAuth({
-          ...auth,
-          password: true,
-        });
+        onChangeAuthState('password', true);
         break;
       default:
         break;
