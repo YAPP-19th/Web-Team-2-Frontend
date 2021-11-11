@@ -52,29 +52,28 @@ export default function useAuthForm(): AuthFormTypes {
     return value;
   };
 
-  const onCheckEmail = () => {
+  // 이메일 유효성 체크
+  const onEmailValidation = () => {
     return (
-      !onCheckEmailEmpty(email) ||
-      !onCheckEmailValid(email) ||
-      !onCheckEmailExist(email)
+      onCheckEmailEmpty(email) &&
+      onCheckEmailExist(email) &&
+      onCheckEmailValid(email)
     );
   };
 
-  const onCheckPassword = () => {
-    return !onCheckPasswordEmpty(password) || !onCheckPasswordValid(password);
+  // 비밀번호 유효성 체크
+  const onPasswordValidation = () => {
+    return onCheckPasswordEmpty(password) && onCheckPasswordValid(password);
+  };
+
+  // 유효성 체크 (이메일이면 : 이메일 유효성 체크함수 비밀번호면: 비밀번호 유효성 체크함수)
+  const onFormValidation = (name: string) => {
+    return name === 'email' ? onEmailValidation() : onPasswordValidation();
   };
 
   const onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     const { name } = e.target;
-    switch (name) {
-      case 'email':
-        return onChangeAuthState('email', !onCheckEmail());
-      case 'password':
-        return onChangeAuthState('password', !onCheckPassword());
-      default:
-        break;
-    }
-    return true;
+    return onChangeAuthState(name, onFormValidation(name));
   };
 
   const onLogin = () => {
