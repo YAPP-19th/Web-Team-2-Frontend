@@ -29,11 +29,8 @@ export default function useAuthForm(): AuthFormTypes {
     authError,
     emailError,
     onChangeAuthError,
-    onEmptyValidateEmail,
-    onCheckEmailExist,
-    onCheckEmailValid,
-    onEmptyValidatePassword,
-    onCheckPasswordValid,
+    onEmailValidation,
+    onPasswordValidation,
     passwordError,
     onEmptyValidate,
   } = useAuthentication();
@@ -53,23 +50,11 @@ export default function useAuthForm(): AuthFormTypes {
     return value;
   };
 
-  // 이메일 유효성 체크
-  const onEmailValidation = () => {
-    return (
-      onEmptyValidateEmail(email) &&
-      onCheckEmailExist(email) &&
-      onCheckEmailValid(email)
-    );
-  };
-
-  // 비밀번호 유효성 체크
-  const onPasswordValidation = () => {
-    return onEmptyValidatePassword(password) && onCheckPasswordValid(password);
-  };
-
   // 유효성 체크 (이메일이면 : 이메일 유효성 체크함수 비밀번호면: 비밀번호 유효성 체크함수)
   const onFormValidation = (name: string) => {
-    return name === 'email' ? onEmailValidation() : onPasswordValidation();
+    return name === 'email'
+      ? onEmailValidation(email)
+      : onPasswordValidation(password);
   };
 
   const onBlur = (e: React.FocusEvent<HTMLInputElement>) => {

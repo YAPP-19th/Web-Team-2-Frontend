@@ -4,13 +4,10 @@ interface AuthenticationTypes {
   emailError: string | null;
   passwordError: string | null;
   authError: string | null;
-  onEmptyValidateEmail: (email: string) => boolean;
-  onEmptyValidatePassword: (password: string) => boolean;
-  onCheckEmailExist: (email: string) => boolean;
-  onCheckEmailValid: (email: string) => boolean;
-  onCheckPasswordValid: (password: string) => boolean;
   onChangeAuthError: (error: string) => void;
   onEmptyValidate: (email: string, password: string) => boolean;
+  onEmailValidation: (email: string) => boolean;
+  onPasswordValidation: (password: string) => boolean;
 }
 
 export default function useAuthentication(): AuthenticationTypes {
@@ -78,20 +75,32 @@ export default function useAuthentication(): AuthenticationTypes {
     setAuthError(error);
   };
 
+  // 이메일, 비밀번호 둘중 하나라도 비어있으면 false 반환
   const onEmptyValidate = (email: string, password: string) => {
     return onEmptyValidateEmail(email) && onEmptyValidatePassword(password);
+  };
+
+  // 이메일 유효성 체크
+  const onEmailValidation = (email: string) => {
+    return (
+      onEmptyValidateEmail(email) &&
+      onCheckEmailExist(email) &&
+      onCheckEmailValid(email)
+    );
+  };
+
+  // 비밀번호 유효성 체크
+  const onPasswordValidation = (password: string) => {
+    return onEmptyValidatePassword(password) && onCheckPasswordValid(password);
   };
 
   return {
     emailError,
     passwordError,
     authError,
-    onEmptyValidateEmail,
-    onEmptyValidatePassword,
-    onCheckEmailExist,
-    onCheckEmailValid,
-    onCheckPasswordValid,
     onChangeAuthError,
     onEmptyValidate,
+    onEmailValidation,
+    onPasswordValidation,
   };
 }
