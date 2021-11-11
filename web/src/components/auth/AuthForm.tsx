@@ -48,11 +48,8 @@ function AuthForm({ AuthType }: AuthFormProps): ReactElement {
   const { email, password } = form;
 
   useEffect(() => {
-    if (auth.email && auth.isAgree && auth.password) {
-      setDisabled(false);
-    } else {
-      setDisabled(true);
-    }
+    const isDisabled = auth.email && auth.isAgree && auth.password;
+    setDisabled(!isDisabled);
   }, [auth]);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
