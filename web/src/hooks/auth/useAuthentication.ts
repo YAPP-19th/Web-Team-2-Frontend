@@ -19,6 +19,7 @@ export default function useAuthentication(): AuthenticationTypes {
   });
   const validCount = useRef(0);
 
+  // 에러 메세지 변경 함수
   const onChangeErrorMessage = (type: IErrorType, message: string | null) => {
     setErrorMessage((prev) => ({
       ...prev,
@@ -26,6 +27,7 @@ export default function useAuthentication(): AuthenticationTypes {
     }));
   };
 
+  // 이메일 비어있는지 검증 함수
   const onEmptyValidateEmail = (email: string) => {
     if (email === '') {
       onChangeErrorMessage('emailError', '이메일을 입력해주세요.');
@@ -35,6 +37,7 @@ export default function useAuthentication(): AuthenticationTypes {
     return true;
   };
 
+  // 비밀번호 비어있는지 검증 함수
   const onEmptyValidatePassword = (password: string) => {
     if (password === '') {
       onChangeErrorMessage('passwordError', '비밀번호를 입력해주세요.');
@@ -44,6 +47,7 @@ export default function useAuthentication(): AuthenticationTypes {
     return true;
   };
 
+  // 이메일 중복확인 함수 (아직 구현X  API 생기면 구현)
   const onCheckEmailExist = (email: string) => {
     // @TODO(dohyun) 이미 가입한 이메일인지 아닌지 백앤드에 요청후 결과를 받아온다.
     // 만약 존재하는 이메일일 경우 setEmailError("이미 가입한 이메일 주소입니다") 같은 멘트 넣어주면 됌
@@ -53,6 +57,7 @@ export default function useAuthentication(): AuthenticationTypes {
     return false;
   };
 
+  // 이메일 형식 검증 함수
   const onCheckEmailValid = (email: string) => {
     const re =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -64,6 +69,7 @@ export default function useAuthentication(): AuthenticationTypes {
     return false;
   };
 
+  // 비밀번호 형식 검증 함수
   const onCheckPasswordValid = (password: string) => {
     const num = /[0-9]/;
     const eng = /[a-zA-Z]/;
