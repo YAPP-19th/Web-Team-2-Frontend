@@ -1,10 +1,7 @@
 import { Logo32Icon } from 'assets/icons';
+import { auth } from 'models/auth';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
-
-interface AuthTitleProps {
-  AuthType: 'login' | 'register';
-}
 
 const AuthTitleWrapper = styled.div`
   display: flex;
@@ -25,7 +22,7 @@ const AuthTitleTxt = styled.span`
   font-family: Cafe24Ssurround;
 `;
 
-function AuthTitle({ AuthType }: AuthTitleProps): ReactElement {
+function AuthTitle({ AuthType }: auth.IAuthType): ReactElement {
   const title =
     AuthType === 'login'
       ? '다시 찾아와주셔서 감사해요!'

@@ -1,3 +1,4 @@
+import { auth } from 'models/auth';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import AuthDivider from './AuthDivider';
@@ -5,9 +6,8 @@ import AuthLinked from './AuthLinked';
 import AuthTitle from './AuthTitle';
 import GoogleLoginButton from './GoogleLoginButton';
 
-interface AuthTemplateProps {
+interface AuthTemplateProps extends auth.IAuthType {
   children: React.ReactNode;
-  AuthType: 'login' | 'register';
 }
 
 const AuthTemplateWrapper = styled.div``;

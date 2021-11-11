@@ -1,13 +1,10 @@
 import SimpleButton from 'components/common/SimpleButton';
 import SimpleInput from 'components/common/SimpleInput';
 import useAuthForm from 'hooks/auth/useAuthForm';
+import { auth } from 'models/auth';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import ErrorText from './ErrorText';
-
-interface AuthFormProps {
-  AuthType: 'login' | 'register';
-}
 
 const AuthFormWrapper = styled.form``;
 
@@ -29,7 +26,7 @@ const AuthButton = styled(SimpleButton)`
   font-size: 16px;
 `;
 
-function AuthForm({ AuthType }: AuthFormProps): ReactElement {
+function AuthForm({ AuthType }: auth.IAuthType): ReactElement {
   const {
     form,
     onChange,
