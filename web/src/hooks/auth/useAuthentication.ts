@@ -46,7 +46,9 @@ export default function useAuthentication(): AuthenticationTypes {
   };
 
   const onCheckEmailValid = (email: string) => {
-    if (email.includes('@') && email.includes('.')) {
+    const re =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (re.test(String(email).toLowerCase())) {
       setEmailError(null);
       return true;
     }
