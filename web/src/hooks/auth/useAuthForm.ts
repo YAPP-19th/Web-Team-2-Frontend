@@ -29,12 +29,13 @@ export default function useAuthForm(): AuthFormTypes {
     authError,
     emailError,
     onChangeAuthError,
-    onCheckEmailEmpty,
+    onEmptyValidateEmail,
     onCheckEmailExist,
     onCheckEmailValid,
-    onCheckPasswordEmpty,
+    onEmptyValidatePassword,
     onCheckPasswordValid,
     passwordError,
+    onEmptyValidate,
   } = useAuthentication();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,7 +56,7 @@ export default function useAuthForm(): AuthFormTypes {
   // 이메일 유효성 체크
   const onEmailValidation = () => {
     return (
-      onCheckEmailEmpty(email) &&
+      onEmptyValidateEmail(email) &&
       onCheckEmailExist(email) &&
       onCheckEmailValid(email)
     );
@@ -63,7 +64,7 @@ export default function useAuthForm(): AuthFormTypes {
 
   // 비밀번호 유효성 체크
   const onPasswordValidation = () => {
-    return onCheckPasswordEmpty(password) && onCheckPasswordValid(password);
+    return onEmptyValidatePassword(password) && onCheckPasswordValid(password);
   };
 
   // 유효성 체크 (이메일이면 : 이메일 유효성 체크함수 비밀번호면: 비밀번호 유효성 체크함수)
@@ -77,8 +78,7 @@ export default function useAuthForm(): AuthFormTypes {
   };
 
   const onLogin = () => {
-    if (!onCheckEmailEmpty(email) || !onCheckPasswordEmpty(password))
-      return false;
+    if (!onEmptyValidate(email, password)) return false;
     // @TODO(dohyun): API 생기면 작성
     // 만약 실패했으면 onChangeAuthError("계정을 찾을 수 없습니다. 이메일 또는 비밀번호를 다시 확인해주세요") 호출
     // 아래는 테스트용

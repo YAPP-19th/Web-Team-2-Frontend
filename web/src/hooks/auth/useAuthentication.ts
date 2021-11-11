@@ -4,12 +4,13 @@ interface AuthenticationTypes {
   emailError: string | null;
   passwordError: string | null;
   authError: string | null;
-  onCheckEmailEmpty: (email: string) => boolean;
-  onCheckPasswordEmpty: (password: string) => boolean;
+  onEmptyValidateEmail: (email: string) => boolean;
+  onEmptyValidatePassword: (password: string) => boolean;
   onCheckEmailExist: (email: string) => boolean;
   onCheckEmailValid: (email: string) => boolean;
   onCheckPasswordValid: (password: string) => boolean;
   onChangeAuthError: (error: string) => void;
+  onEmptyValidate: (email: string, password: string) => boolean;
 }
 
 export default function useAuthentication(): AuthenticationTypes {
@@ -18,7 +19,7 @@ export default function useAuthentication(): AuthenticationTypes {
   const [authError, setAuthError] = useState<string | null>(null);
   const validCount = useRef(0);
 
-  const onCheckEmailEmpty = (email: string) => {
+  const onEmptyValidateEmail = (email: string) => {
     if (email === '') {
       setEmailError('이메일을 입력해주세요.');
       return false;
@@ -27,7 +28,7 @@ export default function useAuthentication(): AuthenticationTypes {
     return true;
   };
 
-  const onCheckPasswordEmpty = (password: string) => {
+  const onEmptyValidatePassword = (password: string) => {
     if (password === '') {
       setPasswordError('비밀번호를 입력해주세요.');
       return false;
@@ -77,15 +78,20 @@ export default function useAuthentication(): AuthenticationTypes {
     setAuthError(error);
   };
 
+  const onEmptyValidate = (email: string, password: string) => {
+    return onEmptyValidateEmail(email) && onEmptyValidatePassword(password);
+  };
+
   return {
     emailError,
     passwordError,
     authError,
-    onCheckEmailEmpty,
-    onCheckPasswordEmpty,
+    onEmptyValidateEmail,
+    onEmptyValidatePassword,
     onCheckEmailExist,
     onCheckEmailValid,
     onCheckPasswordValid,
     onChangeAuthError,
+    onEmptyValidate,
   };
 }
