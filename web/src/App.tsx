@@ -1,11 +1,13 @@
-import Header from 'components/header';
 import Footer from 'components/footer';
+import Header from 'components/header';
 import MyPage from 'pages/MyPage';
 import React, { ReactElement } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import { Route, Routes } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyle from './assets/styles/globalStyle';
 import { theme } from './assets/styles/theme';
+import ErrorFallback from './pages/ErrorPage';
 import MainPage from './pages/MainPage';
 
 const AppLayout = styled.div`
@@ -15,7 +17,7 @@ const AppLayout = styled.div`
 
 function App(): ReactElement {
   return (
-    <>
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
         <Header />
@@ -27,7 +29,7 @@ function App(): ReactElement {
         </AppLayout>
         <Footer />
       </ThemeProvider>
-    </>
+    </ErrorBoundary>
   );
 }
 
