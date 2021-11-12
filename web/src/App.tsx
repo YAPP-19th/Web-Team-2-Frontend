@@ -1,10 +1,13 @@
 import Footer from 'components/footer';
 import Header from 'components/header';
+
 import React, { ReactElement } from 'react';
 import Routing from 'routes/Routing';
 import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyle from './assets/styles/globalStyle';
 import { theme } from './assets/styles/theme';
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorFallback from './pages/ErrorPage';
 
 const AppLayout = styled.div`
   width: ${(props) => props.theme.basicWidth};
@@ -13,7 +16,7 @@ const AppLayout = styled.div`
 
 function App(): ReactElement {
   return (
-    <>
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
         <Header />
@@ -22,7 +25,7 @@ function App(): ReactElement {
         </AppLayout>
         <Footer />
       </ThemeProvider>
-    </>
+    </ErrorBoundary>
   );
 }
 
