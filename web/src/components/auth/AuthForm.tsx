@@ -32,7 +32,7 @@ function AuthForm({ AuthType }: auth.IAuthType): ReactElement {
   const [disabled, setDisabled] = useState(true);
   const AuthState = useRecoilValue(authState);
 
-  const { form, onChange, onLogin, onRegister, errorMessage, onBlur } =
+  const { form, onChangeForm, onLogin, onRegister, errorMessage, onBlur } =
     useAuthForm();
   const { email, password } = form;
   const { authError, passwordError, emailError } = errorMessage;
@@ -58,7 +58,7 @@ function AuthForm({ AuthType }: auth.IAuthType): ReactElement {
           placeholder="이메일"
           type="email"
           name="email"
-          onChange={onChange}
+          onChange={onChangeForm}
           value={email}
           onBlur={AuthType === 'register' ? onBlur : undefined}
         />
@@ -72,7 +72,7 @@ function AuthForm({ AuthType }: auth.IAuthType): ReactElement {
           placeholder="비밀번호"
           type="password"
           name="password"
-          onChange={onChange}
+          onChange={onChangeForm}
           value={password}
           onBlur={AuthType === 'register' ? onBlur : undefined}
         />

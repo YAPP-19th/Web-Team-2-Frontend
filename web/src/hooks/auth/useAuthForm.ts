@@ -9,7 +9,7 @@ interface AuthFormTypes {
     email: string;
     password: string;
   };
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeForm: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onLogin: () => boolean;
   onRegister: () => void;
   errorMessage: auth.IErrorMessage;
@@ -32,7 +32,7 @@ export default function useAuthForm(): AuthFormTypes {
     onChangeErrorMessage,
   } = useAuthentication();
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeForm = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
@@ -81,7 +81,7 @@ export default function useAuthForm(): AuthFormTypes {
 
   return {
     form,
-    onChange,
+    onChangeForm,
     onLogin,
     onRegister,
     errorMessage,
