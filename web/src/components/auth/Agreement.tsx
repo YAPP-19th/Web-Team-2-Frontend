@@ -4,6 +4,7 @@ import DividerLine from 'components/common/DividerLine';
 import useAgreementForm from 'hooks/auth/useAgreementForm';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import AgreementModal from './AgreementModal';
 
 const AgreementWrapper = styled.div`
   margin-bottom: 24px;
@@ -56,12 +57,17 @@ const Divider = styled(DividerLine)`
 `;
 
 function Agreement(): ReactElement {
-  const { AgreementList } = useAgreementForm();
+  const {
+    AgreementList,
+    isPrivacyPolicyModal,
+    isTermsAndConditionsModal,
+    onToggleModal,
+  } = useAgreementForm();
 
   return (
     <AgreementWrapper>
       {AgreementList.map((item, index) => {
-        const { isChecked, text, onClick, icon, option } = item;
+        const { isChecked, text, onClick, icon, option, name } = item;
         return (
           <React.Fragment key={item.text}>
             <AgreeListRow>
@@ -80,7 +86,10 @@ function Agreement(): ReactElement {
                 <AgreeText>{text}</AgreeText>
               </AgreeListItem>
               {icon && (
-                <AgreeItemButton type="button">
+                <AgreeItemButton
+                  type="button"
+                  onClick={() => onToggleModal(name)}
+                >
                   <ArrowSideIcon />
                 </AgreeItemButton>
               )}
@@ -89,6 +98,22 @@ function Agreement(): ReactElement {
           </React.Fragment>
         );
       })}
+
+      {isTermsAndConditionsModal && (
+        <AgreementModal
+          name="termsAndConditions"
+          isModal={isTermsAndConditionsModal}
+          onToggleModal={() => onToggleModal('termsAndConditions')}
+        />
+      )}
+
+      {isPrivacyPolicyModal && (
+        <AgreementModal
+          name="privacyPolicy"
+          isModal={isPrivacyPolicyModal}
+          onToggleModal={() => onToggleModal('privacyPolicy')}
+        />
+      )}
     </AgreementWrapper>
   );
 }

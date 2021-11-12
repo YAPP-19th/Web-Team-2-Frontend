@@ -43,7 +43,7 @@ const Background = styled.div`
   position: absolute;
   left: 0;
   top: 0;
-  opacity: 0.6;
+  opacity: 0.4;
 `;
 
 function ModalTemplate({
