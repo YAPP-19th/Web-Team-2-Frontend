@@ -70,7 +70,7 @@ function Agreement(): ReactElement {
       {AgreementList.map((item, index) => {
         const { isChecked, text, onClick, icon, option, name } = item;
         return (
-          <React.Fragment key={item.text}>
+          <React.Fragment key={text}>
             <AgreeListRow>
               <AgreeListItem>
                 <AgreeCheckBox

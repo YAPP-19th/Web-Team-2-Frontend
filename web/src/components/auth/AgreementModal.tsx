@@ -10,8 +10,8 @@ import { auth } from 'models/auth';
 
 interface AgreementModalProps {
   isModal: boolean;
-  onToggleModal: (name: auth.AgreementNameType) => void;
   name: auth.AgreementNameType;
+  onToggleModal: (name: auth.AgreementNameType) => void;
   onEditEssentialState: (name: auth.AgreementNameType, value: boolean) => void;
 }
 
@@ -21,17 +21,17 @@ const AgreementModalStyled = styled.div`
 
 const AgreementTitle = styled.h2`
   font-size: 18px;
-  color: ${(props) => props.theme.color.black};
   font-weight: 500;
   margin: 0;
   margin-bottom: 16px;
+  color: ${(props) => props.theme.color.black};
 `;
 
 const AgreementContent = styled.div<{ isScroll: boolean }>`
   height: 636px;
-  ${(props) => props.isScroll && 'overflow-y: scroll;'}
   font-size: 14px;
   margin-bottom: 24px;
+  ${(props) => props.isScroll && 'overflow-y: scroll;'}
 `;
 
 const AgreementButtonGroup = styled.div`
