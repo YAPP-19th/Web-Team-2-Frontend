@@ -5,6 +5,7 @@ import {
   AGREEMENT_PRIVACY_POLICY,
   AGREEMENT_TERMS_AND_CONDITIONS,
 } from 'utils/config';
+import SimpleButton from 'components/common/SimpleButton';
 
 interface AgreementModalProps {
   isModal: boolean;
@@ -24,11 +25,16 @@ const AgreementTitle = styled.h2`
   margin-bottom: 16px;
 `;
 
-const AgreementContent = styled.div`
+const AgreementContent = styled.div<{ isScroll: boolean }>`
   height: 636px;
-  overflow-y: scroll;
+  ${(props) => props.isScroll && 'overflow-y: scroll;'}
   font-size: 14px;
   margin-bottom: 24px;
+`;
+
+const AgreementButtonGroup = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 function AgreementModal({
@@ -55,7 +61,24 @@ function AgreementModal({
     >
       <AgreementModalStyled>
         <AgreementTitle>{title}</AgreementTitle>
-        <AgreementContent dangerouslySetInnerHTML={{ __html: content }} />
+        <AgreementContent
+          isScroll={name === 'termsAndConditions'}
+          dangerouslySetInnerHTML={{ __html: content }}
+        />
+        <AgreementButtonGroup>
+          <SimpleButton
+            variant="secondary"
+            width="184px"
+            height="40px"
+            label="동의 안함"
+          />
+          <SimpleButton
+            variant="secondary"
+            width="184px"
+            height="40px"
+            label="동의"
+          />
+        </AgreementButtonGroup>
       </AgreementModalStyled>
     </ModalTemplate>
   );
