@@ -6,11 +6,13 @@ import {
   AGREEMENT_TERMS_AND_CONDITIONS,
 } from 'utils/config';
 import SimpleButton from 'components/common/SimpleButton';
+import { auth } from 'models/auth';
 
 interface AgreementModalProps {
   isModal: boolean;
-  onToggleModal: () => void;
-  name: 'termsAndConditions' | 'privacyPolicy';
+  onToggleModal: (name: auth.AgreementNameType) => void;
+  name: auth.AgreementNameType;
+  onEditEssentialState: (name: auth.AgreementNameType, value: boolean) => void;
 }
 
 const AgreementModalStyled = styled.div`
@@ -41,6 +43,7 @@ function AgreementModal({
   isModal,
   onToggleModal,
   name,
+  onEditEssentialState,
 }: AgreementModalProps): ReactElement {
   const title =
     name === 'termsAndConditions'
@@ -52,12 +55,20 @@ function AgreementModal({
       ? AGREEMENT_TERMS_AND_CONDITIONS
       : AGREEMENT_PRIVACY_POLICY;
 
+  const onClickAgree = (
+    agreementName: auth.AgreementNameType,
+    value: boolean,
+  ) => {
+    onEditEssentialState(agreementName, value);
+    onToggleModal(agreementName);
+  };
+
   return (
     <ModalTemplate
       width="471px"
       height="814px"
       isModal={isModal}
-      onToggleModal={onToggleModal}
+      onToggleModal={() => onToggleModal(name)}
     >
       <AgreementModalStyled>
         <AgreementTitle>{title}</AgreementTitle>
@@ -71,12 +82,14 @@ function AgreementModal({
             width="184px"
             height="40px"
             label="동의 안함"
+            onClick={() => onClickAgree(name, false)}
           />
           <SimpleButton
             variant="secondary"
             width="184px"
             height="40px"
             label="동의"
+            onClick={() => onClickAgree(name, true)}
           />
         </AgreementButtonGroup>
       </AgreementModalStyled>

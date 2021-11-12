@@ -62,6 +62,7 @@ function Agreement(): ReactElement {
     isPrivacyPolicyModal,
     isTermsAndConditionsModal,
     onToggleModal,
+    onEditEssentialState,
   } = useAgreementForm();
 
   return (
@@ -103,7 +104,8 @@ function Agreement(): ReactElement {
         <AgreementModal
           name="termsAndConditions"
           isModal={isTermsAndConditionsModal}
-          onToggleModal={() => onToggleModal('termsAndConditions')}
+          onToggleModal={onToggleModal}
+          onEditEssentialState={onEditEssentialState}
         />
       )}
 
@@ -111,7 +113,8 @@ function Agreement(): ReactElement {
         <AgreementModal
           name="privacyPolicy"
           isModal={isPrivacyPolicyModal}
-          onToggleModal={() => onToggleModal('privacyPolicy')}
+          onToggleModal={onToggleModal}
+          onEditEssentialState={onEditEssentialState}
         />
       )}
     </AgreementWrapper>

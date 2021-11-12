@@ -1,4 +1,5 @@
 import useToggle from 'hooks/common/useToggle';
+import { auth } from 'models/auth';
 import { useCallback, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { authState } from 'recoil/atoms/authState';
@@ -7,18 +8,21 @@ interface IEssentialState {
   [index: string]: boolean;
 }
 
+interface IAgreementItem {
+  text: string;
+  name: string;
+  isChecked: boolean;
+  onClick: () => void;
+  option?: string;
+  icon?: boolean;
+}
+
 interface AgreementFormTypes {
-  AgreementList: {
-    text: string;
-    name: string;
-    isChecked: boolean;
-    onClick: () => void;
-    option?: string;
-    icon?: boolean;
-  }[];
+  AgreementList: IAgreementItem[];
   onToggleModal: (name: string) => void;
   isTermsAndConditionsModal: boolean;
   isPrivacyPolicyModal: boolean;
+  onEditEssentialState: (name: auth.AgreementNameType, value: boolean) => void;
 }
 
 export default function useAgreementForm(): AgreementFormTypes {
@@ -28,7 +32,7 @@ export default function useAgreementForm(): AgreementFormTypes {
   });
   const [remindState, setRemindState] = useState(false);
   const { termsAndConditions, privacyPolicy } = essentialState;
-  const [auth, setAuth] = useRecoilState(authState);
+  const [AuthState, setAuthState] = useRecoilState(authState);
   const [isTermsAndConditionsModal, onToggleTermsAndConditionsModal] =
     useToggle();
   const [isPrivacyPolicyModal, onTogglePrivacyPolicyModal] = useToggle();
@@ -76,14 +80,25 @@ export default function useAgreementForm(): AgreementFormTypes {
     [essentialState],
   );
 
+  // 동의 필수 요소 직접 수정
+  const onEditEssentialState = useCallback(
+    (name: string, value: boolean) => {
+      setEssentialState({
+        ...essentialState,
+        [name]: value,
+      });
+    },
+    [essentialState],
+  );
+
   // 리마인드 여부 토글
   const onToggleRemindState = useCallback(() => {
     setRemindState(!remindState);
   }, [remindState]);
 
   useEffect(() => {
-    setAuth({
-      ...auth,
+    setAuthState({
+      ...AuthState,
       isAgree: termsAndConditions && privacyPolicy,
     });
   }, [termsAndConditions, privacyPolicy]);
@@ -125,5 +140,6 @@ export default function useAgreementForm(): AgreementFormTypes {
     isPrivacyPolicyModal,
     isTermsAndConditionsModal,
     onToggleModal,
+    onEditEssentialState,
   };
 }

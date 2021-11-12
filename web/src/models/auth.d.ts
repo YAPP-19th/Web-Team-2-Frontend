@@ -7,4 +7,6 @@ export namespace auth {
     passwordError: string | null;
     authError: string | null;
   }
+
+  export type AgreementNameType = 'termsAndConditions' | 'privacyPolicy';
 }
