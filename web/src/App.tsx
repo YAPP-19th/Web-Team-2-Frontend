@@ -1,14 +1,12 @@
-import Header from 'components/header';
 import Footer from 'components/footer';
+import Header from 'components/header';
 import React, { ReactElement } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { ErrorBoundary } from 'react-error-boundary';
+import Routing from 'routes/Routing';
 import styled, { ThemeProvider } from 'styled-components';
-import MainPage from 'pages/MainPage';
-import MyPage from 'pages/MyPage';
-import RegisterPage from 'pages/RegisterPage';
-import LoginPage from 'pages/LoginPage';
 import GlobalStyle from './assets/styles/globalStyle';
 import { theme } from './assets/styles/theme';
+import ErrorFallback from './pages/ErrorPage';
 
 const AppWrapper = styled.div`
   display: flex;
@@ -26,19 +24,16 @@ const AppLayout = styled.div`
 function App(): ReactElement {
   return (
     <AppWrapper>
-      <GlobalStyle />
-      <ThemeProvider theme={theme}>
-        <Header />
-        <AppLayout>
-          <Routes>
-            <Route path="/" element={<MainPage />} />
-            <Route path="/mypage" element={<MyPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-          </Routes>
-        </AppLayout>
-        <Footer />
-      </ThemeProvider>
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <GlobalStyle />
+        <ThemeProvider theme={theme}>
+          <Header />
+          <AppLayout>
+            <Routing />
+          </AppLayout>
+          <Footer />
+        </ThemeProvider>
+      </ErrorBoundary>
     </AppWrapper>
   );
 }
