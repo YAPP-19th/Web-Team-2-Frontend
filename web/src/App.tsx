@@ -8,23 +8,33 @@ import GlobalStyle from './assets/styles/globalStyle';
 import { theme } from './assets/styles/theme';
 import ErrorFallback from './pages/ErrorPage';
 
+const AppWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+`;
+
 const AppLayout = styled.div`
   width: ${(props) => props.theme.basicWidth};
   margin: 0 auto;
+  overflow: hidden;
+  flex: 1 auto;
 `;
 
 function App(): ReactElement {
   return (
-    <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <GlobalStyle />
-      <ThemeProvider theme={theme}>
-        <Header />
-        <AppLayout>
-          <Routing />
-        </AppLayout>
-        <Footer />
-      </ThemeProvider>
-    </ErrorBoundary>
+    <AppWrapper>
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <GlobalStyle />
+        <ThemeProvider theme={theme}>
+          <Header />
+          <AppLayout>
+            <Routing />
+          </AppLayout>
+          <Footer />
+        </ThemeProvider>
+      </ErrorBoundary>
+    </AppWrapper>
   );
 }
 

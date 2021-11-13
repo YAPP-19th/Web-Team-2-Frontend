@@ -1,3 +1,4 @@
+import LoginPage from 'pages/LoginPage';
 import MainPage from 'pages/MainPage';
 import MyPage from 'pages/MyPage';
 import React, { ReactElement, useMemo } from 'react';
@@ -7,6 +8,7 @@ import Path from 'routes/path';
 const routingComponents = [
   { path: Path.MainPage, element: <MainPage /> },
   { path: Path.MyPage, element: <MyPage /> },
+  { path: Path.Login, element: <LoginPage /> },
 ];
 
 function Routing(): ReactElement {
