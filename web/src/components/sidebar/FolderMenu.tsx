@@ -1,6 +1,4 @@
 import React, { ReactElement } from 'react';
-import { useResetRecoilState } from 'recoil';
-import { folderMenuState } from 'recoil/atoms/folderState';
 import styled from 'styled-components';
 
 interface FolderMenuProps {
@@ -9,6 +7,7 @@ interface FolderMenuProps {
     left: number;
   };
   onToggleDeleteModal: () => void;
+  onToggleMenuModal: () => void;
 }
 
 const FolderMenuWrapper = styled.div`
@@ -50,12 +49,12 @@ const MenuItemButton = styled.div`
 function FolderMenu({
   position,
   onToggleDeleteModal,
+  onToggleMenuModal,
 }: FolderMenuProps): ReactElement {
-  const onReset = useResetRecoilState(folderMenuState);
   const { left, top } = position;
 
   return (
-    <FolderMenuWrapper onClick={onReset}>
+    <FolderMenuWrapper onClick={onToggleMenuModal}>
       <MenuInner top={top} left={left} onClick={(e) => e.stopPropagation()}>
         <MenuItem>
           <MenuItemButton>이름 변경</MenuItemButton>
@@ -66,7 +65,7 @@ function FolderMenu({
         <MenuItem
           onClick={() => {
             onToggleDeleteModal();
-            onReset();
+            onToggleMenuModal();
           }}
         >
           <MenuItemButton>삭제</MenuItemButton>

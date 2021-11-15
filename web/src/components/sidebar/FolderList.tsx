@@ -5,8 +5,8 @@ import useToggle from 'hooks/common/useToggle';
 import useFolderHandle from 'hooks/sidebar/useFolderHandle';
 import useFoldersEffect from 'hooks/sidebar/useFoldersEffect';
 import React, { ReactElement, useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { folderMenuState, selectedFolderState } from 'recoil/atoms/folderState';
+import { useSetRecoilState } from 'recoil';
+import { selectedFolderState } from 'recoil/atoms/folderState';
 import { useFolderAction } from 'recoil/selectors/folderSelector';
 import styled from 'styled-components';
 import FolderItemIcon from './FolderItemIcon';
@@ -69,25 +69,27 @@ const FolderETCButton = styled.button`
 `;
 
 function FolderList(): ReactElement {
-  const [isOpen, setIsOpen] = useRecoilState(folderMenuState);
-  const [selectedFolder, setSelectedFolder] =
-    useRecoilState(selectedFolderState);
+  const setSelectedFolder = useSetRecoilState(selectedFolderState);
   const [position, setPosition] = useState({
     top: 0,
     left: 0,
   });
+
+  // modal state
+  const [isMenuModal, onToggleMenuModal] = useToggle();
   const [isDeleteModal, onToggleDeleteModal] = useToggle();
+
+  // logic hooks
+  useFoldersEffect();
   const { onCheckFirstNode } = useFolderHandle();
   const { create } = useFolderAction();
-
-  useFoldersEffect();
 
   const onToggleMenu = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     itemId: ItemId,
   ) => {
-    setIsOpen(itemId);
     setSelectedFolder(itemId);
+    onToggleMenuModal();
     setPosition({
       top: e.currentTarget.getBoundingClientRect().top,
       left: e.currentTarget.getBoundingClientRect().left,
@@ -135,25 +137,6 @@ function FolderList(): ReactElement {
             </FolderRightBox>
           </FolderItemBlock>
         </FolderItemWrapper>
-
-        {isOpen === item.id && (
-          <FolderMenu
-            position={position}
-            onToggleDeleteModal={onToggleDeleteModal}
-          />
-        )}
-
-        {selectedFolder === item.id && isDeleteModal && (
-          <SmallModal
-            isModal={isDeleteModal}
-            onToggleModal={onToggleDeleteModal}
-            title="이 폴더를 삭제할까요?"
-            content="폴더에 있는 모든 내용들이 <br/> 휴지통으로 들어가요!"
-            buttonName="삭제"
-            // eslint-disable-next-line no-console
-            onClick={() => console.log('API생성되면 추가하겠음!')}
-          />
-        )}
       </>
     );
   };
@@ -173,6 +156,26 @@ function FolderList(): ReactElement {
         isDragEnabled
         isNestingEnabled
       />
+
+      {isMenuModal && (
+        <FolderMenu
+          position={position}
+          onToggleMenuModal={onToggleMenuModal}
+          onToggleDeleteModal={onToggleDeleteModal}
+        />
+      )}
+
+      {isDeleteModal && (
+        <SmallModal
+          isModal={isDeleteModal}
+          onToggleModal={onToggleDeleteModal}
+          title="이 폴더를 삭제할까요?"
+          content="폴더에 있는 모든 내용들이 <br/> 휴지통으로 들어가요!"
+          buttonName="삭제"
+          // eslint-disable-next-line no-console
+          onClick={() => console.log('API생성되면 추가하겠음!')}
+        />
+      )}
     </FolderListWrapper>
   );
 }
