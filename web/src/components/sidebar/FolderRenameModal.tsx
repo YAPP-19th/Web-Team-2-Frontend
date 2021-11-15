@@ -102,7 +102,9 @@ function FolderRenameModal({
           </EmojiPicker>
         </FormBlock>
 
-        {emojiPickerVisible && <Picker onEmojiClick={onEmojiClick} />}
+        {emojiPickerVisible && (
+          <Picker onEmojiClick={onEmojiClick} disableSearchBar />
+        )}
       </RenameModalInner>
     </FolderRenameModalWrapper>
   );
