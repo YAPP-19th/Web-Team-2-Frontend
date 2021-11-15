@@ -1,11 +1,12 @@
 import { auth } from 'models/auth';
 import { useRef, useState } from 'react';
 
-type IErrorType = 'emailError' | 'passwordError' | 'authError';
-
 interface AuthenticationTypes {
   errorMessage: auth.IErrorMessage;
-  onChangeErrorMessage: (type: IErrorType, message: string | null) => void;
+  onChangeErrorMessage: (
+    type: auth.ErrorMessageType,
+    message: string | null,
+  ) => void;
   onEmptyValidate: (email: string, password: string) => boolean;
   onEmailValidation: (email: string) => boolean;
   onPasswordValidation: (password: string) => boolean;
@@ -20,7 +21,10 @@ export default function useAuthentication(): AuthenticationTypes {
   const validCount = useRef(0);
 
   // 에러 메세지 변경 함수
-  const onChangeErrorMessage = (type: IErrorType, message: string | null) => {
+  const onChangeErrorMessage = (
+    type: auth.ErrorMessageType,
+    message: string | null,
+  ) => {
     setErrorMessage((prev) => ({
       ...prev,
       [type]: message,

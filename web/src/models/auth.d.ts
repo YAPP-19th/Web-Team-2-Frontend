@@ -10,6 +10,8 @@ export namespace auth {
     authError: string | null;
   }
 
+  export type ErrorMessageType = RequiredKeys<IErrorMessage>;
+
   export interface IEssentialAgreementName {
     termsAndConditions: boolean;
     privacyPolicy: boolean;
