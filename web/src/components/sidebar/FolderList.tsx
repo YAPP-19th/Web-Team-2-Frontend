@@ -11,6 +11,7 @@ import { useFolderAction } from 'recoil/selectors/folderSelector';
 import styled from 'styled-components';
 import FolderItemIcon from './FolderItemIcon';
 import FolderMenuLayer from './FolderMenuLayer';
+import FolderRenameModal from './FolderRenameModal';
 
 const FolderListWrapper = styled.div`
   position: relative;
@@ -69,13 +70,14 @@ const FolderETCButton = styled.button`
 `;
 
 function FolderList(): ReactElement {
+  // state
   const setSelectedFolder = useSetRecoilState(selectedFolderState);
   const [position, setPosition] = useState({
     top: 0,
     left: 0,
   });
 
-  // modal state
+  // modal
   const [isMenuLayer, onToggleMenuLayer] = useToggle();
   const [isDeleteModal, onToggleDeleteModal] = useToggle();
   const [isRenameModal, onToggleRenameModal] = useToggle();
@@ -93,6 +95,7 @@ function FolderList(): ReactElement {
   const { onCheckFirstNode } = useFolderHandle();
   const { create } = useFolderAction();
 
+  // function
   const onToggleMenu = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     itemId: ItemId,
@@ -179,6 +182,12 @@ function FolderList(): ReactElement {
           buttonName="삭제"
           // eslint-disable-next-line no-console
           onClick={() => console.log('API생성되면 추가하겠음!')}
+        />
+      )}
+      {isRenameModal && (
+        <FolderRenameModal
+          position={position}
+          onToggleModal={onToggleRenameModal}
         />
       )}
     </FolderListWrapper>
