@@ -1,16 +1,16 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
-interface FolderMenuProps {
+interface FolderMenuLayerProps {
   position: {
     top: number;
     left: number;
   };
   onToggleDeleteModal: () => void;
-  onToggleMenuModal: () => void;
+  onToggleMenuLayer: () => void;
 }
 
-const FolderMenuWrapper = styled.div`
+const FolderMenuLayerWrapper = styled.div`
   position: fixed;
   top: 0px;
   left: 0px;
@@ -46,15 +46,20 @@ const MenuItemButton = styled.div`
   font-size: 10px;
 `;
 
-function FolderMenu({
+function FolderMenuLayer({
   position,
   onToggleDeleteModal,
-  onToggleMenuModal,
-}: FolderMenuProps): ReactElement {
+  onToggleMenuLayer,
+}: FolderMenuLayerProps): ReactElement {
   const { left, top } = position;
 
+  const onMenuClick = (onTogglefunc: () => void) => {
+    onTogglefunc();
+    onToggleMenuLayer();
+  };
+
   return (
-    <FolderMenuWrapper onClick={onToggleMenuModal}>
+    <FolderMenuLayerWrapper onClick={onToggleMenuLayer}>
       <MenuInner top={top} left={left} onClick={(e) => e.stopPropagation()}>
         <MenuItem>
           <MenuItemButton>이름 변경</MenuItemButton>
@@ -64,15 +69,14 @@ function FolderMenu({
         </MenuItem>
         <MenuItem
           onClick={() => {
-            onToggleDeleteModal();
-            onToggleMenuModal();
+            onMenuClick(onToggleDeleteModal);
           }}
         >
           <MenuItemButton>삭제</MenuItemButton>
         </MenuItem>
       </MenuInner>
-    </FolderMenuWrapper>
+    </FolderMenuLayerWrapper>
   );
 }
 
-export default FolderMenu;
+export default FolderMenuLayer;

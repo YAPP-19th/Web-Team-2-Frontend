@@ -10,7 +10,7 @@ import { selectedFolderState } from 'recoil/atoms/folderState';
 import { useFolderAction } from 'recoil/selectors/folderSelector';
 import styled from 'styled-components';
 import FolderItemIcon from './FolderItemIcon';
-import FolderMenu from './FolderMenu';
+import FolderMenuLayer from './FolderMenuLayer';
 
 const FolderListWrapper = styled.div`
   position: relative;
@@ -76,7 +76,7 @@ function FolderList(): ReactElement {
   });
 
   // modal state
-  const [isMenuModal, onToggleMenuModal] = useToggle();
+  const [isMenuLayer, onToggleMenuLayer] = useToggle();
   const [isDeleteModal, onToggleDeleteModal] = useToggle();
 
   // logic hooks
@@ -89,7 +89,7 @@ function FolderList(): ReactElement {
     itemId: ItemId,
   ) => {
     setSelectedFolder(itemId);
-    onToggleMenuModal();
+    onToggleMenuLayer();
     setPosition({
       top: e.currentTarget.getBoundingClientRect().top,
       left: e.currentTarget.getBoundingClientRect().left,
@@ -157,10 +157,10 @@ function FolderList(): ReactElement {
         isNestingEnabled
       />
 
-      {isMenuModal && (
-        <FolderMenu
+      {isMenuLayer && (
+        <FolderMenuLayer
           position={position}
-          onToggleMenuModal={onToggleMenuModal}
+          onToggleMenuLayer={onToggleMenuLayer}
           onToggleDeleteModal={onToggleDeleteModal}
         />
       )}
