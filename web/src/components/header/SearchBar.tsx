@@ -24,9 +24,6 @@ const IconButton = styled.button``;
 
 const SearchIconBox = styled(Search24Icon)`
   margin: 0 6px 0;
-  &:hover {
-    cursor: pointer;
-  }
 `;
 
 const SearchBarInput = styled.input`
