@@ -42,10 +42,6 @@ const MenuItem = styled.div`
   }
 `;
 
-const MenuItemButton = styled.div`
-  font-size: 10px;
-`;
-
 function FolderMenuLayer({
   position,
   onToggleDeleteModal,
@@ -58,22 +54,32 @@ function FolderMenuLayer({
     onToggleMenuLayer();
   };
 
+  const folderMenus = [
+    {
+      name: '이름 변경',
+      onClick: onToggleDeleteModal,
+    },
+    {
+      name: '이동',
+      onClick: onToggleDeleteModal,
+    },
+    {
+      name: '삭제',
+      onClick: onToggleDeleteModal,
+    },
+  ];
+
   return (
     <FolderMenuLayerWrapper onClick={onToggleMenuLayer}>
       <MenuInner top={top} left={left} onClick={(e) => e.stopPropagation()}>
-        <MenuItem>
-          <MenuItemButton>이름 변경</MenuItemButton>
-        </MenuItem>
-        <MenuItem>
-          <MenuItemButton>이동</MenuItemButton>
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            onMenuClick(onToggleDeleteModal);
-          }}
-        >
-          <MenuItemButton>삭제</MenuItemButton>
-        </MenuItem>
+        {folderMenus.map((menu) => {
+          const { name, onClick } = menu;
+          return (
+            <MenuItem key={name} onClick={() => onMenuClick(onClick)}>
+              {name}
+            </MenuItem>
+          );
+        })}
       </MenuInner>
     </FolderMenuLayerWrapper>
   );
