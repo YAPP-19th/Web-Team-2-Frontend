@@ -72,8 +72,10 @@ function FolderList(): ReactElement {
   const [isOpen, setIsOpen] = useRecoilState(folderMenuState);
   const [selectedFolder, setSelectedFolder] =
     useRecoilState(selectedFolderState);
-  const [top, setTop] = useState<number>(0);
-  const [left, setLeft] = useState<number>(0);
+  const [position, setPosition] = useState({
+    top: 0,
+    left: 0,
+  });
   const [isDeleteModal, onToggleDeleteModal] = useToggle();
 
   const { onCheckFirstNode } = useFolderHandle();
@@ -85,8 +87,10 @@ function FolderList(): ReactElement {
   ) => {
     setIsOpen(itemId);
     setSelectedFolder(itemId);
-    setTop(e.currentTarget.getBoundingClientRect().top);
-    setLeft(e.currentTarget.getBoundingClientRect().left);
+    setPosition({
+      top: e.currentTarget.getBoundingClientRect().top,
+      left: e.currentTarget.getBoundingClientRect().left,
+    });
   };
 
   const FolderItem = ({
@@ -137,13 +141,14 @@ function FolderList(): ReactElement {
             </FolderRightBox>
           </FolderItemBlock>
         </FolderItemWrapper>
+
         {isOpen === item.id && (
           <FolderMenu
-            top={top}
-            left={left}
+            position={position}
             onToggleDeleteModal={onToggleDeleteModal}
           />
         )}
+
         {selectedFolder === item.id && isDeleteModal && (
           <SmallModal
             isModal={isDeleteModal}
