@@ -38,7 +38,7 @@ const MenuItem = styled.div`
   justify-content: flex-start;
   align-items: center;
   &:hover {
-    background-color: #f3f2ef;
+    background-color: ${(props) => props.theme.color.grayLightest};
     cursor: pointer;
   }
 `;
