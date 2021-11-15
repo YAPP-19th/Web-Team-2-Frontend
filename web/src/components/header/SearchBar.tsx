@@ -13,6 +13,15 @@ const SearchBarBox = styled.div`
   border-radius: 6px;
 `;
 
+const FormBox = styled.form`
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+`;
+
+const IconButton = styled.button``;
+
 const SearchIconBox = styled(Search24Icon)`
   margin: 0 6px 0;
   &:hover {
@@ -49,12 +58,16 @@ function SearchBar(): ReactElement {
 
   return (
     <SearchBarBox>
-      <SearchIconBox onClick={searchHandler} />
-      <SearchBarInput
-        placeholder="나의 보관함 검색"
-        onChange={onChangeSearchMessage}
-        value={searchMessage}
-      />
+      <FormBox onSubmit={searchHandler}>
+        <IconButton type="submit">
+          <SearchIconBox />
+        </IconButton>
+        <SearchBarInput
+          placeholder="도토리함 검색"
+          onChange={onChangeSearchMessage}
+          value={searchMessage}
+        />
+      </FormBox>
     </SearchBarBox>
   );
 }
