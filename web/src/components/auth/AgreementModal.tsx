@@ -10,9 +10,12 @@ import { auth } from 'models/auth';
 
 interface AgreementModalProps {
   isModal: boolean;
-  name: auth.AgreementNameType;
-  onToggleModal: (name: auth.AgreementNameType) => void;
-  onEditEssentialState: (name: auth.AgreementNameType, value: boolean) => void;
+  name: auth.AgreementEssentialType;
+  onToggleModal: (essentialName: auth.AgreementEssentialType) => void;
+  onEditEssentialState: (
+    essentialName: auth.AgreementEssentialType,
+    value: boolean,
+  ) => void;
 }
 
 const AgreementModalStyled = styled.div`
@@ -56,7 +59,7 @@ function AgreementModal({
       : AGREEMENT_PRIVACY_POLICY;
 
   const onClickAgree = (
-    agreementName: auth.AgreementNameType,
+    agreementName: auth.AgreementEssentialType,
     value: boolean,
   ) => {
     onEditEssentialState(agreementName, value);

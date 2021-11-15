@@ -68,7 +68,7 @@ function Agreement(): ReactElement {
   return (
     <AgreementWrapper>
       {AgreementList.map((item, index) => {
-        const { isChecked, text, onClick, needIcon, option, name } = item;
+        const { isChecked, text, onClick, option, essentialName } = item;
         return (
           <React.Fragment key={text}>
             <AgreeListRow>
@@ -86,10 +86,10 @@ function Agreement(): ReactElement {
                 )}
                 <AgreeText>{text}</AgreeText>
               </AgreeListItem>
-              {needIcon && (
+              {essentialName && (
                 <AgreeItemButton
                   type="button"
-                  onClick={() => onToggleModal(name)}
+                  onClick={() => onToggleModal(essentialName)}
                 >
                   <ArrowSideIcon />
                 </AgreeItemButton>

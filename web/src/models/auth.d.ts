@@ -1,3 +1,5 @@
+import { RequiredKeys } from 'utility-types';
+
 export namespace auth {
   export interface IAuthType {
     AuthType: 'login' | 'register';
@@ -8,5 +10,11 @@ export namespace auth {
     authError: string | null;
   }
 
-  export type AgreementNameType = 'termsAndConditions' | 'privacyPolicy';
+  export interface IEssentialAgreementName {
+    termsAndConditions: boolean;
+    privacyPolicy: boolean;
+  }
+
+  export type AgreementEssentialType =
+    RequiredKeys<auth.IEssentialAgreementName>;
 }

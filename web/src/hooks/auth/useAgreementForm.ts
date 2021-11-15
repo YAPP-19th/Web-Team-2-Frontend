@@ -4,32 +4,31 @@ import { useCallback, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { authState } from 'recoil/atoms/authState';
 
-interface IEssentialState {
-  [index: string]: boolean;
-}
-
 interface IAgreementItem {
   text: string;
-  name: string;
+  essentialName?: auth.AgreementEssentialType;
   isChecked: boolean;
   onClick: () => void;
   option?: string;
-  needIcon?: boolean;
 }
 
 interface AgreementFormTypes {
   AgreementList: IAgreementItem[];
-  onToggleModal: (name: string) => void;
+  onToggleModal: (essentialName: auth.AgreementEssentialType) => void;
   isTermsAndConditionsModal: boolean;
   isPrivacyPolicyModal: boolean;
-  onEditEssentialState: (name: auth.AgreementNameType, value: boolean) => void;
+  onEditEssentialState: (
+    essentialName: auth.AgreementEssentialType,
+    value: boolean,
+  ) => void;
 }
 
 export default function useAgreementForm(): AgreementFormTypes {
-  const [essentialState, setEssentialState] = useState<IEssentialState>({
-    termsAndConditions: false,
-    privacyPolicy: false,
-  });
+  const [essentialState, setEssentialState] =
+    useState<auth.IEssentialAgreementName>({
+      termsAndConditions: false,
+      privacyPolicy: false,
+    });
   const [remindState, setRemindState] = useState(false);
   const { termsAndConditions, privacyPolicy } = essentialState;
   const [AuthState, setAuthState] = useRecoilState(authState);
@@ -39,8 +38,8 @@ export default function useAgreementForm(): AgreementFormTypes {
 
   // 모달 상태 토글
   const onToggleModal = useCallback(
-    (name: string) => {
-      return name === 'termsAndConditions'
+    (essentialName: auth.AgreementEssentialType) => {
+      return essentialName === 'termsAndConditions'
         ? onToggleTermsAndConditionsModal()
         : onTogglePrivacyPolicyModal();
     },
@@ -71,10 +70,10 @@ export default function useAgreementForm(): AgreementFormTypes {
 
   // 동의 필수 요소 토글
   const onToggleEssentialState = useCallback(
-    (name: string) => {
+    (essentialName: auth.AgreementEssentialType) => {
       setEssentialState({
         ...essentialState,
-        [name]: !essentialState[name],
+        [essentialName]: !essentialState[essentialName],
       });
     },
     [essentialState],
@@ -103,32 +102,28 @@ export default function useAgreementForm(): AgreementFormTypes {
     });
   }, [termsAndConditions, privacyPolicy]);
 
-  const AgreementList = [
+  const AgreementList: IAgreementItem[] = [
     {
       text: '전체 동의',
-      name: 'allAgree',
       isChecked: onCheckIsAllSelect(),
       onClick: onToggleAllAgree,
     },
     {
       text: '이용약관에 동의합니다.',
-      name: 'termsAndConditions',
+      essentialName: 'termsAndConditions',
       isChecked: termsAndConditions,
       onClick: () => onToggleEssentialState('termsAndConditions'),
       option: '필수',
-      needIcon: true,
     },
     {
       text: '개인정보 수집/이용에 동의합니다.',
-      name: 'privacyPolicy',
+      essentialName: 'privacyPolicy',
       isChecked: privacyPolicy,
       onClick: () => onToggleEssentialState('privacyPolicy'),
       option: '필수',
-      needIcon: true,
     },
     {
       text: '리마인드 알람 수신에 동의합니다.',
-      name: 'remindAlert',
       isChecked: remindState,
       onClick: onToggleRemindState,
       option: '선택',
