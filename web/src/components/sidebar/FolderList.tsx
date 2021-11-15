@@ -78,6 +78,15 @@ function FolderList(): ReactElement {
   // modal state
   const [isMenuLayer, onToggleMenuLayer] = useToggle();
   const [isDeleteModal, onToggleDeleteModal] = useToggle();
+  const [isRenameModal, onToggleRenameModal] = useToggle();
+  const [isMoveModal, onToggleMoveModal] = useToggle();
+
+  const onToggleModal = {
+    onToggleMenuLayer,
+    onToggleDeleteModal,
+    onToggleRenameModal,
+    onToggleMoveModal,
+  };
 
   // logic hooks
   useFoldersEffect();
@@ -158,11 +167,7 @@ function FolderList(): ReactElement {
       />
 
       {isMenuLayer && (
-        <FolderMenuLayer
-          position={position}
-          onToggleMenuLayer={onToggleMenuLayer}
-          onToggleDeleteModal={onToggleDeleteModal}
-        />
+        <FolderMenuLayer position={position} onToggleModal={onToggleModal} />
       )}
 
       {isDeleteModal && (

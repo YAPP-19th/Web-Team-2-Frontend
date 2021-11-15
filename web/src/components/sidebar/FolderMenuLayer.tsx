@@ -6,8 +6,12 @@ interface FolderMenuLayerProps {
     top: number;
     left: number;
   };
-  onToggleDeleteModal: () => void;
-  onToggleMenuLayer: () => void;
+  onToggleModal: {
+    onToggleMenuLayer: () => void;
+    onToggleDeleteModal: () => void;
+    onToggleRenameModal: () => void;
+    onToggleMoveModal: () => void;
+  };
 }
 
 const FolderMenuLayerWrapper = styled.div`
@@ -44,10 +48,15 @@ const MenuItem = styled.div`
 
 function FolderMenuLayer({
   position,
-  onToggleDeleteModal,
-  onToggleMenuLayer,
+  onToggleModal,
 }: FolderMenuLayerProps): ReactElement {
   const { left, top } = position;
+  const {
+    onToggleDeleteModal,
+    onToggleMenuLayer,
+    onToggleMoveModal,
+    onToggleRenameModal,
+  } = onToggleModal;
 
   const onMenuClick = (onTogglefunc: () => void) => {
     onTogglefunc();
@@ -57,11 +66,11 @@ function FolderMenuLayer({
   const folderMenus = [
     {
       name: '이름 변경',
-      onClick: onToggleDeleteModal,
+      onClick: onToggleRenameModal,
     },
     {
       name: '이동',
-      onClick: onToggleDeleteModal,
+      onClick: onToggleMoveModal,
     },
     {
       name: '삭제',
