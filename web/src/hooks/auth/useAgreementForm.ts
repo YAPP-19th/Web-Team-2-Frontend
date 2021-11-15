@@ -81,7 +81,7 @@ export default function useAgreementForm(): AgreementFormTypes {
 
   // 동의 필수 요소 직접 수정
   const onEditEssentialState = useCallback(
-    (name: string, value: boolean) => {
+    (name: auth.AgreementEssentialType, value: boolean) => {
       setEssentialState({
         ...essentialState,
         [name]: value,
