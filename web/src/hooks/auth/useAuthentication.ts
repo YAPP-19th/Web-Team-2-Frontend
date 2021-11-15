@@ -63,9 +63,9 @@ export default function useAuthentication(): AuthenticationTypes {
 
   // 이메일 형식 검증 함수
   const onCheckEmailValid = (email: string) => {
-    const re =
+    const regexEmail =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (re.test(String(email).toLowerCase())) {
+    if (regexEmail.test(String(email).toLowerCase())) {
       onChangeErrorMessage('emailError', null);
       return true;
     }
@@ -75,13 +75,13 @@ export default function useAuthentication(): AuthenticationTypes {
 
   // 비밀번호 형식 검증 함수
   const onCheckPasswordValid = (password: string) => {
-    const num = /[0-9]/;
-    const eng = /[a-zA-Z]/;
-    const special = /[~!@#$%^&*()_+|<>?:{}=-]/;
+    const regexNum = /[0-9]/;
+    const regexEng = /[a-zA-Z]/;
+    const regexSpe = /[~!@#$%^&*()_+|<>?:{}=-]/;
     validCount.current = 0;
-    if (num.test(password)) validCount.current += 1;
-    if (eng.test(password)) validCount.current += 1;
-    if (special.test(password)) validCount.current += 1;
+    if (regexNum.test(password)) validCount.current += 1;
+    if (regexEng.test(password)) validCount.current += 1;
+    if (regexSpe.test(password)) validCount.current += 1;
 
     if (password.length < 8 || password.length > 16 || validCount.current < 2) {
       onChangeErrorMessage(
