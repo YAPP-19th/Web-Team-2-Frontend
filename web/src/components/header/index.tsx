@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
-import Folder from './Folder';
 import Info from './Info';
 import Logo from './Logo';
 import SearchBar from './SearchBar';
@@ -25,7 +24,6 @@ function Header(): ReactElement {
     <HeaderLayout>
       <HeaderInner>
         <Logo />
-        <Folder />
         <SearchBar />
         <Info />
       </HeaderInner>
