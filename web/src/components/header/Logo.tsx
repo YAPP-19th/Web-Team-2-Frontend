@@ -1,5 +1,6 @@
 import { LogoGreenIcon } from 'assets/icons';
 import React, { ReactElement } from 'react';
+import Path from 'routes/path';
 import styled from 'styled-components';
 
 const HeaderLogo = styled.div`
@@ -10,12 +11,9 @@ const HeaderLogo = styled.div`
   align-items: center;
 `;
 
-const LogoWithText = styled.div`
+const LogoWithText = styled.a`
   display: flex;
   align-items: end;
-  &:hover {
-    cursor: pointer;
-  }
 `;
 
 const LogoSpan = styled.span`
@@ -28,7 +26,7 @@ const LogoSpan = styled.span`
 function Logo(): ReactElement {
   return (
     <HeaderLogo>
-      <LogoWithText onClick={() => window.location.replace('/')}>
+      <LogoWithText href={Path.MainPage}>
         <LogoGreenIcon />
         <LogoSpan>도토리함</LogoSpan>
       </LogoWithText>
