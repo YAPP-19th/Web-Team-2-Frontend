@@ -14,7 +14,7 @@ interface IAgreementItem {
   isChecked: boolean;
   onClick: () => void;
   option?: string;
-  icon?: boolean;
+  needIcon?: boolean;
 }
 
 interface AgreementFormTypes {
@@ -116,7 +116,7 @@ export default function useAgreementForm(): AgreementFormTypes {
       isChecked: termsAndConditions,
       onClick: () => onToggleEssentialState('termsAndConditions'),
       option: '필수',
-      icon: true,
+      needIcon: true,
     },
     {
       text: '개인정보 수집/이용에 동의합니다.',
@@ -124,7 +124,7 @@ export default function useAgreementForm(): AgreementFormTypes {
       isChecked: privacyPolicy,
       onClick: () => onToggleEssentialState('privacyPolicy'),
       option: '필수',
-      icon: true,
+      needIcon: true,
     },
     {
       text: '리마인드 알람 수신에 동의합니다.',
