@@ -16,6 +16,7 @@ export { ReactComponent as Copy24Icon } from './Icons_Copy_24.svg';
 export { ReactComponent as DropDownIcon } from './Icons_Drop.svg';
 export { ReactComponent as More24Icon } from './Icons_More_24.svg';
 export { ReactComponent as Next24Icon } from './Icons_Next_24.svg';
+export { ReactComponent as Search24Icon } from './Icons_Search_24.svg';
 export { ReactComponent as Symbol36Icon } from './Icons_Symbol_36.svg';
 export { ReactComponent as ToggleOffIcon } from './Icons_Toggle_off.svg';
 export { ReactComponent as ToggleOnIcon } from './Icons_Toggle_on.svg';
@@ -24,6 +25,7 @@ export { ReactComponent as UnselectedTrashIcon } from './Icons_trash_unselected.
 export { ReactComponent as X16Icon } from './Icons_x_16.svg';
 export { ReactComponent as AllFolderIcon } from './List_unselected_16.svg';
 export { ReactComponent as Logo32Icon } from './Logo_32.svg';
+export { ReactComponent as LogoGreenIcon } from './Logo_green.svg';
 export { ReactComponent as More16Icon } from './More_16.svg';
 export { ReactComponent as PlusIcon } from './Plus.svg';
 export { ReactComponent as PlusWhiteIcon } from './Plus_white.svg';
