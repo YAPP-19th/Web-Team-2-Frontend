@@ -127,12 +127,7 @@ function FolderRenameModal({
             <EmojiIcon src={`${EMOJI_URL}/${chosenEmoji}.png`} />
           </Emoji>
 
-          <FolderNameInput
-            type="text"
-            value="도현 개발서적"
-            width="192px"
-            height="28px"
-          />
+          <FolderNameInput type="text" width="192px" height="28px" />
 
           <RenameButton
             variant="primary"
