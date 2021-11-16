@@ -1,41 +1,57 @@
+import { auth } from 'models/auth';
 import { useRef, useState } from 'react';
 
 interface AuthenticationTypes {
-  emailError: string | null;
-  passwordError: string | null;
-  authError: string | null;
-  onCheckEmailEmpty: (email: string) => boolean;
-  onCheckPasswordEmpty: (password: string) => boolean;
-  onCheckEmailExist: (email: string) => boolean;
-  onCheckEmailValid: (email: string) => boolean;
-  onCheckPasswordValid: (password: string) => boolean;
-  onChangeAuthError: (error: string) => void;
+  errorMessage: auth.IErrorMessage;
+  onChangeErrorMessage: (
+    type: auth.ErrorMessageType,
+    message: string | null,
+  ) => void;
+  onEmptyValidate: (email: string, password: string) => boolean;
+  onEmailValidation: (email: string) => boolean;
+  onPasswordValidation: (password: string) => boolean;
 }
 
 export default function useAuthentication(): AuthenticationTypes {
-  const [emailError, setEmailError] = useState<string | null>(null);
-  const [passwordError, setPasswordError] = useState<string | null>(null);
-  const [authError, setAuthError] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<auth.IErrorMessage>({
+    emailError: null,
+    passwordError: null,
+    authError: null,
+  });
   const validCount = useRef(0);
 
-  const onCheckEmailEmpty = (email: string) => {
+  // 에러 메세지 변경 함수
+  const onChangeErrorMessage = (
+    type: auth.ErrorMessageType,
+    message: string | null,
+  ) => {
+    setErrorMessage((prev) => ({
+      ...prev,
+      [type]: message,
+    }));
+  };
+
+  // 이메일 비어있는지 검증 함수
+  const onEmptyValidateEmail = (email: string) => {
     if (email === '') {
-      setEmailError('이메일을 입력해주세요.');
+      onChangeErrorMessage('emailError', '이메일을 입력해주세요.');
       return false;
     }
-    setEmailError(null);
+    onChangeErrorMessage('emailError', null);
     return true;
   };
 
-  const onCheckPasswordEmpty = (password: string) => {
+  // 비밀번호 비어있는지 검증 함수
+  const onEmptyValidatePassword = (password: string) => {
     if (password === '') {
-      setPasswordError('비밀번호를 입력해주세요.');
+      onChangeErrorMessage('passwordError', '비밀번호를 입력해주세요.');
       return false;
     }
-    setPasswordError(null);
+    onChangeErrorMessage('passwordError', null);
     return true;
   };
 
+  // 이메일 중복확인 함수 (아직 구현X  API 생기면 구현)
   const onCheckEmailExist = (email: string) => {
     // @TODO(dohyun) 이미 가입한 이메일인지 아닌지 백앤드에 요청후 결과를 받아온다.
     // 만약 존재하는 이메일일 경우 setEmailError("이미 가입한 이메일 주소입니다") 같은 멘트 넣어주면 됌
@@ -45,49 +61,63 @@ export default function useAuthentication(): AuthenticationTypes {
     return false;
   };
 
+  // 이메일 형식 검증 함수
   const onCheckEmailValid = (email: string) => {
-    const re =
+    const regexEmail =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (re.test(String(email).toLowerCase())) {
-      setEmailError(null);
+    if (regexEmail.test(String(email).toLowerCase())) {
+      onChangeErrorMessage('emailError', null);
       return true;
     }
-    setEmailError('이메일 형식이 올바르지 않습니다');
+    onChangeErrorMessage('emailError', '이메일 형식이 올바르지 않습니다.');
     return false;
   };
 
+  // 비밀번호 형식 검증 함수
   const onCheckPasswordValid = (password: string) => {
-    const num = /[0-9]/;
-    const eng = /[a-zA-Z]/;
-    const special = /[~!@#$%^&*()_+|<>?:{}=-]/;
+    const regexNum = /[0-9]/;
+    const regexEng = /[a-zA-Z]/;
+    const regexSpe = /[~!@#$%^&*()_+|<>?:{}=-]/;
     validCount.current = 0;
-    if (num.test(password)) validCount.current += 1;
-    if (eng.test(password)) validCount.current += 1;
-    if (special.test(password)) validCount.current += 1;
+    if (regexNum.test(password)) validCount.current += 1;
+    if (regexEng.test(password)) validCount.current += 1;
+    if (regexSpe.test(password)) validCount.current += 1;
 
     if (password.length < 8 || password.length > 16 || validCount.current < 2) {
-      setPasswordError(
+      onChangeErrorMessage(
+        'passwordError',
         '영문 대소문자, 숫자, 특수문자 중 2종류 이상을 조합하여 8~16자의 비밀번호를 생성해주세요.',
       );
       return false;
     }
-    setPasswordError(null);
+    onChangeErrorMessage('passwordError', null);
     return true;
   };
 
-  const onChangeAuthError = (error: string) => {
-    setAuthError(error);
+  // 이메일, 비밀번호 둘중 하나라도 비어있으면 false 반환
+  const onEmptyValidate = (email: string, password: string) => {
+    return onEmptyValidateEmail(email) && onEmptyValidatePassword(password);
+  };
+
+  // 이메일 유효성 체크
+  const onEmailValidation = (email: string) => {
+    return (
+      onEmptyValidateEmail(email) &&
+      onCheckEmailExist(email) &&
+      onCheckEmailValid(email)
+    );
+  };
+
+  // 비밀번호 유효성 체크
+  const onPasswordValidation = (password: string) => {
+    return onEmptyValidatePassword(password) && onCheckPasswordValid(password);
   };
 
   return {
-    emailError,
-    passwordError,
-    authError,
-    onCheckEmailEmpty,
-    onCheckPasswordEmpty,
-    onCheckEmailExist,
-    onCheckEmailValid,
-    onCheckPasswordValid,
-    onChangeAuthError,
+    errorMessage,
+    onChangeErrorMessage,
+    onEmptyValidate,
+    onEmailValidation,
+    onPasswordValidation,
   };
 }

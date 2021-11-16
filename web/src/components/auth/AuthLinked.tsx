@@ -50,12 +50,15 @@ function AuthLinked({ AuthType }: auth.IAuthType): ReactElement {
   const linked = AuthType === 'login' ? loginlinked : registerlinked;
   return (
     <AuthLinkedWrapper>
-      {linked.map((item) => (
-        <LinkedItem key={item.label}>
-          <LinkedInfo>{item.info}</LinkedInfo>
-          <Linked to={item.link}>{item.label}</Linked>
-        </LinkedItem>
-      ))}
+      {linked.map((item) => {
+        const { info, label, link } = item;
+        return (
+          <LinkedItem key={label}>
+            <LinkedInfo>{info}</LinkedInfo>
+            <Linked to={link}>{label}</Linked>
+          </LinkedItem>
+        );
+      })}
     </AuthLinkedWrapper>
   );
 }

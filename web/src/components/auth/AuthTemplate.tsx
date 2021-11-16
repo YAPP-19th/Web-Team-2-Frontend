@@ -10,8 +10,6 @@ interface AuthTemplateProps extends auth.IAuthType {
   children: React.ReactNode;
 }
 
-const AuthTemplateWrapper = styled.div``;
-
 const AuthInner = styled.div`
   width: 321px;
   margin: 0 auto;
@@ -19,7 +17,7 @@ const AuthInner = styled.div`
 
 function AuthTemplate({ children, AuthType }: AuthTemplateProps): ReactElement {
   return (
-    <AuthTemplateWrapper>
+    <>
       <AuthTitle AuthType={AuthType} />
 
       <AuthInner>
@@ -28,7 +26,7 @@ function AuthTemplate({ children, AuthType }: AuthTemplateProps): ReactElement {
         {children}
         <AuthLinked AuthType={AuthType} />
       </AuthInner>
-    </AuthTemplateWrapper>
+    </>
   );
 }
 
