@@ -1,8 +1,10 @@
 import { X16Icon } from 'assets/icons';
 import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
-import Picker, { IEmojiData } from 'emoji-picker-react';
-import useToggle from 'hooks/common/useToggle';
+import { EmojiPicker, EmojiObject } from 'react-twemoji-picker';
+import EmojiData from 'react-twemoji-picker/data/twemoji.json';
+import 'react-twemoji-picker/dist/EmojiPicker.css';
+import { EMOJI_URL } from 'utils/config';
 
 interface FolderRenameModalProps {
   position: {
@@ -19,6 +21,14 @@ const FolderRenameModalWrapper = styled.div`
   z-index: 100;
   width: 100%;
   height: 100%;
+  .emoji-picker {
+    .emoji-picker-scroll .emoji-picker-category-title {
+      font-size: 12px;
+    }
+    .emoji-picker-emoji {
+      height: 25px;
+    }
+  }
 `;
 
 const RenameModalInner = styled.div<{ top: number; left: number }>`
@@ -47,7 +57,7 @@ const FormBlock = styled.div`
   align-items: center;
 `;
 
-const EmojiPicker = styled.div`
+const Emoji = styled.div`
   width: 28px;
   height: 28px;
   display: flex;
@@ -59,8 +69,9 @@ const EmojiPicker = styled.div`
   margin-right: 4px;
 `;
 
-const EmojiIcon = styled.span`
-  font-size: 18px;
+const EmojiIcon = styled.img`
+  width: 18px;
+  height: 18px;
 `;
 
 const FolderNameInput = styled.input``;
@@ -72,15 +83,13 @@ function FolderRenameModal({
   onToggleModal,
 }: FolderRenameModalProps): ReactElement {
   const { top, left } = position;
-  const [emojiPickerVisible, onEmojiPickerToggle] = useToggle();
-  const [chosenEmoji, setChosenEmoji] = useState<IEmojiData | null>(null);
+  const [emojiPickerVisible, setEmojiPickerVisible] = useState(false);
+  const [chosenEmoji, setChosenEmoji] = useState<string | null>(null); // @TODO(dohyun) 초기 값을 그 폴더의 이모지를 불러서 설정
+  const emojiData = Object.freeze(EmojiData);
 
-  const onEmojiClick = (
-    event: React.MouseEvent<Element, MouseEvent>,
-    emojiObject: IEmojiData,
-  ) => {
-    setChosenEmoji(emojiObject);
-    onEmojiPickerToggle();
+  const handleEmojiSelect = (emoji: EmojiObject) => {
+    setEmojiPickerVisible(!emojiPickerVisible);
+    setChosenEmoji(emoji.unicode);
   };
 
   return (
@@ -88,7 +97,10 @@ function FolderRenameModal({
       <RenameModalInner
         top={top}
         left={left}
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e) => {
+          e.stopPropagation();
+          setEmojiPickerVisible(false);
+        }}
       >
         <CloseBlock>
           <CloseButton onClick={onToggleModal}>
@@ -97,13 +109,21 @@ function FolderRenameModal({
         </CloseBlock>
 
         <FormBlock>
-          <EmojiPicker onClick={onEmojiPickerToggle}>
-            <EmojiIcon>{chosenEmoji ? chosenEmoji.emoji : ''}</EmojiIcon>
-          </EmojiPicker>
+          <Emoji
+            onClick={(e) => {
+              e.stopPropagation();
+              setEmojiPickerVisible(!emojiPickerVisible);
+            }}
+          >
+            <EmojiIcon src={`${EMOJI_URL}/${chosenEmoji}.png`} />
+          </Emoji>
         </FormBlock>
 
         {emojiPickerVisible && (
-          <Picker onEmojiClick={onEmojiClick} disableSearchBar />
+          <EmojiPicker
+            emojiData={emojiData}
+            onEmojiSelect={handleEmojiSelect}
+          />
         )}
       </RenameModalInner>
     </FolderRenameModalWrapper>
