@@ -1,11 +1,9 @@
+import { folder } from 'models/folder';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
 interface FolderMenuLayerProps {
-  position: {
-    top: number;
-    left: number;
-  };
+  position: folder.ILayerPosition;
   onToggleModal: {
     onToggleMenuLayer: () => void;
     onToggleDeleteModal: () => void;
@@ -23,7 +21,7 @@ const FolderMenuLayerWrapper = styled.div`
   height: 100%;
 `;
 
-const MenuInner = styled.div<{ top: number; left: number }>`
+const MenuInner = styled.div<folder.ILayerPosition>`
   border-radius: 4px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
   background-color: ${(props) => props.theme.color.white};

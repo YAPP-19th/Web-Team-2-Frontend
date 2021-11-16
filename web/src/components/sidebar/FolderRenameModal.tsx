@@ -5,12 +5,12 @@ import { EmojiPicker, EmojiObject } from 'react-twemoji-picker';
 import EmojiData from 'react-twemoji-picker/data/twemoji.json';
 import 'react-twemoji-picker/dist/EmojiPicker.css';
 import { EMOJI_URL } from 'utils/config';
+import SimpleInput from 'components/common/SimpleInput';
+import SimpleButton from 'components/common/SimpleButton';
+import { folder } from 'models/folder';
 
 interface FolderRenameModalProps {
-  position: {
-    top: number;
-    left: number;
-  };
+  position: folder.ILayerPosition;
   onToggleModal: () => void;
 }
 
@@ -22,6 +22,7 @@ const FolderRenameModalWrapper = styled.div`
   width: 100%;
   height: 100%;
   .emoji-picker {
+    // 이모지 라이브러리 스타일 수정
     .emoji-picker-scroll .emoji-picker-category-title {
       font-size: 12px;
     }
@@ -31,7 +32,7 @@ const FolderRenameModalWrapper = styled.div`
   }
 `;
 
-const RenameModalInner = styled.div<{ top: number; left: number }>`
+const RenameModalInner = styled.div<folder.ILayerPosition>`
   border-radius: 4px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
   background-color: ${(props) => props.theme.color.white};
@@ -46,6 +47,7 @@ const RenameModalInner = styled.div<{ top: number; left: number }>`
 
 const CloseBlock = styled.div`
   overflow: hidden;
+  margin-bottom: 3px;
 `;
 
 const CloseButton = styled.button`
@@ -74,9 +76,16 @@ const EmojiIcon = styled.img`
   height: 18px;
 `;
 
-const FolderNameInput = styled.input``;
+const FolderNameInput = styled(SimpleInput)`
+  font-size: 12px;
+  line-height: 1.42;
+  color: ${(props) => props.theme.color.grayDarkest};
+  margin-right: 4px;
+`;
 
-const RenameButton = styled.button``;
+const RenameButton = styled(SimpleButton)`
+  font-size: 12px;
+`;
 
 function FolderRenameModal({
   position,
@@ -84,7 +93,7 @@ function FolderRenameModal({
 }: FolderRenameModalProps): ReactElement {
   const { top, left } = position;
   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false);
-  const [chosenEmoji, setChosenEmoji] = useState<string | null>(null); // @TODO(dohyun) 초기 값을 그 폴더의 이모지를 불러서 설정
+  const [chosenEmoji, setChosenEmoji] = useState<string>('1f603'); // @TODO(dohyun) 초기 값을 그 폴더의 이모지를 불러서 설정
   const emojiData = Object.freeze(EmojiData);
 
   const handleEmojiSelect = (emoji: EmojiObject) => {
@@ -117,6 +126,20 @@ function FolderRenameModal({
           >
             <EmojiIcon src={`${EMOJI_URL}/${chosenEmoji}.png`} />
           </Emoji>
+
+          <FolderNameInput
+            type="text"
+            value="도현 개발서적"
+            width="192px"
+            height="28px"
+          />
+
+          <RenameButton
+            variant="primary"
+            width="72px"
+            height="28px"
+            label="변경"
+          />
         </FormBlock>
 
         {emojiPickerVisible && (

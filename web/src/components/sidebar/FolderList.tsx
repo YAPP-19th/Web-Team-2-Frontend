@@ -4,6 +4,7 @@ import SmallModal from 'components/common/SmallModal';
 import useToggle from 'hooks/common/useToggle';
 import useFolderHandle from 'hooks/sidebar/useFolderHandle';
 import useFoldersEffect from 'hooks/sidebar/useFoldersEffect';
+import { folder } from 'models/folder';
 import React, { ReactElement, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { selectedFolderState } from 'recoil/atoms/folderState';
@@ -72,7 +73,7 @@ const FolderETCButton = styled.button`
 function FolderList(): ReactElement {
   // state
   const setSelectedFolder = useSetRecoilState(selectedFolderState);
-  const [position, setPosition] = useState({
+  const [position, setPosition] = useState<folder.ILayerPosition>({
     top: 0,
     left: 0,
   });
