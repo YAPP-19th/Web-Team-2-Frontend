@@ -1,4 +1,4 @@
-import { PlusWhiteIcon } from 'assets/icons';
+import { PlusIcon } from 'assets/icons';
 import React, { ReactElement } from 'react';
 import { useCabinetAction } from 'recoil/selectors/folderSelector';
 import styled from 'styled-components';
@@ -10,15 +10,16 @@ const CabinetBoxWrapper = styled.div`
 const CabinetButton = styled.button`
   width: 170px;
   height: 40px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${(props) => props.theme.color.primary};
+  border: 1px solid ${(props) => props.theme.color.primary};
+  color: ${(props) => props.theme.color.primaryDark};
+  background-color: ${(props) => props.theme.color.white};
 `;
 
-const PlusIcon = styled(PlusWhiteIcon)`
+const PlusIconStyled = styled(PlusIcon)`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -28,7 +29,6 @@ const PlusIcon = styled(PlusWhiteIcon)`
 const Text = styled.span`
   font-size: 14px;
   font-weight: 500;
-  color: ${(props) => props.theme.color.white};
 `;
 
 function CabinetBox(): ReactElement {
@@ -37,7 +37,7 @@ function CabinetBox(): ReactElement {
   return (
     <CabinetBoxWrapper>
       <CabinetButton type="button" onClick={create}>
-        <PlusIcon />
+        <PlusIconStyled />
         <Text>보관함 추가</Text>
       </CabinetButton>
     </CabinetBoxWrapper>

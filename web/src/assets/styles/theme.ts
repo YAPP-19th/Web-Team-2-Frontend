@@ -4,7 +4,7 @@ const theme: DefaultTheme = {
   basicWidth: '1065px',
   color: {
     primary: '#48bf91',
-    primaryDark: '#00AEC7',
+    primaryDark: '#0baa78',
     error: '#F4364C',
     black: '#000000',
     grayDarkest: '#323232',
