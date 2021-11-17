@@ -12,6 +12,7 @@ import { useFolderAction } from 'recoil/selectors/folderSelector';
 import styled from 'styled-components';
 import FolderItemIcon from './FolderItemIcon';
 import FolderMenuLayer from './FolderMenuLayer';
+import FolderMoveModal from './FolderMoveModal';
 import FolderRenameModal from './FolderRenameModal';
 
 const FolderListWrapper = styled.div`
@@ -185,10 +186,18 @@ function FolderList(): ReactElement {
           onClick={() => console.log('API생성되면 추가하겠음!')}
         />
       )}
+
       {isRenameModal && (
         <FolderRenameModal
           position={position}
           onToggleModal={onToggleRenameModal}
+        />
+      )}
+
+      {isMoveModal && (
+        <FolderMoveModal
+          isModal={isMoveModal}
+          onToggleModal={onToggleMoveModal}
         />
       )}
     </FolderListWrapper>
