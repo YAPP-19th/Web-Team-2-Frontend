@@ -7,7 +7,7 @@ const CabinetBoxWrapper = styled.div`
   margin-bottom: 40px;
 `;
 
-const CabinetButton = styled.div`
+const CabinetButton = styled.button`
   width: 170px;
   height: 40px;
   border-radius: 6px;
