@@ -7,7 +7,7 @@ const CabinetBoxWrapper = styled.div`
   margin-bottom: 40px;
 `;
 
-const CabinetButton = styled.button`
+const CabinetButton = styled.div`
   width: 170px;
   height: 40px;
   border-radius: 6px;
@@ -26,9 +26,11 @@ const PlusIconStyled = styled(PlusIcon)`
   margin-right: 10px;
 `;
 
-const Text = styled.span`
+const Text = styled.div`
   font-size: 14px;
   font-weight: 500;
+  height: 40px;
+  line-height: 40px;
 `;
 
 function CabinetBox(): ReactElement {
@@ -36,7 +38,7 @@ function CabinetBox(): ReactElement {
 
   return (
     <CabinetBoxWrapper>
-      <CabinetButton type="button" onClick={create}>
+      <CabinetButton onClick={create}>
         <PlusIconStyled />
         <Text>보관함 추가</Text>
       </CabinetButton>

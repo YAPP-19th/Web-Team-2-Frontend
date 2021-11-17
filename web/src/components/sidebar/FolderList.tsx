@@ -54,6 +54,8 @@ const FolderLeftBox = styled.div`
 
 const FolderTitle = styled.span<{ isFirst: boolean }>`
   cursor: pointer;
+  height: 28px;
+  line-height: 25px;
   &:hover {
     text-decoration: underline;
   }
