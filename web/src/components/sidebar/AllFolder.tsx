@@ -26,6 +26,7 @@ const AllFolderName = styled.span`
   color: ${(props) => props.theme.color.grayDarker};
   font-size: 14px;
   width: 133px;
+  cursor: pointer;
   line-height: 1.5;
 `;
 
