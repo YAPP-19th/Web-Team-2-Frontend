@@ -96,9 +96,17 @@ function FolderRenameModal({
   const [chosenEmoji, setChosenEmoji] = useState<string>('1f603'); // @TODO(dohyun) 초기 값을 그 폴더의 이모지를 불러서 설정
   const emojiData = Object.freeze(EmojiData);
 
-  const handleEmojiSelect = (emoji: EmojiObject) => {
+  const onEmojiSelect = (emoji: EmojiObject) => {
     setEmojiPickerVisible(!emojiPickerVisible);
     setChosenEmoji(emoji.unicode);
+  };
+
+  const onSwitchEmojiPicker = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    value: boolean,
+  ) => {
+    e.stopPropagation();
+    setEmojiPickerVisible(value);
   };
 
   return (
@@ -106,10 +114,7 @@ function FolderRenameModal({
       <RenameModalInner
         top={top}
         left={left}
-        onClick={(e) => {
-          e.stopPropagation();
-          setEmojiPickerVisible(false);
-        }}
+        onClick={(e) => onSwitchEmojiPicker(e, false)}
       >
         <CloseBlock>
           <CloseButton onClick={onToggleModal}>
@@ -118,12 +123,7 @@ function FolderRenameModal({
         </CloseBlock>
 
         <FormBlock>
-          <Emoji
-            onClick={(e) => {
-              e.stopPropagation();
-              setEmojiPickerVisible(!emojiPickerVisible);
-            }}
-          >
+          <Emoji onClick={(e) => onSwitchEmojiPicker(e, !emojiPickerVisible)}>
             <EmojiIcon src={`${EMOJI_URL}/${chosenEmoji}.png`} />
           </Emoji>
 
@@ -138,10 +138,7 @@ function FolderRenameModal({
         </FormBlock>
 
         {emojiPickerVisible && (
-          <EmojiPicker
-            emojiData={emojiData}
-            onEmojiSelect={handleEmojiSelect}
-          />
+          <EmojiPicker emojiData={emojiData} onEmojiSelect={onEmojiSelect} />
         )}
       </RenameModalInner>
     </FolderRenameModalWrapper>
