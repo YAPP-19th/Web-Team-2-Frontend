@@ -18,6 +18,7 @@ const AppLayout = styled.div`
   width: ${(props) => props.theme.basicWidth};
   margin: 0 auto;
   flex: 1 auto;
+  display: flex;
 `;
 
 function App(): ReactElement {

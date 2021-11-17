@@ -16,6 +16,7 @@ export { ReactComponent as Copy24Icon } from './Icons_Copy_24.svg';
 export { ReactComponent as DropDownIcon } from './Icons_Drop.svg';
 export { ReactComponent as More24Icon } from './Icons_More_24.svg';
 export { ReactComponent as Next24Icon } from './Icons_Next_24.svg';
+export { ReactComponent as QuestionIcon } from './Icons_Question_60.svg';
 export { ReactComponent as Search24Icon } from './Icons_Search_24.svg';
 export { ReactComponent as Symbol36Icon } from './Icons_Symbol_36.svg';
 export { ReactComponent as ToggleOffIcon } from './Icons_Toggle_off.svg';

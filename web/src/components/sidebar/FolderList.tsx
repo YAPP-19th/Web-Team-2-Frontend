@@ -17,7 +17,6 @@ import FolderRenameModal from './FolderRenameModal';
 
 const FolderListWrapper = styled.div`
   position: relative;
-  margin-bottom: 28px;
   /* overflow: auto; */
 `;
 const FolderItemWrapper = styled.div`

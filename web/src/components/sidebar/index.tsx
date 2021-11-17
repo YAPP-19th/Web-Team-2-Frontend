@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import AllFolder from './AllFolder';
 import CabinetBox from './CabinetBox';
 import FolderList from './FolderList';
+import QuestionButton from './QuestionButton';
 import TrashBox from './TrashBox';
 
 const SideBarWrapper = styled.div`
@@ -13,13 +14,23 @@ const SideBarWrapper = styled.div`
   overflow: auto;
 `;
 
+const FolderBox = styled.div`
+  max-height: 541px;
+  overflow: scroll;
+  margin-bottom: 24px;
+`;
+
 function SideBar(): ReactElement {
   return (
     <SideBarWrapper>
-      <AllFolder />
-      <FolderList />
+      <FolderBox>
+        <AllFolder />
+        <FolderList />
+      </FolderBox>
+
       <CabinetBox />
       <TrashBox />
+      <QuestionButton />
     </SideBarWrapper>
   );
 }

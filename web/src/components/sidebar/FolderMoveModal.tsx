@@ -2,6 +2,7 @@ import ModalTemplate from 'components/common/ModalTemplate';
 import SimpleButton from 'components/common/SimpleButton';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import AllFolder from './AllFolder';
 import FolderList from './FolderList';
 
 interface FolderMoveModalProps {
@@ -31,10 +32,22 @@ const FolderListBox = styled.div`
   width: 408px;
   height: 303px;
   overflow-y: scroll;
-  border: 0.5px solid ${(props) => props.theme.color.gray};
+  border: 0.031rem solid ${(props) => props.theme.color.gray};
   border-radius: 6px;
   padding: 9.5px 0 0 10px;
   margin-bottom: 18px;
+  &::-webkit-scrollbar {
+    width: 12px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: ${(props) => props.theme.color.white};
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: ${(props) => props.theme.color.grayLight};
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 1px solid transparent;
+  }
 `;
 
 const ButtonGroup = styled.div`
@@ -59,6 +72,7 @@ function FolderMoveModal({
         <ModalTitle>위치 선택</ModalTitle>
         <FolderPath>모든 도토리 {'>'}</FolderPath>
         <FolderListBox>
+          <AllFolder />
           <FolderList />
         </FolderListBox>
         <ButtonGroup>
