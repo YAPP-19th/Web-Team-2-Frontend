@@ -2,9 +2,9 @@ import { QuestionIcon } from 'assets/icons';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
-const QuestionButtonStyled = styled.div`
+const QuestionButtonStyled = styled.button`
   position: absolute;
-  top: 802px;
+  top: 762px;
   left: 0px;
 `;
 
