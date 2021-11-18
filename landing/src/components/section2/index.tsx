@@ -11,7 +11,7 @@ const Section2Wrapper = styled.div`
 const Section2Inner = styled.div`
   width: 1440px;
   margin: 0 auto;
-  padding: 148px 0 172px 0;
+  padding: 148px 0 172px 167px;
   display: flex;
 `;
 
