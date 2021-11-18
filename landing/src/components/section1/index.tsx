@@ -9,6 +9,8 @@ const Section1Wrapper = styled.div`
 `;
 
 const Section1Inner = styled.div`
+  width: 1440px;
+  margin: 0 auto;
   padding: 108px 0 122px 0;
   display: flex;
 `;
