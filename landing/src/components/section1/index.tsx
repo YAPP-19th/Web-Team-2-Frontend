@@ -29,10 +29,7 @@ const Logo = styled.img`
   margin-bottom: 2.688rem;
 `;
 
-const StrongText = styled.div`
-  color: #323232;
-  font-size: 16px;
-  letter-spacing: -0.1px;
+const StrongText = styled(Text)`
   font-weight: 500;
   margin: 10px 0 52px 0;
 `;
@@ -61,13 +58,15 @@ function Section1(): ReactElement {
           <SectionTitle variant="secondary">
             흩어진 <Emphasis>북마크</Emphasis>를 모으는
           </SectionTitle>
+
           <Logo src={LogoIMG} />
           <Text variant="secondary">
             다람쥐는, 여러 군데 저장한 도토리 중 10%만 다시 찾는다고 해요.
             <br />
             여러분도 저장한 정보를 찾기 힘들진 않으신가요?
           </Text>
-          <StrongText>
+
+          <StrongText variant="secondary">
             도토리처럼 흩어진 정보, 도토리함에 북마크하세요!
           </StrongText>
           <DownloadButton>DownLoad {"->"}</DownloadButton>

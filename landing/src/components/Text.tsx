@@ -13,8 +13,12 @@ const TextStyled = styled.div<TextProps>`
   color: ${(props) => (props.variant === "primary" ? "#000" : "#323232")};
 `;
 
-function Text({ variant, children }: TextProps): ReactElement {
-  return <TextStyled variant={variant}>{children}</TextStyled>;
+function Text({ variant, children, ...rest }: TextProps): ReactElement {
+  return (
+    <TextStyled variant={variant} {...rest}>
+      {children}
+    </TextStyled>
+  );
 }
 
 export default Text;
