@@ -120,25 +120,47 @@ function FolderList({ folders, setFolders }: FolderListProps): ReactElement {
     });
   };
 
-  const createFolder = useCallback((parentId: ItemId) => {
-    const newFolderId = Math.random().toString();
-    const newFolder = {
-      id: newFolderId,
-      children: [],
-      data: {
-        title: '제목없음',
-      },
-    };
+  const createFolder = useCallback(
+    (parentId: ItemId) => {
+      const newFolderId = Math.random().toString();
+      const newFolder = {
+        id: newFolderId,
+        children: [],
+        data: {
+          title: '제목없음',
+        },
+      };
 
-    setFolders((prev) =>
-      produce(prev, (draft) => {
-        const newObj = draft;
-        newObj.items[newFolderId] = newFolder;
-        newObj.items[parentId].children.push(newFolderId);
-        newObj.items[parentId].isExpanded = true;
-      }),
-    );
-  }, []);
+      setFolders((prev) =>
+        produce(prev, (draft) => {
+          const newObj = draft;
+          newObj.items[newFolderId] = newFolder;
+          newObj.items[parentId].children.push(newFolderId);
+          newObj.items[parentId].isExpanded = true;
+        }),
+      );
+    },
+    [setFolders],
+  );
+
+  const onExpandFolder = (itemId: ItemId) => {
+    setFolders(mutateTree(folders, itemId, { isExpanded: true }));
+  };
+
+  const onCollapseFolder = (itemId: ItemId) => {
+    setFolders(mutateTree(folders, itemId, { isExpanded: false }));
+  };
+
+  const onDragEndFolder = (
+    source: TreeSourcePosition,
+    destination?: TreeDestinationPosition,
+  ) => {
+    if (!destination) return;
+    const newTree = moveItemOnTree(folders, source, destination);
+    // console.log('새로운 부모Id', destination);
+    // console.log('기존 부모Id', source);
+    setFolders(newTree);
+  };
 
   const renderFolderItem = ({
     item,
@@ -153,20 +175,22 @@ function FolderList({ folders, setFolders }: FolderListProps): ReactElement {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <FolderItemBlock
-            onMouseDown={() =>
-              item.isExpanded && item.children.length > 0
-                ? onCollapse(item.id)
-                : onExpand(item.id)
-            }
-          >
+          <FolderItemBlock>
             <FolderLeftBox>
               <FolderItemIcon
                 item={item}
                 onCollapse={onCollapse}
                 onExpand={onExpand}
               />
-              <FolderTitle>{item.data.title}</FolderTitle>
+              <FolderTitle
+                onClick={() =>
+                  item.isExpanded && item.children.length > 0
+                    ? onCollapse(item.id)
+                    : onExpand(item.id)
+                }
+              >
+                {item.data.title}
+              </FolderTitle>
             </FolderLeftBox>
 
             <FolderRightBox onMouseDown={(e) => e.stopPropagation()}>
@@ -183,34 +207,16 @@ function FolderList({ folders, setFolders }: FolderListProps): ReactElement {
     );
   };
 
-  const onExpand = (itemId: ItemId) => {
-    setFolders(mutateTree(folders, itemId, { isExpanded: true }));
-  };
-
-  const onCollapse = (itemId: ItemId) => {
-    setFolders(mutateTree(folders, itemId, { isExpanded: false }));
-  };
-
-  const onDragEnd = (
-    source: TreeSourcePosition,
-    destination?: TreeDestinationPosition,
-  ) => {
-    if (!destination) return;
-    const newTree = moveItemOnTree(folders, source, destination);
-    // console.log('새로운 부모Id', destination);
-    // console.log('기존 부모Id', source);
-    setFolders(newTree);
-  };
   return (
     <FolderListWrapper>
       <Tree
         tree={folders}
         renderItem={renderFolderItem}
-        onExpand={onExpand}
-        onCollapse={onCollapse}
+        onExpand={onExpandFolder}
+        onCollapse={onCollapseFolder}
         // eslint-disable-next-line no-console
         onDragStart={(itemId) => console.log('이동하는 애', { id: itemId })}
-        onDragEnd={onDragEnd}
+        onDragEnd={onDragEndFolder}
         offsetPerLevel={16} // 한 깊이당 padding 값
         isDragEnabled
         isNestingEnabled

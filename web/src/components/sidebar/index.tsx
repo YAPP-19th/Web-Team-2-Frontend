@@ -17,7 +17,7 @@ const SideBarWrapper = styled.div`
 `;
 
 const FolderBox = styled.div`
-  max-height: 541px;
+  height: 541px;
   overflow: hidden auto; // hidden auto => overflow가 없을땐 안보이고 있을땐 스크롤
   overflow-x: auto;
   margin-bottom: 24px;
@@ -67,6 +67,7 @@ function SideBar(): ReactElement {
 
       <CabinetBox createCabinet={createCabinet} />
       <TrashBox />
+
       <QuestionButton />
     </SideBarWrapper>
   );
