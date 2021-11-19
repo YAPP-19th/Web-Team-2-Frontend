@@ -1,5 +1,5 @@
 import { S3MainIMG } from "assets/images";
-import { pagelayout } from "assets/styles/common";
+import { flexColumn, pagelayout } from "assets/styles/common";
 import ImageBox from "components/ImageBox";
 import SectionTemplate from "components/SectionTemplate";
 import React, { ReactElement } from "react";
@@ -22,9 +22,10 @@ const Description = styled.div`
   top: 0.956rem;
   left: 0;
   z-index: 10;
+  ${flexColumn}
 `;
 
-const Title = styled.div`
+const Title = styled.span`
   font-family: Cafe24Ssurround;
   font-size: 38px;
   color: #000;

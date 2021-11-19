@@ -1,5 +1,5 @@
 import { LogoIMG, S1MainIMG } from "assets/images";
-import { pagelayout } from "assets/styles/common";
+import { flexColumn, pagelayout } from "assets/styles/common";
 import ImageBox from "components/ImageBox";
 import SectionTemplate from "components/SectionTemplate";
 import React, { ReactElement } from "react";
@@ -12,8 +12,7 @@ const SectionInner = styled.div`
 
 const ContentBox = styled.div`
   padding-top: 4.125rem;
-  display: flex;
-  flex-direction: column;
+  ${flexColumn}
 `;
 
 const Title = styled.span`
