@@ -1,5 +1,6 @@
 import { S3MainIMG } from "assets/images";
 import { flexColumn, pagelayout } from "assets/styles/utils";
+import CirclePoint from "components/CirclePoint";
 import ImageBox from "components/ImageBox";
 import SectionTemplate from "components/SectionTemplate";
 import SectionTitle from "components/SectionTitle";
@@ -26,17 +27,6 @@ const Description = styled.div`
   ${flexColumn}
 `;
 
-const Circle = styled.div`
-  width: 78px;
-  height: 48px;
-  background-color: rgba(72, 191, 145, 0.3);
-  border-radius: 50%;
-  position: absolute;
-  top: 11px;
-  left: 283px;
-  z-index: 1;
-`;
-
 const Text = styled.div`
   color: #000;
   font-size: 16px;
@@ -58,7 +48,7 @@ function Section3(): ReactElement {
               보관함에 내용을 저장하고, 멤버를 초대해 공유해요!
             </Text>
           </Description>
-          <Circle />
+          <CirclePoint width="78px" height="48px" top="11px" left="283px" />
         </ContentBox>
       </SectionInner>
     </SectionTemplate>

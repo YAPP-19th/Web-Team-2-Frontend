@@ -1,5 +1,6 @@
 import { S4MainIMG } from "assets/images";
 import { flexColumn, pagelayout } from "assets/styles/utils";
+import CirclePoint from "components/CirclePoint";
 import ImageBox from "components/ImageBox";
 import SectionTemplate from "components/SectionTemplate";
 import SectionTitle from "components/SectionTitle";
@@ -15,17 +16,6 @@ const ContentBox = styled.div`
   padding-top: 44px;
   position: relative;
   ${flexColumn}
-`;
-
-const Circle = styled.div`
-  width: 146px;
-  height: 48px;
-  background-color: rgba(72, 191, 145, 0.3);
-  border-radius: 50%;
-  position: absolute;
-  top: 84px;
-  z-index: 1;
-  left: -3px;
 `;
 
 const Text = styled.div`
@@ -50,7 +40,7 @@ function Section4(): ReactElement {
             중요한 북마크는 <br />
             리마인드함
           </SectionTitle>
-          <Circle />
+          <CirclePoint width="146px" height="48px" top="84px" left="-3px" />
 
           <Text>
             다시 읽고 싶은 정보는 리마인드 알림을 받아요. <br />

@@ -1,5 +1,6 @@
 import { S2MainIMG } from "assets/images";
 import { flexColumn, pagelayout } from "assets/styles/utils";
+import CirclePoint from "components/CirclePoint";
 import ImageBox from "components/ImageBox";
 import SectionTemplate from "components/SectionTemplate";
 import SectionTitle from "components/SectionTitle";
@@ -15,17 +16,6 @@ const ContentBox = styled.div`
   padding-top: 124px;
   position: relative;
   ${flexColumn}
-`;
-
-const Circle = styled.div`
-  width: 78px;
-  height: 42px;
-  background-color: rgba(72, 191, 145, 0.3);
-  border-radius: 50%;
-  position: absolute;
-  top: 165px;
-  z-index: 1;
-  left: -5px;
 `;
 
 const Text = styled.div`
@@ -50,7 +40,7 @@ function Section2(): ReactElement {
             북마크와 동시에 <br />
             정리해서 보관함
           </SectionTitle>
-          <Circle />
+          <CirclePoint width="78px" height="42px" top="165px" left="-5px" />
 
           <Text>
             마구잡이로 저장된 북마크, 불편하지 않나요? <br />
