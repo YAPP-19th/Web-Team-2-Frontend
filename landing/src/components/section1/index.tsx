@@ -1,5 +1,6 @@
 import { LogoIMG, S1MainIMG } from "assets/images";
 import { pagelayout } from "assets/styles/common";
+import ImageBox from "components/ImageBox";
 import SectionTemplate from "components/SectionTemplate";
 import React, { ReactElement } from "react";
 import styled from "styled-components";
@@ -7,12 +8,6 @@ import styled from "styled-components";
 const SectionInner = styled.div`
   ${pagelayout}
   padding: 108px 0 122px 0;
-`;
-
-const MainImgBox = styled.img`
-  width: 672px;
-  height: 532px;
-  margin-right: 108px;
 `;
 
 const ContentBox = styled.div`
@@ -71,7 +66,12 @@ function Section1(): ReactElement {
   return (
     <SectionTemplate filled>
       <SectionInner>
-        <MainImgBox src={S1MainIMG} />
+        <ImageBox
+          width="672px"
+          height="532px"
+          marginRight="108px"
+          src={S1MainIMG}
+        />
         <ContentBox>
           <Title>
             흩어진 <Emphasis>북마크</Emphasis>를 모으는

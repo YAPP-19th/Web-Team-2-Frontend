@@ -1,5 +1,6 @@
 import { S2MainIMG } from "assets/images";
 import { pagelayout } from "assets/styles/common";
+import ImageBox from "components/ImageBox";
 import SectionTemplate from "components/SectionTemplate";
 import React, { ReactElement } from "react";
 import styled from "styled-components";
@@ -7,12 +8,6 @@ import styled from "styled-components";
 const SectionInner = styled.div`
   ${pagelayout}
   padding: 148px 0 172px 167px;
-`;
-
-const MainImgBox = styled.img`
-  width: 36.694rem;
-  height: 442px;
-  margin-right: 160px;
 `;
 
 const ContentBox = styled.div`
@@ -52,7 +47,12 @@ function Section2(): ReactElement {
   return (
     <SectionTemplate>
       <SectionInner>
-        <MainImgBox src={S2MainIMG} />
+        <ImageBox
+          width="36.694rem"
+          height="442px"
+          marginRight="160px"
+          src={S2MainIMG}
+        />
 
         <ContentBox>
           <Title>

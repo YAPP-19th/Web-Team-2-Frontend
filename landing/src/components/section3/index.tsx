@@ -1,5 +1,6 @@
 import { S3MainIMG } from "assets/images";
 import { pagelayout } from "assets/styles/common";
+import ImageBox from "components/ImageBox";
 import SectionTemplate from "components/SectionTemplate";
 import React, { ReactElement } from "react";
 import styled from "styled-components";
@@ -14,11 +15,6 @@ const ContentBox = styled.div`
   width: 1254px;
   height: 332px;
   position: relative;
-`;
-
-const MainImgBox = styled.img`
-  width: 100%;
-  height: 100%;
 `;
 
 const Description = styled.div`
@@ -58,7 +54,7 @@ function Section3(): ReactElement {
     <SectionTemplate filled>
       <SectionInner>
         <ContentBox>
-          <MainImgBox src={S3MainIMG} />
+          <ImageBox width="100%" height="100%" src={S3MainIMG} />
           <Description>
             <Title>좋은 정보는 함께 공유함</Title>
             <Text>
