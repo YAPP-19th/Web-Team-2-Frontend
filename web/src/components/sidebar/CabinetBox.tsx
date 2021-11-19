@@ -1,7 +1,10 @@
 import { PlusIcon } from 'assets/icons';
 import React, { ReactElement } from 'react';
-import { useCabinetAction } from 'recoil/selectors/folderSelector';
 import styled from 'styled-components';
+
+interface CabinetBoxProps {
+  createCabinet: () => void;
+}
 
 const CabinetBoxWrapper = styled.div`
   margin-bottom: 40px;
@@ -33,12 +36,10 @@ const Text = styled.div`
   line-height: 40px;
 `;
 
-function CabinetBox(): ReactElement {
-  const { create } = useCabinetAction();
-
+function CabinetBox({ createCabinet }: CabinetBoxProps): ReactElement {
   return (
     <CabinetBoxWrapper>
-      <CabinetButton onClick={create}>
+      <CabinetButton onClick={createCabinet}>
         <PlusIconStyled />
         <Text>보관함 추가</Text>
       </CabinetButton>

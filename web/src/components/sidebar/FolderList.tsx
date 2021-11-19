@@ -1,19 +1,30 @@
-import Tree, { ItemId, RenderItemParams } from '@atlaskit/tree';
+import Tree, {
+  ItemId,
+  moveItemOnTree,
+  mutateTree,
+  RenderItemParams,
+  TreeData,
+  TreeDestinationPosition,
+  TreeSourcePosition,
+} from '@atlaskit/tree';
 import { More16Icon, PlusIcon } from 'assets/icons';
 import SmallModal from 'components/common/SmallModal';
 import useToggle from 'hooks/common/useToggle';
-import useFolderHandle from 'hooks/sidebar/useFolderHandle';
-import useFoldersEffect from 'hooks/sidebar/useFoldersEffect';
+import produce from 'immer';
 import { folder } from 'models/folder';
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useCallback, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { selectedFolderState } from 'recoil/atoms/folderState';
-import { useFolderAction } from 'recoil/selectors/folderSelector';
 import styled from 'styled-components';
 import FolderItemIcon from './FolderItemIcon';
 import FolderMenuLayer from './FolderMenuLayer';
 import FolderMoveModal from './FolderMoveModal';
 import FolderRenameModal from './FolderRenameModal';
+
+interface FolderListProps {
+  folders: TreeData;
+  setFolders: React.Dispatch<React.SetStateAction<TreeData>>;
+}
 
 const FolderListWrapper = styled.div`
   position: relative;
@@ -75,7 +86,7 @@ const FolderETCButton = styled.button`
   }
 `;
 
-function FolderList(): ReactElement {
+function FolderList({ folders, setFolders }: FolderListProps): ReactElement {
   // state
   const setSelectedFolder = useSetRecoilState(selectedFolderState);
   const [position, setPosition] = useState<folder.ILayerPosition>({
@@ -96,10 +107,6 @@ function FolderList(): ReactElement {
     onToggleMoveModal,
   };
 
-  // logic hooks
-  useFoldersEffect();
-  const { create } = useFolderAction();
-
   // function
   const onToggleMenu = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -112,6 +119,26 @@ function FolderList(): ReactElement {
       left: e.currentTarget.getBoundingClientRect().left,
     });
   };
+
+  const createFolder = useCallback((parentId: ItemId) => {
+    const newFolderId = Math.random().toString();
+    const newFolder = {
+      id: newFolderId,
+      children: [],
+      data: {
+        title: '제목없음',
+      },
+    };
+
+    setFolders((prev) =>
+      produce(prev, (draft) => {
+        const newObj = draft;
+        newObj.items[newFolderId] = newFolder;
+        newObj.items[parentId].children.push(newFolderId);
+        newObj.items[parentId].isExpanded = true;
+      }),
+    );
+  }, []);
 
   const renderFolderItem = ({
     item,
@@ -143,7 +170,7 @@ function FolderList(): ReactElement {
             </FolderLeftBox>
 
             <FolderRightBox onMouseDown={(e) => e.stopPropagation()}>
-              <FolderETCButton onClick={() => create(item.id)}>
+              <FolderETCButton onClick={() => createFolder(item.id)}>
                 <PlusIcon />
               </FolderETCButton>
               <FolderETCButton onClick={(e) => onToggleMenu(e, item.id)}>
@@ -156,7 +183,24 @@ function FolderList(): ReactElement {
     );
   };
 
-  const { folders, onCollapse, onDragEnd, onExpand } = useFolderHandle();
+  const onExpand = (itemId: ItemId) => {
+    setFolders(mutateTree(folders, itemId, { isExpanded: true }));
+  };
+
+  const onCollapse = (itemId: ItemId) => {
+    setFolders(mutateTree(folders, itemId, { isExpanded: false }));
+  };
+
+  const onDragEnd = (
+    source: TreeSourcePosition,
+    destination?: TreeDestinationPosition,
+  ) => {
+    if (!destination) return;
+    const newTree = moveItemOnTree(folders, source, destination);
+    // console.log('새로운 부모Id', destination);
+    // console.log('기존 부모Id', source);
+    setFolders(newTree);
+  };
   return (
     <FolderListWrapper>
       <Tree
