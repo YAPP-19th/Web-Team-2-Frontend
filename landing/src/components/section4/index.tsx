@@ -1,13 +1,12 @@
 import { S4MainIMG } from "assets/images";
+import { pagelayout } from "assets/styles/common";
 import SectionTemplate from "components/SectionTemplate";
 import React, { ReactElement } from "react";
 import styled from "styled-components";
 
-const Section4Inner = styled.div`
-  width: 1440px;
-  margin: 0 auto;
+const SectionInner = styled.div`
+  ${pagelayout}
   padding: 185px 0 196px 285px;
-  display: flex;
 `;
 
 const MainImgBox = styled.img`
@@ -52,7 +51,7 @@ const Text = styled.div`
 function Section4(): ReactElement {
   return (
     <SectionTemplate>
-      <Section4Inner>
+      <SectionInner>
         <MainImgBox src={S4MainIMG} />
 
         <ContentBox>
@@ -67,7 +66,7 @@ function Section4(): ReactElement {
             놓친 알림도 따로 보관해드려요.
           </Text>
         </ContentBox>
-      </Section4Inner>
+      </SectionInner>
     </SectionTemplate>
   );
 }

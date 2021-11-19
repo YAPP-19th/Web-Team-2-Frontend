@@ -1,13 +1,12 @@
 import { LogoIMG, S1MainIMG } from "assets/images";
+import { pagelayout } from "assets/styles/common";
 import SectionTemplate from "components/SectionTemplate";
 import React, { ReactElement } from "react";
 import styled from "styled-components";
 
-const Section1Inner = styled.div`
-  width: 1440px;
-  margin: 0 auto;
+const SectionInner = styled.div`
+  ${pagelayout}
   padding: 108px 0 122px 0;
-  display: flex;
 `;
 
 const MainImgBox = styled.img`
@@ -71,7 +70,7 @@ const DownloadButton = styled.button`
 function Section1(): ReactElement {
   return (
     <SectionTemplate filled>
-      <Section1Inner>
+      <SectionInner>
         <MainImgBox src={S1MainIMG} />
         <ContentBox>
           <Title>
@@ -88,7 +87,7 @@ function Section1(): ReactElement {
           </StrongText>
           <DownloadButton>DownLoad {"->"}</DownloadButton>
         </ContentBox>
-      </Section1Inner>
+      </SectionInner>
     </SectionTemplate>
   );
 }

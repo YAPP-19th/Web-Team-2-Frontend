@@ -1,13 +1,12 @@
 import { S2MainIMG } from "assets/images";
+import { pagelayout } from "assets/styles/common";
 import SectionTemplate from "components/SectionTemplate";
 import React, { ReactElement } from "react";
 import styled from "styled-components";
 
-const Section2Inner = styled.div`
-  width: 1440px;
-  margin: 0 auto;
+const SectionInner = styled.div`
+  ${pagelayout}
   padding: 148px 0 172px 167px;
-  display: flex;
 `;
 
 const MainImgBox = styled.img`
@@ -52,7 +51,7 @@ const Text = styled.div`
 function Section2(): ReactElement {
   return (
     <SectionTemplate>
-      <Section2Inner>
+      <SectionInner>
         <MainImgBox src={S2MainIMG} />
 
         <ContentBox>
@@ -67,7 +66,7 @@ function Section2(): ReactElement {
             원하는 분류대로 깔끔하게 정리해요.
           </Text>
         </ContentBox>
-      </Section2Inner>
+      </SectionInner>
     </SectionTemplate>
   );
 }

@@ -1,13 +1,12 @@
 import { S3MainIMG } from "assets/images";
+import { pagelayout } from "assets/styles/common";
 import SectionTemplate from "components/SectionTemplate";
 import React, { ReactElement } from "react";
 import styled from "styled-components";
 
-const Section3Inner = styled.div`
-  width: 1440px;
-  margin: 0 auto;
+const SectionInner = styled.div`
+  ${pagelayout}
   padding: 232px 0 208px 186px;
-  display: flex;
   flex-flow: row-reverse;
 `;
 
@@ -57,7 +56,7 @@ const Text = styled.div`
 function Section3(): ReactElement {
   return (
     <SectionTemplate filled>
-      <Section3Inner>
+      <SectionInner>
         <ContentBox>
           <MainImgBox src={S3MainIMG} />
           <Description>
@@ -69,7 +68,7 @@ function Section3(): ReactElement {
           </Description>
           <Circle />
         </ContentBox>
-      </Section3Inner>
+      </SectionInner>
     </SectionTemplate>
   );
 }
