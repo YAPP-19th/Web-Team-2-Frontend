@@ -50,16 +50,19 @@ const FolderItemBlock = styled.div`
 const FolderLeftBox = styled.div`
   display: flex;
   align-items: center;
+  min-width: 65px;
 `;
 
-const FolderTitle = styled.span<{ isFirst: boolean }>`
+const FolderTitle = styled.span`
   cursor: pointer;
   height: 28px;
   line-height: 25px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
   &:hover {
     text-decoration: underline;
   }
-  ${(props) => props.isFirst && `font-weight: 500`}
 `;
 
 const FolderETCButton = styled.button`
@@ -95,7 +98,6 @@ function FolderList(): ReactElement {
 
   // logic hooks
   useFoldersEffect();
-  const { onCheckFirstNode } = useFolderHandle();
   const { create } = useFolderAction();
 
   // function
@@ -137,9 +139,7 @@ function FolderList(): ReactElement {
                 onCollapse={onCollapse}
                 onExpand={onExpand}
               />
-              <FolderTitle isFirst={onCheckFirstNode(item.id)}>
-                {item.data.title}
-              </FolderTitle>
+              <FolderTitle>{item.data.title}</FolderTitle>
             </FolderLeftBox>
 
             <FolderRightBox onMouseDown={(e) => e.stopPropagation()}>
