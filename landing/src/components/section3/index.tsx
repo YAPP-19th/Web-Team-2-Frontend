@@ -1,12 +1,7 @@
 import { S3MainIMG } from "assets/images";
+import SectionTemplate from "components/SectionTemplate";
 import React, { ReactElement } from "react";
 import styled from "styled-components";
-
-const Section3Wrapper = styled.div`
-  width: 100%;
-  height: 762px;
-  background-color: rgba(224, 255, 181, 0.5);
-`;
 
 const Section3Inner = styled.div`
   width: 1440px;
@@ -61,7 +56,7 @@ const Text = styled.div`
 
 function Section3(): ReactElement {
   return (
-    <Section3Wrapper>
+    <SectionTemplate filled>
       <Section3Inner>
         <ContentBox>
           <MainImgBox src={S3MainIMG} />
@@ -75,7 +70,7 @@ function Section3(): ReactElement {
           <Circle />
         </ContentBox>
       </Section3Inner>
-    </Section3Wrapper>
+    </SectionTemplate>
   );
 }
 

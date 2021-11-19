@@ -1,12 +1,7 @@
 import { LogoIMG, S1MainIMG } from "assets/images";
+import SectionTemplate from "components/SectionTemplate";
 import React, { ReactElement } from "react";
 import styled from "styled-components";
-
-const Section1Wrapper = styled.div`
-  width: 100%;
-  height: 762px;
-  background-color: rgba(224, 255, 181, 0.5);
-`;
 
 const Section1Inner = styled.div`
   width: 1440px;
@@ -75,7 +70,7 @@ const DownloadButton = styled.button`
 
 function Section1(): ReactElement {
   return (
-    <Section1Wrapper>
+    <SectionTemplate filled>
       <Section1Inner>
         <MainImgBox src={S1MainIMG} />
         <ContentBox>
@@ -94,7 +89,7 @@ function Section1(): ReactElement {
           <DownloadButton>DownLoad {"->"}</DownloadButton>
         </ContentBox>
       </Section1Inner>
-    </Section1Wrapper>
+    </SectionTemplate>
   );
 }
 

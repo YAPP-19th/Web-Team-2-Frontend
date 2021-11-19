@@ -1,12 +1,7 @@
 import { S2MainIMG } from "assets/images";
+import SectionTemplate from "components/SectionTemplate";
 import React, { ReactElement } from "react";
 import styled from "styled-components";
-
-const Section2Wrapper = styled.div`
-  width: 100%;
-  height: 762px;
-  background-color: #fff;
-`;
 
 const Section2Inner = styled.div`
   width: 1440px;
@@ -56,7 +51,7 @@ const Text = styled.div`
 
 function Section2(): ReactElement {
   return (
-    <Section2Wrapper>
+    <SectionTemplate>
       <Section2Inner>
         <MainImgBox src={S2MainIMG} />
 
@@ -73,7 +68,7 @@ function Section2(): ReactElement {
           </Text>
         </ContentBox>
       </Section2Inner>
-    </Section2Wrapper>
+    </SectionTemplate>
   );
 }
 
