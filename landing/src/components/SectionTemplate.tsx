@@ -1,3 +1,4 @@
+import media from "assets/styles/media";
 import React, { ReactElement } from "react";
 import styled from "styled-components";
 
@@ -11,6 +12,9 @@ const SectionTemplateWrapper = styled.div<{ filled?: boolean }>`
   height: 762px;
   background-color: ${(props) =>
     props.filled ? "rgba(224, 255, 181, 0.5)" : "#fff"};
+  ${media.large} {
+    height: 870px;
+  }
 `;
 
 function SectionTemplate({

@@ -1,4 +1,5 @@
 import { LogoWhite } from "assets/images";
+import media from "assets/styles/media";
 import { flexCenter } from "assets/styles/utils";
 import React, { ReactElement } from "react";
 import styled from "styled-components";
@@ -8,6 +9,9 @@ const FooterWrapper = styled.footer`
   height: 280px;
   background-color: #48bf91;
   ${flexCenter}
+  ${media.large} {
+    height: 140px;
+  }
 `;
 
 const FooterLogo = styled.img`

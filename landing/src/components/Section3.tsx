@@ -1,4 +1,4 @@
-import { S3MainIMG } from "assets/images";
+import { S3MainIMG, S3MobileMainIMG } from "assets/images";
 import media from "assets/styles/media";
 import { flexColumn, pagelayout } from "assets/styles/utils";
 import CirclePoint from "components/CirclePoint";
@@ -17,12 +17,23 @@ const SectionInner = styled.div`
     width: 1300px;
     padding: 232px 0 208px 45px;
   }
+  ${media.large} {
+    padding: 80px 0 0 0;
+    width: 100%;
+  }
 `;
 
 const ContentBox = styled.div`
   width: 1254px;
   height: 332px;
   position: relative;
+  ${media.large} {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    width: 100%;
+    height: auto;
+  }
 `;
 
 const Description = styled.div`
@@ -31,6 +42,26 @@ const Description = styled.div`
   left: 0;
   z-index: 10;
   ${flexColumn}
+  ${media.large} {
+    position: relative;
+    top: inherit;
+  }
+`;
+
+const ResponsiveImage = styled(ImageBox)`
+  display: none;
+  ${media.large} {
+    display: block;
+    width: 533px;
+    height: 404px;
+    margin-top: 64px;
+  }
+`;
+
+const ResponsiveText = styled(Text)`
+  ${media.large} {
+    text-align: center;
+  }
 `;
 
 function Section3(): ReactElement {
@@ -39,16 +70,17 @@ function Section3(): ReactElement {
       <SectionInner>
         <ContentBox>
           <ImageBox width="100%" height="100%" src={S3MainIMG} />
+          <ResponsiveImage src={S3MobileMainIMG} />
           <Description>
             <SectionTitle variant="primary">
               좋은 정보는 함께 공유함
             </SectionTitle>
-            <Text variant="primary">
+            <ResponsiveText variant="primary">
               메신저에 공유한 정보가 자꾸 묻혀서 불편한가요? <br />
               보관함에 내용을 저장하고, 멤버를 초대해 공유해요!
-            </Text>
+            </ResponsiveText>
+            <CirclePoint width="78px" height="48px" top="-2px" left="283px" />
           </Description>
-          <CirclePoint width="78px" height="48px" top="11px" left="283px" />
         </ContentBox>
       </SectionInner>
     </SectionTemplate>

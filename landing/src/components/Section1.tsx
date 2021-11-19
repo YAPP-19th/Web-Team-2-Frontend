@@ -1,4 +1,4 @@
-import { LogoIMG, S1MainIMG } from "assets/images";
+import { LogoIMG, S1MainIMG, S1MobileMainIMG } from "assets/images";
 import media from "assets/styles/media";
 import { flexColumn, pagelayout } from "assets/styles/utils";
 import ImageBox from "components/ImageBox";
@@ -11,6 +11,22 @@ import styled from "styled-components";
 const SectionInner = styled.div`
   padding: 108px 0 122px 0;
   ${pagelayout}
+  ${media.large} {
+    width: 100%;
+    flex-direction: column-reverse;
+    padding: 48px 0 0 0;
+    align-items: center;
+  }
+`;
+
+const ResponsiveImageBox = styled(ImageBox)`
+  display: none;
+  ${media.large} {
+    display: block;
+    margin-top: 35px;
+    width: 533px;
+    height: 404px;
+  }
 `;
 
 const ContentBox = styled.div`
@@ -18,6 +34,9 @@ const ContentBox = styled.div`
   ${flexColumn}
   ${media.xlarge} {
     align-items: center;
+  }
+  ${media.large} {
+    padding-top: 0;
   }
 `;
 
@@ -49,6 +68,9 @@ const ResponsiveText = styled(Text)`
 const StrongText = styled.div`
   font-weight: 500;
   margin: 10px 0 52px 0;
+  ${media.large} {
+    margin: 10px 0 25px 0;
+  }
 `;
 
 const DownloadButton = styled.button`
@@ -71,6 +93,7 @@ function Section1(): ReactElement {
           marginRight="108px"
           src={S1MainIMG}
         />
+        <ResponsiveImageBox src={S1MobileMainIMG} />
         <ContentBox>
           <SectionTitle variant="secondary">
             흩어진 <Emphasis>북마크</Emphasis>를 모으는

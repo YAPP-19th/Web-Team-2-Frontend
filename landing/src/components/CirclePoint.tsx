@@ -24,9 +24,16 @@ function CirclePoint({
   height,
   left,
   top,
+  ...rest
 }: CirclePointProps): ReactElement {
   return (
-    <CirclePointStyled width={width} height={height} left={left} top={top} />
+    <CirclePointStyled
+      width={width}
+      height={height}
+      left={left}
+      top={top}
+      {...rest}
+    />
   );
 }
 

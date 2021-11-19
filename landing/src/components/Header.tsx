@@ -1,4 +1,5 @@
 import { LogoSmall } from "assets/images";
+import media from "assets/styles/media";
 import React, { ReactElement } from "react";
 import styled, { css } from "styled-components";
 
@@ -15,6 +16,9 @@ const HeaderInner = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  ${media.large} {
+    width: 100%;
+  }
 `;
 
 const HeaderLogo = styled.img``;
