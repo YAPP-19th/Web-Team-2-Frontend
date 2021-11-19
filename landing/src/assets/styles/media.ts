@@ -3,9 +3,9 @@ export const mediaQuery = (maxWidth: number) => `
 `;
 
 const media = {
-  xxlarge: mediaQuery(2020),
-  xlarge: mediaQuery(1640),
-  large: mediaQuery(1500),
+  xxlarge: mediaQuery(1440),
+  xlarge: mediaQuery(1220),
+  large: mediaQuery(1068),
   medium: mediaQuery(1160),
   small: mediaQuery(768),
   xsmall: mediaQuery(375),

@@ -1,4 +1,5 @@
 import { LogoIMG, S1MainIMG } from "assets/images";
+import media from "assets/styles/media";
 import { flexColumn, pagelayout } from "assets/styles/utils";
 import ImageBox from "components/ImageBox";
 import SectionTemplate from "components/SectionTemplate";
@@ -8,13 +9,16 @@ import React, { ReactElement } from "react";
 import styled from "styled-components";
 
 const SectionInner = styled.div`
-  ${pagelayout}
   padding: 108px 0 122px 0;
+  ${pagelayout}
 `;
 
 const ContentBox = styled.div`
   padding-top: 4.125rem;
   ${flexColumn}
+  ${media.xlarge} {
+    align-items: center;
+  }
 `;
 
 const Emphasis = styled.span`
@@ -24,12 +28,25 @@ const Emphasis = styled.span`
   -webkit-text-emphasis-position: over;
 `;
 
+const LineChange = styled.br`
+  display: none;
+  ${media.xlarge} {
+    display: block;
+  }
+`;
+
 const Logo = styled.img`
   width: 15.95rem;
   margin-bottom: 2.688rem;
 `;
 
-const StrongText = styled(Text)`
+const ResponsiveText = styled(Text)`
+  ${media.xlarge} {
+    text-align: center;
+  }
+`;
+
+const StrongText = styled.div`
   font-weight: 500;
   margin: 10px 0 52px 0;
 `;
@@ -60,15 +77,18 @@ function Section1(): ReactElement {
           </SectionTitle>
 
           <Logo src={LogoIMG} />
-          <Text variant="secondary">
-            다람쥐는, 여러 군데 저장한 도토리 중 10%만 다시 찾는다고 해요.
+          <ResponsiveText variant="secondary">
+            다람쥐는, 여러 군데 저장한
+            <LineChange /> 도토리 중 10%만 다시 찾는다고 해요.
+            <LineChange />
             <br />
-            여러분도 저장한 정보를 찾기 힘들진 않으신가요?
-          </Text>
+            여러분도 저장한 정보를 찾기 <LineChange /> 힘들진 않으신가요?
+            <StrongText>
+              도토리처럼 흩어진 정보, <LineChange />
+              도토리함에 북마크하세요!
+            </StrongText>
+          </ResponsiveText>
 
-          <StrongText variant="secondary">
-            도토리처럼 흩어진 정보, 도토리함에 북마크하세요!
-          </StrongText>
           <DownloadButton>DownLoad {"->"}</DownloadButton>
         </ContentBox>
       </SectionInner>

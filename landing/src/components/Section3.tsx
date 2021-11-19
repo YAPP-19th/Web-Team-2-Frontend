@@ -1,4 +1,5 @@
 import { S3MainIMG } from "assets/images";
+import media from "assets/styles/media";
 import { flexColumn, pagelayout } from "assets/styles/utils";
 import CirclePoint from "components/CirclePoint";
 import ImageBox from "components/ImageBox";
@@ -12,6 +13,10 @@ const SectionInner = styled.div`
   ${pagelayout}
   padding: 232px 0 208px 186px;
   flex-flow: row-reverse;
+  ${media.xlarge} {
+    width: 1300px;
+    padding: 232px 0 208px 45px;
+  }
 `;
 
 const ContentBox = styled.div`

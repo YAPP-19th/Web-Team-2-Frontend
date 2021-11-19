@@ -1,3 +1,4 @@
+import media from "assets/styles/media";
 import React, { ReactElement } from "react";
 import styled, { css } from "styled-components";
 
@@ -22,6 +23,9 @@ const SectionTitleStyled = styled.span<SectionTitleProps>`
           font-size: 1.863rem;
           color: #0baa78;
           margin-bottom: 15px;
+          ${media.xlarge} {
+            font-size: 25px;
+          }
         `}
 `;
 

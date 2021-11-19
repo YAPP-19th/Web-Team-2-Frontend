@@ -1,4 +1,5 @@
 import { S2MainIMG } from "assets/images";
+import media from "assets/styles/media";
 import { flexColumn, pagelayout } from "assets/styles/utils";
 import CirclePoint from "components/CirclePoint";
 import ImageBox from "components/ImageBox";
@@ -11,6 +12,10 @@ import styled from "styled-components";
 const SectionInner = styled.div`
   ${pagelayout}
   padding: 148px 0 172px 167px;
+  ${media.xlarge} {
+    width: 1068px;
+    padding: 148px 0 172px 0;
+  }
 `;
 
 const ContentBox = styled.div`
@@ -19,11 +24,17 @@ const ContentBox = styled.div`
   ${flexColumn}
 `;
 
+const ResponsiveImageBox = styled(ImageBox)`
+  ${media.xlarge} {
+    margin-right: 120px;
+  }
+`;
+
 function Section2(): ReactElement {
   return (
     <SectionTemplate>
       <SectionInner>
-        <ImageBox
+        <ResponsiveImageBox
           width="36.694rem"
           height="442px"
           marginRight="160px"

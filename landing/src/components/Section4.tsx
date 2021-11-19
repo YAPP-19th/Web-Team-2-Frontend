@@ -1,4 +1,5 @@
 import { S4MainIMG } from "assets/images";
+import media from "assets/styles/media";
 import { flexColumn, pagelayout } from "assets/styles/utils";
 import CirclePoint from "components/CirclePoint";
 import ImageBox from "components/ImageBox";
@@ -11,6 +12,14 @@ import styled from "styled-components";
 const SectionInner = styled.div`
   ${pagelayout}
   padding: 185px 0 196px 285px;
+  ${media.xlarge} {
+    width: 1068px;
+    padding: 185px 0 196px 130px;
+  }
+`;
+
+const ResponseImageBox = styled(ImageBox)`
+  margin-right: 120px;
 `;
 
 const ContentBox = styled.div`
@@ -23,7 +32,7 @@ function Section4(): ReactElement {
   return (
     <SectionTemplate>
       <SectionInner>
-        <ImageBox
+        <ResponseImageBox
           width="353px"
           height="382px"
           marginRight="241px"
