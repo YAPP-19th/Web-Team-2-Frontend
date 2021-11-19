@@ -4,6 +4,7 @@ import CirclePoint from "components/CirclePoint";
 import ImageBox from "components/ImageBox";
 import SectionTemplate from "components/SectionTemplate";
 import SectionTitle from "components/SectionTitle";
+import Text from "components/Text";
 import React, { ReactElement } from "react";
 import styled from "styled-components";
 
@@ -27,12 +28,6 @@ const Description = styled.div`
   ${flexColumn}
 `;
 
-const Text = styled.div`
-  color: #000;
-  font-size: 16px;
-  line-height: 23px;
-`;
-
 function Section3(): ReactElement {
   return (
     <SectionTemplate filled>
@@ -43,7 +38,7 @@ function Section3(): ReactElement {
             <SectionTitle variant="primary">
               좋은 정보는 함께 공유함
             </SectionTitle>
-            <Text>
+            <Text variant="primary">
               메신저에 공유한 정보가 자꾸 묻혀서 불편한가요? <br />
               보관함에 내용을 저장하고, 멤버를 초대해 공유해요!
             </Text>

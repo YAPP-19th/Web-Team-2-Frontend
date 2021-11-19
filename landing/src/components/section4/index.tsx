@@ -4,6 +4,7 @@ import CirclePoint from "components/CirclePoint";
 import ImageBox from "components/ImageBox";
 import SectionTemplate from "components/SectionTemplate";
 import SectionTitle from "components/SectionTitle";
+import Text from "components/Text";
 import React, { ReactElement } from "react";
 import styled from "styled-components";
 
@@ -16,12 +17,6 @@ const ContentBox = styled.div`
   padding-top: 44px;
   position: relative;
   ${flexColumn}
-`;
-
-const Text = styled.div`
-  color: #000;
-  font-size: 16px;
-  line-height: 23px;
 `;
 
 function Section4(): ReactElement {
@@ -42,7 +37,7 @@ function Section4(): ReactElement {
           </SectionTitle>
           <CirclePoint width="146px" height="48px" top="84px" left="-3px" />
 
-          <Text>
+          <Text variant="primary">
             다시 읽고 싶은 정보는 리마인드 알림을 받아요. <br />
             놓친 알림도 따로 보관해드려요.
           </Text>

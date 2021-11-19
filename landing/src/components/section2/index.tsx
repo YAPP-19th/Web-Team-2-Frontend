@@ -4,6 +4,7 @@ import CirclePoint from "components/CirclePoint";
 import ImageBox from "components/ImageBox";
 import SectionTemplate from "components/SectionTemplate";
 import SectionTitle from "components/SectionTitle";
+import Text from "components/Text";
 import React, { ReactElement } from "react";
 import styled from "styled-components";
 
@@ -16,12 +17,6 @@ const ContentBox = styled.div`
   padding-top: 124px;
   position: relative;
   ${flexColumn}
-`;
-
-const Text = styled.div`
-  color: #000;
-  font-size: 16px;
-  line-height: 23px;
 `;
 
 function Section2(): ReactElement {
@@ -42,7 +37,7 @@ function Section2(): ReactElement {
           </SectionTitle>
           <CirclePoint width="78px" height="42px" top="165px" left="-5px" />
 
-          <Text>
+          <Text variant="primary">
             마구잡이로 저장된 북마크, 불편하지 않나요? <br />
             원하는 분류대로 깔끔하게 정리해요.
           </Text>

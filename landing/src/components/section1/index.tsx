@@ -3,6 +3,7 @@ import { flexColumn, pagelayout } from "assets/styles/utils";
 import ImageBox from "components/ImageBox";
 import SectionTemplate from "components/SectionTemplate";
 import SectionTitle from "components/SectionTitle";
+import Text from "components/Text";
 import React, { ReactElement } from "react";
 import styled from "styled-components";
 
@@ -28,21 +29,12 @@ const Logo = styled.img`
   margin-bottom: 2.688rem;
 `;
 
-const Text = styled.div`
-  color: #323232;
-  font-size: 16px;
-  line-height: 23px;
-  letter-spacing: -0.1px;
-  margin-bottom: 10px;
-`;
-
 const StrongText = styled.div`
   color: #323232;
   font-size: 16px;
   letter-spacing: -0.1px;
-  margin-bottom: 10px;
   font-weight: 500;
-  margin-bottom: 52px;
+  margin: 10px 0 52px 0;
 `;
 
 const DownloadButton = styled.button`
@@ -70,7 +62,7 @@ function Section1(): ReactElement {
             흩어진 <Emphasis>북마크</Emphasis>를 모으는
           </SectionTitle>
           <Logo src={LogoIMG} />
-          <Text>
+          <Text variant="secondary">
             다람쥐는, 여러 군데 저장한 도토리 중 10%만 다시 찾는다고 해요.
             <br />
             여러분도 저장한 정보를 찾기 힘들진 않으신가요?
