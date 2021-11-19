@@ -1,7 +1,8 @@
 import { S4MainIMG } from "assets/images";
-import { flexColumn, pagelayout } from "assets/styles/common";
+import { flexColumn, pagelayout } from "assets/styles/utils";
 import ImageBox from "components/ImageBox";
 import SectionTemplate from "components/SectionTemplate";
+import SectionTitle from "components/SectionTitle";
 import React, { ReactElement } from "react";
 import styled from "styled-components";
 
@@ -14,15 +15,6 @@ const ContentBox = styled.div`
   padding-top: 44px;
   position: relative;
   ${flexColumn}
-`;
-
-const Title = styled.span`
-  font-family: Cafe24Ssurround;
-  font-size: 38px;
-  color: #000;
-  font-weight: bold;
-  z-index: 10;
-  margin-bottom: 24px;
 `;
 
 const Circle = styled.div`
@@ -54,10 +46,10 @@ function Section4(): ReactElement {
         />
 
         <ContentBox>
-          <Title>
+          <SectionTitle variant="primary">
             중요한 북마크는 <br />
             리마인드함
-          </Title>
+          </SectionTitle>
           <Circle />
 
           <Text>

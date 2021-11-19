@@ -1,7 +1,8 @@
 import { LogoIMG, S1MainIMG } from "assets/images";
-import { flexColumn, pagelayout } from "assets/styles/common";
+import { flexColumn, pagelayout } from "assets/styles/utils";
 import ImageBox from "components/ImageBox";
 import SectionTemplate from "components/SectionTemplate";
+import SectionTitle from "components/SectionTitle";
 import React, { ReactElement } from "react";
 import styled from "styled-components";
 
@@ -13,13 +14,6 @@ const SectionInner = styled.div`
 const ContentBox = styled.div`
   padding-top: 4.125rem;
   ${flexColumn}
-`;
-
-const Title = styled.span`
-  font-family: Cafe24SsurroundAir;
-  font-size: 1.863rem;
-  color: #0baa78;
-  margin-bottom: 15px;
 `;
 
 const Emphasis = styled.span`
@@ -72,9 +66,9 @@ function Section1(): ReactElement {
           src={S1MainIMG}
         />
         <ContentBox>
-          <Title>
+          <SectionTitle variant="secondary">
             흩어진 <Emphasis>북마크</Emphasis>를 모으는
-          </Title>
+          </SectionTitle>
           <Logo src={LogoIMG} />
           <Text>
             다람쥐는, 여러 군데 저장한 도토리 중 10%만 다시 찾는다고 해요.

@@ -9,8 +9,8 @@ interface SectionTemplateProps {
 const SectionTemplateWrapper = styled.div<{ filled?: boolean }>`
   width: 100%;
   height: 762px;
-  background-color: ${({ filled }) =>
-    filled ? "rgba(224, 255, 181, 0.5)" : "#fff"};
+  background-color: ${(props) =>
+    props.filled ? "rgba(224, 255, 181, 0.5)" : "#fff"};
 `;
 
 function SectionTemplate({

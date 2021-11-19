@@ -1,7 +1,8 @@
 import { S3MainIMG } from "assets/images";
-import { flexColumn, pagelayout } from "assets/styles/common";
+import { flexColumn, pagelayout } from "assets/styles/utils";
 import ImageBox from "components/ImageBox";
 import SectionTemplate from "components/SectionTemplate";
+import SectionTitle from "components/SectionTitle";
 import React, { ReactElement } from "react";
 import styled from "styled-components";
 
@@ -23,14 +24,6 @@ const Description = styled.div`
   left: 0;
   z-index: 10;
   ${flexColumn}
-`;
-
-const Title = styled.span`
-  font-family: Cafe24Ssurround;
-  font-size: 38px;
-  color: #000;
-  font-weight: bold;
-  margin-bottom: 24px;
 `;
 
 const Circle = styled.div`
@@ -57,7 +50,9 @@ function Section3(): ReactElement {
         <ContentBox>
           <ImageBox width="100%" height="100%" src={S3MainIMG} />
           <Description>
-            <Title>좋은 정보는 함께 공유함</Title>
+            <SectionTitle variant="primary">
+              좋은 정보는 함께 공유함
+            </SectionTitle>
             <Text>
               메신저에 공유한 정보가 자꾸 묻혀서 불편한가요? <br />
               보관함에 내용을 저장하고, 멤버를 초대해 공유해요!
