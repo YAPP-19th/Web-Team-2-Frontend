@@ -33,7 +33,7 @@ function FolderItemIcon({
   onCollapse,
 }: FolderItemIconProps): ReactElement {
   return (
-    <FolderItemIconWrapper>
+    <FolderItemIconWrapper onMouseDown={(e) => e.stopPropagation()}>
       <ArrowButton
         isShow={item.children.length > 0}
         type="button"
