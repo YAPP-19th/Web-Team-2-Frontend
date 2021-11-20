@@ -175,20 +175,19 @@ function FolderList({ folders, setFolders }: FolderListProps): ReactElement {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <FolderItemBlock>
+          <FolderItemBlock
+            onMouseDown={() =>
+              item.isExpanded && item.children.length > 0 && onCollapse(item.id)
+            }
+          >
             <FolderLeftBox>
               <FolderItemIcon
                 item={item}
                 onCollapse={onCollapse}
                 onExpand={onExpand}
               />
-              <FolderTitle
-                onClick={() =>
-                  item.isExpanded && item.children.length > 0
-                    ? onCollapse(item.id)
-                    : onExpand(item.id)
-                }
-              >
+              {/* eslint-disable-next-line no-console */}
+              <FolderTitle onClick={() => console.log('폴더 클릭')}>
                 {item.data.title}
               </FolderTitle>
             </FolderLeftBox>

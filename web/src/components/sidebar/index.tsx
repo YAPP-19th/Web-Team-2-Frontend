@@ -17,9 +17,10 @@ const SideBarWrapper = styled.div`
 `;
 
 const FolderBox = styled.div`
-  height: 541px;
+  max-height: 541px;
   overflow: hidden auto; // hidden auto => overflow가 없을땐 안보이고 있을땐 스크롤
   overflow-x: auto;
+
   margin-bottom: 24px;
   &::-webkit-scrollbar {
     width: 10px; // 세로 스크롤바 가로 길이
