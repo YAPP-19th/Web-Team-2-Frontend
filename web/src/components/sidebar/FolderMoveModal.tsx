@@ -1,6 +1,6 @@
 import ModalTemplate from 'components/common/ModalTemplate';
 import SimpleButton from 'components/common/SimpleButton';
-import useFoldersEffect from 'hooks/sidebar/useFoldersEffect';
+import useFoldersHandle from 'hooks/sidebar/useFoldersHandle';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import AllFolder from './AllFolder';
@@ -62,7 +62,14 @@ function FolderMoveModal({
   isModal,
   onToggleModal,
 }: FolderMoveModalProps): ReactElement {
-  const { folders, setFolders } = useFoldersEffect();
+  const {
+    folders,
+    onCollapseFolder,
+    onDragEndFolder,
+    onDragStartFolder,
+    onExpandFolder,
+    createFolder,
+  } = useFoldersHandle();
   return (
     <ModalTemplate
       isModal={isModal}
@@ -75,7 +82,14 @@ function FolderMoveModal({
         <FolderPath>모든 도토리 {'>'}</FolderPath>
         <FolderListBox>
           <AllFolder />
-          <FolderList folders={folders} setFolders={setFolders} />
+          <FolderList
+            folders={folders}
+            createFolder={createFolder}
+            onCollapseFolder={onCollapseFolder}
+            onDragEndFolder={onDragEndFolder}
+            onDragStartFolder={onDragStartFolder}
+            onExpandFolder={onExpandFolder}
+          />
         </FolderListBox>
         <ButtonGroup>
           <SimpleButton

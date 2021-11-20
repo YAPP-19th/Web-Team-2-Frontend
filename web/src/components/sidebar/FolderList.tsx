@@ -1,7 +1,5 @@
 import Tree, {
   ItemId,
-  moveItemOnTree,
-  mutateTree,
   RenderItemParams,
   TreeData,
   TreeDestinationPosition,
@@ -10,9 +8,8 @@ import Tree, {
 import { More16Icon, PlusIcon } from 'assets/icons';
 import SmallModal from 'components/common/SmallModal';
 import useToggle from 'hooks/common/useToggle';
-import produce from 'immer';
 import { folder } from 'models/folder';
-import React, { ReactElement, useCallback, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { selectedFolderState } from 'recoil/atoms/folderState';
 import styled from 'styled-components';
@@ -23,7 +20,14 @@ import FolderRenameModal from './FolderRenameModal';
 
 interface FolderListProps {
   folders: TreeData;
-  setFolders: React.Dispatch<React.SetStateAction<TreeData>>;
+  onExpandFolder: (itemId: ItemId) => void;
+  onCollapseFolder: (itemId: ItemId) => void;
+  onDragStartFolder: (itemId: ItemId) => void;
+  onDragEndFolder: (
+    source: TreeSourcePosition,
+    destination?: TreeDestinationPosition | undefined,
+  ) => void;
+  createFolder: (parentId: ItemId) => void;
 }
 
 const FolderListWrapper = styled.div`
@@ -86,7 +90,14 @@ const FolderETCButton = styled.button`
   }
 `;
 
-function FolderList({ folders, setFolders }: FolderListProps): ReactElement {
+function FolderList({
+  folders,
+  createFolder,
+  onExpandFolder,
+  onDragStartFolder,
+  onDragEndFolder,
+  onCollapseFolder,
+}: FolderListProps): ReactElement {
   // state
   const setSelectedFolder = useSetRecoilState(selectedFolderState);
   const [position, setPosition] = useState<folder.ILayerPosition>({
@@ -118,48 +129,6 @@ function FolderList({ folders, setFolders }: FolderListProps): ReactElement {
       top: e.currentTarget.getBoundingClientRect().top,
       left: e.currentTarget.getBoundingClientRect().left,
     });
-  };
-
-  const createFolder = useCallback(
-    (parentId: ItemId) => {
-      const newFolderId = Math.random().toString();
-      const newFolder = {
-        id: newFolderId,
-        children: [],
-        data: {
-          title: '제목없음',
-        },
-      };
-
-      setFolders((prev) =>
-        produce(prev, (draft) => {
-          const newObj = draft;
-          newObj.items[newFolderId] = newFolder;
-          newObj.items[parentId].children.push(newFolderId);
-          newObj.items[parentId].isExpanded = true;
-        }),
-      );
-    },
-    [setFolders],
-  );
-
-  const onExpandFolder = (itemId: ItemId) => {
-    setFolders(mutateTree(folders, itemId, { isExpanded: true }));
-  };
-
-  const onCollapseFolder = (itemId: ItemId) => {
-    setFolders(mutateTree(folders, itemId, { isExpanded: false }));
-  };
-
-  const onDragEndFolder = (
-    source: TreeSourcePosition,
-    destination?: TreeDestinationPosition,
-  ) => {
-    if (!destination) return;
-    const newTree = moveItemOnTree(folders, source, destination);
-    // console.log('새로운 부모Id', destination);
-    // console.log('기존 부모Id', source);
-    setFolders(newTree);
   };
 
   const renderFolderItem = ({
@@ -214,7 +183,7 @@ function FolderList({ folders, setFolders }: FolderListProps): ReactElement {
         onExpand={onExpandFolder}
         onCollapse={onCollapseFolder}
         // eslint-disable-next-line no-console
-        onDragStart={(itemId) => console.log('이동하는 애', { id: itemId })}
+        onDragStart={onDragStartFolder}
         onDragEnd={onDragEndFolder}
         offsetPerLevel={16} // 한 깊이당 padding 값
         isDragEnabled

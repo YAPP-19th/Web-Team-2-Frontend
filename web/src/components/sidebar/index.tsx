@@ -1,6 +1,5 @@
-import useFoldersEffect from 'hooks/sidebar/useFoldersEffect';
-import produce from 'immer';
-import React, { ReactElement, useCallback } from 'react';
+import useFoldersHandle from 'hooks/sidebar/useFoldersHandle';
+import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import AllFolder from './AllFolder';
 import CabinetBox from './CabinetBox';
@@ -38,32 +37,28 @@ const FolderBox = styled.div`
 `;
 
 function SideBar(): ReactElement {
-  const { folders, setFolders } = useFoldersEffect();
-
-  const createCabinet = useCallback(() => {
-    const newCabinetId = Math.random().toString();
-    const newCabinet = {
-      id: newCabinetId,
-      children: [],
-      data: {
-        title: '임시보관함',
-      },
-    };
-
-    setFolders((prev) =>
-      produce(prev, (draft) => {
-        const newObj = draft;
-        newObj.items[newCabinetId] = newCabinet;
-        newObj.items.userId.children.push(newCabinetId); // userId 부분은 나중에 login 구현되면 실제 유저 아이디 넣는곳임 newObj.items[userId].children.push(newCabinetId);
-      }),
-    );
-  }, []);
+  const {
+    createCabinet,
+    createFolder,
+    folders,
+    onCollapseFolder,
+    onDragEndFolder,
+    onDragStartFolder,
+    onExpandFolder,
+  } = useFoldersHandle();
 
   return (
     <SideBarWrapper>
       <FolderBox>
         <AllFolder />
-        <FolderList folders={folders} setFolders={setFolders} />
+        <FolderList
+          folders={folders}
+          createFolder={createFolder}
+          onCollapseFolder={onCollapseFolder}
+          onDragEndFolder={onDragEndFolder}
+          onDragStartFolder={onDragStartFolder}
+          onExpandFolder={onExpandFolder}
+        />
       </FolderBox>
 
       <CabinetBox createCabinet={createCabinet} />
