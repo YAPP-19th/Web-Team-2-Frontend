@@ -58,6 +58,10 @@ const ButtonGroup = styled.div`
   justify-content: center;
 `;
 
+const CancelButton = styled(SimpleButton)`
+  margin-right: 12px;
+`;
+
 function FolderMoveModal({
   isModal,
   onToggleModal,
@@ -93,13 +97,12 @@ function FolderMoveModal({
           />
         </FolderListBox>
         <ButtonGroup>
-          <SimpleButton
+          <CancelButton
             variant="tertiary"
             width="63px"
             height="26px"
             label="취소"
             onClick={onToggleModal}
-            style={{ marginRight: '12px' }}
           />
 
           <SimpleButton

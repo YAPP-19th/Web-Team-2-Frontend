@@ -13,13 +13,11 @@ const AllFolderIconBox = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
-  width: 30px;
-  svg {
-    margin-left: 6px;
-  }
 `;
 
-const AllFolderFavicon = styled(AllFolderIcon)``;
+const AllFolderFavicon = styled(AllFolderIcon)`
+  margin-right: 6px;
+`;
 
 const AllFolderName = styled.span`
   height: 100%;
