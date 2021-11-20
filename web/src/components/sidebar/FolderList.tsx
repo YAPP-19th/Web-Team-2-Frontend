@@ -28,6 +28,7 @@ interface FolderListProps {
     destination?: TreeDestinationPosition | undefined,
   ) => void;
   createFolder: (parentId: ItemId) => void;
+  isDrag: boolean;
 }
 
 const FolderListWrapper = styled.div`
@@ -97,6 +98,7 @@ function FolderList({
   onDragStartFolder,
   onDragEndFolder,
   onCollapseFolder,
+  isDrag,
 }: FolderListProps): ReactElement {
   // state
   const setSelectedFolder = useSetRecoilState(selectedFolderState);
@@ -160,15 +162,16 @@ function FolderList({
                 {item.data.title}
               </FolderTitle>
             </FolderLeftBox>
-
-            <FolderRightBox onMouseDown={(e) => e.stopPropagation()}>
-              <FolderETCButton onClick={() => createFolder(item.id)}>
-                <PlusIcon />
-              </FolderETCButton>
-              <FolderETCButton onClick={(e) => onToggleMenu(e, item.id)}>
-                <More16Icon />
-              </FolderETCButton>
-            </FolderRightBox>
+            {isDrag && (
+              <FolderRightBox onMouseDown={(e) => e.stopPropagation()}>
+                <FolderETCButton onClick={() => createFolder(item.id)}>
+                  <PlusIcon />
+                </FolderETCButton>
+                <FolderETCButton onClick={(e) => onToggleMenu(e, item.id)}>
+                  <More16Icon />
+                </FolderETCButton>
+              </FolderRightBox>
+            )}
           </FolderItemBlock>
         </FolderItemWrapper>
       </>
@@ -186,7 +189,7 @@ function FolderList({
         onDragStart={onDragStartFolder}
         onDragEnd={onDragEndFolder}
         offsetPerLevel={16} // 한 깊이당 padding 값
-        isDragEnabled
+        isDragEnabled={isDrag}
         isNestingEnabled
       />
 

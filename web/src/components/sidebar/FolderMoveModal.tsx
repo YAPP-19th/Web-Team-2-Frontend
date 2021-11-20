@@ -89,6 +89,7 @@ function FolderMoveModal({
             onDragEndFolder={onDragEndFolder}
             onDragStartFolder={onDragStartFolder}
             onExpandFolder={onExpandFolder}
+            isDrag={false}
           />
         </FolderListBox>
         <ButtonGroup>
