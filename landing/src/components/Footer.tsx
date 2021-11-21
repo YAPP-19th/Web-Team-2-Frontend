@@ -1,4 +1,5 @@
-import { LogoWhite } from "assets/images";
+import { PointerSmallIcon } from "assets/icons";
+import { LogoWhite, LogoWhiteSmall } from "assets/images";
 import media from "assets/styles/media";
 import { flexCenter } from "assets/styles/utils";
 import React, { ReactElement } from "react";
@@ -12,11 +13,24 @@ const FooterWrapper = styled.footer`
   ${media.large} {
     height: 140px;
   }
+  ${media.medium} {
+    height: 96px;
+  }
 `;
 
 const FooterLogo = styled.img`
   width: 273px;
   margin-right: 44px;
+  ${media.medium} {
+    display: none;
+  }
+`;
+
+const ResponsiveLogo = styled.img`
+  ${media.medium} {
+    display: block;
+    margin-right: 19px;
+  }
 `;
 
 const DownloadButton = styled.button`
@@ -28,13 +42,23 @@ const DownloadButton = styled.button`
   color: #fff;
   font-size: 1.256rem;
   font-weight: bold;
+  ${flexCenter}
+  ${media.medium} {
+    width: 96px;
+    height: 32px;
+    font-size: 12px;
+  }
 `;
 
 function Footer(): ReactElement {
   return (
     <FooterWrapper>
       <FooterLogo src={LogoWhite} />
-      <DownloadButton>Download {"->"}</DownloadButton>
+      <ResponsiveLogo src={LogoWhiteSmall} />
+      <DownloadButton>
+        Download
+        <PointerSmallIcon />
+      </DownloadButton>
     </FooterWrapper>
   );
 }

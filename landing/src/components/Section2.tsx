@@ -22,6 +22,9 @@ const SectionInner = styled.div`
     width: 100%;
     align-items: center;
   }
+  ${media.medium} {
+    align-items: inherit;
+  }
 `;
 
 const ContentBox = styled.div`
@@ -46,6 +49,10 @@ const ResponsiveImage = styled(ImageBox)`
     width: 533px;
     height: 404px;
     margin-top: 60px;
+  }
+  ${media.medium} {
+    width: 332px;
+    height: 239px;
   }
 `;
 

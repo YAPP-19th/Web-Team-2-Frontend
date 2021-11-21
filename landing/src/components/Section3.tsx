@@ -34,6 +34,9 @@ const ContentBox = styled.div`
     width: 100%;
     height: auto;
   }
+  ${media.medium} {
+    align-items: flex-end;
+  }
 `;
 
 const Description = styled.div`
@@ -46,6 +49,9 @@ const Description = styled.div`
     position: relative;
     top: inherit;
   }
+  ${media.medium} {
+    width: 100%;
+  }
 `;
 
 const ResponsiveImage = styled(ImageBox)`
@@ -56,11 +62,22 @@ const ResponsiveImage = styled(ImageBox)`
     height: 404px;
     margin-top: 64px;
   }
+  ${media.medium} {
+    width: 306px;
+    height: 210px;
+  }
 `;
 
 const ResponsiveText = styled(Text)`
   ${media.large} {
     text-align: center;
+  }
+`;
+
+const LineChange = styled.br`
+  display: none;
+  ${media.medium} {
+    display: block;
   }
 `;
 
@@ -73,7 +90,7 @@ function Section3(): ReactElement {
           <ResponsiveImage src={S3MobileMainIMG} />
           <Description>
             <SectionTitle variant="primary">
-              좋은 정보는 함께 공유함
+              좋은 정보는 <LineChange /> 함께 공유함
             </SectionTitle>
             <ResponsiveText variant="primary">
               메신저에 공유한 정보가 자꾸 묻혀서 불편한가요? <br />

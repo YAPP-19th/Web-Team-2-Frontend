@@ -39,12 +39,19 @@ const ResponsiveImage = styled(ImageBox)`
     height: 404px;
     margin-top: 60px;
   }
+  ${media.medium} {
+    width: 14.35rem;
+    height: 15.669rem;
+  }
 `;
 
 const ContentBox = styled.div`
   padding-top: 44px;
   position: relative;
   ${flexColumn}
+  ${media.medium} {
+    padding-top: 0;
+  }
 `;
 
 const ResponseCirclePoint = styled(CirclePoint)`

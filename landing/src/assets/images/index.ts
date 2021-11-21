@@ -9,3 +9,4 @@ export { default as S3MainIMG } from "./S3MainIMG.png";
 export { default as S3MobileMainIMG } from "./S3MobileMainIMG.png";
 export { default as S4MainIMG } from "./S4MainIMG.png";
 export { default as S4MobileMainIMG } from "./S4MobileMainIMG.png";
+export { default as LogoWhiteSmall } from "./LogoWhiteSmall.png";

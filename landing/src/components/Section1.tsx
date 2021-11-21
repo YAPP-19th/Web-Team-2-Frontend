@@ -1,12 +1,19 @@
+import { PointerIcon } from "assets/icons";
 import { LogoIMG, S1MainIMG, S1MobileMainIMG } from "assets/images";
 import media from "assets/styles/media";
-import { flexColumn, pagelayout } from "assets/styles/utils";
+import { flexCenter, flexColumn, pagelayout } from "assets/styles/utils";
 import ImageBox from "components/ImageBox";
 import SectionTemplate from "components/SectionTemplate";
 import SectionTitle from "components/SectionTitle";
 import Text from "components/Text";
 import React, { ReactElement } from "react";
 import styled from "styled-components";
+
+const ResponsiveTemplate = styled(SectionTemplate)`
+  ${media.medium} {
+    height: 712px;
+  }
+`;
 
 const SectionInner = styled.div`
   padding: 108px 0 122px 0;
@@ -26,6 +33,10 @@ const ResponsiveImageBox = styled(ImageBox)`
     margin-top: 35px;
     width: 533px;
     height: 404px;
+  }
+  ${media.medium} {
+    width: 360px;
+    height: 256px;
   }
 `;
 
@@ -57,11 +68,17 @@ const LineChange = styled.br`
 const Logo = styled.img`
   width: 15.95rem;
   margin-bottom: 2.688rem;
+  ${media.medium} {
+    margin-bottom: 48px;
+  }
 `;
 
 const ResponsiveText = styled(Text)`
   ${media.xlarge} {
     text-align: center;
+  }
+  ${media.medium} {
+    color: #006054;
   }
 `;
 
@@ -70,6 +87,10 @@ const StrongText = styled.div`
   margin: 10px 0 52px 0;
   ${media.large} {
     margin: 10px 0 25px 0;
+  }
+  ${media.medium} {
+    margin: 16px 0 25px 0;
+    text-decoration: underline;
   }
 `;
 
@@ -81,11 +102,16 @@ const DownloadButton = styled.button`
   color: #fff;
   font-weight: bold;
   font-size: 1.131rem;
+  margin-right: 0.281rem;
+  ${flexCenter}
+  ${media.medium} {
+    display: none;
+  }
 `;
 
 function Section1(): ReactElement {
   return (
-    <SectionTemplate filled>
+    <ResponsiveTemplate filled responsiveColor>
       <SectionInner>
         <ImageBox
           width="672px"
@@ -112,10 +138,13 @@ function Section1(): ReactElement {
             </StrongText>
           </ResponsiveText>
 
-          <DownloadButton>DownLoad {"->"}</DownloadButton>
+          <DownloadButton>
+            DownLoad
+            <PointerIcon />
+          </DownloadButton>
         </ContentBox>
       </SectionInner>
-    </SectionTemplate>
+    </ResponsiveTemplate>
   );
 }
 
