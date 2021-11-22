@@ -3,6 +3,7 @@ import MainPage from 'pages/MainPage';
 import MyPage from 'pages/MyPage';
 import RegisterPage from 'pages/RegisterPage';
 import ResetPasswordPage from 'pages/ResetPasswordPage';
+import SendPasswordPage from 'pages/SendPasswordPage';
 import React, { ReactElement, useMemo } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Path from 'routes/path';
@@ -13,6 +14,7 @@ const routingComponents = [
   { path: Path.LoginPage, element: <LoginPage /> },
   { path: Path.RegisterPage, element: <RegisterPage /> },
   { path: Path.ResetPasswordPage, element: <ResetPasswordPage /> },
+  { path: Path.SendPasswordPage, element: <SendPasswordPage /> },
 ];
 
 function Routing(): ReactElement {
