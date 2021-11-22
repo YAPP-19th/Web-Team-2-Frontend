@@ -4,13 +4,11 @@ import styled from "styled-components";
 
 interface SectionTemplateProps {
   filled?: boolean;
-  responsiveColor?: boolean;
   children: React.ReactNode;
 }
 
 const SectionTemplateWrapper = styled.div<{
   filled?: boolean;
-  responsiveColor?: boolean;
 }>`
   width: 100%;
   height: 762px;
@@ -21,23 +19,16 @@ const SectionTemplateWrapper = styled.div<{
   }
   ${media.mobile} {
     height: 624px;
-    ${(props) =>
-      props.responsiveColor && "background-color: rgba(224, 255, 181, 0.2)"}
   }
 `;
 
 function SectionTemplate({
   filled,
-  responsiveColor,
   children,
   ...rest
 }: SectionTemplateProps): ReactElement {
   return (
-    <SectionTemplateWrapper
-      filled={filled}
-      responsiveColor={responsiveColor}
-      {...rest}
-    >
+    <SectionTemplateWrapper filled={filled} {...rest}>
       {children}
     </SectionTemplateWrapper>
   );

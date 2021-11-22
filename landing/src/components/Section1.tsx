@@ -13,6 +13,7 @@ import ResponsiveNewLine from "./ResponsiveNewLine";
 const ResponsiveTemplate = styled(SectionTemplate)`
   ${media.mobile} {
     height: 712px;
+    background-color: rgba(224, 255, 181, 0.2);
   }
 `;
 
@@ -105,7 +106,7 @@ const DownloadButton = styled.button`
 
 function Section1(): ReactElement {
   return (
-    <ResponsiveTemplate filled responsiveColor>
+    <ResponsiveTemplate filled>
       <SectionInner>
         <ImageBox
           width="672px"
