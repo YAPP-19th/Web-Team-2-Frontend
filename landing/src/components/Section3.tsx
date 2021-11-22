@@ -2,7 +2,7 @@ import { S3DesktopIMG, S3MobileIMG } from "assets/images";
 import media from "assets/styles/media";
 import { flexColumn, pagelayout } from "assets/styles/utils";
 import CirclePoint from "components/CirclePoint";
-import ImageBox from "components/ImageBox";
+import Image from "components/Image";
 import SectionTemplate from "components/SectionTemplate";
 import SectionTitle from "components/SectionTitle";
 import Text from "components/Text";
@@ -57,7 +57,7 @@ const ResponsiveImageBox = styled.div`
   }
 `;
 
-const ResponsiveImage = styled(ImageBox)`
+const ResponsiveImage = styled(Image)`
   display: none;
   ${media.tablet} {
     display: block;
@@ -95,7 +95,7 @@ function Section3(): ReactElement {
     <SectionTemplate filled>
       <SectionInner>
         <ContentBox>
-          <ImageBox width="100%" height="100%" src={S3DesktopIMG} />
+          <Image width="100%" height="100%" src={S3DesktopIMG} />
           <ResponsiveImageBox>
             <ResponsiveImage src={S3MobileIMG} />
           </ResponsiveImageBox>

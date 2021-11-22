@@ -2,7 +2,7 @@ import { PointerIcon } from "assets/icons";
 import { LogoIMG, S1DesktopIMG, S1MobileIMG } from "assets/images";
 import media from "assets/styles/media";
 import { flexCenter, flexColumn, pagelayout } from "assets/styles/utils";
-import ImageBox from "components/ImageBox";
+import Image from "components/Image";
 import SectionTemplate from "components/SectionTemplate";
 import SectionTitle from "components/SectionTitle";
 import Text from "components/Text";
@@ -28,7 +28,7 @@ const SectionInner = styled.div`
   }
 `;
 
-const ResponsiveImage = styled(ImageBox)`
+const ResponsiveImage = styled(Image)`
   display: none;
   ${media.tablet} {
     display: block;
@@ -108,7 +108,7 @@ function Section1(): ReactElement {
   return (
     <ResponsiveTemplate filled>
       <SectionInner>
-        <ImageBox
+        <Image
           width="672px"
           height="532px"
           marginRight="108px"

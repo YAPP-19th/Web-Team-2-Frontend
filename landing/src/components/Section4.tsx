@@ -2,7 +2,7 @@ import { S4DesktopIMG, S4MobileIMG } from "assets/images";
 import media from "assets/styles/media";
 import { flexColumn, pagelayout } from "assets/styles/utils";
 import CirclePoint from "components/CirclePoint";
-import ImageBox from "components/ImageBox";
+import Image from "components/Image";
 import SectionTemplate from "components/SectionTemplate";
 import SectionTitle from "components/SectionTitle";
 import Text from "components/Text";
@@ -25,13 +25,13 @@ const SectionInner = styled.div`
   }
 `;
 
-const Image = styled(ImageBox)`
+const ImageStyled = styled(Image)`
   ${media.desktop} {
     margin-right: 120px;
   }
 `;
 
-const ResponsiveImage = styled(ImageBox)`
+const ResponsiveImage = styled(Image)`
   display: none;
   ${media.tablet} {
     display: block;
@@ -74,7 +74,7 @@ function Section4(): ReactElement {
   return (
     <SectionTemplate>
       <SectionInner>
-        <Image
+        <ImageStyled
           width="353px"
           height="382px"
           marginRight="241px"
