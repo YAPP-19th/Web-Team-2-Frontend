@@ -8,6 +8,7 @@ import SectionTitle from "components/SectionTitle";
 import Text from "components/Text";
 import React, { ReactElement } from "react";
 import styled from "styled-components";
+import ResponsiveNewLine from "./ResponsiveNewLine";
 
 const ResponsiveTemplate = styled(SectionTemplate)`
   ${media.mobile} {
@@ -56,13 +57,6 @@ const Emphasis = styled.span`
   text-emphasis-position: over left;
   -webkit-text-emphasis-style: dot;
   -webkit-text-emphasis-position: over;
-`;
-
-const LineChange = styled.br`
-  display: none;
-  ${media.desktop} {
-    display: block;
-  }
 `;
 
 const Logo = styled.img`
@@ -128,12 +122,14 @@ function Section1(): ReactElement {
           <Logo src={LogoIMG} />
           <ResponsiveText variant="secondary">
             다람쥐는, 여러 군데 저장한
-            <LineChange /> 도토리 중 10%만 다시 찾는다고 해요.
-            <LineChange />
+            <ResponsiveNewLine media="desktop" /> 도토리 중 10%만 다시 찾는다고
+            해요.
+            <ResponsiveNewLine media="desktop" />
             <br />
-            여러분도 저장한 정보를 찾기 <LineChange /> 힘들진 않으신가요?
+            여러분도 저장한 정보를 찾기 <ResponsiveNewLine media="desktop" />
+            힘들진 않으신가요?
             <StrongText>
-              도토리처럼 흩어진 정보, <LineChange />
+              도토리처럼 흩어진 정보, <ResponsiveNewLine media="desktop" />
               도토리함에 북마크하세요!
             </StrongText>
           </ResponsiveText>

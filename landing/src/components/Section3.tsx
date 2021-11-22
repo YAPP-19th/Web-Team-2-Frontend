@@ -8,6 +8,7 @@ import SectionTitle from "components/SectionTitle";
 import Text from "components/Text";
 import React, { ReactElement } from "react";
 import styled from "styled-components";
+import ResponsiveNewLine from "./ResponsiveNewLine";
 
 const SectionInner = styled.div`
   ${pagelayout}
@@ -68,13 +69,6 @@ const ResponsiveText = styled(Text)`
   }
 `;
 
-const LineChange = styled.br`
-  display: none;
-  ${media.mobile} {
-    display: block;
-  }
-`;
-
 const CirclePointStyled = styled(CirclePoint)`
   width: 78px;
   height: 48px;
@@ -97,7 +91,7 @@ function Section3(): ReactElement {
           <ResponsiveImage src={S3MobileMainIMG} />
           <Description>
             <SectionTitle variant="primary">
-              좋은 정보는 <LineChange /> 함께 공유함
+              좋은 정보는 <ResponsiveNewLine media="mobile" /> 함께 공유함
             </SectionTitle>
             <ResponsiveText variant="primary">
               메신저에 공유한 정보가 자꾸 묻혀서 불편한가요? <br />
