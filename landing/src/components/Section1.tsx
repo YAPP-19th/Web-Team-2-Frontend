@@ -10,7 +10,7 @@ import React, { ReactElement } from "react";
 import styled from "styled-components";
 
 const ResponsiveTemplate = styled(SectionTemplate)`
-  ${media.medium} {
+  ${media.mobile} {
     height: 712px;
   }
 `;
@@ -26,7 +26,7 @@ const SectionInner = styled.div`
   }
 `;
 
-const ResponsiveImageBox = styled(ImageBox)`
+const ResponsiveImage = styled(ImageBox)`
   display: none;
   ${media.large} {
     display: block;
@@ -34,7 +34,7 @@ const ResponsiveImageBox = styled(ImageBox)`
     width: 533px;
     height: 404px;
   }
-  ${media.medium} {
+  ${media.mobile} {
     width: 360px;
     height: 256px;
   }
@@ -68,7 +68,7 @@ const LineChange = styled.br`
 const Logo = styled.img`
   width: 15.95rem;
   margin-bottom: 2.688rem;
-  ${media.medium} {
+  ${media.mobile} {
     margin-bottom: 48px;
   }
 `;
@@ -77,7 +77,7 @@ const ResponsiveText = styled(Text)`
   ${media.xlarge} {
     text-align: center;
   }
-  ${media.medium} {
+  ${media.mobile} {
     color: #006054;
   }
 `;
@@ -88,7 +88,7 @@ const StrongText = styled.div`
   ${media.large} {
     margin: 10px 0 25px 0;
   }
-  ${media.medium} {
+  ${media.mobile} {
     margin: 16px 0 25px 0;
     text-decoration: underline;
   }
@@ -104,7 +104,7 @@ const DownloadButton = styled.button`
   font-size: 1.131rem;
   margin-right: 0.281rem;
   ${flexCenter}
-  ${media.medium} {
+  ${media.mobile} {
     display: none;
   }
 `;
@@ -119,7 +119,7 @@ function Section1(): ReactElement {
           marginRight="108px"
           src={S1MainIMG}
         />
-        <ResponsiveImageBox src={S1MobileMainIMG} />
+        <ResponsiveImage src={S1MobileMainIMG} />
         <ContentBox>
           <SectionTitle variant="secondary">
             흩어진 <Emphasis>북마크</Emphasis>를 모으는

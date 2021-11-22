@@ -56,7 +56,7 @@ const ResponsiveImage = styled(ImageBox)`
     height: 404px;
     margin-top: 64px;
   }
-  ${media.medium} {
+  ${media.mobile} {
     width: 306px;
     height: 210px;
   }
@@ -70,7 +70,7 @@ const ResponsiveText = styled(Text)`
 
 const LineChange = styled.br`
   display: none;
-  ${media.medium} {
+  ${media.mobile} {
     display: block;
   }
 `;
@@ -80,7 +80,7 @@ const CirclePointStyled = styled(CirclePoint)`
   height: 48px;
   top: -4px;
   left: 283px;
-  ${media.medium} {
+  ${media.mobile} {
     width: 62px;
     height: 35px;
     top: 46px;

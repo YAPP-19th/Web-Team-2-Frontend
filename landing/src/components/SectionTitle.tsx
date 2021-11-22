@@ -17,7 +17,7 @@ const SectionTitleStyled = styled.span<SectionTitleProps>`
           font-weight: bold;
           z-index: 10;
           margin-bottom: 24px;
-          ${media.medium} {
+          ${media.mobile} {
             font-size: 30px;
             line-height: 1.47;
             text-align: center;
@@ -31,7 +31,7 @@ const SectionTitleStyled = styled.span<SectionTitleProps>`
           ${media.xlarge} {
             font-size: 25px;
           }
-          ${media.medium} {
+          ${media.mobile} {
             font-size: 24px;
           }
         `}

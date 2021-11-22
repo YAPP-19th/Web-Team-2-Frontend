@@ -19,7 +19,7 @@ const SectionTemplateWrapper = styled.div<{
   ${media.large} {
     height: 870px;
   }
-  ${media.medium} {
+  ${media.mobile} {
     height: 624px;
     ${(props) =>
       props.responsiveColor && "background-color: rgba(224, 255, 181, 0.2)"}

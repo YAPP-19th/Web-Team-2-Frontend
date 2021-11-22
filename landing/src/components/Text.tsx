@@ -12,7 +12,7 @@ const TextStyled = styled.div<TextProps>`
   line-height: 23px;
   letter-spacing: -0.1px;
   color: ${(props) => (props.variant === "primary" ? "#000" : "#323232")};
-  ${media.medium} {
+  ${media.mobile} {
     font-size: 14px;
     text-align: center;
     letter-spacing: normal;

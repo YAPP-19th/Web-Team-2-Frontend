@@ -19,7 +19,7 @@ const HeaderInner = styled.div`
   ${media.large} {
     width: 100%;
   }
-  ${media.medium} {
+  ${media.mobile} {
     padding: 00 16px;
   }
 `;
@@ -44,7 +44,7 @@ const DownloadButton = styled.button`
   background-color: #48bf91;
   border: 1px solid #48bf91;
   color: #fff;
-  ${media.medium} {
+  ${media.mobile} {
     margin-right: 0;
   }
 `;
@@ -54,7 +54,7 @@ const LinkButton = styled.button`
   background-color: #fff;
   border: 1px solid #aaa;
   color: #323232;
-  ${media.medium} {
+  ${media.mobile} {
     display: none;
   }
 `;

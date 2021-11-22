@@ -13,7 +13,7 @@ const FooterWrapper = styled.footer`
   ${media.large} {
     height: 140px;
   }
-  ${media.medium} {
+  ${media.mobile} {
     height: 96px;
   }
 `;
@@ -21,13 +21,14 @@ const FooterWrapper = styled.footer`
 const FooterLogo = styled.img`
   width: 273px;
   margin-right: 44px;
-  ${media.medium} {
+  ${media.mobile} {
     display: none;
   }
 `;
 
 const ResponsiveLogo = styled.img`
-  ${media.medium} {
+  display: none;
+  ${media.mobile} {
     display: block;
     margin-right: 19px;
   }
@@ -43,7 +44,7 @@ const DownloadButton = styled.button`
   font-size: 1.256rem;
   font-weight: bold;
   ${flexCenter}
-  ${media.medium} {
+  ${media.mobile} {
     width: 96px;
     height: 32px;
     font-size: 12px;

@@ -39,7 +39,7 @@ const ResponsiveImage = styled(ImageBox)`
     height: 404px;
     margin-top: 60px;
   }
-  ${media.medium} {
+  ${media.mobile} {
     width: 14.35rem;
     height: 15.669rem;
   }
@@ -49,7 +49,7 @@ const ContentBox = styled.div`
   padding-top: 44px;
   position: relative;
   ${flexColumn}
-  ${media.medium} {
+  ${media.mobile} {
     padding-top: 0;
   }
 `;
@@ -62,7 +62,7 @@ const CirclePointStyled = styled(CirclePoint)`
   ${media.large} {
     left: 58px;
   }
-  ${media.medium} {
+  ${media.mobile} {
     width: 115px;
     height: 35px;
     top: 46px;
