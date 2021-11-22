@@ -18,7 +18,7 @@ const ResponsiveTemplate = styled(SectionTemplate)`
 const SectionInner = styled.div`
   padding: 108px 0 122px 0;
   ${pagelayout}
-  ${media.large} {
+  ${media.tablet} {
     width: 100%;
     flex-direction: column-reverse;
     padding: 48px 0 0 0;
@@ -28,7 +28,7 @@ const SectionInner = styled.div`
 
 const ResponsiveImage = styled(ImageBox)`
   display: none;
-  ${media.large} {
+  ${media.tablet} {
     display: block;
     margin-top: 35px;
     width: 533px;
@@ -46,7 +46,7 @@ const ContentBox = styled.div`
   ${media.xlarge} {
     align-items: center;
   }
-  ${media.large} {
+  ${media.tablet} {
     padding-top: 0;
   }
 `;
@@ -85,7 +85,7 @@ const ResponsiveText = styled(Text)`
 const StrongText = styled.div`
   font-weight: 500;
   margin: 10px 0 52px 0;
-  ${media.large} {
+  ${media.tablet} {
     margin: 10px 0 25px 0;
   }
   ${media.mobile} {

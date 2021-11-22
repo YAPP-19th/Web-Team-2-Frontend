@@ -12,7 +12,7 @@ const ImageBoxStyled = styled.img<ImageBoxProps>`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   margin-right: ${(props) => props.marginRight};
-  ${media.large} {
+  ${media.tablet} {
     display: none;
   }
 `;

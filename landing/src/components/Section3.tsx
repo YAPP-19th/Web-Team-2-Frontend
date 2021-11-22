@@ -17,7 +17,7 @@ const SectionInner = styled.div`
     width: 1300px;
     padding: 232px 0 208px 45px;
   }
-  ${media.large} {
+  ${media.tablet} {
     padding: 80px 0 0 0;
     width: 100%;
   }
@@ -27,7 +27,7 @@ const ContentBox = styled.div`
   width: 1254px;
   height: 332px;
   position: relative;
-  ${media.large} {
+  ${media.tablet} {
     display: flex;
     flex-direction: column-reverse;
     align-items: center;
@@ -42,7 +42,7 @@ const Description = styled.div`
   left: 0;
   z-index: 10;
   ${flexColumn}
-  ${media.large} {
+  ${media.tablet} {
     position: relative;
     top: inherit;
   }
@@ -50,7 +50,7 @@ const Description = styled.div`
 
 const ResponsiveImage = styled(ImageBox)`
   display: none;
-  ${media.large} {
+  ${media.tablet} {
     display: block;
     width: 533px;
     height: 404px;
@@ -63,7 +63,7 @@ const ResponsiveImage = styled(ImageBox)`
 `;
 
 const ResponsiveText = styled(Text)`
-  ${media.large} {
+  ${media.tablet} {
     text-align: center;
   }
 `;

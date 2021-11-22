@@ -4,7 +4,7 @@ export const mediaQuery = (maxWidth: number) => `
 
 const media = {
   xlarge: mediaQuery(1220),
-  large: mediaQuery(1068),
+  tablet: mediaQuery(1068),
   mobile: mediaQuery(550),
   custom: mediaQuery,
 };

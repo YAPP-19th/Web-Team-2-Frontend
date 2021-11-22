@@ -16,7 +16,7 @@ const SectionInner = styled.div`
     width: 1068px;
     padding: 185px 0 196px 130px;
   }
-  ${media.large} {
+  ${media.tablet} {
     width: 100%;
     flex-direction: column-reverse;
     align-items: center;
@@ -33,7 +33,7 @@ const Image = styled(ImageBox)`
 
 const ResponsiveImage = styled(ImageBox)`
   display: none;
-  ${media.large} {
+  ${media.tablet} {
     display: block;
     width: 533px;
     height: 404px;
@@ -59,7 +59,7 @@ const CirclePointStyled = styled(CirclePoint)`
   height: 48px;
   top: 84px;
   left: -3px;
-  ${media.large} {
+  ${media.tablet} {
     left: 58px;
   }
   ${media.mobile} {

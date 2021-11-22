@@ -16,7 +16,7 @@ const SectionInner = styled.div`
     width: 1068px;
     padding: 148px 0 172px 0;
   }
-  ${media.large} {
+  ${media.tablet} {
     flex-direction: column-reverse;
     padding: 84px 0 172px 0;
     width: 100%;
@@ -28,7 +28,7 @@ const ContentBox = styled.div`
   margin-top: 124px;
   position: relative;
   ${flexColumn}
-  ${media.large} {
+  ${media.tablet} {
     margin-top: 0;
   }
 `;
@@ -47,7 +47,7 @@ const ResponsiveImageBox = styled.div`
 
 const ResponsiveImage = styled(ImageBox)`
   display: none;
-  ${media.large} {
+  ${media.tablet} {
     display: block;
     width: 533px;
     height: 404px;

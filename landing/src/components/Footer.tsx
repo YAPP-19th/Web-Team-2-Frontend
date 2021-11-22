@@ -10,7 +10,7 @@ const FooterWrapper = styled.footer`
   height: 280px;
   background-color: #48bf91;
   ${flexCenter}
-  ${media.large} {
+  ${media.tablet} {
     height: 140px;
   }
   ${media.mobile} {

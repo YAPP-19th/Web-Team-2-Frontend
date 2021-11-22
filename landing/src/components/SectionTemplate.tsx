@@ -16,7 +16,7 @@ const SectionTemplateWrapper = styled.div<{
   height: 762px;
   background-color: ${(props) =>
     props.filled ? "rgba(224, 255, 181, 0.5)" : "#fff"};
-  ${media.large} {
+  ${media.tablet} {
     height: 870px;
   }
   ${media.mobile} {
