@@ -1,4 +1,4 @@
-import { S3MainIMG, S3MobileMainIMG } from "assets/images";
+import { S3DesktopIMG, S3MobileIMG } from "assets/images";
 import media from "assets/styles/media";
 import { flexColumn, pagelayout } from "assets/styles/utils";
 import CirclePoint from "components/CirclePoint";
@@ -49,6 +49,14 @@ const Description = styled.div`
   }
 `;
 
+const ResponsiveImageBox = styled.div`
+  ${media.mobile} {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+`;
+
 const ResponsiveImage = styled(ImageBox)`
   display: none;
   ${media.tablet} {
@@ -87,8 +95,10 @@ function Section3(): ReactElement {
     <SectionTemplate filled>
       <SectionInner>
         <ContentBox>
-          <ImageBox width="100%" height="100%" src={S3MainIMG} />
-          <ResponsiveImage src={S3MobileMainIMG} />
+          <ImageBox width="100%" height="100%" src={S3DesktopIMG} />
+          <ResponsiveImageBox>
+            <ResponsiveImage src={S3MobileIMG} />
+          </ResponsiveImageBox>
           <Description>
             <SectionTitle variant="primary">
               좋은 정보는 <ResponsiveNewLine media="mobile" /> 함께 공유함

@@ -1,4 +1,4 @@
-import { S4MainIMG, S4MobileMainIMG } from "assets/images";
+import { S4DesktopIMG, S4MobileIMG } from "assets/images";
 import media from "assets/styles/media";
 import { flexColumn, pagelayout } from "assets/styles/utils";
 import CirclePoint from "components/CirclePoint";
@@ -78,9 +78,9 @@ function Section4(): ReactElement {
           width="353px"
           height="382px"
           marginRight="241px"
-          src={S4MainIMG}
+          src={S4DesktopIMG}
         />
-        <ResponsiveImage src={S4MobileMainIMG} />
+        <ResponsiveImage src={S4MobileIMG} />
 
         <ContentBox>
           <SectionTitle variant="primary">

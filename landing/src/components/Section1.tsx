@@ -1,5 +1,5 @@
 import { PointerIcon } from "assets/icons";
-import { LogoIMG, S1MainIMG, S1MobileMainIMG } from "assets/images";
+import { LogoIMG, S1DesktopIMG, S1MobileIMG } from "assets/images";
 import media from "assets/styles/media";
 import { flexCenter, flexColumn, pagelayout } from "assets/styles/utils";
 import ImageBox from "components/ImageBox";
@@ -112,9 +112,9 @@ function Section1(): ReactElement {
           width="672px"
           height="532px"
           marginRight="108px"
-          src={S1MainIMG}
+          src={S1DesktopIMG}
         />
-        <ResponsiveImage src={S1MobileMainIMG} />
+        <ResponsiveImage src={S1MobileIMG} />
         <ContentBox>
           <SectionTitle variant="secondary">
             흩어진 <Emphasis>북마크</Emphasis>를 모으는

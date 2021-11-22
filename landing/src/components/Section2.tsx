@@ -1,4 +1,4 @@
-import { S2MainIMG, S2MobileMainIMG } from "assets/images";
+import { S2DesktopIMG, S2MobileIMG } from "assets/images";
 import media from "assets/styles/media";
 import { flexColumn, pagelayout } from "assets/styles/utils";
 import CirclePoint from "components/CirclePoint";
@@ -80,10 +80,10 @@ function Section2(): ReactElement {
           width="36.694rem"
           height="442px"
           marginRight="160px"
-          src={S2MainIMG}
+          src={S2DesktopIMG}
         />
         <ResponsiveImageBox>
-          <ResponsiveImage src={S2MobileMainIMG} />
+          <ResponsiveImage src={S2MobileIMG} />
         </ResponsiveImageBox>
         <ContentBox>
           <SectionTitle variant="primary">
