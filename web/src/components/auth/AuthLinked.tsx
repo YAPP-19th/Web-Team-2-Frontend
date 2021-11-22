@@ -30,7 +30,7 @@ function AuthLinked({ AuthType }: auth.IAuthType): ReactElement {
     {
       info: '비밀번호를 잊으셨나요?',
       label: '비밀번호 재설정',
-      link: '/', // @TODO(dohyun) 비밀번호 재설정 라우팅 설정후 추가
+      link: '/resetpw',
     },
     {
       info: '처음 방문하셨나요?',
