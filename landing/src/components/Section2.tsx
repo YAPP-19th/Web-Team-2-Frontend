@@ -22,9 +22,6 @@ const SectionInner = styled.div`
     width: 100%;
     align-items: center;
   }
-  ${media.medium} {
-    align-items: inherit;
-  }
 `;
 
 const ContentBox = styled.div`
@@ -42,6 +39,12 @@ const Image = styled(ImageBox)`
   }
 `;
 
+const ResponsiveImageBox = styled.div`
+  ${media.medium} {
+    width: 100%;
+  }
+`;
+
 const ResponsiveImage = styled(ImageBox)`
   display: none;
   ${media.large} {
@@ -56,6 +59,19 @@ const ResponsiveImage = styled(ImageBox)`
   }
 `;
 
+const CirclePointStyled = styled(CirclePoint)`
+  width: 78px;
+  height: 42px;
+  top: 42px;
+  left: -5px;
+  ${media.medium} {
+    width: 60px;
+    height: 33px;
+    top: 47px;
+    left: 20px;
+  }
+`;
+
 function Section2(): ReactElement {
   return (
     <SectionTemplate>
@@ -66,14 +82,15 @@ function Section2(): ReactElement {
           marginRight="160px"
           src={S2MainIMG}
         />
-        <ResponsiveImage src={S2MobileMainIMG} />
-
+        <ResponsiveImageBox>
+          <ResponsiveImage src={S2MobileMainIMG} />
+        </ResponsiveImageBox>
         <ContentBox>
           <SectionTitle variant="primary">
             북마크와 동시에 <br />
             정리해서 보관함
           </SectionTitle>
-          <CirclePoint width="78px" height="42px" top="42px" left="-5px" />
+          <CirclePointStyled />
 
           <Text variant="primary">
             마구잡이로 저장된 북마크, 불편하지 않나요? <br />

@@ -1,40 +1,15 @@
 import React, { ReactElement } from "react";
 import styled from "styled-components";
 
-interface CirclePointProps {
-  width: string;
-  height: string;
-  top: string;
-  left: string;
-}
-
-const CirclePointStyled = styled.div<CirclePointProps>`
+const CirclePointStyled = styled.div`
   background-color: rgba(72, 191, 145, 0.3);
   border-radius: 50%;
   position: absolute;
   z-index: 1;
-  top: ${(props) => props.top};
-  left: ${(props) => props.left};
-  width: ${(props) => props.width};
-  height: ${(props) => props.height};
 `;
 
-function CirclePoint({
-  width,
-  height,
-  left,
-  top,
-  ...rest
-}: CirclePointProps): ReactElement {
-  return (
-    <CirclePointStyled
-      width={width}
-      height={height}
-      left={left}
-      top={top}
-      {...rest}
-    />
-  );
+function CirclePoint({ ...rest }): ReactElement {
+  return <CirclePointStyled {...rest} />;
 }
 
 export default CirclePoint;

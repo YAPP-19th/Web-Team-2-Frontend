@@ -34,9 +34,6 @@ const ContentBox = styled.div`
     width: 100%;
     height: auto;
   }
-  ${media.medium} {
-    align-items: flex-end;
-  }
 `;
 
 const Description = styled.div`
@@ -48,9 +45,6 @@ const Description = styled.div`
   ${media.large} {
     position: relative;
     top: inherit;
-  }
-  ${media.medium} {
-    width: 100%;
   }
 `;
 
@@ -81,6 +75,19 @@ const LineChange = styled.br`
   }
 `;
 
+const CirclePointStyled = styled(CirclePoint)`
+  width: 78px;
+  height: 48px;
+  top: -4px;
+  left: 283px;
+  ${media.medium} {
+    width: 62px;
+    height: 35px;
+    top: 46px;
+    left: 134px;
+  }
+`;
+
 function Section3(): ReactElement {
   return (
     <SectionTemplate filled>
@@ -96,7 +103,7 @@ function Section3(): ReactElement {
               메신저에 공유한 정보가 자꾸 묻혀서 불편한가요? <br />
               보관함에 내용을 저장하고, 멤버를 초대해 공유해요!
             </ResponsiveText>
-            <CirclePoint width="78px" height="48px" top="-2px" left="283px" />
+            <CirclePointStyled />
           </Description>
         </ContentBox>
       </SectionInner>

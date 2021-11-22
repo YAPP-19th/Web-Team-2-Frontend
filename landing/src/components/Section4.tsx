@@ -54,9 +54,19 @@ const ContentBox = styled.div`
   }
 `;
 
-const ResponseCirclePoint = styled(CirclePoint)`
+const CirclePointStyled = styled(CirclePoint)`
+  width: 146px;
+  height: 48px;
+  top: 84px;
+  left: -3px;
   ${media.large} {
-    left: 58px !important;
+    left: 58px;
+  }
+  ${media.medium} {
+    width: 115px;
+    height: 35px;
+    top: 46px;
+    left: 61px;
   }
 `;
 
@@ -77,12 +87,7 @@ function Section4(): ReactElement {
             중요한 북마크는 <br />
             리마인드함
           </SectionTitle>
-          <ResponseCirclePoint
-            width="146px"
-            height="48px"
-            top="84px"
-            left="-3px"
-          />
+          <CirclePointStyled />
 
           <Text variant="primary">
             다시 읽고 싶은 정보는 리마인드 알림을 받아요. <br />
