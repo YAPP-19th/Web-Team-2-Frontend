@@ -43,7 +43,7 @@ const ResponsiveImage = styled(ImageBox)`
 const ContentBox = styled.div`
   padding-top: 4.125rem;
   ${flexColumn}
-  ${media.xlarge} {
+  ${media.desktop} {
     align-items: center;
   }
   ${media.tablet} {
@@ -60,7 +60,7 @@ const Emphasis = styled.span`
 
 const LineChange = styled.br`
   display: none;
-  ${media.xlarge} {
+  ${media.desktop} {
     display: block;
   }
 `;
@@ -74,7 +74,7 @@ const Logo = styled.img`
 `;
 
 const ResponsiveText = styled(Text)`
-  ${media.xlarge} {
+  ${media.desktop} {
     text-align: center;
   }
   ${media.mobile} {

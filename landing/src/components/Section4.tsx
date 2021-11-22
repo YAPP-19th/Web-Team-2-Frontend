@@ -12,7 +12,7 @@ import styled from "styled-components";
 const SectionInner = styled.div`
   ${pagelayout}
   padding: 185px 0 196px 285px;
-  ${media.xlarge} {
+  ${media.desktop} {
     width: 1068px;
     padding: 185px 0 196px 130px;
   }
@@ -26,7 +26,7 @@ const SectionInner = styled.div`
 `;
 
 const Image = styled(ImageBox)`
-  ${media.xlarge} {
+  ${media.desktop} {
     margin-right: 120px;
   }
 `;

@@ -28,7 +28,7 @@ const SectionTitleStyled = styled.span<SectionTitleProps>`
           font-size: 1.863rem;
           color: #0baa78;
           margin-bottom: 15px;
-          ${media.xlarge} {
+          ${media.desktop} {
             font-size: 25px;
           }
           ${media.mobile} {

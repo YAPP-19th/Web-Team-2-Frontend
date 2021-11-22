@@ -13,7 +13,7 @@ const SectionInner = styled.div`
   ${pagelayout}
   padding: 232px 0 208px 186px;
   flex-flow: row-reverse;
-  ${media.xlarge} {
+  ${media.desktop} {
     width: 1300px;
     padding: 232px 0 208px 45px;
   }
