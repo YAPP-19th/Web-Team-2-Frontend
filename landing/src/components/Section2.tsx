@@ -49,13 +49,11 @@ const ResponsiveImage = styled(Image)`
   display: none;
   ${media.tablet} {
     display: block;
-    width: 533px;
-    height: 404px;
+    width: 630px;
     margin-top: 60px;
   }
   ${media.mobile} {
     width: 332px;
-    height: 239px;
   }
 `;
 

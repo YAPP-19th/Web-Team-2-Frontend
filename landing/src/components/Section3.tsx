@@ -61,13 +61,11 @@ const ResponsiveImage = styled(Image)`
   display: none;
   ${media.tablet} {
     display: block;
-    width: 533px;
-    height: 404px;
-    margin-top: 64px;
+    width: 640px;
+    margin-top: 76px;
   }
   ${media.mobile} {
     width: 306px;
-    height: 210px;
   }
 `;
 

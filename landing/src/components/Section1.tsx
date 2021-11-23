@@ -33,8 +33,7 @@ const ResponsiveImage = styled(Image)`
   ${media.tablet} {
     display: block;
     margin-top: 35px;
-    width: 533px;
-    height: 404px;
+    width: 576px;
   }
   ${media.mobile} {
     width: 360px;
