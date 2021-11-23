@@ -1,10 +1,6 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
-interface LargeBlackLabelProps {
-  label: string;
-}
-
 const LargeBlackLabelStyled = styled.label`
   font-size: 18px;
   font-weight: 500;
@@ -12,7 +8,7 @@ const LargeBlackLabelStyled = styled.label`
   color: ${(props) => props.theme.color.grayDarkest};
 `;
 
-function LargeBlackLabel({ label }: LargeBlackLabelProps): ReactElement {
+function LargeBlackLabel({ label }: { label: string }): ReactElement {
   return <LargeBlackLabelStyled>{label}</LargeBlackLabelStyled>;
 }
 
