@@ -1,3 +1,4 @@
+import Toasts from 'components/common/Toasts';
 import Footer from 'components/footer';
 import Header from 'components/header';
 import React, { ReactElement } from 'react';
@@ -32,6 +33,7 @@ function App(): ReactElement {
             <Routing />
           </AppLayout>
           <Footer />
+          <Toasts type="remindSetting" />
         </ThemeProvider>
       </ErrorBoundary>
     </AppWrapper>
