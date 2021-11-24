@@ -36,6 +36,10 @@ const ToastsStyled = styled.div<{ size: 'big' | 'small' }>`
   color: ${(props) => props.theme.color.white};
 `;
 
+const Emoji = styled.img`
+  width: 18px;
+`;
+
 function Toasts({ type }: { type: ToastsTypes }): ReactElement {
   const toasts: IToasts = {
     remindSetting: {
@@ -76,9 +80,19 @@ function Toasts({ type }: { type: ToastsTypes }): ReactElement {
     },
   };
 
+  const emojis = {
+    smile: 'https://abs-0.twimg.com/emoji/v2/svg/1f600.svg',
+  };
+
   const { text, size } = toasts[type];
 
-  return <ToastsStyled size={size}>{text}</ToastsStyled>;
+  return (
+    <ToastsStyled size={size}>
+      <Emoji src="https://abs-0.twimg.com/emoji/v2/svg/1f600.svg" alt="" />
+      {text}
+      <Emoji src="https://abs-0.twimg.com/emoji/v2/svg/1f600.svg" alt="" />
+    </ToastsStyled>
+  );
 }
 
 export default Toasts;
