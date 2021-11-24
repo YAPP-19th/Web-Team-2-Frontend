@@ -12,16 +12,12 @@ type ToastsTypes =
   | 'editProfile'
   | 'changePassword';
 
-interface ToastsProps {
-  type: ToastsTypes;
-}
-
-interface IToasts {
-  [key: string]: {
+type IToasts = {
+  [key in ToastsTypes]: {
     text: string;
     size: 'small' | 'big';
   };
-}
+};
 
 const ToastsStyled = styled.div<{ size: 'big' | 'small' }>`
   width: ${(props) => (props.size === 'big' ? '471px' : '273px')};
@@ -40,7 +36,7 @@ const ToastsStyled = styled.div<{ size: 'big' | 'small' }>`
   color: ${(props) => props.theme.color.white};
 `;
 
-function Toasts({ type }: ToastsProps): ReactElement {
+function Toasts({ type }: { type: ToastsTypes }): ReactElement {
   const toasts: IToasts = {
     remindSetting: {
       text: '리마인드 알림이 설정됐어요!',
