@@ -138,7 +138,9 @@ function Toasts({ type, isOpen }: ToastsProps): ReactElement | null {
     }
 
     return () => {
-      if (timeoutId) clearTimeout(timeoutId);
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
     };
   }, [isOpen]);
 
