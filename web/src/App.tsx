@@ -33,7 +33,7 @@ function App(): ReactElement {
             <Routing />
           </AppLayout>
           <Footer />
-          <Toasts type="remindSetting" />
+          <Toasts type="folderIsFull" />
         </ThemeProvider>
       </ErrorBoundary>
     </AppWrapper>
