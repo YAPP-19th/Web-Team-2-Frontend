@@ -7,6 +7,8 @@ import {
 } from 'assets/icons';
 import { ellipsis } from 'assets/styles/utilStyles';
 import CheckBox from 'components/common/CheckBox';
+import Toasts from 'components/common/Toasts';
+import useToasts from 'hooks/common/useToasts';
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { IBookmark, selectedBookmarksState } from 'recoil/atoms/bookmarkState';
@@ -147,6 +149,7 @@ function BookmarkItem({
     selectedBookmarksState,
   );
   const [isChecked, setIsChecked] = useState(false);
+  const { notify, type, isOpenToasts } = useToasts();
   const copyUrlRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -174,8 +177,7 @@ function BookmarkItem({
   const onCopyUrl = async () => {
     copyUrlRef.current?.select();
     await navigator.clipboard.writeText(url);
-    // eslint-disable-next-line no-alert
-    alert('복사 성공!(나중에 팝업으로 대체)'); // @Todo(dohyun) 복사성공 팝업창 디자인 나오면 팝업으로 교체
+    notify('copyLink');
   };
 
   return (
@@ -234,6 +236,7 @@ function BookmarkItem({
       <UrlTextArea readOnly ref={copyUrlRef} value={url} />
 
       {isChecked && <SelectedStyled />}
+      <Toasts isOpen={isOpenToasts} type={type} />
     </BookmarkItemWrapper>
   );
 }

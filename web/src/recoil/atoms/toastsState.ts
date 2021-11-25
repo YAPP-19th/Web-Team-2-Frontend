@@ -1,15 +1,24 @@
 import { atom } from 'recoil';
 
+type ToastsTypes =
+  | 'remindSetting'
+  | 'remindDisabled'
+  | 'remindRecommendation'
+  | 'copyLink'
+  | 'createFolderError'
+  | 'cabinetIsFull'
+  | 'folderIsFull'
+  | 'editProfile'
+  | 'changePassword';
+
 interface IToastsState {
-  size: 'big' | 'small' | null;
-  message: string | null;
-  emojiType: 'smile' | 'clock' | 'sad' | null;
+  isOpen: boolean;
+  type: ToastsTypes;
 }
 
 const initialState: IToastsState = {
-  size: null,
-  message: null,
-  emojiType: null,
+  isOpen: false,
+  type: 'remindSetting',
 };
 
 export const toastsState = atom({

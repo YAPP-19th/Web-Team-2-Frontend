@@ -1,11 +1,17 @@
-import React, { ReactElement } from 'react';
-import styled from 'styled-components';
+import transitions from 'assets/styles/transitions';
+import React, { ReactElement, useEffect, useState } from 'react';
+import styled, { css } from 'styled-components';
 import { RequiredKeys } from 'utility-types';
 
 interface IEmojis {
   smile: string;
   sad: string;
   clock: string;
+}
+
+interface ToastsProps {
+  type: ToastsTypes;
+  isOpen: boolean;
 }
 
 type ToastsTypes =
@@ -27,7 +33,7 @@ type IToasts = {
   };
 };
 
-const ToastsStyled = styled.div<{ size: 'big' | 'small' }>`
+const ToastsStyled = styled.div<{ size: 'big' | 'small'; isOpen: boolean }>`
   width: ${(props) => (props.size === 'big' ? '471px' : '273px')};
   height: 42px;
   background-color: rgba(0, 0, 0, 0.8);
@@ -41,7 +47,17 @@ const ToastsStyled = styled.div<{ size: 'big' | 'small' }>`
   justify-content: center;
   font-size: 16px;
   font-weight: 400;
+  z-index: 9999;
   color: ${(props) => props.theme.color.white};
+
+  ${(props) =>
+    props.isOpen
+      ? css`
+          animation: ${transitions.popInFromBottom} 0.4s forwards ease-in-out;
+        `
+      : css`
+          animation: ${transitions.popOutToBottom} 0.2s forwards ease-in-out;
+        `}
 `;
 
 const Emoji = styled.img`
@@ -52,7 +68,7 @@ const ToastsMessage = styled.span`
   margin: 0 6px;
 `;
 
-function Toasts({ type }: { type: ToastsTypes }): ReactElement {
+function Toasts({ type, isOpen }: ToastsProps): ReactElement | null {
   const toasts: IToasts = {
     remindSetting: {
       text: '리마인드 알림이 설정됐어요!',
@@ -108,9 +124,28 @@ function Toasts({ type }: { type: ToastsTypes }): ReactElement {
   };
 
   const { text, size, emoji } = toasts[type];
+  const [closed, setClosed] = useState(true);
+
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout | null = null;
+
+    if (isOpen) {
+      setClosed(false);
+    } else {
+      timeoutId = setTimeout(() => {
+        setClosed(true);
+      }, 200);
+    }
+
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, [isOpen]);
+
+  if (!isOpen && closed) return null;
 
   return (
-    <ToastsStyled size={size}>
+    <ToastsStyled size={size} isOpen={isOpen}>
       <Emoji src={emojis[emoji]} alt={text} />
       <ToastsMessage>{text}</ToastsMessage>
       <Emoji src={emojis[emoji]} alt={text} />

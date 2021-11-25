@@ -3,6 +3,8 @@ import Footer from 'components/footer';
 import Header from 'components/header';
 import React, { ReactElement } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
+import { useRecoilValue } from 'recoil';
+import { toastsState } from 'recoil/atoms/toastsState';
 import Routing from 'routes/Routing';
 import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyle from './assets/styles/globalStyle';
@@ -33,7 +35,6 @@ function App(): ReactElement {
             <Routing />
           </AppLayout>
           <Footer />
-          <Toasts type="folderIsFull" />
         </ThemeProvider>
       </ErrorBoundary>
     </AppWrapper>
