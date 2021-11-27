@@ -1,4 +1,5 @@
 import ChipButton from 'components/common/ChipButton';
+import SmallBlackLabel from 'components/common/SmallBlackLabel';
 import ToggleIconButton from 'components/common/ToggleIconButton';
 import useToggle from 'hooks/common/useToggle';
 import React, { ReactElement, useState } from 'react';
@@ -9,12 +10,6 @@ const ConfigurationWrapper = styled.div`
   padding: 16px 0 104px;
   width: 100%;
   color: ${(props) => props.theme.color.grayDarkest};
-`;
-
-const LeftBlockText = styled.span`
-  font-size: 14px;
-  width: 297px;
-  line-height: 1.5;
 `;
 
 const RemindToggleBlock = styled.div`
@@ -49,12 +44,12 @@ function Configuration(): ReactElement {
 
       <ConfigurationWrapper>
         <RemindToggleBlock>
-          <LeftBlockText>리마인드 알람 받기</LeftBlockText>
+          <SmallBlackLabel width="297px" label="리마인드 알람 받기" />
           <ToggleIconButton isToggled={isRemind} onClick={onToggleRemind} />
         </RemindToggleBlock>
 
         <RemindSettingBlock>
-          <LeftBlockText>리마인드 주기 설정하기</LeftBlockText>
+          <SmallBlackLabel width="297px" label="리마인드 주기 설정하기" />
 
           <RemindSettingButtonGroup>
             {remindCycle.map((cycle) => (
