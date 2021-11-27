@@ -1,5 +1,6 @@
 import { ArrowBackBigIcon, ArrowBigIcon, X32Icon } from 'assets/icons';
 import ModalTemplate from 'components/common/ModalTemplate';
+import SmallGreenLabel from 'components/common/SmallGreenLabel';
 import React, { ReactElement } from 'react';
 import styled, { css } from 'styled-components';
 
@@ -28,6 +29,17 @@ const TutorialTitle = styled.div`
   font-weight: 500;
   color: ${(props) => props.theme.color.black};
   text-align: center;
+  margin-bottom: 28px;
+`;
+
+const TutorialDescription = styled.div`
+  text-align: center;
+  font-size: 14px;
+  color: ${(props) => props.theme.color.grayDarkest};
+`;
+
+const StepLabel = styled(SmallGreenLabel)`
+  margin-right: 12px;
 `;
 
 const AbsoluteButtonStyled = css`
@@ -65,6 +77,11 @@ function TutorialModal({
         </CloseBlock>
 
         <TutorialTitle>도토리함, 어떻게 사용하나요?</TutorialTitle>
+
+        <TutorialDescription>
+          <StepLabel label="STEP 1" fontWeight="bold" />
+          아래 설치하기를 클릭하여, 확장 프로그램을 설치해주세요!
+        </TutorialDescription>
 
         <PrevButton>
           <ArrowBackBigIcon />
