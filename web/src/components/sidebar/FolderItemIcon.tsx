@@ -1,6 +1,5 @@
 import { ItemId, TreeItem } from '@atlaskit/tree';
 import { ArrowDownIcon, ArrowSideIcon, FolderIcon } from 'assets/icons';
-import useFolderHandle from 'hooks/sidebar/useFolderHandle';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
@@ -10,7 +9,9 @@ interface FolderItemIconProps {
   onCollapse: (itemId: ItemId) => void;
 }
 
-const FolderItemIconWrapper = styled.div``;
+const FolderItemIconWrapper = styled.div`
+  display: flex;
+`;
 
 const ArrowButton = styled.button<{ isShow: boolean }>`
   padding: 0;
@@ -31,10 +32,8 @@ function FolderItemIcon({
   onExpand,
   onCollapse,
 }: FolderItemIconProps): ReactElement {
-  const { onCheckFirstNode } = useFolderHandle();
-
   return (
-    <FolderItemIconWrapper>
+    <FolderItemIconWrapper onMouseDown={(e) => e.stopPropagation()}>
       <ArrowButton
         isShow={item.children.length > 0}
         type="button"
@@ -45,7 +44,7 @@ function FolderItemIcon({
         {item.isExpanded ? <ArrowDownIcon /> : <ArrowSideIcon />}
       </ArrowButton>
 
-      {onCheckFirstNode(item.id) && <FolderIconStyled />}
+      <FolderIconStyled />
     </FolderItemIconWrapper>
   );
 }
