@@ -8,7 +8,6 @@ import Tree, {
 import { More16Icon, PlusIcon } from 'assets/icons';
 import SmallModal from 'components/common/SmallModal';
 import useToggle from 'hooks/common/useToggle';
-import { folder } from 'models/folder';
 import React, { ReactElement, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { selectedFolderState } from 'recoil/atoms/folderState';
@@ -29,6 +28,11 @@ interface FolderListProps {
   ) => void;
   createFolder: (parentId: ItemId) => void;
   isDrag: boolean;
+}
+
+export interface IPositionStyle {
+  top: number;
+  left: number;
 }
 
 const FolderListWrapper = styled.div`
@@ -102,7 +106,7 @@ function FolderList({
 }: FolderListProps): ReactElement {
   // state
   const setSelectedFolder = useSetRecoilState(selectedFolderState);
-  const [positionStyle, setPositionStyle] = useState<folder.ILayerPosition>({
+  const [positionStyle, setPositionStyle] = useState<IPositionStyle>({
     top: 0,
     left: 0,
   });

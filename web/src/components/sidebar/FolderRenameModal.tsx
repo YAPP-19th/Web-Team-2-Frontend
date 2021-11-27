@@ -6,10 +6,10 @@ import EmojiData from 'react-twemoji-picker/data/twemoji.json';
 import 'react-twemoji-picker/dist/EmojiPicker.css';
 import SimpleInput from 'components/common/SimpleInput';
 import SimpleButton from 'components/common/SimpleButton';
-import { folder } from 'models/folder';
+import { IPositionStyle } from './FolderList';
 
 interface FolderRenameModalProps {
-  positionStyle: folder.ILayerPosition;
+  positionStyle: IPositionStyle;
   onToggleModal: () => void;
 }
 
@@ -31,7 +31,7 @@ const FolderRenameModalWrapper = styled.div`
   }
 `;
 
-const RenameModalInner = styled.div<folder.ILayerPosition>`
+const RenameModalInner = styled.div<IPositionStyle>`
   border-radius: 4px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
   background-color: ${(props) => props.theme.color.white};
