@@ -1,6 +1,7 @@
 import { auth } from 'models/auth';
 import React, { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
+import Path from 'routes/path';
 import styled from 'styled-components';
 
 const AuthLinkedWrapper = styled.div`
@@ -30,12 +31,12 @@ function AuthLinked({ AuthType }: auth.IAuthType): ReactElement {
     {
       info: '비밀번호를 잊으셨나요?',
       label: '비밀번호 재설정',
-      link: '/', // @TODO(dohyun) 비밀번호 재설정 라우팅 설정후 추가
+      link: Path.ResetPasswordPage,
     },
     {
       info: '처음 방문하셨나요?',
       label: '회원가입',
-      link: '/register',
+      link: Path.RegisterPage,
     },
   ];
 
