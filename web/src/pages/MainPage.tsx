@@ -6,6 +6,7 @@ import Bookmark from 'components/bookmark';
 
 const MainWrapper = styled.div`
   display: flex;
+  flex: 1 auto;
 `;
 
 const ContentLayout = styled.div`
