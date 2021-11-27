@@ -1,6 +1,8 @@
 import { QuestionIcon } from 'assets/icons';
+import useToggle from 'hooks/common/useToggle';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import TutorialModal from './TutorialModal';
 
 const QuestionButtonStyled = styled.button`
   position: absolute;
@@ -9,10 +11,18 @@ const QuestionButtonStyled = styled.button`
 `;
 
 function QuestionButton(): ReactElement {
+  const [isModal, onToggleModal] = useToggle();
+
   return (
-    <QuestionButtonStyled>
-      <QuestionIcon />
-    </QuestionButtonStyled>
+    <>
+      <QuestionButtonStyled onClick={onToggleModal}>
+        <QuestionIcon />
+      </QuestionButtonStyled>
+
+      {isModal && (
+        <TutorialModal isModal={isModal} onToggleModal={onToggleModal} />
+      )}
+    </>
   );
 }
 
