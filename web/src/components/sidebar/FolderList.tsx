@@ -102,7 +102,7 @@ function FolderList({
 }: FolderListProps): ReactElement {
   // state
   const setSelectedFolder = useSetRecoilState(selectedFolderState);
-  const [position, setPosition] = useState<folder.ILayerPosition>({
+  const [positionStyle, setPositionStyle] = useState<folder.ILayerPosition>({
     top: 0,
     left: 0,
   });
@@ -127,7 +127,7 @@ function FolderList({
   ) => {
     setSelectedFolder(itemId);
     onToggleMenuLayer();
-    setPosition({
+    setPositionStyle({
       top: e.currentTarget.getBoundingClientRect().top,
       left: e.currentTarget.getBoundingClientRect().left,
     });
@@ -193,7 +193,10 @@ function FolderList({
       />
 
       {isMenuLayer && (
-        <FolderMenuLayer position={position} onToggleModal={onToggleModal} />
+        <FolderMenuLayer
+          positionStyle={positionStyle}
+          onToggleModal={onToggleModal}
+        />
       )}
 
       {isDeleteModal && (
@@ -210,7 +213,7 @@ function FolderList({
 
       {isRenameModal && (
         <FolderRenameModal
-          position={position}
+          positionStyle={positionStyle}
           onToggleModal={onToggleRenameModal}
         />
       )}

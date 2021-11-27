@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
 interface FolderMenuLayerProps {
-  position: folder.ILayerPosition;
+  positionStyle: folder.ILayerPosition;
   onToggleModal: {
     onToggleMenuLayer: () => void;
     onToggleDeleteModal: () => void;
@@ -45,10 +45,10 @@ const MenuItem = styled.div`
 `;
 
 function FolderMenuLayer({
-  position,
+  positionStyle,
   onToggleModal,
 }: FolderMenuLayerProps): ReactElement {
-  const { left, top } = position;
+  const { left, top } = positionStyle;
   const {
     onToggleDeleteModal,
     onToggleMenuLayer,

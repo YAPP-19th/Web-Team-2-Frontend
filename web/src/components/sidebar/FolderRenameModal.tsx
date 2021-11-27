@@ -9,7 +9,7 @@ import SimpleButton from 'components/common/SimpleButton';
 import { folder } from 'models/folder';
 
 interface FolderRenameModalProps {
-  position: folder.ILayerPosition;
+  positionStyle: folder.ILayerPosition;
   onToggleModal: () => void;
 }
 
@@ -87,10 +87,10 @@ const RenameButton = styled(SimpleButton)`
 `;
 
 function FolderRenameModal({
-  position,
+  positionStyle,
   onToggleModal,
 }: FolderRenameModalProps): ReactElement {
-  const { top, left } = position;
+  const { top, left } = positionStyle;
   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false);
   const [chosenEmoji, setChosenEmoji] = useState<EmojiObject>({
     unicode: '1f603', // api 연동되면 이 부분을 설정된 폴더 이모지로 설정
