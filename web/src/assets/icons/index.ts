@@ -18,6 +18,7 @@ export { ReactComponent as More24Icon } from './Icons_More_24.svg';
 export { ReactComponent as Next24Icon } from './Icons_Next_24.svg';
 export { ReactComponent as QuestionIcon } from './Icons_Question_60.svg';
 export { ReactComponent as Search24Icon } from './Icons_Search_24.svg';
+export { ReactComponent as Symbol120Icon } from './Icons_Symbol_120.svg';
 export { ReactComponent as Symbol36Icon } from './Icons_Symbol_36.svg';
 export { ReactComponent as SymbolGray22Icon } from './Icons_Symbol_Gray_22.svg';
 export { ReactComponent as SymbolGray96Icon } from './Icons_Symbol_gray_96.svg';
