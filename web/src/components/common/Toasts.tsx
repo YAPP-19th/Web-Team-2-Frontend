@@ -14,7 +14,7 @@ interface ToastsProps {
   isOpen: boolean;
 }
 
-type ToastsTypes =
+export type ToastsTypes =
   | 'remindSetting'
   | 'remindDisabled'
   | 'remindRecommendation'
@@ -25,15 +25,22 @@ type ToastsTypes =
   | 'editProfile'
   | 'changePassword';
 
-type IToasts = {
+type ToastSizeTypes = 'small' | 'big';
+
+type ToastListType = {
   [key in ToastsTypes]: {
     text: string;
-    size: 'small' | 'big';
+    size: ToastSizeTypes;
     emoji: RequiredKeys<IEmojis>;
   };
 };
 
-const ToastsStyled = styled.div<{ size: 'big' | 'small'; isOpen: boolean }>`
+interface IToastsStyledProps {
+  size: ToastSizeTypes;
+  isOpen: boolean;
+}
+
+const ToastsStyled = styled.div<IToastsStyledProps>`
   width: ${(props) => (props.size === 'big' ? '471px' : '273px')};
   height: 42px;
   background-color: rgba(0, 0, 0, 0.8);
@@ -69,7 +76,7 @@ const ToastsMessage = styled.span`
 `;
 
 function Toasts({ type, isOpen }: ToastsProps): ReactElement | null {
-  const toasts: IToasts = {
+  const toasts: ToastListType = {
     remindSetting: {
       text: '리마인드 알림이 설정됐어요!',
       size: 'small',
@@ -128,7 +135,6 @@ function Toasts({ type, isOpen }: ToastsProps): ReactElement | null {
 
   useEffect(() => {
     let timeoutId: NodeJS.Timeout | null = null;
-
     if (isOpen) {
       setClosed(false);
     } else {
@@ -138,9 +144,7 @@ function Toasts({ type, isOpen }: ToastsProps): ReactElement | null {
     }
 
     return () => {
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
+      if (timeoutId) clearTimeout(timeoutId);
     };
   }, [isOpen]);
 

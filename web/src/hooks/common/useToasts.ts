@@ -1,17 +1,13 @@
+import { ToastsTypes } from 'components/common/Toasts';
 import { useState } from 'react';
 
-type ToastsTypes =
-  | 'remindSetting'
-  | 'remindDisabled'
-  | 'remindRecommendation'
-  | 'copyLink'
-  | 'createFolderError'
-  | 'cabinetIsFull'
-  | 'folderIsFull'
-  | 'editProfile'
-  | 'changePassword';
+interface IUseToasts {
+  notify: (toastType: ToastsTypes) => void;
+  isOpenToasts: boolean;
+  type: ToastsTypes;
+}
 
-export default function useToasts() {
+export default function useToasts(): IUseToasts {
   const [isOpenToasts, setIsOpenToasts] = useState(false);
   const [type, setType] = useState<ToastsTypes>('remindSetting');
 
@@ -20,7 +16,7 @@ export default function useToasts() {
     setIsOpenToasts(true);
     setTimeout(() => {
       setIsOpenToasts(false);
-    }, 3000);
+    }, 1000);
   };
 
   return {
