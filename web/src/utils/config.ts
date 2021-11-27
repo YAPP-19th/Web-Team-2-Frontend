@@ -2,6 +2,8 @@
 export const GOOGLE_CLIENT_ID =
   '135690089362-ajbisu3vdskt7eogjk847bpt9hgc7hav.apps.googleusercontent.com';
 
+export const EMOJI_URL = 'https://abs-0.twimg.com/emoji/v2/svg';
+
 export const AGREEMENT_TERMS_AND_CONDITIONS = `
 <h2> 제 1 장 총 칙 </h2>
 <h3> 제 1 조 (목적) </h3>

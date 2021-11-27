@@ -2,6 +2,7 @@ import transitions from 'assets/styles/transitions';
 import React, { ReactElement, useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { RequiredKeys } from 'utility-types';
+import { EMOJI_URL } from 'utils/config';
 
 interface IEmojis {
   smile: string;
@@ -67,7 +68,7 @@ const ToastsStyled = styled.div<IToastsStyledProps>`
         `}
 `;
 
-const Emoji = styled.img`
+const EmojiIcon = styled.img`
   width: 18px;
 `;
 
@@ -125,9 +126,9 @@ function Toasts({ type, isOpen }: ToastsProps): ReactElement | null {
   };
 
   const emojis: IEmojis = {
-    smile: 'https://abs-0.twimg.com/emoji/v2/svg/1f600.svg',
-    sad: 'https://abs-0.twimg.com/emoji/v2/svg/1f625.svg',
-    clock: 'https://abs-0.twimg.com/emoji/v2/svg/23f0.svg',
+    smile: `${EMOJI_URL}/1f600.svg`,
+    sad: `${EMOJI_URL}/1f625.svg`,
+    clock: `${EMOJI_URL}/23f0.svg`,
   };
 
   const { text, size, emoji } = toasts[type];
@@ -152,9 +153,9 @@ function Toasts({ type, isOpen }: ToastsProps): ReactElement | null {
 
   return (
     <ToastsStyled size={size} isOpen={isOpen}>
-      <Emoji src={emojis[emoji]} alt={text} />
+      <EmojiIcon src={emojis[emoji]} alt={text} />
       <ToastsMessage>{text}</ToastsMessage>
-      <Emoji src={emojis[emoji]} alt={text} />
+      <EmojiIcon src={emojis[emoji]} alt={text} />
     </ToastsStyled>
   );
 }
