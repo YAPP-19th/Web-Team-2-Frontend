@@ -1,6 +1,5 @@
-import { LogoBlackIMG } from 'assets/images';
+import { SymbolGray22Icon } from 'assets/icons';
 import React, { ReactElement } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const FooterWrapper = styled.footer`
@@ -27,13 +26,20 @@ const FooterLinkGroup = styled.div`
 
 const Logo = styled.div`
   width: 170px;
-  height: 18px;
+  height: 22px;
   margin-right: 28px;
+  display: flex;
 `;
 
-const LogoImage = styled.img`
-  width: 78px;
-  height: 18px;
+const LogoIcon = styled(SymbolGray22Icon)`
+  margin-right: 0.225rem;
+`;
+
+const LogoText = styled.span`
+  font-family: Cafe24Ssurround;
+  font-size: 17px;
+  color: ${(props) => props.theme.color.grayDarker};
+  line-height: 26px;
 `;
 
 const FooterMenu = styled.div`
@@ -41,7 +47,7 @@ const FooterMenu = styled.div`
   color: ${(props) => props.theme.color.grayDarker};
 `;
 
-const FooterMenuItem = styled(Link)``;
+const FooterMenuItem = styled.a``;
 
 const VerticalLine = styled.div`
   width: 1px;
@@ -61,15 +67,34 @@ function Footer(): ReactElement {
       <FooterInner>
         <FooterLinkGroup>
           <Logo>
-            <LogoImage src={LogoBlackIMG} />
+            <LogoIcon />
+            <LogoText>도토리함</LogoText>
           </Logo>
 
           <FooterMenu>
-            <FooterMenuItem to="#">서비스 이용약관</FooterMenuItem>
+            <FooterMenuItem
+              href="https://www.notion.so/gilsangwoo/84b7068fb36649c78016f6830209703d"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              서비스 이용약관
+            </FooterMenuItem>
             <VerticalLine />
-            <FooterMenuItem to="#">개인정보 처리방침</FooterMenuItem>
+            <FooterMenuItem
+              href="https://www.notion.so/gilsangwoo/eb10702ffce64ba0b1364286ef381f8c"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              개인정보 처리방침
+            </FooterMenuItem>
             <VerticalLine />
-            <FooterMenuItem to="#">피드백</FooterMenuItem>
+            <FooterMenuItem
+              href="https://docs.google.com/forms/d/e/1FAIpQLSdH_XcTaymnaLASko_tSYu_8FlupBoXYBJWejwrb63eZHKMqA/viewform"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              피드백
+            </FooterMenuItem>
           </FooterMenu>
         </FooterLinkGroup>
         <CopyRightText>Copyright © Dotoriham All rights reserved</CopyRightText>
