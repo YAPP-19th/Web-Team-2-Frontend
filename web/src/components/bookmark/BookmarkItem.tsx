@@ -209,11 +209,11 @@ function BookmarkItem({
           </BookmarkLinkBox>
 
           <BookmarkOption>
-            <OptionButton onClick={onRemindToast}>
+            <OptionButton onClick={onRemindToast} disabled={isOpenRemindToast}>
               {remind ? <BellSelectedIcon /> : <BellUnSelectedIcon />}
             </OptionButton>
 
-            <OptionButton onClick={onCopyUrl}>
+            <OptionButton onClick={onCopyUrl} disabled={isOpenCopyToast}>
               <Copy24Icon />
             </OptionButton>
 

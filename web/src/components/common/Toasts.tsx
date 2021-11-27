@@ -144,7 +144,7 @@ function Toasts({ type, isOpen }: ToastsProps): ReactElement | null {
     }
 
     return () => {
-      if (timeoutId) clearTimeout(timeoutId);
+      if (timeoutId) clearTimeout(timeoutId); // 이미 timeoutId가 작동하고 있으면 함수 실행안되게 방지
     };
   }, [isOpen]);
 
