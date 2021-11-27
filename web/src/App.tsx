@@ -19,6 +19,7 @@ const AppLayout = styled.div`
   margin: 0 auto;
   flex: 1 auto;
   display: flex;
+  flex-direction: column;
 `;
 
 function App(): ReactElement {
