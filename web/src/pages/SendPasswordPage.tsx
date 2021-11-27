@@ -2,6 +2,7 @@ import { Symbol120Icon } from 'assets/icons';
 import SimpleButton from 'components/common/SimpleButton';
 import React, { ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Path from 'routes/path';
 import styled from 'styled-components';
 
 const SendPasswordPageWrapper = styled.div`
@@ -56,7 +57,7 @@ function SendPasswordPage(): ReactElement {
         borderRadius="8px"
         label="로그인"
         variant="primary"
-        onClick={() => navigate('/login')}
+        onClick={() => navigate(Path.LoginPage)}
       />
     </SendPasswordPageWrapper>
   );
