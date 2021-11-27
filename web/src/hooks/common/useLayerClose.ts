@@ -12,7 +12,6 @@ export default function useLayerClose(
 
   const onClickOutSide = (e: MouseEvent) => {
     const { target } = e;
-
     if (target instanceof Node) {
       if (isOpen && !targetEl.current?.contains(target)) {
         onClose();

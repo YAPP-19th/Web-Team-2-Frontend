@@ -20,6 +20,7 @@
     "react-query": "^3.25.1",
     "react-router-dom": "^6.0.1",
     "react-scripts": "4.0.3",
+    "react-twemoji-picker": "github:brianhung/emojipicker",
     "recoil": "^0.4.1",
     "styled-components": "^5.3.1",
     "styled-normalize": "^8.0.7",

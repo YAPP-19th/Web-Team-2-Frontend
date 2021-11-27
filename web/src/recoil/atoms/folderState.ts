@@ -17,12 +17,7 @@ export const folderState = atom<TreeData>({
   default: initialState,
 });
 
-export const folderMenuState = atom<ItemId>({
-  key: 'folderMenuState',
-  default: '' as ItemId,
-});
-
 export const selectedFolderState = atom<ItemId>({
   key: 'selectedFolderState',
-  default: '' as ItemId,
+  default: '',
 });
