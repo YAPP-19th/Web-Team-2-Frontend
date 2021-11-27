@@ -1,10 +1,9 @@
 import { X16Icon } from 'assets/icons';
 import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
-import { EmojiPicker, EmojiObject } from 'react-twemoji-picker';
+import { EmojiPicker, EmojiObject, Emoji } from 'react-twemoji-picker';
 import EmojiData from 'react-twemoji-picker/data/twemoji.json';
 import 'react-twemoji-picker/dist/EmojiPicker.css';
-import { EMOJI_URL } from 'utils/config';
 import SimpleInput from 'components/common/SimpleInput';
 import SimpleButton from 'components/common/SimpleButton';
 import { folder } from 'models/folder';
@@ -59,7 +58,7 @@ const FormBlock = styled.div`
   align-items: center;
 `;
 
-const Emoji = styled.div`
+const EmojiBox = styled.div`
   width: 28px;
   height: 28px;
   display: flex;
@@ -71,7 +70,7 @@ const Emoji = styled.div`
   margin-right: 4px;
 `;
 
-const EmojiIcon = styled.img`
+const EmojiIcon = styled(Emoji)`
   width: 18px;
   height: 18px;
 `;
@@ -93,20 +92,24 @@ function FolderRenameModal({
 }: FolderRenameModalProps): ReactElement {
   const { top, left } = position;
   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false);
-  const [chosenEmoji, setChosenEmoji] = useState<string>('1f603'); // @TODO(dohyun) 초기 값을 그 폴더의 이모지를 불러서 설정
+  const [chosenEmoji, setChosenEmoji] = useState<EmojiObject>({
+    unicode: '1f603', // api 연동되면 이 부분을 설정된 폴더 이모지로 설정
+    name: 'grinning face',
+  });
+
   const emojiData = Object.freeze(EmojiData);
 
   const onEmojiSelect = (emoji: EmojiObject) => {
     setEmojiPickerVisible(!emojiPickerVisible);
-    setChosenEmoji(emoji.unicode);
+    setChosenEmoji(emoji);
   };
 
   const onSwitchEmojiPicker = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    value: boolean,
+    e: React.MouseEvent<HTMLDivElement>,
+    isEmojiPickerVisible: boolean,
   ) => {
     e.stopPropagation();
-    setEmojiPickerVisible(value);
+    setEmojiPickerVisible(isEmojiPickerVisible);
   };
 
   return (
@@ -123,9 +126,13 @@ function FolderRenameModal({
         </CloseBlock>
 
         <FormBlock>
-          <Emoji onClick={(e) => onSwitchEmojiPicker(e, !emojiPickerVisible)}>
-            <EmojiIcon src={`${EMOJI_URL}/${chosenEmoji}.png`} />
-          </Emoji>
+          <EmojiBox
+            onClick={(e) => onSwitchEmojiPicker(e, !emojiPickerVisible)}
+          >
+            <EmojiIcon
+              emoji={{ name: chosenEmoji.name, unicode: chosenEmoji.unicode }}
+            />
+          </EmojiBox>
 
           <FolderNameInput type="text" width="192px" height="28px" />
 

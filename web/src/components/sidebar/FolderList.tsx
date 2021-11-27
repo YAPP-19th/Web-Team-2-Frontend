@@ -25,7 +25,7 @@ interface FolderListProps {
   onDragStartFolder: (itemId: ItemId) => void;
   onDragEndFolder: (
     source: TreeSourcePosition,
-    destination?: TreeDestinationPosition | undefined,
+    destination?: TreeDestinationPosition,
   ) => void;
   createFolder: (parentId: ItemId) => void;
   isDrag: boolean;
@@ -185,7 +185,6 @@ function FolderList({
         renderItem={renderFolderItem}
         onExpand={onExpandFolder}
         onCollapse={onCollapseFolder}
-        // eslint-disable-next-line no-console
         onDragStart={onDragStartFolder}
         onDragEnd={onDragEndFolder}
         offsetPerLevel={16} // 한 깊이당 padding 값
