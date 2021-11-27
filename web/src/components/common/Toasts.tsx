@@ -126,8 +126,8 @@ function Toasts({ type, isOpen }: ToastsProps): ReactElement | null {
 
   const emojis: IEmojis = {
     smile: 'https://abs-0.twimg.com/emoji/v2/svg/1f600.svg',
-    sad: 'https://abs-0.twimg.com/emoji/v2/svg/1f61e.svg',
-    clock: 'https://abs-0.twimg.com/emoji/v2/svg/1f552.svg',
+    sad: 'https://abs-0.twimg.com/emoji/v2/svg/1f625.svg',
+    clock: 'https://abs-0.twimg.com/emoji/v2/svg/23f0.svg',
   };
 
   const { text, size, emoji } = toasts[type];

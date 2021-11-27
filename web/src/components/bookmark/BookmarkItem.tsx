@@ -149,7 +149,9 @@ function BookmarkItem({
     selectedBookmarksState,
   );
   const [isChecked, setIsChecked] = useState(false);
-  const { notify, type, isOpenToasts } = useToasts();
+  const [isOpenCopyToast, onCopyToast] = useToasts();
+  const [isOpenRemindToast, onRemindToast] = useToasts();
+
   const copyUrlRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -177,7 +179,7 @@ function BookmarkItem({
   const onCopyUrl = async () => {
     copyUrlRef.current?.select();
     await navigator.clipboard.writeText(url);
-    notify('copyLink');
+    onCopyToast();
   };
 
   return (
@@ -207,7 +209,7 @@ function BookmarkItem({
           </BookmarkLinkBox>
 
           <BookmarkOption>
-            <OptionButton>
+            <OptionButton onClick={onRemindToast}>
               {remind ? <BellSelectedIcon /> : <BellUnSelectedIcon />}
             </OptionButton>
 
@@ -236,7 +238,12 @@ function BookmarkItem({
       <UrlTextArea readOnly ref={copyUrlRef} value={url} />
 
       {isChecked && <SelectedStyled />}
-      <Toasts isOpen={isOpenToasts} type={type} />
+
+      <Toasts isOpen={isOpenCopyToast} type="copyLink" />
+      <Toasts
+        isOpen={isOpenRemindToast}
+        type={remind ? 'remindDisabled' : 'remindSetting'}
+      />
     </BookmarkItemWrapper>
   );
 }
