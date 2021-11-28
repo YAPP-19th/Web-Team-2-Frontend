@@ -1,4 +1,9 @@
-import { ArrowBackBigIcon, ArrowBigIcon, X32Icon } from 'assets/icons';
+import {
+  ArrowBackBigIcon,
+  ArrowBigIcon,
+  Symbol32Icon,
+  X32Icon,
+} from 'assets/icons';
 import ModalTemplate from 'components/common/ModalTemplate';
 import SmallGreenLabel from 'components/common/SmallGreenLabel';
 import React, { ReactElement, useState } from 'react';
@@ -112,8 +117,32 @@ const StepCircle = styled.div<{ active: boolean }>`
   border-radius: 50%;
 `;
 
+const Step1ContentStyled = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 60px;
+  width: 100%;
+  height: 100%;
+`;
+
+const Step1Linked = styled.a`
+  font-size: 20px;
+  font-weight: bold;
+  color: ${(props) => props.theme.color.primary};
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  font-family: Cafe24Ssurround;
+`;
+
 const Step1Content = (): ReactElement => {
-  return <div>Step1</div>;
+  return (
+    <Step1ContentStyled>
+      <Symbol32Icon />
+      <Step1Linked href="#">도토리함 설치하기</Step1Linked>
+      <Symbol32Icon />
+    </Step1ContentStyled>
+  );
 };
 
 const StepImgContent = (): ReactElement => {
