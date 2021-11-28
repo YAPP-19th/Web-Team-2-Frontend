@@ -10,14 +10,17 @@ interface TutorialModalProps {
 }
 
 const ModalInnerStyled = styled.div`
-  padding: 20px 20px 44px;
+  padding: 20px 20px 56px;
   width: 100%;
   height: 100%;
   position: relative;
+  display: flex;
+  flex-direction: column;
 `;
 
-const CloseBlock = styled.div`
+const CloseBlock = styled.div<{ visible: boolean }>`
   overflow: hidden;
+  visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
 `;
 
 const CloseButton = styled.button`
@@ -70,6 +73,10 @@ const StepDescription = styled.span`
   text-align: left;
 `;
 
+const TutorialContent = styled.div`
+  flex: 1 auto;
+`;
+
 const AbsoluteButtonStyled = css`
   position: absolute;
   top: 50%;
@@ -86,6 +93,33 @@ const NextButton = styled.button`
   right: -174px;
 `;
 
+const TutorialOrder = styled.div`
+  position: absolute;
+  bottom: 44px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  width: 92px;
+  height: 12px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const StepCircle = styled.div<{ active: boolean }>`
+  width: 12px;
+  height: 12px;
+  background-color: ${(props) =>
+    props.active ? props.theme.color.primary : props.theme.color.grayLightest};
+  border-radius: 50%;
+`;
+
+const Step1Content = (): ReactElement => {
+  return <div>Step1</div>;
+};
+
+const StepImgContent = (): ReactElement => {
+  return <div>Step2</div>;
+};
+
 function TutorialModal({
   isModal,
   onToggleModal,
@@ -94,30 +128,48 @@ function TutorialModal({
     {
       label: 'STEP 1',
       description: '아래 설치하기를 클릭하여, 확장 프로그램을 설치해주세요!',
+      content: <Step1Content />,
     },
     {
       label: 'STEP 2',
       description:
         '브라우저 상단에서 도토리함 아이콘의 핀 버튼을 눌러 고정해주세요!',
+      content: <StepImgContent />,
     },
     {
       label: 'STEP 3',
       description:
         '저장하고 싶은 페이지가 생겼나요? <br /> <center><circle>1</circle> 도토리함 아이콘을 클릭하고 <circle>2</circle> 원하는 위치에 저장해요!</center>',
+      content: <StepImgContent />,
     },
     {
       label: 'STEP 4',
       description:
         '보관함마다 맴버를 초대하여, 서로가 저장한 도토리를 공유할 수 있어요!',
+      content: <StepImgContent />,
     },
     {
       label: 'STEP 5',
       description:
         '도토리함을 사용하기 위한 모든 준비가 완료되었습니다! <br /> 사용법이 궁굼할 때는, 좌측 하단의 도움말 버튼을 클릭해주세요.',
+      content: <StepImgContent />,
     },
   ];
 
-  const [currentStep, setCurrentStep] = useState(2);
+  const [currentStep, setCurrentStep] = useState(0);
+  const { label, description } = tutorialSteps[currentStep];
+
+  const onNextStep = () => {
+    if (currentStep + 1 <= tutorialSteps.length - 1) {
+      setCurrentStep(currentStep + 1);
+    }
+  };
+
+  const onPrevStep = () => {
+    if (currentStep - 1 >= 0) {
+      setCurrentStep(currentStep - 1);
+    }
+  };
 
   return (
     <ModalTemplate
@@ -127,7 +179,7 @@ function TutorialModal({
       height="471px"
     >
       <ModalInnerStyled>
-        <CloseBlock>
+        <CloseBlock visible={currentStep === tutorialSteps.length - 1}>
           <CloseButton onClick={onToggleModal}>
             <X32Icon />
           </CloseButton>
@@ -136,24 +188,25 @@ function TutorialModal({
         <TutorialTitle>도토리함, 어떻게 사용하나요?</TutorialTitle>
 
         <TutorialDescription>
-          <StepLabel
-            label={tutorialSteps[currentStep].label}
-            fontWeight="bold"
-          />
-          <StepDescription
-            dangerouslySetInnerHTML={{
-              __html: tutorialSteps[currentStep].description,
-            }}
-          />
+          <StepLabel label={label} fontWeight="bold" />
+          <StepDescription dangerouslySetInnerHTML={{ __html: description }} />
         </TutorialDescription>
 
-        <PrevButton>
+        <TutorialContent>{tutorialSteps[currentStep].content}</TutorialContent>
+
+        <PrevButton onClick={onPrevStep}>
           <ArrowBackBigIcon />
         </PrevButton>
 
-        <NextButton>
+        <NextButton onClick={onNextStep}>
           <ArrowBigIcon />
         </NextButton>
+
+        <TutorialOrder>
+          {tutorialSteps.map((_, index) => (
+            <StepCircle key={index} active={index === currentStep} />
+          ))}
+        </TutorialOrder>
       </ModalInnerStyled>
     </ModalTemplate>
   );
