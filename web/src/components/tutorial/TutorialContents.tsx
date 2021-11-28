@@ -38,28 +38,9 @@ const Step1Linked = styled.a`
   font-family: Cafe24Ssurround;
 `;
 
-const Step2ContentStyled = styled.img`
-  width: 329px;
-  margin: 18px auto;
+const StepImgContent = styled.img<{ margin: string }>`
   display: block;
-`;
-
-const Step3ContentStyled = styled.img`
-  width: 288px;
-  margin: 25px auto;
-  display: block;
-`;
-
-const Step4ContentStyled = styled.img`
-  width: 466px;
-  display: block;
-  margin: 28px auto;
-`;
-
-const Step5ContentStyled = styled.img`
-  width: 124px;
-  display: block;
-  margin: 50px auto;
+  margin: ${(props) => props.margin};
 `;
 
 function TutorialContents({ children }: TutorialContentsProps): ReactElement {
@@ -78,7 +59,9 @@ const Step1Content = (): ReactElement => {
 
 const Step2Content = (): ReactElement => {
   return (
-    <Step2ContentStyled
+    <StepImgContent
+      width="329"
+      margin="18px auto"
       src={TutorialStep2IMG}
       srcSet={`${TutorialStep2IMG} 1x, ${TutorialStep2IMG2x} 2x, ${TutorialStep2IMG3x} 3x`}
     />
@@ -87,7 +70,9 @@ const Step2Content = (): ReactElement => {
 
 const Step3Content = (): ReactElement => {
   return (
-    <Step3ContentStyled
+    <StepImgContent
+      width="288"
+      margin="25px auto"
       src={TutorialStep3IMG}
       srcSet={`${TutorialStep3IMG} 1x, ${TutorialStep3IMG2x} 2x, ${TutorialStep3IMG3x} 3x`}
     />
@@ -96,7 +81,9 @@ const Step3Content = (): ReactElement => {
 
 const Step4Content = (): ReactElement => {
   return (
-    <Step4ContentStyled
+    <StepImgContent
+      width="466"
+      margin="28px auto"
       src={TutorialStep4IMG}
       srcSet={`${TutorialStep4IMG} 1x, ${TutorialStep4IMG2x} 2x, ${TutorialStep4IMG3x} 3x`}
     />
@@ -105,7 +92,9 @@ const Step4Content = (): ReactElement => {
 
 const Step5Content = (): ReactElement => {
   return (
-    <Step5ContentStyled
+    <StepImgContent
+      width="124"
+      margin="50px auto"
       src={Question124IMG}
       srcSet={`${Question124IMG} 1x, ${Question124IMG2x} 2x, ${Question124IMG3x} 3x`}
     />
