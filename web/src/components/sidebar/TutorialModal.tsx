@@ -186,7 +186,7 @@ const Step1Content = (): ReactElement => {
 const Step2Content = (): ReactElement => {
   return (
     <Step2ContentStyled
-      src={TutorialStep2IMG3x}
+      src={TutorialStep2IMG}
       srcSet={`${TutorialStep2IMG} 1x, ${TutorialStep2IMG2x} 2x, ${TutorialStep2IMG3x} 3x`}
     />
   );
@@ -195,7 +195,7 @@ const Step2Content = (): ReactElement => {
 const Step3Content = (): ReactElement => {
   return (
     <Step3ContentStyled
-      src={TutorialStep3IMG3x}
+      src={TutorialStep3IMG}
       srcSet={`${TutorialStep3IMG} 1x, ${TutorialStep3IMG2x} 2x, ${TutorialStep3IMG3x} 3x`}
     />
   );
@@ -204,7 +204,7 @@ const Step3Content = (): ReactElement => {
 const Step4Content = (): ReactElement => {
   return (
     <Step4ContentStyled
-      src={TutorialStep4IMG3x}
+      src={TutorialStep4IMG}
       srcSet={`${TutorialStep4IMG} 1x, ${TutorialStep4IMG2x} 2x, ${TutorialStep4IMG3x} 3x`}
     />
   );
@@ -213,7 +213,7 @@ const Step4Content = (): ReactElement => {
 const Step5Content = (): ReactElement => {
   return (
     <Step5ContentStyled
-      src={Question124IMG3x}
+      src={Question124IMG}
       srcSet={`${Question124IMG} 1x, ${Question124IMG2x} 2x, ${Question124IMG3x} 3x`}
     />
   );
@@ -256,7 +256,7 @@ function TutorialModal({
   ];
 
   const [currentStep, setCurrentStep] = useState(0);
-  const { label, description } = tutorialSteps[currentStep];
+  const { label, description, content } = tutorialSteps[currentStep];
 
   const onNextStep = () => {
     if (currentStep + 1 <= tutorialSteps.length - 1) {
@@ -291,7 +291,7 @@ function TutorialModal({
           <StepDescription dangerouslySetInnerHTML={{ __html: description }} />
         </TutorialDescription>
 
-        <TutorialContent>{tutorialSteps[currentStep].content}</TutorialContent>
+        <TutorialContent>{content}</TutorialContent>
 
         <PrevButton onClick={onPrevStep}>
           <ArrowBackBigIcon />
