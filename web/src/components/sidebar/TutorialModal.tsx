@@ -5,6 +5,9 @@ import {
   X32Icon,
 } from 'assets/icons';
 import {
+  Question124IMG,
+  Question124IMG2x,
+  Question124IMG3x,
   TutorialStep2IMG,
   TutorialStep2IMG2x,
   TutorialStep2IMG3x,
@@ -164,6 +167,12 @@ const Step4ContentStyled = styled.img`
   margin: 28px auto;
 `;
 
+const Step5ContentStyled = styled.img`
+  width: 124px;
+  display: block;
+  margin: 50px auto;
+`;
+
 const Step1Content = (): ReactElement => {
   return (
     <Step1ContentStyled>
@@ -177,7 +186,7 @@ const Step1Content = (): ReactElement => {
 const Step2Content = (): ReactElement => {
   return (
     <Step2ContentStyled
-      src={TutorialStep2IMG}
+      src={TutorialStep2IMG3x}
       srcSet={`${TutorialStep2IMG} 1x, ${TutorialStep2IMG2x} 2x, ${TutorialStep2IMG3x} 3x`}
     />
   );
@@ -186,7 +195,7 @@ const Step2Content = (): ReactElement => {
 const Step3Content = (): ReactElement => {
   return (
     <Step3ContentStyled
-      src={TutorialStep3IMG}
+      src={TutorialStep3IMG3x}
       srcSet={`${TutorialStep3IMG} 1x, ${TutorialStep3IMG2x} 2x, ${TutorialStep3IMG3x} 3x`}
     />
   );
@@ -195,14 +204,19 @@ const Step3Content = (): ReactElement => {
 const Step4Content = (): ReactElement => {
   return (
     <Step4ContentStyled
-      src={TutorialStep4IMG}
+      src={TutorialStep4IMG3x}
       srcSet={`${TutorialStep4IMG} 1x, ${TutorialStep4IMG2x} 2x, ${TutorialStep4IMG3x} 3x`}
     />
   );
 };
 
-const StepImgContent = (): ReactElement => {
-  return <div>Step2</div>;
+const Step5Content = (): ReactElement => {
+  return (
+    <Step5ContentStyled
+      src={Question124IMG3x}
+      srcSet={`${Question124IMG} 1x, ${Question124IMG2x} 2x, ${Question124IMG3x} 3x`}
+    />
+  );
 };
 
 function TutorialModal({
@@ -237,7 +251,7 @@ function TutorialModal({
       label: 'STEP 5',
       description:
         '도토리함을 사용하기 위한 모든 준비가 완료되었습니다! <br /> 사용법이 궁굼할 때는, 좌측 하단의 도움말 버튼을 클릭해주세요.',
-      content: <StepImgContent />,
+      content: <Step5Content />,
     },
   ];
 
