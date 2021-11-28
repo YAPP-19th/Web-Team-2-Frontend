@@ -4,7 +4,17 @@ import {
   Symbol32Icon,
   X32Icon,
 } from 'assets/icons';
-import { TutorialStep2IMG, TutorialStep3IMG } from 'assets/images';
+import {
+  TutorialStep2IMG,
+  TutorialStep2IMG2x,
+  TutorialStep2IMG3x,
+  TutorialStep3IMG,
+  TutorialStep3IMG2x,
+  TutorialStep3IMG3x,
+  TutorialStep4IMG,
+  TutorialStep4IMG2x,
+  TutorialStep4IMG3x,
+} from 'assets/images';
 import ModalTemplate from 'components/common/ModalTemplate';
 import SmallGreenLabel from 'components/common/SmallGreenLabel';
 import React, { ReactElement, useState } from 'react';
@@ -148,6 +158,12 @@ const Step3ContentStyled = styled.img`
   display: block;
 `;
 
+const Step4ContentStyled = styled.img`
+  width: 466px;
+  display: block;
+  margin: 28px auto;
+`;
+
 const Step1Content = (): ReactElement => {
   return (
     <Step1ContentStyled>
@@ -159,11 +175,30 @@ const Step1Content = (): ReactElement => {
 };
 
 const Step2Content = (): ReactElement => {
-  return <Step2ContentStyled src={TutorialStep2IMG} />;
+  return (
+    <Step2ContentStyled
+      src={TutorialStep2IMG}
+      srcSet={`${TutorialStep2IMG} 1x, ${TutorialStep2IMG2x} 2x, ${TutorialStep2IMG3x} 3x`}
+    />
+  );
 };
 
 const Step3Content = (): ReactElement => {
-  return <Step3ContentStyled src={TutorialStep3IMG} />;
+  return (
+    <Step3ContentStyled
+      src={TutorialStep3IMG}
+      srcSet={`${TutorialStep3IMG} 1x, ${TutorialStep3IMG2x} 2x, ${TutorialStep3IMG3x} 3x`}
+    />
+  );
+};
+
+const Step4Content = (): ReactElement => {
+  return (
+    <Step4ContentStyled
+      src={TutorialStep4IMG}
+      srcSet={`${TutorialStep4IMG} 1x, ${TutorialStep4IMG2x} 2x, ${TutorialStep4IMG3x} 3x`}
+    />
+  );
 };
 
 const StepImgContent = (): ReactElement => {
@@ -196,7 +231,7 @@ function TutorialModal({
       label: 'STEP 4',
       description:
         '보관함마다 맴버를 초대하여, 서로가 저장한 도토리를 공유할 수 있어요!',
-      content: <StepImgContent />,
+      content: <Step4Content />,
     },
     {
       label: 'STEP 5',
