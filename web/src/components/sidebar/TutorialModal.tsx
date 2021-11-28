@@ -4,7 +4,7 @@ import {
   Symbol32Icon,
   X32Icon,
 } from 'assets/icons';
-import { TutorialStep2IMG } from 'assets/images';
+import { TutorialStep2IMG, TutorialStep3IMG } from 'assets/images';
 import ModalTemplate from 'components/common/ModalTemplate';
 import SmallGreenLabel from 'components/common/SmallGreenLabel';
 import React, { ReactElement, useState } from 'react';
@@ -142,6 +142,12 @@ const Step2ContentStyled = styled.img`
   display: block;
 `;
 
+const Step3ContentStyled = styled.img`
+  width: 288px;
+  margin: 25px auto;
+  display: block;
+`;
+
 const Step1Content = (): ReactElement => {
   return (
     <Step1ContentStyled>
@@ -154,6 +160,10 @@ const Step1Content = (): ReactElement => {
 
 const Step2Content = (): ReactElement => {
   return <Step2ContentStyled src={TutorialStep2IMG} />;
+};
+
+const Step3Content = (): ReactElement => {
+  return <Step3ContentStyled src={TutorialStep3IMG} />;
 };
 
 const StepImgContent = (): ReactElement => {
@@ -180,7 +190,7 @@ function TutorialModal({
       label: 'STEP 3',
       description:
         '저장하고 싶은 페이지가 생겼나요? <br /> <center><circle>1</circle> 도토리함 아이콘을 클릭하고 <circle>2</circle> 원하는 위치에 저장해요!</center>',
-      content: <StepImgContent />,
+      content: <Step3Content />,
     },
     {
       label: 'STEP 4',
