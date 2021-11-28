@@ -4,6 +4,7 @@ import {
   Symbol32Icon,
   X32Icon,
 } from 'assets/icons';
+import { TutorialStep2IMG } from 'assets/images';
 import ModalTemplate from 'components/common/ModalTemplate';
 import SmallGreenLabel from 'components/common/SmallGreenLabel';
 import React, { ReactElement, useState } from 'react';
@@ -135,6 +136,12 @@ const Step1Linked = styled.a`
   font-family: Cafe24Ssurround;
 `;
 
+const Step2ContentStyled = styled.img`
+  width: 329px;
+  margin: 18px auto;
+  display: block;
+`;
+
 const Step1Content = (): ReactElement => {
   return (
     <Step1ContentStyled>
@@ -143,6 +150,10 @@ const Step1Content = (): ReactElement => {
       <Symbol32Icon />
     </Step1ContentStyled>
   );
+};
+
+const Step2Content = (): ReactElement => {
+  return <Step2ContentStyled src={TutorialStep2IMG} />;
 };
 
 const StepImgContent = (): ReactElement => {
@@ -163,7 +174,7 @@ function TutorialModal({
       label: 'STEP 2',
       description:
         '브라우저 상단에서 도토리함 아이콘의 핀 버튼을 눌러 고정해주세요!',
-      content: <StepImgContent />,
+      content: <Step2Content />,
     },
     {
       label: 'STEP 3',
