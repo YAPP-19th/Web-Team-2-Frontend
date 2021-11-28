@@ -1,3 +1,4 @@
+import ERROR_STATUS_CODE from 'api/errorStatus';
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import qs from 'qs';
 
@@ -61,9 +62,9 @@ Client.intercept().response.use(
     // const requestConfig = config;
 
     switch (status) {
-      case 400:
+      case ERROR_STATUS_CODE.BAD_REQUEST:
         throw new Error('Bad Request');
-      case 401:
+      case ERROR_STATUS_CODE.UNAUTHORIZED:
         /* NOTE
          * Authorization 에러
          * 1. Refresh Token 이 잘못된 경우 새로운 로그인요청
@@ -71,9 +72,9 @@ Client.intercept().response.use(
          * 3. Refresh Token 을 통해 AccessToken 을 서버로부터 가져오고, 요청을 재전송
          */
         throw new Error('Authorization Error');
-      case 404:
+      case ERROR_STATUS_CODE.NOT_FOUND:
         throw new Error('Not Found');
-      case 500:
+      case ERROR_STATUS_CODE.INTERNAL_SERVER_ERROR:
         throw new Error('Sever Error');
       default:
         throw new Error('Unknown Error');
