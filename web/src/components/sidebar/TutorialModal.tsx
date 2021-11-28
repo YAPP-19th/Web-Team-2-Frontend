@@ -1,27 +1,9 @@
-import {
-  ArrowBackBigIcon,
-  ArrowBigIcon,
-  Symbol32Icon,
-  X32Icon,
-} from 'assets/icons';
-import {
-  Question124IMG,
-  Question124IMG2x,
-  Question124IMG3x,
-  TutorialStep2IMG,
-  TutorialStep2IMG2x,
-  TutorialStep2IMG3x,
-  TutorialStep3IMG,
-  TutorialStep3IMG2x,
-  TutorialStep3IMG3x,
-  TutorialStep4IMG,
-  TutorialStep4IMG2x,
-  TutorialStep4IMG3x,
-} from 'assets/images';
+import { ArrowBackBigIcon, ArrowBigIcon, X32Icon } from 'assets/icons';
 import ModalTemplate from 'components/common/ModalTemplate';
 import SmallGreenLabel from 'components/common/SmallGreenLabel';
 import React, { ReactElement, useState } from 'react';
 import styled, { css } from 'styled-components';
+import TutorialContents from './TutorialContents';
 
 interface TutorialModalProps {
   isModal: boolean;
@@ -131,98 +113,18 @@ const StepCircle = styled.div<{ active: boolean }>`
   border-radius: 50%;
 `;
 
-const Step1ContentStyled = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-bottom: 60px;
-  width: 100%;
-  height: 100%;
-`;
-
-const Step1Linked = styled.a`
-  font-size: 20px;
-  font-weight: bold;
-  color: ${(props) => props.theme.color.primary};
-  text-decoration: underline;
-  text-underline-offset: 6px;
-  font-family: Cafe24Ssurround;
-`;
-
-const Step2ContentStyled = styled.img`
-  width: 329px;
-  margin: 18px auto;
-  display: block;
-`;
-
-const Step3ContentStyled = styled.img`
-  width: 288px;
-  margin: 25px auto;
-  display: block;
-`;
-
-const Step4ContentStyled = styled.img`
-  width: 466px;
-  display: block;
-  margin: 28px auto;
-`;
-
-const Step5ContentStyled = styled.img`
-  width: 124px;
-  display: block;
-  margin: 50px auto;
-`;
-
-const Step1Content = (): ReactElement => {
-  return (
-    <Step1ContentStyled>
-      <Symbol32Icon />
-      <Step1Linked href="#">도토리함 설치하기</Step1Linked>
-      <Symbol32Icon />
-    </Step1ContentStyled>
-  );
-};
-
-const Step2Content = (): ReactElement => {
-  return (
-    <Step2ContentStyled
-      src={TutorialStep2IMG}
-      srcSet={`${TutorialStep2IMG} 1x, ${TutorialStep2IMG2x} 2x, ${TutorialStep2IMG3x} 3x`}
-    />
-  );
-};
-
-const Step3Content = (): ReactElement => {
-  return (
-    <Step3ContentStyled
-      src={TutorialStep3IMG}
-      srcSet={`${TutorialStep3IMG} 1x, ${TutorialStep3IMG2x} 2x, ${TutorialStep3IMG3x} 3x`}
-    />
-  );
-};
-
-const Step4Content = (): ReactElement => {
-  return (
-    <Step4ContentStyled
-      src={TutorialStep4IMG}
-      srcSet={`${TutorialStep4IMG} 1x, ${TutorialStep4IMG2x} 2x, ${TutorialStep4IMG3x} 3x`}
-    />
-  );
-};
-
-const Step5Content = (): ReactElement => {
-  return (
-    <Step5ContentStyled
-      src={Question124IMG}
-      srcSet={`${Question124IMG} 1x, ${Question124IMG2x} 2x, ${Question124IMG3x} 3x`}
-    />
-  );
-};
-
 function TutorialModal({
   isModal,
   onToggleModal,
 }: TutorialModalProps): ReactElement {
+  const {
+    Step1Content,
+    Step2Content,
+    Step3Content,
+    Step4Content,
+    Step5Content,
+  } = TutorialContents;
+
   const tutorialSteps = [
     {
       label: 'STEP 1',
