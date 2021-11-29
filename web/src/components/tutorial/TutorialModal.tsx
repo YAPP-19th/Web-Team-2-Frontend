@@ -1,8 +1,9 @@
-import { ArrowBackBigIcon, ArrowBigIcon, X32Icon } from 'assets/icons';
+import { ArrowBackBigIcon, ArrowBigIcon } from 'assets/icons';
 import ModalTemplate from 'components/common/ModalTemplate';
 import SmallGreenLabel from 'components/common/SmallGreenLabel';
 import React, { ReactElement, useState } from 'react';
 import styled, { css } from 'styled-components';
+import TutorialCloseButton from './TutorialCloseButton';
 import TutorialContents from './TutorialContents';
 
 interface TutorialModalProps {
@@ -17,15 +18,6 @@ const ModalInnerStyled = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-`;
-
-const CloseBlock = styled.div<{ visible: boolean }>`
-  overflow: hidden;
-  visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
-`;
-
-const CloseButton = styled.button`
-  float: right;
 `;
 
 const TutorialTitle = styled.div`
@@ -180,11 +172,10 @@ function TutorialModal({
       height="471px"
     >
       <ModalInnerStyled>
-        <CloseBlock visible={currentStep === tutorialSteps.length - 1}>
-          <CloseButton onClick={onToggleModal}>
-            <X32Icon />
-          </CloseButton>
-        </CloseBlock>
+        <TutorialCloseButton
+          visible={currentStep === tutorialSteps.length - 1}
+          onClick={onToggleModal}
+        />
 
         <TutorialTitle>도토리함, 어떻게 사용하나요?</TutorialTitle>
 
