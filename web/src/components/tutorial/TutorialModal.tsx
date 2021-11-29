@@ -1,10 +1,10 @@
-import { ArrowBackBigIcon, ArrowBigIcon } from 'assets/icons';
 import ModalTemplate from 'components/common/ModalTemplate';
 import SmallGreenLabel from 'components/common/SmallGreenLabel';
 import React, { ReactElement, useState } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import TutorialCloseButton from './TutorialCloseButton';
 import TutorialContents from './TutorialContents';
+import TutorialSideButtons from './TutorialSideButtons';
 
 interface TutorialModalProps {
   isModal: boolean;
@@ -68,22 +68,6 @@ const StepDescription = styled.span`
 
 const TutorialContent = styled.div`
   flex: 1 auto;
-`;
-
-const AbsoluteButtonStyled = css`
-  position: absolute;
-  top: 50%;
-  transform: translate(0%, -50%);
-`;
-
-const PrevButton = styled.button`
-  ${AbsoluteButtonStyled}
-  left: -177px;
-`;
-
-const NextButton = styled.button`
-  ${AbsoluteButtonStyled}
-  right: -174px;
 `;
 
 const TutorialOrder = styled.div`
@@ -186,13 +170,7 @@ function TutorialModal({
 
         <TutorialContent>{content}</TutorialContent>
 
-        <PrevButton onClick={onPrevStep}>
-          <ArrowBackBigIcon />
-        </PrevButton>
-
-        <NextButton onClick={onNextStep}>
-          <ArrowBigIcon />
-        </NextButton>
+        <TutorialSideButtons onPrev={onPrevStep} onNext={onNextStep} />
 
         <TutorialOrder>
           {tutorialSteps.map((_, index) => (
