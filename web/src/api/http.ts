@@ -75,7 +75,7 @@ Client.intercept().response.use(
       case ERROR_STATUS_CODE.NOT_FOUND:
         throw new Error('Not Found');
       case ERROR_STATUS_CODE.INTERNAL_SERVER_ERROR:
-        throw new Error('Sever Error');
+        throw new Error('Server Error');
       default:
         throw new Error('Unknown Error');
     }
