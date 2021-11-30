@@ -13,7 +13,7 @@ const RemindListItemWrapper = styled.div`
   border-radius: 10px;
   margin-right: 24px;
   margin-bottom: 2px;
-  box-shadow: 0 1px 4px 0 ${(props) => props.theme.color.shadow0};
+  border: 1px solid ${(props) => props.theme.color.grayLight};
 `;
 
 const RemindItemLeftBox = styled.div`
@@ -23,7 +23,7 @@ const RemindItemLeftBox = styled.div`
   width: 94px;
   height: 100%;
   border-radius: 10px 0 0 10px;
-  background-color: ${(props) => props.theme.color.grayLightest};
+  background-color: ${(props) => props.theme.color.primaryLight};
 `;
 
 const RemindItemRightBox = styled.div`

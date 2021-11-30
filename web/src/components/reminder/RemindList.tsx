@@ -1,4 +1,11 @@
-import { Back24Icon, Next24Icon } from 'assets/icons';
+import {
+  Back24IMG,
+  Back24IMG2x,
+  Back24IMG3x,
+  Next24IMG,
+  Next24IMG2x,
+  Next24IMG3x,
+} from 'assets/images';
 import React, { ReactElement } from 'react';
 import styled, { css } from 'styled-components';
 import useReminderHandleEffect from 'hooks/reminder/useReminderHandleEffect';
@@ -44,15 +51,15 @@ const commonButtonStyle = css`
   top: 50%;
   transform: translate(0%, -50%);
   cursor: pointer;
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
 `;
 
-const BackButton = styled(Back24Icon)`
+const BackButton = styled.img`
   ${commonButtonStyle}
 `;
 
-const NextButton = styled(Next24Icon)`
+const NextButton = styled.img`
   ${commonButtonStyle}
 `;
 
@@ -70,7 +77,11 @@ function RemindList(): ReactElement {
   return (
     <RemindListWrapper>
       <BackIconBlock isShow={currentSlide !== SHOW_SLIDE_LENGTH}>
-        <BackButton onClick={onBackSlide} />
+        <BackButton
+          src={Back24IMG}
+          srcSet={`${Back24IMG} 1x, ${Back24IMG2x} 2x, ${Back24IMG3x} 3x`}
+          onClick={onBackSlide}
+        />
       </BackIconBlock>
       <RemindListContainer>
         <RemindListBlock ref={slideRef}>
@@ -80,7 +91,11 @@ function RemindList(): ReactElement {
         </RemindListBlock>
       </RemindListContainer>
       <NextIconBlock isShow={TOTAL_SLIDES - currentSlide > SHOW_SLIDE_LENGTH}>
-        <NextButton onClick={onNextSlide} />
+        <NextButton
+          src={Next24IMG}
+          srcSet={`${Next24IMG} 1x, ${Next24IMG2x} 2x, ${Next24IMG3x} 3x`}
+          onClick={onNextSlide}
+        />
       </NextIconBlock>
     </RemindListWrapper>
   );
