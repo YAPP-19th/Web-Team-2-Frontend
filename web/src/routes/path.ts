@@ -1,5 +1,5 @@
 enum Path {
-  MainPage = '/',
+  MainPage = '/*',
   MyPage = '/mypage',
   LoginPage = '/login',
   RegisterPage = '/register',
