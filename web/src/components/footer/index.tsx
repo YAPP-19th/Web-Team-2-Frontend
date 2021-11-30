@@ -73,7 +73,7 @@ function Footer(): ReactElement {
 
           <FooterMenu>
             <FooterMenuItem
-              href="https://www.notion.so/gilsangwoo/84b7068fb36649c78016f6830209703d"
+              href="https://vintage-pizza-6f7.notion.site/0a28c30e1c9d436c80b421a753e03508"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -81,7 +81,7 @@ function Footer(): ReactElement {
             </FooterMenuItem>
             <VerticalLine />
             <FooterMenuItem
-              href="https://www.notion.so/gilsangwoo/eb10702ffce64ba0b1364286ef381f8c"
+              href="https://vintage-pizza-6f7.notion.site/db9f11ee53ff4688b9bd870beb756b21"
               target="_blank"
               rel="noopener noreferrer"
             >
