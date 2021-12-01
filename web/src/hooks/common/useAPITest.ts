@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import axios from 'axios';
 import { useEffect } from 'react';
 
@@ -75,7 +78,7 @@ export default function useAPITest() {
   };
 
   // 북마크 조회(페이징)
-  const getBookmark = async () => {
+  const getBookmarks = async () => {
     const folderId = '123123123';
     const page = 0; // 몇번째 페이지
     const size = 9; // 한페이지당 보여줄 갯수
@@ -253,6 +256,28 @@ export default function useAPITest() {
   };
 
   useEffect(() => {
-    console.log('APITest');
+    const test = async () => {
+      //   const response = await setProfileBackgroundColor();
+      //   const response = await changeProfile();
+      //   const response = await googleLogin();
+      //   const response = await reIssuanceAccessToken();
+      //   const response = await search();
+      //   const response = await getBookmarks();
+      //   const response = await getTrashBookmark();
+      //   const response = await restoreTrash();
+      //   const response = await deleteTrash();
+      //   const response = await getFolders();
+      //   const response = await createFolder();
+      //   const response = await updateFolderName();
+      //   const response = await updateFolderEmoji();
+      //   const response = await moveFolder();
+      //   const response = await deleteFolder();
+      //   const response = await createBookmark();
+      //   const response = await updateBookmark();
+      //   const response = await moveBookmark();
+      //   const response = await deleteBookmark();
+      //   console.log(response);
+    };
+    test();
   }, []);
 }

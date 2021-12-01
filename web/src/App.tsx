@@ -1,5 +1,6 @@
 import Footer from 'components/footer';
 import Header from 'components/header';
+import useAPITest from 'hooks/common/useAPITest';
 import React, { ReactElement } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import Routing from 'routes/Routing';
@@ -23,6 +24,7 @@ const AppLayout = styled.div`
 `;
 
 function App(): ReactElement {
+  useAPITest();
   return (
     <AppWrapper>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
