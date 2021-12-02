@@ -1,3 +1,4 @@
+import transitions from 'assets/styles/transitions';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
@@ -33,6 +34,7 @@ const Inner = styled.div<InnerProps>`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   border-radius: 12px;
+  animation: ${transitions.fadeIn} 0.4s ease-in-out;
 `;
 
 const Background = styled.div`
