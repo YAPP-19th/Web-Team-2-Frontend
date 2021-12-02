@@ -28,12 +28,14 @@ export type ToastsTypes =
 
 type ToastSizeTypes = 'small' | 'big';
 
+interface ToastsListProperty {
+  readonly text: string;
+  readonly size: ToastSizeTypes;
+  readonly emoji: RequiredKeys<IEmojis>;
+}
+
 type ToastListType = {
-  [key in ToastsTypes]: {
-    text: string;
-    size: ToastSizeTypes;
-    emoji: RequiredKeys<IEmojis>;
-  };
+  [key in ToastsTypes]: ToastsListProperty;
 };
 
 interface IToastsStyledProps {
