@@ -101,6 +101,7 @@ const Step5Content = (): ReactElement => {
   );
 };
 
+// @TODO(dohyun) 리팩토링 예정
 TutorialContents.Step1Content = Step1Content;
 TutorialContents.Step2Content = Step2Content;
 TutorialContents.Step3Content = Step3Content;

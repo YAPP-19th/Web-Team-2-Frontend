@@ -179,8 +179,8 @@ function TutorialModal({
         />
 
         <TutorialOrder>
-          {tutorialSteps.map((_, index) => (
-            <StepCircle key={index} active={index === currentStep} />
+          {tutorialSteps.map((step, index) => (
+            <StepCircle key={step.label} active={index === currentStep} />
           ))}
         </TutorialOrder>
       </ModalInnerStyled>
