@@ -4,6 +4,7 @@ import React, { ReactElement } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import Bookmark from 'components/bookmark';
+import Path from 'routes/path';
 
 const MainWrapper = styled.div`
   display: flex;
@@ -28,7 +29,7 @@ function MainPage(): ReactElement {
       <SideBar />
       <ContentLayout>
         <ContentInner>
-          {location.pathname === '/' && <Reminder />}
+          {location.pathname === Path.Home && <Reminder />}
           <Bookmark />
         </ContentInner>
       </ContentLayout>
