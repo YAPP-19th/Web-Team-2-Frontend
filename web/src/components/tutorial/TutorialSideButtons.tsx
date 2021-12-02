@@ -5,6 +5,8 @@ import styled, { css } from 'styled-components';
 interface TutorialSideButtonsProps {
   onPrev: () => void;
   onNext: () => void;
+  currentStep: number;
+  stepLength: number;
 }
 
 const AbsoluteButtonStyled = css`
@@ -26,16 +28,21 @@ const NextButton = styled.button`
 function TutorialSideButtons({
   onNext,
   onPrev,
+  currentStep,
+  stepLength,
 }: TutorialSideButtonsProps): ReactElement {
   return (
     <>
-      <PrevButton onClick={onPrev}>
-        <ArrowBackBigIcon />
-      </PrevButton>
-
-      <NextButton onClick={onNext}>
-        <ArrowBigIcon />
-      </NextButton>
+      {currentStep !== 0 && (
+        <PrevButton onClick={onPrev}>
+          <ArrowBackBigIcon />
+        </PrevButton>
+      )}
+      {currentStep !== stepLength && (
+        <NextButton onClick={onNext}>
+          <ArrowBigIcon />
+        </NextButton>
+      )}
     </>
   );
 }

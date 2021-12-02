@@ -135,9 +135,10 @@ function TutorialModal({
 
   const [currentStep, setCurrentStep] = useState(0);
   const { label, description, content } = tutorialSteps[currentStep];
+  const stepLength = tutorialSteps.length - 1;
 
   const onNextStep = () => {
-    if (currentStep + 1 <= tutorialSteps.length - 1) {
+    if (currentStep + 1 <= stepLength) {
       setCurrentStep(currentStep + 1);
     }
   };
@@ -157,7 +158,7 @@ function TutorialModal({
     >
       <ModalInnerStyled>
         <TutorialCloseButton
-          visible={currentStep === tutorialSteps.length - 1}
+          visible={currentStep === stepLength}
           onClick={onToggleModal}
         />
 
@@ -170,7 +171,12 @@ function TutorialModal({
 
         <TutorialContent>{content}</TutorialContent>
 
-        <TutorialSideButtons onPrev={onPrevStep} onNext={onNextStep} />
+        <TutorialSideButtons
+          onPrev={onPrevStep}
+          onNext={onNextStep}
+          currentStep={currentStep}
+          stepLength={stepLength}
+        />
 
         <TutorialOrder>
           {tutorialSteps.map((_, index) => (
