@@ -26,7 +26,7 @@ const LogoSpan = styled.span`
 function Logo(): ReactElement {
   return (
     <HeaderLogo>
-      <LogoWithText href={Path.MainPage}>
+      <LogoWithText href={Path.Home}>
         <LogoGreenIcon />
         <LogoSpan>도토리함</LogoSpan>
       </LogoWithText>

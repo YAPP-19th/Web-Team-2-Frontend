@@ -1,8 +1,10 @@
 import Reminder from 'components/reminder';
 import SideBar from 'components/sidebar';
 import React, { ReactElement } from 'react';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import Bookmark from 'components/bookmark';
+import Path from 'routes/path';
 
 const MainWrapper = styled.div`
   display: flex;
@@ -21,12 +23,13 @@ const ContentInner = styled.div`
 `;
 
 function MainPage(): ReactElement {
+  const location = useLocation();
   return (
     <MainWrapper>
       <SideBar />
       <ContentLayout>
         <ContentInner>
-          <Reminder />
+          {location.pathname === Path.Home && <Reminder />}
           <Bookmark />
         </ContentInner>
       </ContentLayout>

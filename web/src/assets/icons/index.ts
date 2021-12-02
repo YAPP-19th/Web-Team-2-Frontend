@@ -4,7 +4,6 @@ export { ReactComponent as CheckBoxSelectedIcon } from './Checkbox_selected.svg'
 export { ReactComponent as FolderIcon } from './Folder.svg';
 export { ReactComponent as ArrowUp16Icon } from './Icons_Arrow_16.svg';
 export { ReactComponent as ArrowDown16Icon } from './Icons_Arrow_down_16.svg';
-export { ReactComponent as Back24Icon } from './Icons_Back_24.svg';
 export { ReactComponent as BellIcon } from './Icons_Bell_24.svg';
 export { ReactComponent as BellNewIcon } from './Icons_Bell_New_24.svg';
 export { ReactComponent as BellSelectedIcon } from './Icons_Bell_selected.svg';
@@ -15,7 +14,6 @@ export { ReactComponent as CheckBoxSelected36Icon } from './Icons_Checkbox_selec
 export { ReactComponent as Copy24Icon } from './Icons_Copy_24.svg';
 export { ReactComponent as DropDownIcon } from './Icons_Drop.svg';
 export { ReactComponent as More24Icon } from './Icons_More_24.svg';
-export { ReactComponent as Next24Icon } from './Icons_Next_24.svg';
 export { ReactComponent as QuestionIcon } from './Icons_Question_60.svg';
 export { ReactComponent as Search24Icon } from './Icons_Search_24.svg';
 export { ReactComponent as Symbol120Icon } from './Icons_Symbol_120.svg';
