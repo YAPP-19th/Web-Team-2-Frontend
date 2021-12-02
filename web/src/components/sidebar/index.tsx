@@ -1,10 +1,10 @@
 import useFoldersHandle from 'hooks/sidebar/useFoldersHandle';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import QuestionButton from 'components/tutorial/QuestionButton';
 import AllFolder from './AllFolder';
 import CabinetBox from './CabinetBox';
 import FolderList from './FolderList';
-import QuestionButton from './QuestionButton';
 import TrashBox from './TrashBox';
 
 const SideBarWrapper = styled.div`
