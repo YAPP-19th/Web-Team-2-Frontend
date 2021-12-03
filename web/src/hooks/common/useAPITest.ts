@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 
 const BASE_URL = 'http://3.38.152.22:8081/api/v1';
 const token =
-  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjM4MzYzMzMzLCJleHAiOjE2Mzg0NDk3MzN9.8kfraj8oe37OdHMd5CRPJCV8rOLzNaLQzAs7Cvx7BtEuX_gFS1Z2WvkWsNRIYMLuksNoIL50fq50gJSCDihP-g';
+  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjM4NTQyOTk5LCJleHAiOjE2Mzg2MjkzOTl9.haJODEmsJP0N9ftSMLkWIWZGP0OSCA23EdDKGMyMV7XFrf-vtxinuyhoAlXGrwFZGC3pC3KdtYuzeaHecARVBQ';
 
 const header = {
   headers: {
@@ -43,8 +43,8 @@ export default function useAPITest() {
   // 로그인 & 회원가입 (완료)
   const googleLogin = async () => {
     const body = {
-      email: 'abc@gmail.com',
-      imageUrl: 'http://www.asdkljzxcoasdkas.com/',
+      email: 'abcd@gmail.com',
+      imageUrl: 'http://www.asdkljzxcoaasdsdkas.com',
       name: 'juhyun',
       socialType: 'google',
     };
@@ -132,7 +132,8 @@ export default function useAPITest() {
 
   // 폴더 조회 // 이거 구현 안되면 아무것도 못함
   const getFolders = async () => {
-    console.log('폴더 조회 구현 안되면 아무것도 못함');
+    const response = await axios.get(`${BASE_URL}/folder`, header);
+    return response.data;
   };
 
   // 폴더 추가
@@ -259,14 +260,14 @@ export default function useAPITest() {
     const test = async () => {
       //   const response = await setProfileBackgroundColor();
       //   const response = await changeProfile();
-      //   const response = await googleLogin();
+      // const response = await googleLogin();
       //   const response = await reIssuanceAccessToken();
       //   const response = await search();
-      const response = await getBookmarks();
+      // const response = await getBookmarks();
       //   const response = await getTrashBookmark();
       //   const response = await restoreTrash();
       //   const response = await deleteTrash();
-      //   const response = await getFolders();
+      // const response = await getFolders();
       //   const response = await createFolder();
       //   const response = await updateFolderName();
       //   const response = await updateFolderEmoji();
@@ -276,8 +277,12 @@ export default function useAPITest() {
       //   const response = await updateBookmark();
       //   const response = await moveBookmark();
       //   const response = await deleteBookmark();
-      console.log(response);
+      // console.log(response);
     };
     test();
   }, []);
+
+  return {
+    getFolders,
+  };
 }
