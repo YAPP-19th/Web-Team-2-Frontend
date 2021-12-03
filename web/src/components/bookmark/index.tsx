@@ -27,7 +27,7 @@ function Bookmark(): ReactElement {
         <FilterBox />
       </BookmarkNav>
       <BookmarkList />
-      <Pagination />
+      <Pagination totalElements={95} size={3} />
     </BookmarkWrapper>
   );
 }

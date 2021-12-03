@@ -1,5 +1,17 @@
-import React, { ReactElement } from 'react';
+import {
+  ArrowLeft16Icon,
+  ArrowLeftDouble16Icon,
+  ArrowSide16Icon,
+  ArrowSideDouble16Icon,
+} from 'assets/icons';
+import React, { ReactElement, useState } from 'react';
+import Pagination from 'react-js-pagination';
 import styled from 'styled-components';
+
+interface PaginationProps {
+  totalElements: number;
+  size: number;
+}
 
 const PaginationWrapper = styled.div`
   width: 100%;
@@ -8,23 +20,77 @@ const PaginationWrapper = styled.div`
   align-items: center;
   margin-top: 16px;
   margin-bottom: 71px;
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  ul.pagination li {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+  }
+  ul.pagination li:first-child {
+    border-radius: 5px 0 0 5px;
+  }
+  ul.pagination li:last-child {
+    border-radius: 0 5px 5px 0;
+  }
+  ul.pagination li a {
+    text-decoration: none;
+    color: ${(props) => props.theme.color.gray};
+    font-size: 1rem;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  ul.pagination li.active a {
+    color: ${(props) => props.theme.color.black};
+  }
+  ul.pagination li.active {
+  }
+
+  .page-selection {
+    width: 48px;
+    height: 30px;
+    color: #337ab7;
+  }
 `;
 
-/**  @NOTE
- * 백앤드에서 totalPages를 받아옴
- * 만약 페이지가 1개 뿐이면 페이지 수를 보여주지 않음
- * 한 페이지에 보여줄 북마크 수: size (props로 받아옴)
- * 현재 활성화 된 페이지 위치 : currentPage
- * 예를 들어서 totalPages가 56이야
- * 그러면 1~10 11~20 21~30 31~40 41~50 51~56 이렇게 보여줘야 하잖아?
- * 그럼 일단 몫을 상태로 가지고 있어야 하나?
- *  56 / 10 = 5.6 10개짜리 5개 하고 나머지 6개  반올림 하면 6
- * 10 개 단위로 상태를 가지고 있자 ex) 1, 2, 3, 4, 5
- * 그러고 그 상태가 5.6 반내림 한거랑 같아지면 나머지 값 6을 보여주면 됌
- */
+function Paging({ totalElements, size }: PaginationProps): ReactElement {
+  const [page, setPage] = useState(1);
 
-function Pagination(): ReactElement {
-  return <PaginationWrapper>Pagination</PaginationWrapper>;
+  const onPageChange = (pageNumber: number): void => {
+    setPage(pageNumber);
+    console.log(pageNumber);
+  };
+
+  return (
+    <PaginationWrapper>
+      <Pagination
+        activePage={page} // 현재 페이지
+        itemsCountPerPage={size} // 한 페이지당 보여줄 리스트 아이템의 개수
+        totalItemsCount={totalElements} // 총 북마크의 개수
+        pageRangeDisplayed={10} // Paginator 내에서 보여줄 페이지의 범위
+        firstPageText={<ArrowLeftDouble16Icon />}
+        prevPageText={<ArrowLeft16Icon />}
+        lastPageText={<ArrowSideDouble16Icon />}
+        nextPageText={<ArrowSide16Icon />}
+        onChange={onPageChange} // 페이지가 바뀔 때 핸들링해줄 함수
+        hideDisabled
+      />
+    </PaginationWrapper>
+  );
 }
 
-export default Pagination;
+export default Paging;
