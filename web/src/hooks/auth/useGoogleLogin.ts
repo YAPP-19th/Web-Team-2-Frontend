@@ -42,12 +42,12 @@ export default function useGoogleLogin(): GoogleLoginTypes {
       localStorage.setItem('userName', name);
       localStorage.setItem('userProfile', imageUrl);
 
-      navigate(`${Path.Home}`, { replace: true });
+      navigate(Path.Home, { replace: true });
     } catch (error) {
       // @TODO(jekoo): oauth login 실패 에러처리
       // eslint-disable-next-line no-alert
       alert(`${error} \n로그인에 실패 하였습니다.`);
-      navigate(`${Path.LoginPage}`, { replace: true });
+      navigate(Path.LoginPage, { replace: true });
     }
   }, []);
 
