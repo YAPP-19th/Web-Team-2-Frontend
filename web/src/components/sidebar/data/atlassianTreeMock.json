@@ -1,8 +1,8 @@
 {
-  "rootId": "userId",
+  "rootId": "root",
   "items": {
-    "userId": {
-      "id": "userId",
+    "root": {
+      "id": "root",
       "children": [
         "1-0",
         "1-1",
