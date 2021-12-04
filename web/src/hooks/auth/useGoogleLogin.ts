@@ -41,8 +41,7 @@ export default function useGoogleLogin(): GoogleLoginTypes {
       localStorage.setItem('userEmail', email);
       localStorage.setItem('userName', name);
       localStorage.setItem('userProfile', imageUrl);
-
-      navigate(Path.Home, { replace: true });
+      window.location.href = Path.MainPage;
     } catch (error) {
       // @TODO(jekoo): oauth login 실패 에러처리
       // eslint-disable-next-line no-alert
