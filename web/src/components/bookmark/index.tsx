@@ -4,6 +4,7 @@ import BookmarkPath from './BookmarkPath';
 import SelectBox from './SelectBox';
 import FilterBox from './FilterBox';
 import BookmarkList from './BookmarkList';
+import Pagination from './Pagination';
 
 const BookmarkWrapper = styled.div``;
 
@@ -26,6 +27,7 @@ function Bookmark(): ReactElement {
         <FilterBox />
       </BookmarkNav>
       <BookmarkList />
+      <Pagination totalElements={95} size={3} />
     </BookmarkWrapper>
   );
 }
