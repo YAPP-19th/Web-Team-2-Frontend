@@ -1,6 +1,8 @@
 import ERROR_STATUS_CODE from 'api/errorStatus';
+import { getAccessToken } from 'api/userAPI';
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import qs from 'qs';
+import { getTokens, setTokens } from 'utils/auth';
 
 export const BASE_URL = 'http://3.38.152.22:8081';
 
@@ -40,10 +42,10 @@ export const Client = new HTTP();
 
 Client.intercept().request.use((config) => {
   const configs = config;
-  // @TODO(jekoo): getAccessToken from localstorage
-  const accessToken = 'getAccessToken()';
+  const { accessToken, refreshToken } = getTokens();
   configs.headers = {
-    Authorization: `Bearer ${accessToken}`,
+    accessToken: `Bearer ${accessToken}`,
+    refreshToken: `Bearer ${refreshToken}`,
     Accept: 'application/json',
   };
   return configs;
@@ -55,23 +57,31 @@ Client.intercept().response.use(
   },
   (error) => {
     const {
-      // config,
-      response: { status },
+      config,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      response: { status, data },
     } = error;
-
-    // const requestConfig = config;
+    // const errorMessage = data;
+    const requestConfig = config;
 
     switch (status) {
       case ERROR_STATUS_CODE.BAD_REQUEST:
         throw new Error('Bad Request');
+      // @TODO(jekoo): requestConfig 으로 origin request 처리 검토
       case ERROR_STATUS_CODE.UNAUTHORIZED:
-        /* NOTE
-         * Authorization 에러
-         * 1. Refresh Token 이 잘못된 경우 새로운 로그인요청
-         * 2. Refresh Token 을 통해 AccessToken 을 서버로부터 가져오고, localStorage 갱신 후 요청 무효화,
-         * 3. Refresh Token 을 통해 AccessToken 을 서버로부터 가져오고, 요청을 재전송
-         */
-        throw new Error('Authorization Error');
+        return getAccessToken().then((res) => {
+          const { accessToken, refreshToken } = res.data;
+          setTokens({ accessToken, refreshToken });
+          return axios
+            .get(`${BASE_URL}/${requestConfig.url}`, {
+              headers: {
+                accessToken: `Bearer ${accessToken}`,
+                refreshToken: `Bearer ${refreshToken}`,
+                Accept: 'application/json',
+              },
+            })
+            .catch(() => new Error('Authorization Error'));
+        });
       case ERROR_STATUS_CODE.NOT_FOUND:
         throw new Error('Not Found');
       case ERROR_STATUS_CODE.INTERNAL_SERVER_ERROR:

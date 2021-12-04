@@ -1,7 +1,8 @@
+import { getBookmarks } from 'api/bookmarkAPI';
 import Bookmark from 'components/bookmark';
 import Reminder from 'components/reminder';
 import SideBar from 'components/sidebar';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Path from 'routes/path';
 import styled from 'styled-components';
@@ -24,6 +25,15 @@ const ContentInner = styled.div`
 
 function MainPage(): ReactElement {
   const location = useLocation();
+
+  useEffect(() => {
+    async function temp() {
+      const data = await getBookmarks();
+      // eslint-disable-next-line no-console
+      console.log(data);
+    }
+    temp();
+  }, []);
 
   return (
     <MainWrapper>

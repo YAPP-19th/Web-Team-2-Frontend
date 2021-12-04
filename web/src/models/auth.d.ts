@@ -26,4 +26,9 @@ export namespace auth {
     name: string;
     socialType: string;
   }
+
+  export interface IAuthToken {
+    accessToken: string | null;
+    refreshToken: string | null;
+  }
 }
