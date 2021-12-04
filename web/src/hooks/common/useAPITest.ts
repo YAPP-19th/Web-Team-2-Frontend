@@ -69,7 +69,6 @@ export default function useAPITest() {
 
   // 검색 (완료)
   const search = async () => {
-    const userId = 1;
     const keyWord = 'naver';
     const page = 0; // 몇번째 페이지
     const size = 12; // 한페이지당 보여줄 갯수
@@ -80,7 +79,7 @@ export default function useAPITest() {
       | 'clickCount,asc' = 'saveTime,desc';
     const remind = true;
     const response = await axios.get(
-      `${BASE_URL}/bookmark/${userId}/${keyWord}?page=${page}&size=${size}&sort=${sort}&remind=${remind}`,
+      `${BASE_URL}/bookmark/search/${keyWord}?page=${page}&size=${size}&sort=${sort}&remind=${remind}`,
       header,
     );
     return response.data;
@@ -157,7 +156,7 @@ export default function useAPITest() {
   const createFolder = async () => {
     const body = {
       parentId: 0,
-      name: '첫번째 보관함',
+      name: '도현 보관함',
       index: 3,
     };
     const response = await axios.post(`${BASE_URL}/folder`, body, header);
@@ -278,7 +277,7 @@ export default function useAPITest() {
       //   const response = await changeProfile();
       // const response = await googleLogin();
       // const response = await reIssuanceAccessToken();
-      // const response = await search();
+      const response = await search();
       // const response = await getBookmarks();
       // const response = await getTrashBookmark();
       // const response = await restoreTrash();
@@ -293,7 +292,7 @@ export default function useAPITest() {
       //   const response = await updateBookmark();
       //   const response = await moveBookmark();
       // const response = await deleteBookmark();
-      // console.log(response);
+      console.log(response);
     };
     test();
   }, []);
