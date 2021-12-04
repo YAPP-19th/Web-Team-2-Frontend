@@ -5,17 +5,20 @@ import axios from 'axios';
 import { useEffect } from 'react';
 
 const BASE_URL = 'http://3.38.152.22:8081/api/v1';
-const token =
-  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjM4NTQyOTk5LCJleHAiOjE2Mzg2MjkzOTl9.haJODEmsJP0N9ftSMLkWIWZGP0OSCA23EdDKGMyMV7XFrf-vtxinuyhoAlXGrwFZGC3pC3KdtYuzeaHecARVBQ';
+const AccessToken =
+  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjM4NTgzMTY2LCJleHAiOjE2Mzg2Njk1NjZ9.iHscs1fT7XCSb4dtHyO4U_JPblCDVb3gsoie_vBPBkifgbbr7jZ4Xv3g7AZPljVIDTWhLq3YgIq-my7duA3huw';
+
+const RefreshToken =
+  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjM4NTgzMTY2LCJleHAiOjE2NDExNzUxNjZ9.k_hus8w0Un4yIRiP0_miMICSJcPYh9Pc5Tl2xXuz9FnfjUQmHYymc6ROflpCZU8RxY1zH0wNzsYBZemnF0recg';
 
 const header = {
   headers: {
-    AccessToken: `Bearer ${token}`,
+    AccessToken: `Bearer ${AccessToken}`,
   },
 };
 
 export default function useAPITest() {
-  // 프로필 배경색 설정
+  // 프로필 배경색 설정  (구현X)
   const setProfileBackgroundColor = async () => {
     const body = { backgroundColor: 'blue' };
     const response = await axios.post(
@@ -26,7 +29,7 @@ export default function useAPITest() {
     return response.data;
   };
 
-  // 프로필 사진 변경
+  // 프로필 사진 변경  (구현x)
   const changeProfile = async () => {
     const body = {
       profileImage:
@@ -40,11 +43,12 @@ export default function useAPITest() {
     return response.data;
   };
 
-  // 로그인 & 회원가입 (완료)
+  // 로그인 & 회원가입  (완료)
   const googleLogin = async () => {
     const body = {
-      email: 'abcd@gmail.com',
-      imageUrl: 'http://www.asdkljzxcoaasdsdkas.com',
+      email: 'abc@gmail.com',
+      imageUrl:
+        'https://yapp-bucket-test.s3.ap-northeast-2.amazonaws.com/static/fb1d764c-e6ec-4142-bbe1-3a3543f22638',
       name: 'juhyun',
       socialType: 'google',
     };
@@ -52,16 +56,21 @@ export default function useAPITest() {
     return response.data;
   };
 
-  // accessToken 재 발급 // 질문 , header에 Access-Token, Refresh-Token을  넣는게 맞나?
+  // accessToken 재 발급  (완료)
   const reIssuanceAccessToken = async () => {
-    const response = await axios.get(`${BASE_URL}/user/reIssuanceAccessToken`);
+    const response = await axios.get(`${BASE_URL}/user/reIssuanceAccessToken`, {
+      headers: {
+        AccessToken: `Bearer ${AccessToken}`,
+        RefreshToken: `Bearer ${RefreshToken}`,
+      },
+    });
     return response.data;
   };
 
   // 검색 (완료)
   const search = async () => {
     const userId = 1;
-    const keyWord = '네이버';
+    const keyWord = 'naver';
     const page = 0; // 몇번째 페이지
     const size = 12; // 한페이지당 보여줄 갯수
     const sort:
@@ -95,7 +104,7 @@ export default function useAPITest() {
     return response.data;
   };
 
-  // 휴지통 북마크 조회(페이징)
+  // 휴지통 북마크 조회(페이징) (완료)
   const getTrashBookmark = async () => {
     const page = 0; // 몇번째 페이지
     const size = 12; // 한페이지당 보여줄 갯수
@@ -112,10 +121,10 @@ export default function useAPITest() {
     return response.data;
   };
 
-  // 휴지통 복원
+  // 휴지통 복원 (완료)
   const restoreTrash = async () => {
     const body = {
-      bookmarkIdList: ['123123123', '123123'],
+      bookmarkIdList: ['61a76e6219f8936b1e18f304'],
     };
     const response = await axios.patch(
       `${BASE_URL}/trash/restore`,
@@ -125,12 +134,20 @@ export default function useAPITest() {
     return response.data;
   };
 
-  // 휴지통 영구 삭제 // delete 에는 body 넣을 수 없음.
+  // 휴지통 영구 삭제 (완료)
   const deleteTrash = async () => {
-    console.log('delete 에는 body 넣을 수 없음.');
+    const body = {
+      bookmarkIdList: ['61a76e6219f8936b1e18f304'],
+    };
+    const response = await axios.post(
+      `${BASE_URL}/trash/truncate`,
+      body,
+      header,
+    );
+    return response.data;
   };
 
-  // 폴더 조회 // 이거 구현 안되면 아무것도 못함
+  // 폴더 조회  (완료)
   const getFolders = async () => {
     const response = await axios.get(`${BASE_URL}/folder`, header);
     return response.data;
@@ -141,13 +158,13 @@ export default function useAPITest() {
     const body = {
       parentId: 0,
       name: '첫번째 보관함',
-      index: 2,
+      index: 3,
     };
     const response = await axios.post(`${BASE_URL}/folder`, body, header);
     return response.data;
   };
 
-  // 폴더 이름 수정 // folderId는 주소에 있고 name은 body에 있음
+  // 폴더 이름 수정
   const updateFolderName = async () => {
     const body = {
       name: '첫번째 보관함 수정',
@@ -192,18 +209,17 @@ export default function useAPITest() {
     return response.data;
   };
 
-  // 폴더 삭제 // delete는 body 넣을 수 없음
+  // 폴더 삭제
   const deleteFolder = async () => {
     const folderId = '123123123';
   };
 
-  // 북마크 추가 //description 이 없음
+  // 북마크 추가
   const createBookmark = async () => {
     const folderId = '123123123';
     const body = {
       url: 'https://www.naver.com',
       title: '네이버',
-      //   description: '네이버 홈페이지',
       remind: true,
     };
 
@@ -246,9 +262,9 @@ export default function useAPITest() {
     return response.data;
   };
 
-  // 북마크 삭제
+  // 북마크 삭제 (완료)
   const deleteBookmark = async () => {
-    const bookmarkId = '123123123';
+    const bookmarkId = '61a76e6219f8936b1e18f304';
     const response = await axios.delete(
       `${BASE_URL}/bookmark/${bookmarkId}`,
       header,
@@ -258,17 +274,17 @@ export default function useAPITest() {
 
   useEffect(() => {
     const test = async () => {
-      //   const response = await setProfileBackgroundColor();
+      // const response = await setProfileBackgroundColor();
       //   const response = await changeProfile();
       // const response = await googleLogin();
-      //   const response = await reIssuanceAccessToken();
-      //   const response = await search();
+      // const response = await reIssuanceAccessToken();
+      // const response = await search();
       // const response = await getBookmarks();
-      //   const response = await getTrashBookmark();
-      //   const response = await restoreTrash();
-      //   const response = await deleteTrash();
+      // const response = await getTrashBookmark();
+      // const response = await restoreTrash();
+      // const response = await deleteTrash();
       // const response = await getFolders();
-      //   const response = await createFolder();
+      // const response = await createFolder();
       //   const response = await updateFolderName();
       //   const response = await updateFolderEmoji();
       //   const response = await moveFolder();
@@ -276,7 +292,7 @@ export default function useAPITest() {
       //   const response = await createBookmark();
       //   const response = await updateBookmark();
       //   const response = await moveBookmark();
-      //   const response = await deleteBookmark();
+      // const response = await deleteBookmark();
       // console.log(response);
     };
     test();

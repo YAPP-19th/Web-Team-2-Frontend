@@ -163,7 +163,7 @@ function FolderList({
               />
               {/* eslint-disable-next-line no-console */}
               <FolderTitle onClick={() => console.log('폴더 클릭')}>
-                {item.data.name}
+                {item.data.title}
               </FolderTitle>
             </FolderLeftBox>
             {isDrag && (
