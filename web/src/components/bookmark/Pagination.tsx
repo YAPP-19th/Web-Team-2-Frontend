@@ -1,9 +1,4 @@
-import {
-  ArrowLeft16Icon,
-  ArrowLeftDouble16Icon,
-  ArrowSide16Icon,
-  ArrowSideDouble16Icon,
-} from 'assets/icons';
+import { ArrowLeft16Icon, ArrowSide16Icon } from 'assets/icons';
 import React, { ReactElement, useState } from 'react';
 import PaginationComponent from 'react-js-pagination';
 import styled from 'styled-components';
@@ -74,12 +69,9 @@ function Pagination({ totalElements, size }: PaginationProps): ReactElement {
         itemsCountPerPage={size} // 한 페이지당 보여줄 리스트 아이템의 개수
         totalItemsCount={totalElements} // 총 북마크의 개수
         pageRangeDisplayed={5} // Paginator 내에서 보여줄 페이지의 범위
-        firstPageText={<ArrowLeftDouble16Icon />}
         prevPageText={<ArrowLeft16Icon />}
-        lastPageText={<ArrowSideDouble16Icon />}
         nextPageText={<ArrowSide16Icon />}
         onChange={onPageChange} // 페이지가 바뀔 때 핸들링해줄 함수
-        hideDisabled
         hideFirstLastPages
       />
     </PaginationWrapper>

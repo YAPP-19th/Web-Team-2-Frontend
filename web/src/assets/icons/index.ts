@@ -35,7 +35,5 @@ export { ReactComponent as PlusIcon } from './Plus.svg';
 export { ReactComponent as PlusWhiteIcon } from './Plus_white.svg';
 export { ReactComponent as ArrowBigIcon } from './Arrow_big_60.svg';
 export { ReactComponent as ArrowBackBigIcon } from './Arrow_back_big_60.svg';
-export { ReactComponent as ArrowLeftDouble16Icon } from './Arrow_left_double_16.svg';
 export { ReactComponent as ArrowLeft16Icon } from './Arrow_left_16.svg';
 export { ReactComponent as ArrowSide16Icon } from './Arrow_side_16.svg';
-export { ReactComponent as ArrowSideDouble16Icon } from './Arrow_side_double_16.svg';
