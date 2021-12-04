@@ -19,4 +19,11 @@ export namespace auth {
 
   export type AgreementEssentialType =
     RequiredKeys<auth.IEssentialAgreementName>;
+
+  export interface ILoginRequest {
+    email: string;
+    imageUrl: string;
+    name: string;
+    socialType: string;
+  }
 }

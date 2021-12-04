@@ -2,7 +2,7 @@ import ERROR_STATUS_CODE from 'api/errorStatus';
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import qs from 'qs';
 
-const BASE_URL = 'http://3.38.152.22:8081';
+export const BASE_URL = 'http://3.38.152.22:8081';
 
 class HTTP {
   axios: AxiosInstance;
