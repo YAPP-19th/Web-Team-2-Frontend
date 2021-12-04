@@ -5,7 +5,7 @@ import {
   ArrowSideDouble16Icon,
 } from 'assets/icons';
 import React, { ReactElement, useState } from 'react';
-import Pagination from 'react-js-pagination';
+import PaginationComponent from 'react-js-pagination';
 import styled from 'styled-components';
 
 interface PaginationProps {
@@ -20,6 +20,7 @@ const PaginationWrapper = styled.div`
   align-items: center;
   margin-top: 16px;
   margin-bottom: 71px;
+  // 라이브러리 css 커스텀
   .pagination {
     display: flex;
     justify-content: center;
@@ -57,40 +58,32 @@ const PaginationWrapper = styled.div`
   ul.pagination li.active a {
     color: ${(props) => props.theme.color.black};
   }
-  ul.pagination li.active {
-  }
-
-  .page-selection {
-    width: 48px;
-    height: 30px;
-    color: #337ab7;
-  }
 `;
 
-function Paging({ totalElements, size }: PaginationProps): ReactElement {
+function Pagination({ totalElements, size }: PaginationProps): ReactElement {
   const [page, setPage] = useState(1);
 
   const onPageChange = (pageNumber: number): void => {
     setPage(pageNumber);
-    console.log(pageNumber);
   };
 
   return (
     <PaginationWrapper>
-      <Pagination
+      <PaginationComponent
         activePage={page} // 현재 페이지
         itemsCountPerPage={size} // 한 페이지당 보여줄 리스트 아이템의 개수
         totalItemsCount={totalElements} // 총 북마크의 개수
-        pageRangeDisplayed={10} // Paginator 내에서 보여줄 페이지의 범위
+        pageRangeDisplayed={5} // Paginator 내에서 보여줄 페이지의 범위
         firstPageText={<ArrowLeftDouble16Icon />}
         prevPageText={<ArrowLeft16Icon />}
         lastPageText={<ArrowSideDouble16Icon />}
         nextPageText={<ArrowSide16Icon />}
         onChange={onPageChange} // 페이지가 바뀔 때 핸들링해줄 함수
         hideDisabled
+        hideFirstLastPages
       />
     </PaginationWrapper>
   );
 }
 
-export default Paging;
+export default Pagination;
