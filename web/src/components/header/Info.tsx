@@ -1,9 +1,10 @@
 import { BellIcon, BellNewIcon } from 'assets/icons';
-import { GoogleIMG } from 'assets/images';
+import { LogoGreenIMG } from 'assets/images';
 import React, { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { bellState } from 'recoil/atoms/bellState';
+import { userState } from 'recoil/atoms/userState';
 import Path from 'routes/path';
 import styled from 'styled-components';
 
@@ -21,12 +22,10 @@ const BellIconBox = styled.div`
   }
 `;
 
-// @TODO(jekoo) get user profile
 const ProfileImg = styled.img`
   width: 24px;
   height: 24px;
   border-radius: 100%;
-  border: 0.5px solid black;
   &:hover {
     cursor: pointer;
   }
@@ -34,6 +33,7 @@ const ProfileImg = styled.img`
 
 function Info(): ReactElement {
   const [bellAlarm, setBellAlarm] = useRecoilState(bellState);
+  const userInfo = useRecoilValue(userState);
 
   return (
     <HeaderInfo>
@@ -41,7 +41,13 @@ function Info(): ReactElement {
         {bellAlarm ? <BellNewIcon /> : <BellIcon />}
       </BellIconBox>
       <Link to={Path.MyPage}>
-        <ProfileImg src={GoogleIMG} alt="profile" />
+        <ProfileImg
+          src={userInfo.imageUrl}
+          alt={userInfo.imageUrl}
+          // @TODO(jekoo) get user error default profile other Img or Element
+          // eslint-disable-next-line no-return-assign
+          onError={(e) => (e.currentTarget.src = LogoGreenIMG)}
+        />
       </Link>
     </HeaderInfo>
   );
