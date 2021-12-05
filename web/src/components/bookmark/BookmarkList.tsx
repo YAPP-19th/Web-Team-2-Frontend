@@ -1,5 +1,4 @@
 import BlankSlate from 'components/common/BlankSlate';
-import useBookmarksEffect from 'hooks/bookmark/useBookmarksEffect';
 import React, { ReactElement, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { bookmarksState } from 'recoil/atoms/bookmarkState';
@@ -20,8 +19,6 @@ const BlankBox = styled.div`
 `;
 
 function BookmarkList(): ReactElement {
-  // @TODO(dohyun): 나중에 실제 데이터 받을때는 이 훅스를 mainPage로 뺄꺼임 (이 컴포넌트를 재활용 하기 위해)
-  useBookmarksEffect();
   const bookmarks = useRecoilValue(bookmarksState);
   const [isOpenMenuId, setIsOpenMenuId] = useState('');
 

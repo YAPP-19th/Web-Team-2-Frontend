@@ -10,6 +10,7 @@ import Path from 'routes/path';
 
 const routingComponents = [
   { path: Path.MainPage, element: <MainPage /> },
+  { path: Path.FolderPage, element: <MainPage /> },
   { path: Path.MyPage, element: <MyPage /> },
   { path: Path.RegisterPage, element: <RegisterPage /> },
   { path: Path.ResetPasswordPage, element: <ResetPasswordPage /> },
