@@ -2,6 +2,8 @@ import Footer from 'components/footer';
 import Header from 'components/header';
 import React, { ReactElement } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
+import { useSetRecoilState } from 'recoil';
+import { userState } from 'recoil/atoms/userState';
 import { PublicRouting, Routing } from 'routes/Routing';
 import styled, { ThemeProvider } from 'styled-components';
 import { isLogin } from 'utils/auth';
@@ -24,6 +26,8 @@ const AppLayout = styled.div`
 `;
 
 function App(): ReactElement {
+  useSetRecoilState(userState);
+
   return (
     <AppWrapper>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
