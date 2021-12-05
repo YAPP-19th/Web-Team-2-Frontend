@@ -6,6 +6,7 @@ import {
   TreeDestinationPosition,
   TreeSourcePosition,
 } from '@atlaskit/tree';
+import { createFolder } from 'api/folderAPI';
 import produce from 'immer';
 import { useCallback } from 'react';
 import useFoldersEffect from './useFoldersEffect';
@@ -19,8 +20,8 @@ interface FoldersHandleType {
     source: TreeSourcePosition,
     destination?: TreeDestinationPosition | undefined,
   ) => void;
-  createFolder: (parentId: ItemId) => void;
-  createCabinet: () => void;
+  onCreateFolder: (parentId: ItemId) => void;
+  onCreateCabinet: (cabinetLength: number) => void;
 }
 
 export default function useFoldersHandle(): FoldersHandleType {
@@ -50,14 +51,14 @@ export default function useFoldersHandle(): FoldersHandleType {
     setFolders(newTree);
   };
 
-  const createFolder = useCallback(
+  const onCreateFolder = useCallback(
     (parentId: ItemId) => {
-      const newFolderId = Math.random().toString();
+      const newFolderId = Math.random().toString(); // @TODO(dohyun) uuidv4 사용 예정
       const newFolder = {
         id: newFolderId,
         children: [],
         data: {
-          title: '제목없음',
+          name: '제목없음',
         },
       };
 
@@ -73,13 +74,14 @@ export default function useFoldersHandle(): FoldersHandleType {
     [setFolders],
   );
 
-  const createCabinet = useCallback(() => {
-    const newCabinetId = Math.random().toString();
+  const onCreateCabinet = useCallback(async (cabinetLength: number) => {
+    const newCabinetId = Math.random().toString(); // @TODO(dohyun) uuidv4 사용 예정
+    const cabinetName = `보관함${cabinetLength + 1}`;
     const newCabinet = {
       id: newCabinetId,
       children: [],
       data: {
-        title: '임시보관함',
+        name: cabinetName,
       },
     };
 
@@ -87,9 +89,16 @@ export default function useFoldersHandle(): FoldersHandleType {
       produce(prev, (draft) => {
         const newObj = draft;
         newObj.items[newCabinetId] = newCabinet;
-        newObj.items.userId.children.push(newCabinetId); // userId 부분은 나중에 login 구현되면 실제 유저 아이디 넣는곳임 newObj.items[userId].children.push(newCabinetId);
+        newObj.items.root.children.push(newCabinetId);
       }),
     );
+
+    try {
+      await createFolder(0, cabinetName, 0);
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.log(e);
+    }
   }, []);
 
   return {
@@ -98,7 +107,7 @@ export default function useFoldersHandle(): FoldersHandleType {
     onCollapseFolder,
     onDragStartFolder,
     onDragEndFolder,
-    createFolder,
-    createCabinet,
+    onCreateFolder,
+    onCreateCabinet,
   };
 }

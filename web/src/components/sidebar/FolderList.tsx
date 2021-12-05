@@ -26,7 +26,7 @@ interface FolderListProps {
     source: TreeSourcePosition,
     destination?: TreeDestinationPosition,
   ) => void;
-  createFolder: (parentId: ItemId) => void;
+  onCreateFolder: (parentId: ItemId) => void;
   isDrag: boolean;
 }
 
@@ -97,7 +97,7 @@ const FolderETCButton = styled.button`
 
 function FolderList({
   folders,
-  createFolder,
+  onCreateFolder,
   onExpandFolder,
   onDragStartFolder,
   onDragEndFolder,
@@ -168,7 +168,7 @@ function FolderList({
             </FolderLeftBox>
             {isDrag && (
               <FolderRightBox onMouseDown={(e) => e.stopPropagation()}>
-                <FolderETCButton onClick={() => createFolder(item.id)}>
+                <FolderETCButton onClick={() => onCreateFolder(item.id)}>
                   <PlusIcon />
                 </FolderETCButton>
                 <FolderETCButton onClick={(e) => onToggleMenu(e, item.id)}>

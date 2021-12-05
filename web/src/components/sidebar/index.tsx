@@ -38,8 +38,8 @@ const FolderBox = styled.div`
 
 function SideBar(): ReactElement {
   const {
-    createCabinet,
-    createFolder,
+    onCreateCabinet,
+    onCreateFolder,
     folders,
     onCollapseFolder,
     onDragEndFolder,
@@ -53,7 +53,7 @@ function SideBar(): ReactElement {
         <AllFolder />
         <FolderList
           folders={folders}
-          createFolder={createFolder}
+          onCreateFolder={onCreateFolder}
           onCollapseFolder={onCollapseFolder}
           onDragEndFolder={onDragEndFolder}
           onDragStartFolder={onDragStartFolder}
@@ -62,7 +62,7 @@ function SideBar(): ReactElement {
         />
       </FolderBox>
 
-      <CabinetBox createCabinet={createCabinet} />
+      <CabinetBox folders={folders} onCreateCabinet={onCreateCabinet} />
       <TrashBox />
 
       <QuestionButton />

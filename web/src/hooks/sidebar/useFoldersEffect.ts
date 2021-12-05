@@ -1,6 +1,5 @@
 import { TreeData } from '@atlaskit/tree';
 import { getFolders } from 'api/folderAPI';
-import tempData from 'components/sidebar/data/atlassianTreeMock.json';
 import { useEffect, useState } from 'react';
 
 export default function useFoldersEffect(): {
@@ -20,6 +19,7 @@ export default function useFoldersEffect(): {
   useEffect(() => {
     const getFolderData = async () => {
       const data = await getFolders();
+      // eslint-disable-next-line no-console
       console.log(data);
       setFolders(data);
     };
