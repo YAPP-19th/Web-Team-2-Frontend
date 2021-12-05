@@ -144,7 +144,7 @@ function BookmarkItem({
   isOpenMenuId,
   onToggleOpenMenu,
 }: BookmarkItemProps): ReactElement {
-  const { id, title, description, url, remind } = bookmark;
+  const { id, title, description, link, remindTime } = bookmark;
   const [selectedBookmarks, setSelectedBookmarks] = useRecoilState(
     selectedBookmarksState,
   );
@@ -178,7 +178,7 @@ function BookmarkItem({
 
   const onCopyUrl = async () => {
     copyUrlRef.current?.select();
-    await navigator.clipboard.writeText(url);
+    await navigator.clipboard.writeText(link);
     onCopyToast();
   };
 
@@ -203,14 +203,14 @@ function BookmarkItem({
         <BookmarkInfo>
           <BookmarkLinkBox>
             <BookmarkFavicon />
-            <BookmarkLink href={url} target="_blank" rel="noopener noreferrer">
-              {url}
+            <BookmarkLink href={link} target="_blank" rel="noopener noreferrer">
+              {link}
             </BookmarkLink>
           </BookmarkLinkBox>
 
           <BookmarkOption>
             <OptionButton onClick={onRemindToast} disabled={isOpenRemindToast}>
-              {remind ? <BellSelectedIcon /> : <BellUnSelectedIcon />}
+              {remindTime ? <BellSelectedIcon /> : <BellUnSelectedIcon />}
             </OptionButton>
 
             <OptionButton onClick={onCopyUrl} disabled={isOpenCopyToast}>
@@ -235,14 +235,14 @@ function BookmarkItem({
         </BookmarkInfo>
       </BookmarkContent>
 
-      <UrlTextArea readOnly ref={copyUrlRef} value={url} />
+      <UrlTextArea readOnly ref={copyUrlRef} value={link} />
 
       {isChecked && <SelectedStyled />}
 
       <Toasts isOpen={isOpenCopyToast} type="copyLink" />
       <Toasts
         isOpen={isOpenRemindToast}
-        type={remind ? 'remindDisabled' : 'remindSetting'}
+        type={remindTime ? 'remindDisabled' : 'remindSetting'}
       />
     </BookmarkItemWrapper>
   );

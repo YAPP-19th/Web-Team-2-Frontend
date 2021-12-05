@@ -1,13 +1,12 @@
 enum Path {
   Home = '/*',
-  MainPage = '/main/*',
+  MainPage = '/main',
+  FolderPage = '/main/:folderId/*',
   MyPage = '/mypage',
   LoginPage = '/login',
   RegisterPage = '/register',
   ResetPasswordPage = '/resetpw',
   SendPasswordPage = '/sendpw',
-  Trash = '/trash',
-  Search = '/search/*',
 }
 
 export default Path;

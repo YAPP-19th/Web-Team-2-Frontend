@@ -3,11 +3,11 @@ import { atom } from 'recoil';
 export interface IBookmark {
   id: string;
   title: string;
-  url: string;
   description: string;
-  remind: boolean;
   nickname?: string;
   folder?: string;
+  link: string;
+  remindTime: string | null;
 }
 
 export const bookmarksState = atom<IBookmark[]>({
