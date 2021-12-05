@@ -19,4 +19,20 @@ export namespace auth {
 
   export type AgreementEssentialType =
     RequiredKeys<auth.IEssentialAgreementName>;
+
+  export interface IAuthToken {
+    accessToken: string | null;
+    refreshToken: string | null;
+  }
+
+  export interface IAuthUserInfo extends IAuthToken {
+    email: string;
+    name: string;
+    imageUrl: string;
+  }
+
+  export interface ILoginRequest
+    extends Omit<IAuthUserInfo, 'accessToken' | 'refreshToken'> {
+    socialType: string;
+  }
 }

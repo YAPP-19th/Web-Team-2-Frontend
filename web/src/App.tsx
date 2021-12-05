@@ -1,10 +1,10 @@
 import Footer from 'components/footer';
 import Header from 'components/header';
-import useAPITest from 'hooks/common/useAPITest';
 import React, { ReactElement } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import Routing from 'routes/Routing';
+import { PublicRouting, Routing } from 'routes/Routing';
 import styled, { ThemeProvider } from 'styled-components';
+import { isLogin } from 'utils/auth';
 import GlobalStyle from './assets/styles/globalStyle';
 import { theme } from './assets/styles/theme';
 import ErrorFallback from './pages/ErrorPage';
@@ -24,16 +24,13 @@ const AppLayout = styled.div`
 `;
 
 function App(): ReactElement {
-  useAPITest();
   return (
     <AppWrapper>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <GlobalStyle />
         <ThemeProvider theme={theme}>
           <Header />
-          <AppLayout>
-            <Routing />
-          </AppLayout>
+          <AppLayout>{isLogin() ? <Routing /> : <PublicRouting />}</AppLayout>
           <Footer />
         </ThemeProvider>
       </ErrorBoundary>

@@ -5,19 +5,24 @@ import RegisterPage from 'pages/RegisterPage';
 import ResetPasswordPage from 'pages/ResetPasswordPage';
 import SendPasswordPage from 'pages/SendPasswordPage';
 import React, { ReactElement, useMemo } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import Path from 'routes/path';
 
 const routingComponents = [
   { path: Path.MainPage, element: <MainPage /> },
   { path: Path.MyPage, element: <MyPage /> },
-  { path: Path.LoginPage, element: <LoginPage /> },
   { path: Path.RegisterPage, element: <RegisterPage /> },
   { path: Path.ResetPasswordPage, element: <ResetPasswordPage /> },
   { path: Path.SendPasswordPage, element: <SendPasswordPage /> },
+  { path: Path.Home, element: <Navigate replace to={Path.MainPage} /> },
 ];
 
-function Routing(): ReactElement {
+const publicRoutingComponents = [
+  { path: Path.LoginPage, element: <LoginPage /> },
+  { path: Path.Home, element: <Navigate replace to={Path.LoginPage} /> },
+];
+
+export function Routing(): ReactElement {
   const routes = useMemo(() => {
     return routingComponents.map((component, index) => {
       const { path, element } = component;
@@ -30,4 +35,15 @@ function Routing(): ReactElement {
   return <Routes>{routes}</Routes>;
 }
 
-export default Routing;
+export function PublicRouting(): ReactElement {
+  const publicRoutes = useMemo(() => {
+    return publicRoutingComponents.map((component, index) => {
+      const { path, element } = component;
+      return (
+        <Route key={`${component}_${index}`} path={path} element={element} />
+      );
+    });
+  }, [publicRoutingComponents]);
+
+  return <Routes>{publicRoutes}</Routes>;
+}

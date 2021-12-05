@@ -1,6 +1,7 @@
 import SimpleButton from 'components/common/SimpleButton';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import { logout } from 'utils/auth';
 import MyPageHead from './MyPageHead';
 
 const AccountSettingWrapper = styled.div`
@@ -50,7 +51,7 @@ function AccountSetting(): ReactElement {
           />
         </AccountInfoBlock>
 
-        <LogoutText>로그아웃 하시겠어요?</LogoutText>
+        <LogoutText onClick={logout}>로그아웃 하시겠어요?</LogoutText>
       </AccountSettingWrapper>
     </>
   );
