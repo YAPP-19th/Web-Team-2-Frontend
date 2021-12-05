@@ -1,8 +1,10 @@
 import { Client } from 'api/http';
 import { bookmarks } from 'models/bookmark';
 
-export const getTrashBookmark = (): Promise<bookmarks.IBookmarkGetResponse> => {
-  const page = 0; // 몇번째 페이지
+export const getTrashBookmark = (
+  page: number,
+): Promise<bookmarks.IBookmarkGetResponse> => {
+  // const page = 0; // 몇번째 페이지
   const size = 12; // 한페이지당 보여줄 갯수
   const sort:
     | 'saveTime,desc'
