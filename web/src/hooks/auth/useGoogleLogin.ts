@@ -8,6 +8,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import Path from 'routes/path';
 import { GOOGLE_CLIENT_ID } from 'utils/config';
+import { LOCAL_STORAGE_KEY } from 'utils/const';
 
 interface GoogleLoginTypes {
   onGoogleLogin: (
@@ -36,11 +37,19 @@ export default function useGoogleLogin(): GoogleLoginTypes {
         data: { accessToken, refreshToken },
       } = await login(request);
 
-      localStorage.setItem('accessToken', accessToken);
-      localStorage.setItem('refreshToken', refreshToken);
-      localStorage.setItem('userEmail', email);
-      localStorage.setItem('userName', name);
-      localStorage.setItem('userProfile', imageUrl);
+      const userInfo: auth.IAuthUserInfo = {
+        accessToken,
+        refreshToken,
+        email,
+        name,
+        imageUrl,
+      };
+
+      localStorage.setItem(
+        LOCAL_STORAGE_KEY.USER_INFO,
+        JSON.stringify(userInfo),
+      );
+
       window.location.href = Path.MainPage;
     } catch (error) {
       // @TODO(jekoo): oauth login 실패 에러처리

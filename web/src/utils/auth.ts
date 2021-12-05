@@ -1,17 +1,25 @@
 import { auth } from 'models/auth';
 import Path from 'routes/path';
+import { LOCAL_STORAGE_KEY } from 'utils/const';
 
-export const isLogin = (): boolean =>
-  Boolean(localStorage.getItem('accessToken'));
+export const isLogin = (): boolean => {
+  const localStorageData = localStorage.getItem(LOCAL_STORAGE_KEY.USER_INFO);
+  if (localStorageData) {
+    return Boolean(JSON.parse(localStorageData)?.accessToken);
+  }
+  return false;
+};
 
 export const logout = (): void => {
-  localStorage.clear();
+  localStorage.removeItem(LOCAL_STORAGE_KEY.USER_INFO);
   window.location.href = Path.LoginPage;
 };
 
 export const getTokens = (): auth.IAuthToken => {
-  const accessToken = localStorage.getItem('accessToken') || null;
-  const refreshToken = localStorage.getItem('refreshToken') || null;
+  const localStorageData =
+    localStorage.getItem(LOCAL_STORAGE_KEY.USER_INFO) || '';
+  const accessToken = JSON.parse(localStorageData).accessToken || null;
+  const refreshToken = JSON.parse(localStorageData).refreshToken || null;
   return {
     accessToken,
     refreshToken,
@@ -20,6 +28,19 @@ export const getTokens = (): auth.IAuthToken => {
 
 export const setTokens = (tokens: auth.IAuthToken): void => {
   const { accessToken, refreshToken } = tokens;
-  if (accessToken) localStorage.setItem('accessToken', accessToken);
-  if (refreshToken) localStorage.setItem('refreshToken', refreshToken);
+  if (accessToken && refreshToken) {
+    const originLocalStorageData = localStorage.getItem(
+      LOCAL_STORAGE_KEY.USER_INFO,
+    );
+    if (originLocalStorageData) {
+      localStorage.setItem(
+        LOCAL_STORAGE_KEY.USER_INFO,
+        JSON.stringify({
+          ...JSON.parse(originLocalStorageData),
+          accessToken,
+          refreshToken,
+        }),
+      );
+    }
+  }
 };
