@@ -1,3 +1,4 @@
+import { TreeData } from '@atlaskit/tree';
 import { Client } from 'api/http';
 import { AxiosResponse } from 'axios';
 
@@ -13,4 +14,8 @@ export const getFolderList = (
   return Client.getAxios(
     `api/v1/${userId}/${keyWord}?page=${page}&size=${size}&sort=${sort}&remind=${remind}`,
   );
+};
+
+export const getFolders = async (): Promise<TreeData> => {
+  return Client.getAxios(`/api/v1/folder`);
 };

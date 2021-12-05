@@ -1,4 +1,5 @@
 import { TreeData } from '@atlaskit/tree';
+import { getFolders } from 'api/folderAPI';
 import tempData from 'components/sidebar/data/atlassianTreeMock.json';
 import { useEffect, useState } from 'react';
 
@@ -17,8 +18,12 @@ export default function useFoldersEffect(): {
     },
   });
   useEffect(() => {
-    // 현재는 임시데이터 사용 / 나중에 api 생기면 asnyc await으로 데이터 처리
-    setFolders(tempData);
+    const getFolderData = async () => {
+      const data = await getFolders();
+      console.log(data);
+      setFolders(data);
+    };
+    getFolderData();
   }, []);
 
   return {

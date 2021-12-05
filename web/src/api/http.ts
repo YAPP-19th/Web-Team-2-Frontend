@@ -22,10 +22,10 @@ class HTTP {
     return this.axios.interceptors;
   }
 
-  async getAxios(
+  async getAxios<T>(
     url: string,
-    // requestParams: Partial<T>,
-  ): Promise<AxiosResponse> {
+    // requestParams: Partial<R>,
+  ): Promise<T> {
     // const params = requestParams
     const params = {};
     const { data } = await this.axios.get(url, { params });
