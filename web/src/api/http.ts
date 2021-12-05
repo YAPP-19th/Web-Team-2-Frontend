@@ -1,5 +1,5 @@
+import { getAccessToken } from 'api/authAPI';
 import ERROR_STATUS_CODE from 'api/errorStatus';
-import { getAccessToken } from 'api/userAPI';
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import qs from 'qs';
 import { getTokens, setTokens } from 'utils/auth';

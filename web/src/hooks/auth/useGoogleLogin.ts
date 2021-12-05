@@ -1,4 +1,4 @@
-import { login } from 'api/userAPI';
+import { login } from 'api/authAPI';
 import { auth } from 'models/auth';
 import { useCallback } from 'react';
 import {
