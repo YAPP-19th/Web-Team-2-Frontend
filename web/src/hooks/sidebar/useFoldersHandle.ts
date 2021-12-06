@@ -52,13 +52,14 @@ export default function useFoldersHandle(): FoldersHandleType {
   };
 
   const onCreateFolder = useCallback(
-    (parentId: ItemId) => {
+    async (parentId: ItemId) => {
       const newFolderId = Math.random().toString(); // @TODO(dohyun) uuidv4 사용 예정
+      const folderName = '제목없음';
       const newFolder = {
         id: newFolderId,
         children: [],
         data: {
-          name: '제목없음',
+          name: folderName,
         },
       };
 
@@ -70,36 +71,46 @@ export default function useFoldersHandle(): FoldersHandleType {
           newObj.items[parentId].isExpanded = true;
         }),
       );
+
+      try {
+        await createFolder(parentId, folderName, 0);
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.log(e);
+      }
     },
     [setFolders],
   );
 
-  const onCreateCabinet = useCallback(async (cabinetLength: number) => {
-    const newCabinetId = Math.random().toString(); // @TODO(dohyun) uuidv4 사용 예정
-    const cabinetName = `보관함${cabinetLength + 1}`;
-    const newCabinet = {
-      id: newCabinetId,
-      children: [],
-      data: {
-        name: cabinetName,
-      },
-    };
+  const onCreateCabinet = useCallback(
+    async (cabinetLength: number) => {
+      const newCabinetId = Math.random().toString(); // @TODO(dohyun) uuidv4 사용 예정
+      const cabinetName = `보관함${cabinetLength + 1}`;
+      const newCabinet = {
+        id: newCabinetId,
+        children: [],
+        data: {
+          name: cabinetName,
+        },
+      };
 
-    setFolders((prev) =>
-      produce(prev, (draft) => {
-        const newObj = draft;
-        newObj.items[newCabinetId] = newCabinet;
-        newObj.items.root.children.push(newCabinetId);
-      }),
-    );
+      setFolders((prev) =>
+        produce(prev, (draft) => {
+          const newObj = draft;
+          newObj.items[newCabinetId] = newCabinet;
+          newObj.items.root.children.push(newCabinetId);
+        }),
+      );
 
-    try {
-      await createFolder(0, cabinetName, 0);
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.log(e);
-    }
-  }, []);
+      try {
+        await createFolder(0, cabinetName, 0);
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.log(e);
+      }
+    },
+    [setFolders],
+  );
 
   return {
     folders,

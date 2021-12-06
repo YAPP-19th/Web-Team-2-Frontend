@@ -13,8 +13,8 @@ export default function useBookmarksEffect(path: string): void {
     async function temp() {
       // eslint-disable-next-line no-console
       console.log(path);
-      const data = await getBookmarks();
-      setBookmarks(data.content);
+      // const data = await getBookmarks();
+      // setBookmarks(data.content);
     }
     if (path) temp();
   }, [path]);

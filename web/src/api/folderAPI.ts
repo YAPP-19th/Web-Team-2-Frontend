@@ -1,4 +1,4 @@
-import { TreeData } from '@atlaskit/tree';
+import { ItemId, TreeData } from '@atlaskit/tree';
 import { Client } from 'api/http';
 import { AxiosResponse } from 'axios';
 
@@ -9,7 +9,7 @@ export const getFolders = async (): Promise<TreeData> => {
 
 // 폴더 추가
 export const createFolder = async (
-  parentId: number,
+  parentId: ItemId,
   name: string,
   index: number,
 ): Promise<AxiosResponse> => {

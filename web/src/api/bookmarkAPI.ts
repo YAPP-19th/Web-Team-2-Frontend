@@ -13,6 +13,6 @@ export const getBookmarks = (): any => {
     | 'clickCount,asc' = 'saveTime,desc';
   const remind = true;
   return Client.getAxios(
-    `api/v1/bookmark/${folderId}?page=${page}&size=${size}&sort=${sort}&remind=${remind}`,
+    `api/v1/page/${folderId}?page=${page}&size=${size}&sort=${sort}&remind=${remind}`,
   );
 };
