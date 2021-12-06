@@ -20,3 +20,21 @@ export const createFolder = async (
   };
   return Client.postAxios(`/api/v1/folder`, body);
 };
+
+// 폴더 이동
+export const moveFolder = async (
+  folderId: ItemId,
+  prevParentId: ItemId,
+  nextParentId: ItemId,
+  prevIndex: ItemId,
+  nextIndex: ItemId,
+): Promise<AxiosResponse> => {
+  const body = {
+    prevParentId,
+    nextParentId,
+    prevIndex,
+    nextIndex,
+  };
+  console.log('body', body);
+  return Client.patchAxios(`/api/v1/folder/${folderId}`, body);
+};

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import {
   ItemId,
   moveItemOnTree,
@@ -6,9 +7,9 @@ import {
   TreeDestinationPosition,
   TreeSourcePosition,
 } from '@atlaskit/tree';
-import { createFolder } from 'api/folderAPI';
+import { createFolder, moveFolder } from 'api/folderAPI';
 import produce from 'immer';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import useFoldersEffect from './useFoldersEffect';
 
 interface FoldersHandleType {
@@ -26,6 +27,7 @@ interface FoldersHandleType {
 
 export default function useFoldersHandle(): FoldersHandleType {
   const { folders, setFolders } = useFoldersEffect();
+  const [moveFolderId, setMoveFolderId] = useState<ItemId | null>(null);
 
   const onExpandFolder = (itemId: ItemId) => {
     setFolders(mutateTree(folders, itemId, { isExpanded: true }));
@@ -36,27 +38,44 @@ export default function useFoldersHandle(): FoldersHandleType {
   };
 
   const onDragStartFolder = (itemId: ItemId) => {
-    // eslint-disable-next-line no-console
     console.log(itemId);
+    setMoveFolderId(itemId);
   };
 
-  const onDragEndFolder = (
+  const onDragEndFolder = async (
     source: TreeSourcePosition,
     destination?: TreeDestinationPosition,
   ) => {
     if (!destination) return;
+    if (!moveFolderId) return;
     const newTree = moveItemOnTree(folders, source, destination);
-    // console.log('새로운 부모Id', destination);
-    // console.log('기존 부모Id', source);
+    console.log('새로운 부모Id', destination);
+    console.log('기존 부모Id', source);
+    console.log(moveFolderId);
+    const prevParentId = source.parentId;
+    const nextParentId = destination.parentId;
+    const prevIndex = source.index;
+    const nextIndex = destination.index || 0;
     setFolders(newTree);
+    try {
+      await moveFolder(
+        moveFolderId,
+        prevParentId,
+        nextParentId,
+        prevIndex,
+        nextIndex,
+      );
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const onCreateFolder = useCallback(
     async (parentId: ItemId) => {
-      const newFolderId = Math.random().toString(); // @TODO(dohyun) uuidv4 사용 예정
+      const newFolderId = Math.random().toString(); // 이쪽 newFolderId를 백앤드에서 response로 담아서 보내줘야함
       const folderName = '제목없음';
       const newFolder = {
-        id: newFolderId,
+        id: newFolderId, // 이쪽 newFolderId를 백앤드에서 response로 담아서 보내줘야함
         children: [],
         data: {
           name: folderName,
@@ -71,7 +90,6 @@ export default function useFoldersHandle(): FoldersHandleType {
           newObj.items[parentId].isExpanded = true;
         }),
       );
-
       try {
         await createFolder(parentId, folderName, 0);
       } catch (e) {
@@ -84,26 +102,25 @@ export default function useFoldersHandle(): FoldersHandleType {
 
   const onCreateCabinet = useCallback(
     async (cabinetLength: number) => {
-      const newCabinetId = Math.random().toString(); // @TODO(dohyun) uuidv4 사용 예정
+      const newCabinetId = Math.random().toString(); // 이쪽 newFolderId를 백앤드에서 response로 담아서 보내줘야함
       const cabinetName = `보관함${cabinetLength + 1}`;
       const newCabinet = {
-        id: newCabinetId,
+        id: newCabinetId, // 이쪽 newFolderId를 백앤드에서 response로 담아서 보내줘야함
         children: [],
         data: {
           name: cabinetName,
         },
       };
 
-      setFolders((prev) =>
-        produce(prev, (draft) => {
-          const newObj = draft;
-          newObj.items[newCabinetId] = newCabinet;
-          newObj.items.root.children.push(newCabinetId);
-        }),
-      );
-
       try {
         await createFolder(0, cabinetName, 0);
+        setFolders((prev) =>
+          produce(prev, (draft) => {
+            const newObj = draft;
+            newObj.items[newCabinetId] = newCabinet;
+            newObj.items.root.children.push(newCabinetId);
+          }),
+        );
       } catch (e) {
         // eslint-disable-next-line no-console
         console.log(e);

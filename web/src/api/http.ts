@@ -36,6 +36,11 @@ class HTTP {
     const { data } = await this.axios.post(url, requestData);
     return data;
   }
+
+  async patchAxios<T>(url: string, requestData: T): Promise<AxiosResponse> {
+    const { data } = await this.axios.patch(url, requestData);
+    return data;
+  }
 }
 
 export const Client = new HTTP();
