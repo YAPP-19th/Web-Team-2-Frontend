@@ -24,8 +24,7 @@ interface FoldersHandleType {
   onCreateFolder: (parentId: ItemId) => void;
   onCreateCabinet: (cabinetLength: number) => void;
   onDeleteFolder: (itemId: ItemId) => void;
-  onRenameFolder: (itemId: ItemId, newName: string) => void;
-  onChangeFolderEmoji: (itemId: ItemId, newEmoji: string) => void;
+  onChangeFolderInfo: (itemId: ItemId, name: string, emoji: string) => void;
 }
 
 export default function useFoldersHandle(): FoldersHandleType {
@@ -155,16 +154,29 @@ export default function useFoldersHandle(): FoldersHandleType {
     console.log('부모', onFindParentId(itemId));
   };
 
+  // 폴더 이름,이모지 수정
+  const onChangeFolderInfo = async (
+    itemId: ItemId,
+    name: string,
+    emoji: string,
+  ) => {
+    console.log('폴더 정보 수정');
+    console.log(itemId, name, emoji);
+    setFolders(mutateTree(folders, itemId, { data: { name, emoji } }));
+  };
+
   // 폴더 이름 수정
   const onRenameFolder = async (itemId: ItemId, newName: string) => {
     console.log('이름 수정');
     console.log(itemId, newName);
+    setFolders(mutateTree(folders, itemId, { data: { name: newName } }));
   };
 
   // 폴더 이모지 수정
   const onChangeFolderEmoji = async (itemId: ItemId, newEmoji: string) => {
     console.log('이모지 수정');
     console.log(itemId, newEmoji);
+    setFolders(mutateTree(folders, itemId, { data: { emoji: newEmoji } }));
   };
 
   return {
@@ -176,7 +188,6 @@ export default function useFoldersHandle(): FoldersHandleType {
     onCreateFolder,
     onCreateCabinet,
     onDeleteFolder,
-    onRenameFolder,
-    onChangeFolderEmoji,
+    onChangeFolderInfo,
   };
 }

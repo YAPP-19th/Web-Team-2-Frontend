@@ -12,8 +12,7 @@ import { IPositionStyle } from './FolderList';
 interface FolderRenameModalProps {
   positionStyle: IPositionStyle;
   onToggleModal: () => void;
-  onChangeFolderEmoji: (itemId: ItemId, newEmoji: string) => void;
-  onRenameFolder: (itemId: ItemId, newName: string) => void;
+  onChangeFolderInfo: (ItemId: ItemId, name: string, emoji: string) => void;
   selectedFolder: ItemId;
   folderName: string;
 }
@@ -95,8 +94,7 @@ function FolderRenameModal({
   positionStyle,
   onToggleModal,
   folderName,
-  onChangeFolderEmoji,
-  onRenameFolder,
+  onChangeFolderInfo,
   selectedFolder,
 }: FolderRenameModalProps): ReactElement {
   const { top, left } = positionStyle;
@@ -112,7 +110,6 @@ function FolderRenameModal({
   const onEmojiSelect = (emoji: EmojiObject) => {
     setEmojiPickerVisible(!emojiPickerVisible);
     setChosenEmoji(emoji);
-    onChangeFolderEmoji(selectedFolder, emoji.unicode);
   };
 
   const onToggleEmojiPicker = (
@@ -127,8 +124,8 @@ function FolderRenameModal({
     setNewFolderName(e.target.value);
   };
 
-  const onSubmitFolderName = () => {
-    onRenameFolder(selectedFolder, newFolderName);
+  const onSubmitFolderInfo = () => {
+    onChangeFolderInfo(selectedFolder, newFolderName, chosenEmoji.unicode);
   };
 
   return (
@@ -166,7 +163,7 @@ function FolderRenameModal({
             width="72px"
             height="28px"
             label="변경"
-            onClick={onSubmitFolderName}
+            onClick={onSubmitFolderInfo}
           />
         </FormBlock>
 

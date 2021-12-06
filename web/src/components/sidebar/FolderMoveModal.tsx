@@ -74,8 +74,7 @@ function FolderMoveModal({
     onExpandFolder,
     onCreateFolder,
     onDeleteFolder,
-    onChangeFolderEmoji,
-    onRenameFolder,
+    onChangeFolderInfo,
   } = useFoldersHandle();
   return (
     <ModalTemplate
@@ -97,8 +96,7 @@ function FolderMoveModal({
             onDragStartFolder={onDragStartFolder}
             onExpandFolder={onExpandFolder}
             onDeleteFolder={onDeleteFolder}
-            onChangeFolderEmoji={onChangeFolderEmoji}
-            onRenameFolder={onRenameFolder}
+            onChangeFolderInfo={onChangeFolderInfo}
             isDrag={false}
           />
         </FolderListBox>
