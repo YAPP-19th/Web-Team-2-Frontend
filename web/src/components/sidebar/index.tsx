@@ -46,6 +46,8 @@ function SideBar(): ReactElement {
     onDragStartFolder,
     onExpandFolder,
     onDeleteFolder,
+    onRenameFolder,
+    onChangeFolderEmoji,
   } = useFoldersHandle();
 
   return (
@@ -60,6 +62,8 @@ function SideBar(): ReactElement {
           onDragStartFolder={onDragStartFolder}
           onExpandFolder={onExpandFolder}
           onDeleteFolder={onDeleteFolder}
+          onRenameFolder={onRenameFolder}
+          onChangeFolderEmoji={onChangeFolderEmoji}
           isDrag
         />
       </FolderBox>

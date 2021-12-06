@@ -28,6 +28,8 @@ interface FolderListProps {
   ) => void;
   onCreateFolder: (parentId: ItemId) => void;
   onDeleteFolder: (itemId: ItemId) => void;
+  onRenameFolder: (itemId: ItemId, newName: string) => void;
+  onChangeFolderEmoji: (itemId: ItemId, newEmoji: string) => void;
   isDrag: boolean;
 }
 
@@ -104,6 +106,8 @@ function FolderList({
   onDragEndFolder,
   onCollapseFolder,
   onDeleteFolder,
+  onRenameFolder,
+  onChangeFolderEmoji,
   isDrag,
 }: FolderListProps): ReactElement {
   // state
