@@ -7,7 +7,12 @@ import {
   TreeDestinationPosition,
   TreeSourcePosition,
 } from '@atlaskit/tree';
-import { createFolder, moveFolder } from 'api/folderAPI';
+import {
+  createFolder,
+  moveFolder,
+  renameFolder,
+  updateFolderEmoji,
+} from 'api/folderAPI';
 import produce from 'immer';
 import { useCallback, useState } from 'react';
 import useFoldersEffect from './useFoldersEffect';
@@ -160,23 +165,13 @@ export default function useFoldersHandle(): FoldersHandleType {
     name: string,
     emoji: string,
   ) => {
-    console.log('폴더 정보 수정');
-    console.log(itemId, name, emoji);
-    setFolders(mutateTree(folders, itemId, { data: { name, emoji } }));
-  };
-
-  // 폴더 이름 수정
-  const onRenameFolder = async (itemId: ItemId, newName: string) => {
-    console.log('이름 수정');
-    console.log(itemId, newName);
-    setFolders(mutateTree(folders, itemId, { data: { name: newName } }));
-  };
-
-  // 폴더 이모지 수정
-  const onChangeFolderEmoji = async (itemId: ItemId, newEmoji: string) => {
-    console.log('이모지 수정');
-    console.log(itemId, newEmoji);
-    setFolders(mutateTree(folders, itemId, { data: { emoji: newEmoji } }));
+    try {
+      await renameFolder(itemId, name);
+      await updateFolderEmoji(itemId, emoji);
+      setFolders(mutateTree(folders, itemId, { data: { name, emoji } }));
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return {
