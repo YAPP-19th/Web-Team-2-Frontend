@@ -45,6 +45,7 @@ function SideBar(): ReactElement {
     onDragEndFolder,
     onDragStartFolder,
     onExpandFolder,
+    onDeleteFolder,
   } = useFoldersHandle();
 
   return (
@@ -58,6 +59,7 @@ function SideBar(): ReactElement {
           onDragEndFolder={onDragEndFolder}
           onDragStartFolder={onDragStartFolder}
           onExpandFolder={onExpandFolder}
+          onDeleteFolder={onDeleteFolder}
           isDrag
         />
       </FolderBox>

@@ -84,7 +84,10 @@ function SmallModal({
             height="42px"
             borderRadius="8px"
             label={buttonName}
-            onClick={onClick}
+            onClick={() => {
+              onClick();
+              onToggleModal();
+            }}
           />
         </SmallModalButtonGroup>
       </SmallModalStyled>

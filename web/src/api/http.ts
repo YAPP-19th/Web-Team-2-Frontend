@@ -41,6 +41,11 @@ class HTTP {
     const { data } = await this.axios.patch(url, requestData);
     return data;
   }
+
+  async deleteAxios<T>(url: string): Promise<T> {
+    const { data } = await this.axios.delete(url);
+    return data;
+  }
 }
 
 export const Client = new HTTP();

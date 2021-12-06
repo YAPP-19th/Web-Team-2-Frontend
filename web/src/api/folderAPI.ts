@@ -35,6 +35,5 @@ export const moveFolder = async (
     prevIndex,
     nextIndex,
   };
-  console.log('body', body);
   return Client.patchAxios(`/api/v1/folder/${folderId}`, body);
 };

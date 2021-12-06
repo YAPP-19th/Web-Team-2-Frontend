@@ -19,10 +19,11 @@ interface FoldersHandleType {
   onDragStartFolder: (itemId: ItemId) => void;
   onDragEndFolder: (
     source: TreeSourcePosition,
-    destination?: TreeDestinationPosition | undefined,
+    destination?: TreeDestinationPosition,
   ) => void;
   onCreateFolder: (parentId: ItemId) => void;
   onCreateCabinet: (cabinetLength: number) => void;
+  onDeleteFolder: (itemId: ItemId) => void;
 }
 
 export default function useFoldersHandle(): FoldersHandleType {
@@ -129,6 +130,32 @@ export default function useFoldersHandle(): FoldersHandleType {
     [setFolders],
   );
 
+  // eslint-disable-next-line consistent-return
+  const onFindParentId = (itemId: ItemId) => {
+    for (let item = 0; item < Object.keys(folders.items).length; item += 1) {
+      if (
+        folders.items[Object.keys(folders.items)[item]].children.includes(
+          itemId,
+        )
+      ) {
+        console.log(Object.keys(folders.items)[item]);
+        return Object.keys(folders.items)[item];
+      }
+    }
+  };
+
+  // eslint-disable-next-line consistent-return
+  const onDeleteFolder = async (itemId: ItemId) => {
+    console.log('나', itemId);
+    // console.log(folders);
+
+    // Object.keys(folders.items).forEach((item) => {
+    //   if (folders.items[item].children.includes(itemId)) {
+    //     console.log('부모', folders.items[item].id);
+    //   }
+    // });
+  };
+
   return {
     folders,
     onExpandFolder,
@@ -137,5 +164,6 @@ export default function useFoldersHandle(): FoldersHandleType {
     onDragEndFolder,
     onCreateFolder,
     onCreateCabinet,
+    onDeleteFolder,
   };
 }

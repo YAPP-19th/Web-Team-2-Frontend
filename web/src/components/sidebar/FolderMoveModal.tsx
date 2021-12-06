@@ -73,6 +73,7 @@ function FolderMoveModal({
     onDragStartFolder,
     onExpandFolder,
     onCreateFolder,
+    onDeleteFolder,
   } = useFoldersHandle();
   return (
     <ModalTemplate
@@ -93,6 +94,7 @@ function FolderMoveModal({
             onDragEndFolder={onDragEndFolder}
             onDragStartFolder={onDragStartFolder}
             onExpandFolder={onExpandFolder}
+            onDeleteFolder={onDeleteFolder}
             isDrag={false}
           />
         </FolderListBox>

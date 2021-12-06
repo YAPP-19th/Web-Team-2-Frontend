@@ -9,7 +9,7 @@ import { More16Icon, PlusIcon } from 'assets/icons';
 import SmallModal from 'components/common/SmallModal';
 import useToggle from 'hooks/common/useToggle';
 import React, { ReactElement, useState } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { selectedFolderState } from 'recoil/atoms/folderState';
 import styled from 'styled-components';
 import FolderItemIcon from './FolderItemIcon';
@@ -27,6 +27,7 @@ interface FolderListProps {
     destination?: TreeDestinationPosition,
   ) => void;
   onCreateFolder: (parentId: ItemId) => void;
+  onDeleteFolder: (itemId: ItemId) => void;
   isDrag: boolean;
 }
 
@@ -102,10 +103,12 @@ function FolderList({
   onDragStartFolder,
   onDragEndFolder,
   onCollapseFolder,
+  onDeleteFolder,
   isDrag,
 }: FolderListProps): ReactElement {
   // state
-  const setSelectedFolder = useSetRecoilState(selectedFolderState);
+  const [selectedFolder, setSelectedFolder] =
+    useRecoilState(selectedFolderState);
   const [positionStyle, setPositionStyle] = useState<IPositionStyle>({
     top: 0,
     left: 0,
@@ -211,7 +214,7 @@ function FolderList({
           content="폴더에 있는 모든 내용들이 <br/> 휴지통으로 들어가요!"
           buttonName="삭제"
           // eslint-disable-next-line no-console
-          onClick={() => console.log('API생성되면 추가하겠음!')}
+          onClick={() => onDeleteFolder(selectedFolder)}
         />
       )}
 
