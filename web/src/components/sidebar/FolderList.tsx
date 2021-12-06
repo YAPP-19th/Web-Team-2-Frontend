@@ -3,6 +3,7 @@ import Tree, {
   RenderItemParams,
   TreeData,
   TreeDestinationPosition,
+  TreeItem,
   TreeSourcePosition,
 } from '@atlaskit/tree';
 import { More16Icon, PlusIcon } from 'assets/icons';
@@ -113,6 +114,7 @@ function FolderList({
   // state
   const [selectedFolder, setSelectedFolder] =
     useRecoilState(selectedFolderState);
+  const [selectedFolderName, setSelectedFolderName] = useState('');
   const [positionStyle, setPositionStyle] = useState<IPositionStyle>({
     top: 0,
     left: 0,
@@ -134,9 +136,10 @@ function FolderList({
   // function
   const onToggleMenu = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    itemId: ItemId,
+    item: TreeItem,
   ) => {
-    setSelectedFolder(itemId);
+    setSelectedFolder(item.id);
+    setSelectedFolderName(item.data.name);
     onToggleMenuLayer();
     setPositionStyle({
       top: e.currentTarget.getBoundingClientRect().top,
@@ -178,7 +181,7 @@ function FolderList({
                 <FolderETCButton onClick={() => onCreateFolder(item.id)}>
                   <PlusIcon />
                 </FolderETCButton>
-                <FolderETCButton onClick={(e) => onToggleMenu(e, item.id)}>
+                <FolderETCButton onClick={(e) => onToggleMenu(e, item)}>
                   <More16Icon />
                 </FolderETCButton>
               </FolderRightBox>
@@ -226,6 +229,10 @@ function FolderList({
         <FolderRenameModal
           positionStyle={positionStyle}
           onToggleModal={onToggleRenameModal}
+          folderName={selectedFolderName}
+          onRenameFolder={onRenameFolder}
+          onChangeFolderEmoji={onChangeFolderEmoji}
+          selectedFolder={selectedFolder}
         />
       )}
 

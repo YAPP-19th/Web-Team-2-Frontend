@@ -158,11 +158,13 @@ export default function useFoldersHandle(): FoldersHandleType {
   // 폴더 이름 수정
   const onRenameFolder = async (itemId: ItemId, newName: string) => {
     console.log('이름 수정');
+    console.log(itemId, newName);
   };
 
   // 폴더 이모지 수정
   const onChangeFolderEmoji = async (itemId: ItemId, newEmoji: string) => {
     console.log('이모지 수정');
+    console.log(itemId, newEmoji);
   };
 
   return {
