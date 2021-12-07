@@ -15,6 +15,7 @@ import {
 } from 'api/folderAPI';
 import produce from 'immer';
 import { useCallback, useState } from 'react';
+import { findChildrenLength, findParentId } from 'utils/atlaskitTreeFinder';
 import useFoldersEffect from './useFoldersEffect';
 
 interface FoldersHandleType {
@@ -60,13 +61,18 @@ export default function useFoldersHandle(): FoldersHandleType {
     if (!destination) return;
     if (!moveFolderId) return;
     const newTree = moveItemOnTree(folders, source, destination);
-    console.log('새로운 부모Id', destination);
-    console.log('기존 부모Id', source);
-    console.log(moveFolderId);
+
     const prevParentId = source.parentId;
     const nextParentId = destination.parentId;
     const prevIndex = source.index;
-    const nextIndex = destination.index || 0;
+    const nextIndex =
+      destination.index === undefined
+        ? findChildrenLength(folders, nextParentId)
+        : destination.index;
+
+    console.log('나', moveFolderId);
+    console.log('이전: ', prevParentId, prevIndex);
+    console.log('다음: ', nextParentId, nextIndex);
     setFolders(newTree);
     try {
       await moveFolder(
@@ -105,7 +111,6 @@ export default function useFoldersHandle(): FoldersHandleType {
       try {
         await createFolder(parentId, folderName, 0);
       } catch (e) {
-        // eslint-disable-next-line no-console
         console.log(e);
       }
     },
@@ -135,28 +140,16 @@ export default function useFoldersHandle(): FoldersHandleType {
           }),
         );
       } catch (e) {
-        // eslint-disable-next-line no-console
         console.log(e);
       }
     },
     [setFolders],
   );
 
-  // 자식id (itemId) 로 부모 id 찾기
-  const onFindParentId = (itemId: ItemId) => {
-    const folderItems = Object.keys(folders.items);
-    for (let item = 0; item < folderItems.length; item += 1) {
-      if (folders.items[folderItems[item]].children.includes(itemId)) {
-        return folderItems[item];
-      }
-    }
-    return null;
-  };
-
   // 폴더 삭제
   const onDeleteFolder = async (itemId: ItemId) => {
     console.log('나', itemId);
-    console.log('부모', onFindParentId(itemId));
+    console.log('부모', findParentId(folders, itemId));
   };
 
   // 폴더 이름,이모지 수정
