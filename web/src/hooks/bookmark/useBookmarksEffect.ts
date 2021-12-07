@@ -10,12 +10,12 @@ export default function useBookmarksEffect(path: string): void {
     // path === "main"  이면 전체 도토리
     // path === "trash" 이면 휴지통
     // path === "123123" 이면 특정 폴더
-    async function temp() {
-      // eslint-disable-next-line no-console
-      console.log(path);
-      const data = await getBookmarks();
-      setBookmarks(data.content);
-    }
-    if (path) temp();
+    // async function temp() {
+    //   // eslint-disable-next-line no-console
+    //   console.log(path);
+    //   const data = await getBookmarks();
+    //   setBookmarks(data.content);
+    // }
+    // if (path) temp();
   }, [path]);
 }
