@@ -18,7 +18,7 @@ import BookmarkMenu from './BookmarkMenu';
 
 interface BookmarkItemProps {
   bookmark: bookmarks.IBookmark;
-  isOpenMenuId: string;
+  isOpenMenuId?: string;
   onToggleOpenMenu: (id: string) => void;
 }
 

@@ -43,4 +43,9 @@ export namespace bookmarks {
     totalElements: number;
     totalPages: number;
   }
+
+  export type bookmarkKindItem = {
+    kind: string;
+    numOfPage: number;
+  };
 }
