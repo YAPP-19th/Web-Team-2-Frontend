@@ -18,7 +18,7 @@ import { useCallback, useState } from 'react';
 import { findChildrenLength, findParentId } from 'utils/atlaskitTreeFinder';
 import useFoldersEffect from './useFoldersEffect';
 
-interface FoldersHandleType {
+export interface IFoldersHandle {
   folders: TreeData;
   onExpandFolder: (itemId: ItemId) => void;
   onCollapseFolder: (itemId: ItemId) => void;
@@ -33,7 +33,7 @@ interface FoldersHandleType {
   onChangeFolderInfo: (itemId: ItemId, name: string, emoji: string) => void;
 }
 
-export default function useFoldersHandle(): FoldersHandleType {
+export default function useFoldersHandle(): IFoldersHandle {
   const { folders, setFolders } = useFoldersEffect();
   const [moveFolderId, setMoveFolderId] = useState<ItemId | null>(null);
 
