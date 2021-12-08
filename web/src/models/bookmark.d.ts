@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-interface */
 export namespace bookmarks {
   export interface IBookmark {
     clickCount: number;
@@ -48,4 +49,20 @@ export namespace bookmarks {
     kind: string;
     numOfPage: number;
   };
+
+  export interface IBookmarkDeleteResponse {}
+
+  export interface IBookmarkMoveRequest {
+    prevFolderId: string;
+    nextFolderId: string;
+  }
+
+  export interface IBookmarkMoveResponse {}
+
+  export interface IBookmarkUpdateRequest {
+    title: string;
+    remind: boolean;
+  }
+
+  export interface IBookmarkUpdateResponse {}
 }

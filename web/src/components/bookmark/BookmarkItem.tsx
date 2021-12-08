@@ -155,6 +155,27 @@ function BookmarkItem({
 
   const copyUrlRef = useRef<HTMLTextAreaElement>(null);
 
+  /*
+  NOTE: Bookmark mutation 
+  
+  const { mutateBookmarkDelete, mutateBookmarkMove, mutateBookmarkUpdate } =
+    useBookmarkMutationQuery(id);
+
+  mutateBookmarkDelete();
+
+  const updateRequestData: bookmarks.IBookmarkUpdateRequest = {
+    title,
+    remind: false,
+  };
+  mutateBookmarkUpdate(updateRequestData);
+
+  const moveRequestData: bookmarks.IBookmarkMoveRequest = {
+    prevFolderId: 'prev',
+    nextFolderId: 'next',
+  };
+  mutateBookmarkMove(moveRequestData);
+  */
+
   useEffect(() => {
     setIsChecked(
       selectedBookmarks.some((selectedBookmark) => selectedBookmark.id === id),
