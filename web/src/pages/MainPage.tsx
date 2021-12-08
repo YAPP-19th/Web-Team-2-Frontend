@@ -1,8 +1,8 @@
 import Bookmark from 'components/bookmark';
 import Reminder from 'components/reminder';
 import SideBar from 'components/sidebar';
-import React, { ReactElement } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { ReactElement, useEffect, useState } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
 import Path from 'routes/path';
 import styled from 'styled-components';
 
@@ -24,14 +24,12 @@ const ContentInner = styled.div`
 
 function MainPage(): ReactElement {
   const location = useLocation();
-  // const params = useParams();
-  // const [path, setPath] = useState('');
-
-  // useEffect(() => {
-  //   setPath(params.folderId || 'main');
-  // }, [params]);
-
-  // useBookmarksEffect(path);
+  const params = useParams();
+  const [path, setPath] = useState<string>();
+  useEffect(() => {
+    // setPath(params.folderId || 'main');
+    setPath(location.pathname);
+  }, [params]);
 
   return (
     <MainWrapper>
@@ -39,7 +37,7 @@ function MainPage(): ReactElement {
       <ContentLayout>
         <ContentInner>
           {location.pathname === Path.Home && <Reminder />}
-          <Bookmark />
+          {path && <Bookmark path={path} />}
         </ContentInner>
       </ContentLayout>
     </MainWrapper>

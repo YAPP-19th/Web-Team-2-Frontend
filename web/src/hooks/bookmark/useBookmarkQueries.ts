@@ -1,9 +1,22 @@
-import { getTrashBookmark } from 'api/bookmarkAPI';
+import { getAllBookmark, getTrashBookmark } from 'api/bookmarkAPI';
 import { bookmarks } from 'models/bookmark';
 import { useQuery } from 'react-query';
 import { BOOKMARK_KINDS, ReactQueryKey } from 'utils/const';
 
 const { TRASH_BIN, SEARCH, FOLDER_DOTORI, ALL_DOTORI } = BOOKMARK_KINDS;
+
+export function getCategoryOfBookmark(
+  path: string,
+): bookmarks.bookmarkKindItem {
+  switch (path) {
+    case 'main':
+      return ALL_DOTORI;
+    case 'trash':
+      return TRASH_BIN;
+    default:
+      return ALL_DOTORI;
+  }
+}
 
 export function useBookmarkQuery(
   bookmarkItem: bookmarks.bookmarkKindItem,
@@ -20,7 +33,7 @@ export function useBookmarkQuery(
       case FOLDER_DOTORI.kind:
         return undefined;
       case ALL_DOTORI.kind:
-        return undefined;
+        return getAllBookmark(page, bookmarkKind.numOfPage, filter, remind);
       default:
         return undefined;
     }
