@@ -1,5 +1,6 @@
 import SimpleButton from 'components/common/SimpleButton';
 import React, { ReactElement } from 'react';
+import { IUserInfo } from 'recoil/atoms/userState';
 import styled from 'styled-components';
 import MyPageHead from './MyPageHead';
 
@@ -37,16 +38,18 @@ const ProfileNickname = styled.span`
 
 const ProfileRightBlock = styled.div``;
 
-function Profile(): ReactElement {
+function Profile({ user }: { user: IUserInfo }): ReactElement {
+  const { imageUrl, name } = user;
+
   return (
     <>
       <MyPageHead headText="프로필" />
       <ProfileWrapper>
         <ProfileLeftBlock>
           <ProfileImageBox>
-            <ProfileImage />
+            <ProfileImage src={imageUrl} />
           </ProfileImageBox>
-          <ProfileNickname>닉네임</ProfileNickname>
+          <ProfileNickname>{name}</ProfileNickname>
         </ProfileLeftBlock>
 
         <ProfileRightBlock>

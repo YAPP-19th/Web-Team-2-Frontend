@@ -2,6 +2,8 @@ import AccountSetting from 'components/mypage/AccountSetting';
 import Configuration from 'components/mypage/Configuration';
 import Profile from 'components/mypage/Profile';
 import React, { ReactElement } from 'react';
+import { useRecoilValue } from 'recoil';
+import { userState } from 'recoil/atoms/userState';
 import styled from 'styled-components';
 
 const MyPageWrapper = styled.div`
@@ -14,12 +16,14 @@ const MyPageInner = styled.div`
 `;
 
 function MyPage(): ReactElement {
+  const user = useRecoilValue(userState);
+
   return (
     <MyPageWrapper>
       <MyPageInner>
-        <Profile />
+        <Profile user={user} />
         <Configuration />
-        <AccountSetting />
+        <AccountSetting email={user.email} />
       </MyPageInner>
     </MyPageWrapper>
   );
