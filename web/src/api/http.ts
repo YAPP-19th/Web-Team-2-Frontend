@@ -22,13 +22,8 @@ class HTTP {
     return this.axios.interceptors;
   }
 
-  async getAxios(
-    url: string,
-    // requestParams: Partial<T>,
-  ): Promise<AxiosResponse> {
-    // const params = requestParams
-    const params = {};
-    const { data } = await this.axios.get(url, { params });
+  async getAxios<T>(url: string): Promise<T> {
+    const { data } = await this.axios.get(url);
     return data;
   }
 

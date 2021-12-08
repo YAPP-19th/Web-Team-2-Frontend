@@ -9,15 +9,16 @@ import { ellipsis } from 'assets/styles/utilStyles';
 import CheckBox from 'components/common/CheckBox';
 import Toasts from 'components/common/Toasts';
 import useToasts from 'hooks/common/useToasts';
+import { bookmarks } from 'models/bookmark';
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { IBookmark, selectedBookmarksState } from 'recoil/atoms/bookmarkState';
+import { selectedBookmarksState } from 'recoil/atoms/bookmarkState';
 import styled from 'styled-components';
 import BookmarkMenu from './BookmarkMenu';
 
 interface BookmarkItemProps {
-  bookmark: IBookmark;
-  isOpenMenuId: string;
+  bookmark: bookmarks.IBookmark;
+  isOpenMenuId?: string;
   onToggleOpenMenu: (id: string) => void;
 }
 
