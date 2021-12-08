@@ -47,6 +47,7 @@ function Bookmark(props: Props): ReactElement {
     page,
     BookmarkFilterTypes.LATEST_ORDER,
     false,
+    'naver',
   );
 
   return (
