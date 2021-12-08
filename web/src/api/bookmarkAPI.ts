@@ -45,7 +45,7 @@ export const deleteBookmark = (
   bookmarkId: string,
 ): Promise<bookmarks.IBookmarkDeleteResponse> => {
   return Client.deleteAxios<bookmarks.IBookmarkDeleteResponse>(
-    `api/v1/bookmark?bookmarkId=${bookmarkId}`,
+    `api/v1/bookmark/${bookmarkId}`,
   );
 };
 
@@ -64,7 +64,7 @@ export const moveBookmark = (
   return Client.patchAxios<
     bookmarks.IBookmarkMoveRequest,
     bookmarks.IBookmarkMoveResponse
-  >(`api/v1/bookmark/move?bookmarkId=${bookmarkId}`, requestData);
+  >(`api/v1/bookmark/move/${bookmarkId}`, requestData);
 };
 
 /**
@@ -82,5 +82,5 @@ export const updateBookmark = (
   return Client.patchAxios<
     bookmarks.IBookmarkUpdateRequest,
     bookmarks.IBookmarkUpdateResponse
-  >(`api/v1/bookmark/?bookmarkId=${bookmarkId}`, requestData);
+  >(`api/v1/bookmark/${bookmarkId}`, requestData);
 };
