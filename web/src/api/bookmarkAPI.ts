@@ -36,3 +36,51 @@ export const getAllBookmark = (
     `api/v1/page/main?page=${page}&size=${size}&sort=${sort}&remind=${remind}`,
   );
 };
+
+/**
+ * @param {string} bookmarkId 삭제할 북마크 아이디
+ * @returns Promise<bookmarks.IBookmarkDeleteResponse>
+ */
+export const deleteBookmark = (
+  bookmarkId: string,
+): Promise<bookmarks.IBookmarkDeleteResponse> => {
+  return Client.deleteAxios<bookmarks.IBookmarkDeleteResponse>(
+    `api/v1/bookmark?bookmarkId=${bookmarkId}`,
+  );
+};
+
+/**
+ * @param {string} bookmarkId 이동할 북마크 아이디
+ * @param {object} requestData {prevFolderId: string, nextFolderId: string}
+ * @returns Promise<bookmarks.IBookmarkMoveResponse>
+ */
+export const moveBookmark = (
+  bookmarkId: string,
+  requestData: {
+    prevFolderId: string;
+    nextFolderId: string;
+  },
+): Promise<bookmarks.IBookmarkMoveResponse> => {
+  return Client.patchAxios<
+    bookmarks.IBookmarkMoveRequest,
+    bookmarks.IBookmarkMoveResponse
+  >(`api/v1/bookmark/move?bookmarkId=${bookmarkId}`, requestData);
+};
+
+/**
+ * @param {string} bookmarkId 수정할 북마크 아이디
+ * @param {object} requestData {title: string, remind: boolean}
+ * @returns Promise<bookmarks.IBookmarkUpdateResponse>
+ */
+export const updateBookmark = (
+  bookmarkId: string,
+  requestData: {
+    title: string;
+    remind: boolean;
+  },
+): Promise<bookmarks.IBookmarkUpdateResponse> => {
+  return Client.patchAxios<
+    bookmarks.IBookmarkUpdateRequest,
+    bookmarks.IBookmarkUpdateResponse
+  >(`api/v1/bookmark/?bookmarkId=${bookmarkId}`, requestData);
+};
