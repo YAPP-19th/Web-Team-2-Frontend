@@ -1,0 +1,25 @@
+{
+  "short_name": "React App",
+  "name": "Create React App Sample",
+  "manifest_version": 2,
+  "version": "1.0.0",
+  "permissions": [
+    "tabs",
+    "storage",
+    "<all_urls>"
+  ],
+  "browser_action": {
+    "default_popup": "index.html"
+  },
+  "icons": {
+    "16": "do_bbO_icon.ico",
+    "32": "do_bbO_icon.ico",
+    "64": "do_bbO_icon.ico",
+    "128": "do_bbO_icon.ico"
+  },
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "content_security_policy": "script-src 'self' 'sha256-kngpAVTRKNIxEj1zoU2TUGEJFEBS51Tp/ZuyNKYMkDM='; object-src 'self'"
+}
