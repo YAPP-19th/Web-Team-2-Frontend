@@ -2,6 +2,7 @@
 import {
   deleteBookmark,
   getAllBookmark,
+  getSearchBookmark,
   getTrashBookmark,
   moveBookmark,
   updateBookmark,
@@ -20,6 +21,8 @@ export function getCategoryOfBookmark(
       return ALL_DOTORI;
     case 'trash':
       return TRASH_BIN;
+    case 'search':
+      return SEARCH;
     default:
       return ALL_DOTORI;
   }
@@ -30,13 +33,21 @@ export function useBookmarkQuery(
   page: number,
   filter: string,
   remind: boolean,
+  keyword?: string,
 ): typeof query {
   function getBookmarkAPI(bookmarkKind: bookmarks.bookmarkKindItem) {
+    const searchKeyword = keyword || '';
     switch (bookmarkKind.kind) {
       case TRASH_BIN.kind:
         return getTrashBookmark(page, bookmarkKind.numOfPage, filter, remind);
       case SEARCH.kind:
-        return undefined;
+        return getSearchBookmark(
+          searchKeyword,
+          page,
+          bookmarkKind.numOfPage,
+          filter,
+          remind,
+        );
       case FOLDER_DOTORI.kind:
         return undefined;
       case ALL_DOTORI.kind:
