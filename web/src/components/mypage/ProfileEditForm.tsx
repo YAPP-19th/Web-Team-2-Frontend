@@ -3,7 +3,9 @@ import SimpleButton from 'components/common/SimpleButton';
 import SimpleInput from 'components/common/SimpleInput';
 import SmallBlackLabel from 'components/common/SmallBlackLabel';
 import useToggle from 'hooks/common/useToggle';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { userState } from 'recoil/atoms/userState';
 import styled from 'styled-components';
 import ProfileColorPalette from './ProfileColorPalette';
 
@@ -118,18 +120,33 @@ const SaveButton = styled(SimpleButton)`
 
 function ProfileEditForm(): ReactElement {
   const [isPaletteOpen, onTogglePaletteOpen] = useToggle();
+  const [user, setUser] = useRecoilState(userState);
+  const [form, setForm] = useState({
+    profileImage: user.imageUrl,
+    nickname: user.name,
+  });
+  const { profileImage, nickname } = form;
+
+  const onChangeNickname = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setForm({ ...form, nickname: e.target.value });
+  };
+
+  const onChangeProfileImage = (newImg: string): void => {
+    setForm({ ...form, profileImage: newImg });
+  };
 
   return (
     <ProfileEditFormWrapper>
       <ImgFormRow>
         <FormLabel width="297px" label="프로필 이미지" />
         <ProfileImageBox>
-          <ProfileImage src="https://via.placeholder.com/72x72" />
+          <ProfileImage src={profileImage} />
           <ProfileColorsButton onClick={onTogglePaletteOpen} />
           {isPaletteOpen && (
             <ProfileColorPalette
               isOpen={isPaletteOpen}
               onToggleOpen={onTogglePaletteOpen}
+              onChangeProfileImage={onChangeProfileImage}
             />
           )}
         </ProfileImageBox>
@@ -159,6 +176,8 @@ function ProfileEditForm(): ReactElement {
             width="273px"
             height="36px"
             placeholder="닉네임을 입력해주세요"
+            value={nickname}
+            onChange={onChangeNickname}
           />
           <NicknameCheckError>이미 사용 중인 닉네임입니다.</NicknameCheckError>
         </NicknameInput>

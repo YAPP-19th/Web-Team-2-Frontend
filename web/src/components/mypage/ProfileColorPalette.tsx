@@ -6,6 +6,7 @@ import { profilePaletteColors } from 'utils/palette';
 interface ProfileColorPaletteProps {
   isOpen: boolean;
   onToggleOpen: () => void;
+  onChangeProfileImage: (newImg: string) => void;
 }
 
 const PaletteWrapper = styled.div`
@@ -41,6 +42,7 @@ const ColorItem = styled.img`
 function ProfileColorPalette({
   isOpen,
   onToggleOpen,
+  onChangeProfileImage,
 }: ProfileColorPaletteProps): ReactElement {
   const { targetEl } = useLayerClose(isOpen, onToggleOpen);
 
@@ -51,7 +53,10 @@ function ProfileColorPalette({
           <ColorItem
             key={color.color}
             src={color.image}
-            onClick={() => onToggleOpen()}
+            onClick={() => {
+              onChangeProfileImage(color.image);
+              onToggleOpen();
+            }}
           />
         ))}
       </PaletteInner>
