@@ -12,7 +12,7 @@ export const createFolder = async (
   parentId: ItemId,
   name: string,
   index: number,
-): Promise<AxiosResponse> => {
+): Promise<{ folderId: ItemId }> => {
   const body = {
     parentId,
     name,

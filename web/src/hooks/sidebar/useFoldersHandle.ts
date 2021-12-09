@@ -120,23 +120,22 @@ export default function useFoldersHandle(): IFoldersHandle {
   // 보관함 생성
   const onCreateCabinet = useCallback(
     async (cabinetLength: number) => {
-      const newCabinetId = Math.random().toString(); // 이쪽 newFolderId를 백앤드에서 response로 담아서 보내줘야함
       const cabinetName = `보관함${cabinetLength + 1}`;
-      const newCabinet = {
-        id: newCabinetId, // 이쪽 newFolderId를 백앤드에서 response로 담아서 보내줘야함
-        children: [],
-        data: {
-          name: cabinetName,
-        },
-      };
 
       try {
-        await createFolder(0, cabinetName, 0);
+        const { folderId } = await createFolder(0, cabinetName, 0);
+        const newCabinet = {
+          id: folderId, // 이쪽 newFolderId를 백앤드에서 response로 담아서 보내줘야함
+          children: [],
+          data: {
+            name: cabinetName,
+          },
+        };
         setFolders((prev) =>
           produce(prev, (draft) => {
             const newObj = draft;
-            newObj.items[newCabinetId] = newCabinet;
-            newObj.items.root.children.push(newCabinetId);
+            newObj.items[folderId] = newCabinet;
+            newObj.items.root.children.push(folderId);
           }),
         );
       } catch (e) {
