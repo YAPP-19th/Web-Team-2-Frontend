@@ -17,7 +17,7 @@ import {
   activeFolderState,
   selectedFolderState,
 } from 'recoil/atoms/folderState';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import FolderItemIcon from './FolderItemIcon';
 import FolderMenuLayer from './FolderMenuLayer';
 import FolderMoveModal from './FolderMoveModal';
@@ -68,7 +68,8 @@ const FolderItemBlock = styled.div`
   padding: 5px 2px;
   border-radius: 4px;
   &:hover {
-    background-color: #f3f2ef;
+    background-color: ${(props) => props.theme.color.hover0};
+    font-weight: 500;
     ${FolderRightBox} {
       display: flex;
     }
@@ -81,7 +82,7 @@ const FolderLeftBox = styled.div`
   min-width: 65px;
 `;
 
-const FolderTitle = styled.span`
+const FolderTitle = styled.span<{ active: boolean }>`
   cursor: pointer;
   height: 28px;
   line-height: 25px;
@@ -91,6 +92,12 @@ const FolderTitle = styled.span`
   &:hover {
     text-decoration: underline;
   }
+  ${(props) =>
+    props.active &&
+    css`
+      font-weight: 500;
+      color: ${props.theme.color.primary};
+    `}
 `;
 
 const FolderETCButton = styled.button`
@@ -152,6 +159,7 @@ function FolderList({
     });
   };
 
+  // 폴더 클릭시 해당 폴더 활성화 후 라우트로 이동
   const onActiveFolder = (folderId: ItemId, name: string) => {
     setActiveFolder({
       ...activeFolder,
@@ -187,6 +195,7 @@ function FolderList({
               />
               {/* eslint-disable-next-line no-console */}
               <FolderTitle
+                active={activeFolder.id === item.id}
                 onClick={() => onActiveFolder(item.id, item.data.name)}
               >
                 {item.data.name}
