@@ -90,26 +90,25 @@ export default function useFoldersHandle(): IFoldersHandle {
   // 폴더 생성
   const onCreateFolder = useCallback(
     async (parentId: ItemId) => {
-      const newFolderId = Math.random().toString(); // 이쪽 newFolderId를 백앤드에서 response로 담아서 보내줘야함
       const folderName = '제목없음';
-      const newFolder = {
-        id: newFolderId, // 이쪽 newFolderId를 백앤드에서 response로 담아서 보내줘야함
-        children: [],
-        data: {
-          name: folderName,
-        },
-      };
 
-      setFolders((prev) =>
-        produce(prev, (draft) => {
-          const newObj = draft;
-          newObj.items[newFolderId] = newFolder;
-          newObj.items[parentId].children.push(newFolderId);
-          newObj.items[parentId].isExpanded = true;
-        }),
-      );
       try {
-        await createFolder(parentId, folderName, 0);
+        const { folderId } = await createFolder(parentId, folderName, 0);
+        const newFolder = {
+          id: folderId, // 이쪽 newFolderId를 백앤드에서 response로 담아서 보내줘야함
+          children: [],
+          data: {
+            name: folderName,
+          },
+        };
+        setFolders((prev) =>
+          produce(prev, (draft) => {
+            const newObj = draft;
+            newObj.items[folderId] = newFolder;
+            newObj.items[parentId].children.push(folderId);
+            newObj.items[parentId].isExpanded = true;
+          }),
+        );
       } catch (e) {
         console.log(e);
       }
