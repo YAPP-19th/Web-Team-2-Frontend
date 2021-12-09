@@ -1,8 +1,10 @@
-import { X16BigIcon } from 'assets/icons';
+import { ColorizeIcon, X16BigIcon } from 'assets/icons';
 import SimpleButton from 'components/common/SimpleButton';
 import SmallBlackLabel from 'components/common/SmallBlackLabel';
+import useToggle from 'hooks/common/useToggle';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import ProfileColorPalette from './ProfileColorPalette';
 
 const ProfileEditFormWrapper = styled.div`
   padding-top: 24px;
@@ -21,7 +23,7 @@ const FormLabel = styled(SmallBlackLabel)`
 const ProfileImageBox = styled.div`
   width: 72px;
   height: 72px;
-  margin-right: 27px;
+  position: relative;
 `;
 
 const ProfileImage = styled.img`
@@ -31,7 +33,16 @@ const ProfileImage = styled.img`
   background-color: ${(props) => props.theme.color.grayLight};
 `;
 
-const UploadContent = styled.div``;
+const ProfileColorsButton = styled(ColorizeIcon)`
+  position: absolute;
+  bottom: -2px;
+  right: -11px;
+  cursor: pointer;
+`;
+
+const UploadContent = styled.div`
+  margin-left: 27px;
+`;
 
 const UploadRow = styled.div`
   display: flex;
@@ -60,12 +71,21 @@ const UploadPath = styled.span`
 const NicknameFormRow = styled.div``;
 
 function ProfileEditForm(): ReactElement {
+  const [isPaletteOpen, onTogglePaletteOpen] = useToggle();
+
   return (
     <ProfileEditFormWrapper>
       <ImgFormRow>
         <FormLabel width="297px" label="프로필 이미지" />
         <ProfileImageBox>
           <ProfileImage src="https://via.placeholder.com/72x72" />
+          <ProfileColorsButton onClick={onTogglePaletteOpen} />
+          {isPaletteOpen && (
+            <ProfileColorPalette
+              isOpen={isPaletteOpen}
+              onToggleOpen={onTogglePaletteOpen}
+            />
+          )}
         </ProfileImageBox>
 
         <UploadContent>

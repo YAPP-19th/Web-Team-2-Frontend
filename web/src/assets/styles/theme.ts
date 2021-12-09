@@ -22,6 +22,7 @@ const theme: DefaultTheme = {
     link0: '#0BAA78',
     shadow0: 'rgba(0, 0, 0, 0.15)',
     shadow1: 'rgba(0, 174, 199, 0.1)',
+    shadow2: 'rgba(0, 0, 0, 0.1)',
   },
 };
 
