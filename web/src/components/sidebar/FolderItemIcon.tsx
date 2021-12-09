@@ -29,8 +29,8 @@ const FolderIconStyled = styled(FolderIcon)`
 `;
 
 const EmojiIcon = styled(Emoji)`
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   margin-right: 4px;
 `;
 

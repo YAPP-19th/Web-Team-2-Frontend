@@ -91,6 +91,16 @@ export default function useFoldersHandle(): IFoldersHandle {
     }
   };
 
+  const createNewFolderData = (folderId: ItemId, name: string) => {
+    return {
+      id: folderId,
+      children: [],
+      data: {
+        name,
+      },
+    };
+  };
+
   // 폴더 생성
   const onCreateFolder = useCallback(
     async (parentId: ItemId) => {
@@ -102,13 +112,7 @@ export default function useFoldersHandle(): IFoldersHandle {
       const folderName = '제목없음';
       try {
         const { folderId } = await createFolder(parentId, folderName, 0);
-        const newFolder = {
-          id: folderId,
-          children: [],
-          data: {
-            name: folderName,
-          },
-        };
+        const newFolder = createNewFolderData(folderId, folderName);
         setFolders((prev) =>
           produce(prev, (draft) => {
             const newObj = draft;
@@ -131,13 +135,7 @@ export default function useFoldersHandle(): IFoldersHandle {
 
       try {
         const { folderId } = await createFolder(0, cabinetName, 0);
-        const newCabinet = {
-          id: folderId, // 이쪽 newFolderId를 백앤드에서 response로 담아서 보내줘야함
-          children: [],
-          data: {
-            name: cabinetName,
-          },
-        };
+        const newCabinet = createNewFolderData(folderId, cabinetName);
         setFolders((prev) =>
           produce(prev, (draft) => {
             const newObj = draft;
