@@ -1,3 +1,4 @@
+import { nicknameCheck } from 'api/userAPI';
 import { ColorizeIcon, X16BigIcon } from 'assets/icons';
 import SimpleButton from 'components/common/SimpleButton';
 import SimpleInput from 'components/common/SimpleInput';
@@ -127,12 +128,17 @@ function ProfileEditForm(): ReactElement {
   });
   const { profileImage, nickname } = form;
 
-  const onChangeNickname = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const onChangeNickname = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, nickname: e.target.value });
   };
 
-  const onChangeProfileImage = (newImg: string): void => {
+  const onChangeProfileImage = (newImg: string) => {
     setForm({ ...form, profileImage: newImg });
+  };
+
+  const onFocusOutNickname = async () => {
+    // eslint-disable-next-line no-console
+    await nicknameCheck(nickname).catch((err) => console.log(err)); // 여기다 에러처리
   };
 
   return (
@@ -178,6 +184,7 @@ function ProfileEditForm(): ReactElement {
             placeholder="닉네임을 입력해주세요"
             value={nickname}
             onChange={onChangeNickname}
+            onBlur={onFocusOutNickname}
           />
           <NicknameCheckError>이미 사용 중인 닉네임입니다.</NicknameCheckError>
         </NicknameInput>
