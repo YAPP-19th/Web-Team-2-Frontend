@@ -53,3 +53,10 @@ export const updateFolderEmoji = async (
 ): Promise<AxiosResponse> => {
   return Client.patchAxios(`/api/v1/folder/${folderId}/emoji`, { emoji });
 };
+
+// 폴더 삭제
+export const deleteFolder = async (
+  folderId: ItemId,
+): Promise<AxiosResponse> => {
+  return Client.deleteAxios(`/api/v1/folder/${folderId}`);
+};

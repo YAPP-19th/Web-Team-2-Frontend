@@ -2,6 +2,7 @@ import useFoldersHandle from 'hooks/sidebar/useFoldersHandle';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import QuestionButton from 'components/tutorial/QuestionButton';
+import Toasts from 'components/common/Toasts';
 import AllFolder from './AllFolder';
 import CabinetBox from './CabinetBox';
 import FolderList from './FolderList';
@@ -47,6 +48,7 @@ function SideBar(): ReactElement {
     onExpandFolder,
     onDeleteFolder,
     onChangeFolderInfo,
+    isOpenFolderIsFullToast,
   } = useFoldersHandle();
 
   return (
@@ -70,6 +72,7 @@ function SideBar(): ReactElement {
       <TrashBox />
 
       <QuestionButton />
+      <Toasts isOpen={isOpenFolderIsFullToast} type="folderIsFull" />
     </SideBarWrapper>
   );
 }

@@ -9,10 +9,12 @@ import {
 } from '@atlaskit/tree';
 import {
   createFolder,
+  deleteFolder,
   moveFolder,
   renameFolder,
   updateFolderEmoji,
 } from 'api/folderAPI';
+import useToasts from 'hooks/common/useToasts';
 import produce from 'immer';
 import { useCallback, useState } from 'react';
 import { findChildrenLength, findParentId } from 'utils/atlaskitTreeFinder';
@@ -31,11 +33,13 @@ export interface IFoldersHandle {
   onCreateCabinet: (cabinetLength: number) => void;
   onDeleteFolder: (itemId: ItemId) => void;
   onChangeFolderInfo: (itemId: ItemId, name: string, emoji: string) => void;
+  isOpenFolderIsFullToast: boolean;
 }
 
 export default function useFoldersHandle(): IFoldersHandle {
   const { folders, setFolders } = useFoldersEffect();
   const [moveFolderId, setMoveFolderId] = useState<ItemId | null>(null);
+  const [isOpenFolderIsFullToast, onFolderIsFullToast] = useToasts();
 
   // 폴더 열기
   const onExpandFolder = (itemId: ItemId) => {
@@ -90,12 +94,16 @@ export default function useFoldersHandle(): IFoldersHandle {
   // 폴더 생성
   const onCreateFolder = useCallback(
     async (parentId: ItemId) => {
-      const folderName = '제목없음';
+      if (findChildrenLength(folders, parentId) >= 8) {
+        onFolderIsFullToast();
+        return;
+      }
 
+      const folderName = '제목없음';
       try {
         const { folderId } = await createFolder(parentId, folderName, 0);
         const newFolder = {
-          id: folderId, // 이쪽 newFolderId를 백앤드에서 response로 담아서 보내줘야함
+          id: folderId,
           children: [],
           data: {
             name: folderName,
@@ -113,7 +121,7 @@ export default function useFoldersHandle(): IFoldersHandle {
         console.log(e);
       }
     },
-    [setFolders],
+    [folders],
   );
 
   // 보관함 생성
@@ -141,13 +149,14 @@ export default function useFoldersHandle(): IFoldersHandle {
         console.log(e);
       }
     },
-    [setFolders],
+    [folders],
   );
 
   // 폴더 삭제
   const onDeleteFolder = async (itemId: ItemId) => {
     console.log('나', itemId);
     console.log('부모', findParentId(folders, itemId));
+    await deleteFolder(itemId).catch((e) => console.log(e));
   };
 
   // 폴더 이름,이모지 수정
@@ -175,5 +184,6 @@ export default function useFoldersHandle(): IFoldersHandle {
     onCreateCabinet,
     onDeleteFolder,
     onChangeFolderInfo,
+    isOpenFolderIsFullToast,
   };
 }
