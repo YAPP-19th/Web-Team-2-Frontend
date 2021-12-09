@@ -8,5 +8,5 @@ export const nicknameCheck = (nickName: string): Promise<AxiosResponse> => {
 };
 
 export const changeProfileImage = (image: FormData): Promise<AxiosResponse> => {
-  return Client.postAxios('api/v1/user/changeProfileImage', image);
+  return Client.postAxios('api/v1/user/changeProfileImage', { image });
 };

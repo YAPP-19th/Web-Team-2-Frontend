@@ -144,7 +144,7 @@ function ProfileEditForm(): ReactElement {
   const onImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files !== null) {
       const fd = new FormData();
-      fd.append('profile_img', e.target.files[0]);
+      fd.append('image', e.target.files[0]);
 
       try {
         const image = await changeProfileImage(fd);
