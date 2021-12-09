@@ -1,6 +1,7 @@
 import useLayerClose from 'hooks/common/useLayerClose';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import { profilePaletteColors } from 'utils/palette';
 
 interface ProfileColorPaletteProps {
   isOpen: boolean;
@@ -17,9 +18,24 @@ const PaletteWrapper = styled.div`
 const PaletteInner = styled.div`
   width: 144px;
   height: 80px;
+  padding: 12px;
   background-color: ${(props) => props.theme.color.white};
   border-radius: 4px;
   box-shadow: 0 2px 4px 0 ${(props) => props.theme.color.shadow2};
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;
+
+const ColorItem = styled.img`
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  cursor: pointer;
+  &:nth-child(4n) {
+    margin-right: 0px;
+  }
 `;
 
 function ProfileColorPalette({
@@ -30,7 +46,15 @@ function ProfileColorPalette({
 
   return (
     <PaletteWrapper ref={targetEl}>
-      <PaletteInner>ProfileColorPalette</PaletteInner>
+      <PaletteInner>
+        {profilePaletteColors.map((color) => (
+          <ColorItem
+            key={color.color}
+            src={color.image}
+            onClick={() => onToggleOpen()}
+          />
+        ))}
+      </PaletteInner>
     </PaletteWrapper>
   );
 }

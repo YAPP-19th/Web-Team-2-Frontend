@@ -1,5 +1,4 @@
 import { ColorizeIcon, X16BigIcon } from 'assets/icons';
-import SimpleButton from 'components/common/SimpleButton';
 import SmallBlackLabel from 'components/common/SmallBlackLabel';
 import useToggle from 'hooks/common/useToggle';
 import React, { ReactElement } from 'react';
@@ -59,8 +58,24 @@ const UploadRow = styled.div`
   }
 `;
 
-const UploadButton = styled(SimpleButton)`
+const UploadButton = styled.label`
+  width: 75px;
+  height: 31px;
+  border-radius: 6px;
+  line-height: 1.5;
+  font-size: 14px;
+  background-color: #ffffff;
+  color: #323232;
+  border: 1px solid #aaaaaa;
   margin-right: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+`;
+
+const FileInputStyled = styled.input`
+  display: none; ;
 `;
 
 const UploadPath = styled.span`
@@ -90,11 +105,14 @@ function ProfileEditForm(): ReactElement {
 
         <UploadContent>
           <UploadRow>
-            <UploadButton
-              label="파일 선택"
-              variant="secondary"
-              width="75px"
-              height="31px"
+            <UploadButton htmlFor="profile-image-upload">
+              파일 선택
+            </UploadButton>
+            <FileInputStyled
+              type="file"
+              id="profile-image-upload"
+              // eslint-disable-next-line no-console
+              onChange={() => console.log('여기다 썸네일 업로드 함수 작성')}
             />
             <UploadPath>선택된 파일 없음</UploadPath>
             <X16BigIcon />
