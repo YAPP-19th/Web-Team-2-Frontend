@@ -1,6 +1,6 @@
 import { getAccessToken } from 'api/authAPI';
 import ERROR_STATUS_CODE from 'api/errorStatus';
-import axios, { AxiosInstance, AxiosResponse } from 'axios';
+import axios, { AxiosInstance } from 'axios';
 import qs from 'qs';
 import { getTokens, setTokens } from 'utils/auth';
 
@@ -22,28 +22,23 @@ class HTTP {
     return this.axios.interceptors;
   }
 
-  async getAxios<T>(
-    url: string,
-    // requestParams: Partial<R>,
-  ): Promise<T> {
-    // const params = requestParams
-    const params = {};
-    const { data } = await this.axios.get(url, { params });
+  async getAxios<T>(url: string): Promise<T> {
+    const { data } = await this.axios.get(url);
     return data;
   }
 
-  async postAxios<T>(url: string, requestData: T): Promise<AxiosResponse> {
+  async postAxios<T, R>(url: string, requestData: T): Promise<R> {
     const { data } = await this.axios.post(url, requestData);
-    return data;
-  }
-
-  async patchAxios<T>(url: string, requestData: T): Promise<AxiosResponse> {
-    const { data } = await this.axios.patch(url, requestData);
     return data;
   }
 
   async deleteAxios<T>(url: string): Promise<T> {
     const { data } = await this.axios.delete(url);
+    return data;
+  }
+
+  async patchAxios<T, R>(url: string, requestData: T): Promise<R> {
+    const { data } = await this.axios.patch(url, requestData);
     return data;
   }
 }

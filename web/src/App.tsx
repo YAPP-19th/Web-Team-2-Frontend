@@ -2,6 +2,8 @@ import Footer from 'components/footer';
 import Header from 'components/header';
 import React, { ReactElement } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import { PublicRouting, Routing } from 'routes/Routing';
 import styled, { ThemeProvider } from 'styled-components';
 import { isLogin } from 'utils/auth';
@@ -23,18 +25,23 @@ const AppLayout = styled.div`
   flex-direction: column;
 `;
 
+const queryClient = new QueryClient();
+
 function App(): ReactElement {
   return (
-    <AppWrapper>
-      <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <GlobalStyle />
-        <ThemeProvider theme={theme}>
-          <Header />
-          <AppLayout>{isLogin() ? <Routing /> : <PublicRouting />}</AppLayout>
-          <Footer />
-        </ThemeProvider>
-      </ErrorBoundary>
-    </AppWrapper>
+    <QueryClientProvider client={queryClient}>
+      <AppWrapper>
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <GlobalStyle />
+          <ThemeProvider theme={theme}>
+            <Header />
+            <AppLayout>{isLogin() ? <Routing /> : <PublicRouting />}</AppLayout>
+            <Footer />
+          </ThemeProvider>
+        </ErrorBoundary>
+      </AppWrapper>
+      <ReactQueryDevtools />
+    </QueryClientProvider>
   );
 }
 

@@ -1,11 +1,13 @@
 import { ArrowLeft16Icon, ArrowSide16Icon } from 'assets/icons';
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 import PaginationComponent from 'react-js-pagination';
 import styled from 'styled-components';
 
 interface PaginationProps {
   totalElements: number;
   size: number;
+  page: number;
+  setPage: (page: number) => void;
 }
 
 const PaginationWrapper = styled.div`
@@ -55,13 +57,12 @@ const PaginationWrapper = styled.div`
   }
 `;
 
-function Pagination({ totalElements, size }: PaginationProps): ReactElement {
-  const [page, setPage] = useState(1);
-
-  const onPageChange = (pageNumber: number): void => {
-    setPage(pageNumber);
-  };
-
+function Pagination({
+  totalElements,
+  size,
+  page,
+  setPage,
+}: PaginationProps): ReactElement {
   return (
     <PaginationWrapper>
       <PaginationComponent
@@ -71,7 +72,7 @@ function Pagination({ totalElements, size }: PaginationProps): ReactElement {
         pageRangeDisplayed={5} // Paginator 내에서 보여줄 페이지의 범위
         prevPageText={<ArrowLeft16Icon />}
         nextPageText={<ArrowSide16Icon />}
-        onChange={onPageChange} // 페이지가 바뀔 때 핸들링해줄 함수
+        onChange={setPage} // 페이지가 바뀔 때 핸들링해줄 함수
         hideFirstLastPages
       />
     </PaginationWrapper>

@@ -1,21 +1,12 @@
+import { bookmarks } from 'models/bookmark';
 import { atom } from 'recoil';
 
-export interface IBookmark {
-  id: string;
-  title: string;
-  description: string;
-  nickname?: string;
-  folder?: string;
-  link: string;
-  remindTime: string | null;
-}
-
-export const bookmarksState = atom<IBookmark[]>({
+export const bookmarksState = atom<bookmarks.IBookmark[]>({
   key: 'bookmarksState',
   default: [],
 });
 
-export const selectedBookmarksState = atom<IBookmark[]>({
+export const selectedBookmarksState = atom<bookmarks.IBookmark[]>({
   key: 'selectedBookmarksState',
   default: [],
 });
