@@ -1,4 +1,6 @@
 import { ColorizeIcon, X16BigIcon } from 'assets/icons';
+import SimpleButton from 'components/common/SimpleButton';
+import SimpleInput from 'components/common/SimpleInput';
 import SmallBlackLabel from 'components/common/SmallBlackLabel';
 import useToggle from 'hooks/common/useToggle';
 import React, { ReactElement } from 'react';
@@ -62,6 +64,7 @@ const UploadButton = styled.label`
   width: 75px;
   height: 31px;
   border-radius: 6px;
+  font-weight: 400;
   line-height: 1.5;
   font-size: 14px;
   background-color: #ffffff;
@@ -83,7 +86,35 @@ const UploadPath = styled.span`
   margin-right: 4px;
 `;
 
-const NicknameFormRow = styled.div``;
+const NicknameFormRow = styled.div`
+  display: flex;
+  font-size: 14px;
+  height: 57px;
+  margin-bottom: 88px;
+`;
+
+const NicknameFormLabel = styled(SmallBlackLabel)`
+  padding-top: 8px;
+`;
+
+const NicknameInput = styled.div``;
+
+const NicknameCheckError = styled.p`
+  margin: 4px 0 0 0;
+  color: ${(props) => props.theme.color.error};
+  font-size: 12px;
+`;
+
+const ButtonGroup = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const SaveButton = styled(SimpleButton)`
+  font-weight: 300;
+  margin-left: 24px;
+`;
 
 function ProfileEditForm(): ReactElement {
   const [isPaletteOpen, onTogglePaletteOpen] = useToggle();
@@ -122,8 +153,32 @@ function ProfileEditForm(): ReactElement {
       </ImgFormRow>
 
       <NicknameFormRow>
-        <SmallBlackLabel width="297px" label="닉네임" />
+        <NicknameFormLabel width="297px" label="닉네임" />
+        <NicknameInput>
+          <SimpleInput
+            width="273px"
+            height="36px"
+            placeholder="닉네임을 입력해주세요"
+          />
+          <NicknameCheckError>이미 사용 중인 닉네임입니다.</NicknameCheckError>
+        </NicknameInput>
       </NicknameFormRow>
+
+      <ButtonGroup>
+        <SimpleButton
+          label="뒤로 가기"
+          width="174px"
+          height="40px"
+          variant="secondary"
+        />
+
+        <SaveButton
+          label="변경 내용 저장"
+          width="174px"
+          height="40px"
+          variant="primary"
+        />
+      </ButtonGroup>
     </ProfileEditFormWrapper>
   );
 }

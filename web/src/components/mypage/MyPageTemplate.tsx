@@ -14,9 +14,9 @@ const MyPageInner = styled.div`
   padding-top: 48px;
 `;
 
-function MyPageTemplate({ children }: MyPageProps): ReactElement {
+function MyPageTemplate({ children, ...rest }: MyPageProps): ReactElement {
   return (
-    <MyPageWrapper>
+    <MyPageWrapper {...rest}>
       <MyPageInner>{children}</MyPageInner>
     </MyPageWrapper>
   );
