@@ -10,8 +10,13 @@ import { More16Icon, PlusIcon } from 'assets/icons';
 import SmallModal from 'components/common/SmallModal';
 import useToggle from 'hooks/common/useToggle';
 import React, { ReactElement, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Path from 'routes/path';
 import { useRecoilState } from 'recoil';
-import { selectedFolderState } from 'recoil/atoms/folderState';
+import {
+  activeFolderState,
+  selectedFolderState,
+} from 'recoil/atoms/folderState';
 import styled from 'styled-components';
 import FolderItemIcon from './FolderItemIcon';
 import FolderMenuLayer from './FolderMenuLayer';
@@ -109,9 +114,11 @@ function FolderList({
   onChangeFolderInfo,
   isDrag,
 }: FolderListProps): ReactElement {
+  const navigate = useNavigate();
   // state
   const [selectedFolder, setSelectedFolder] =
     useRecoilState(selectedFolderState);
+  const [activeFolder, setActiveFolder] = useRecoilState(activeFolderState);
   const [selectedFolderName, setSelectedFolderName] = useState('');
   const [positionStyle, setPositionStyle] = useState<IPositionStyle>({
     top: 0,
@@ -145,6 +152,15 @@ function FolderList({
     });
   };
 
+  const onActiveFolder = (folderId: ItemId, name: string) => {
+    setActiveFolder({
+      ...activeFolder,
+      id: folderId,
+      name,
+    });
+    navigate(`${Path.MainPage}/${folderId}`);
+  };
+
   const renderFolderItem = ({
     item,
     onExpand,
@@ -170,7 +186,9 @@ function FolderList({
                 onExpand={onExpand}
               />
               {/* eslint-disable-next-line no-console */}
-              <FolderTitle onClick={() => console.log('폴더 클릭')}>
+              <FolderTitle
+                onClick={() => onActiveFolder(item.id, item.data.name)}
+              >
                 {item.data.name}
               </FolderTitle>
             </FolderLeftBox>
