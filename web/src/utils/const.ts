@@ -31,3 +31,5 @@ export enum BookmarkFilterTypes {
   FREQUENTLY_VISITED = 'clickCount,desc',
   LESS_VISITED = 'clickCount,asc',
 }
+
+export const MAX_FOLDERS_LENGTH = 8;
