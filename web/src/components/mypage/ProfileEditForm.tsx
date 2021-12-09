@@ -1,4 +1,4 @@
-import { nicknameCheck } from 'api/userAPI';
+import { changeProfileImage, nicknameCheck } from 'api/userAPI';
 import { ColorizeIcon, X16BigIcon } from 'assets/icons';
 import SimpleButton from 'components/common/SimpleButton';
 import SimpleInput from 'components/common/SimpleInput';
@@ -141,6 +141,20 @@ function ProfileEditForm(): ReactElement {
     await nicknameCheck(nickname).catch((err) => console.log(err)); // 여기다 에러처리
   };
 
+  const onImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files !== null) {
+      const fd = new FormData();
+      fd.append('profile_img', e.target.files[0]);
+
+      try {
+        const image = await changeProfileImage(fd);
+        console.log(image);
+      } catch (err) {
+        alert('이미지 업로드에 실패했습니다.');
+      }
+    }
+  };
+
   return (
     <ProfileEditFormWrapper>
       <ImgFormRow>
@@ -166,7 +180,7 @@ function ProfileEditForm(): ReactElement {
               type="file"
               id="profile-image-upload"
               // eslint-disable-next-line no-console
-              onChange={() => console.log('여기다 썸네일 업로드 함수 작성')}
+              onChange={onImageUpload}
             />
             <UploadPath>선택된 파일 없음</UploadPath>
             <X16BigIcon />
