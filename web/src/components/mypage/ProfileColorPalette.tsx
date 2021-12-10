@@ -6,7 +6,7 @@ import { profilePaletteColors } from 'utils/palette';
 interface ProfileColorPaletteProps {
   isOpen: boolean;
   onToggleOpen: () => void;
-  onChangeProfileImage: (newImg: string) => void;
+  onChangeProfileImage: (newImg: string, newFileName?: string) => void;
 }
 
 const PaletteWrapper = styled.div`
