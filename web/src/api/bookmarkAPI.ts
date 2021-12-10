@@ -1,3 +1,4 @@
+import { ItemId } from '@atlaskit/tree';
 import { Client } from 'api/http';
 import { bookmarks } from 'models/bookmark';
 
@@ -35,7 +36,7 @@ export const getSearchBookmark = (
   remind: boolean,
 ): Promise<bookmarks.IBookmarkGetResponse> => {
   return Client.getAxios<bookmarks.IBookmarkGetResponse>(
-    `api/v1/bookmark/search/${keyword}?page=${page}&size=${size}&sort=${sort}&remind=${remind}`,
+    `api/v1/page/${keyword}?page=${page}&size=${size}&sort=${sort}&remind=${remind}`,
   );
 };
 
@@ -54,6 +55,18 @@ export const getAllBookmark = (
 ): Promise<bookmarks.IBookmarkGetResponse> => {
   return Client.getAxios<bookmarks.IBookmarkGetResponse>(
     `api/v1/page/main?page=${page}&size=${size}&sort=${sort}&remind=${remind}`,
+  );
+};
+
+export const getFolderBookmark = (
+  folderId: ItemId,
+  page: number,
+  size: number,
+  sort: string,
+  remind: boolean,
+): Promise<bookmarks.IBookmarkGetResponse> => {
+  return Client.getAxios<bookmarks.IBookmarkGetResponse>(
+    `api/v1/page/${folderId}?page=${page}&size=${size}&sort=${sort}&remind=${remind}`,
   );
 };
 

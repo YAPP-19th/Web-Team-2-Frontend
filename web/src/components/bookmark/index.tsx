@@ -13,6 +13,7 @@ import SelectBox from './SelectBox';
 
 interface Props {
   path: string;
+  keyword?: string;
 }
 
 const BookmarkWrapper = styled.div``;
@@ -28,7 +29,7 @@ const BookmarkNav = styled.div`
 `;
 
 function Bookmark(props: Props): ReactElement {
-  const { path } = props;
+  const { path, keyword } = props;
   const [page, setPage] = useState<number>(1);
 
   const lastPath = path.split('/').pop() || 'main';
@@ -47,7 +48,7 @@ function Bookmark(props: Props): ReactElement {
     page,
     BookmarkFilterTypes.LATEST_ORDER,
     false,
-    'naver',
+    keyword,
   );
 
   return (
