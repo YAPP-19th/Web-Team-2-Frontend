@@ -4,7 +4,7 @@ import axios, { AxiosInstance } from 'axios';
 import qs from 'qs';
 import { getTokens, setTokens } from 'utils/auth';
 
-export const BASE_URL = 'http://34.64.107.177:8080';
+export const BASE_URL = 'https://dotoriham.duckdns.org';
 
 class HTTP {
   axios: AxiosInstance;
