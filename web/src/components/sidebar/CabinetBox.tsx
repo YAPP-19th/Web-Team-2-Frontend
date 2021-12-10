@@ -1,9 +1,11 @@
+import { TreeData } from '@atlaskit/tree';
 import { PlusIcon } from 'assets/icons';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
 interface CabinetBoxProps {
-  createCabinet: () => void;
+  folders: TreeData;
+  onCreateCabinet: (cabinetLength: number) => void;
 }
 
 const CabinetBoxWrapper = styled.div`
@@ -36,10 +38,15 @@ const Text = styled.div`
   line-height: 40px;
 `;
 
-function CabinetBox({ createCabinet }: CabinetBoxProps): ReactElement {
+function CabinetBox({
+  onCreateCabinet,
+  folders,
+}: CabinetBoxProps): ReactElement {
   return (
     <CabinetBoxWrapper>
-      <CabinetButton onClick={createCabinet}>
+      <CabinetButton
+        onClick={() => onCreateCabinet(folders.items.root.children.length)}
+      >
         <PlusIconStyled />
         <Text>보관함 추가</Text>
       </CabinetButton>
