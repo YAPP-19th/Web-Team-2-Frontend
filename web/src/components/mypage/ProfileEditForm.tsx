@@ -1,49 +1,18 @@
 /* eslint-disable no-alert */
 /* eslint-disable no-console */
 import { changeProfileImage, nicknameCheck } from 'api/userAPI';
-import SimpleButton from 'components/common/SimpleButton';
-import SimpleInput from 'components/common/SimpleInput';
-import SmallBlackLabel from 'components/common/SmallBlackLabel';
 import React, { ReactElement, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { userState } from 'recoil/atoms/userState';
 import styled from 'styled-components';
 import { DEFAULT_IMAGE_FILE_NAME } from 'utils/const';
+import ProfileEditButtonGroup from './ProfileEditButtonGroup';
 import ProfileImageForm from './ProfileImageForm';
+import ProfileNicknameForm from './ProfileNicknameForm';
 
 const ProfileEditFormWrapper = styled.div`
   padding-top: 24px;
   color: ${(props) => props.theme.color.grayDarkest};
-`;
-
-const NicknameFormRow = styled.div`
-  display: flex;
-  font-size: 14px;
-  height: 57px;
-  margin-bottom: 88px;
-`;
-
-const NicknameFormLabel = styled(SmallBlackLabel)`
-  padding-top: 8px;
-`;
-
-const NicknameInput = styled.div``;
-
-const NicknameCheckError = styled.p`
-  margin: 4px 0 0 0;
-  color: ${(props) => props.theme.color.error};
-  font-size: 12px;
-`;
-
-const ButtonGroup = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const SaveButton = styled(SimpleButton)`
-  font-weight: 300;
-  margin-left: 24px;
 `;
 
 function ProfileEditForm(): ReactElement {
@@ -53,7 +22,7 @@ function ProfileEditForm(): ReactElement {
     imageFileName: DEFAULT_IMAGE_FILE_NAME,
     nickname: user.name,
   });
-  const { profileImage, imageFileName, nickname } = form;
+  const { nickname } = form;
 
   // 닉네임 인풋 상태 변경
   const onChangeNickname = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -100,6 +69,11 @@ function ProfileEditForm(): ReactElement {
     onChangeProfileImage(user.imageUrl); // 초기 값으로 변경
   };
 
+  // 변경 내용 저장
+  const onEditSubmit = async () => {
+    console.log('변경 내용 저장 ');
+  };
+
   return (
     <ProfileEditFormWrapper>
       <ProfileImageForm
@@ -109,36 +83,13 @@ function ProfileEditForm(): ReactElement {
         onImageUpload={onImageUpload}
       />
 
-      <NicknameFormRow>
-        <NicknameFormLabel width="297px" label="닉네임" />
-        <NicknameInput>
-          <SimpleInput
-            width="273px"
-            height="36px"
-            placeholder="닉네임을 입력해주세요"
-            value={nickname}
-            onChange={onChangeNickname}
-            onBlur={onFocusOutNickname}
-          />
-          <NicknameCheckError>이미 사용 중인 닉네임입니다.</NicknameCheckError>
-        </NicknameInput>
-      </NicknameFormRow>
+      <ProfileNicknameForm
+        nickname={nickname}
+        onChangeNickname={onChangeNickname}
+        onFocusOutNickname={onFocusOutNickname}
+      />
 
-      <ButtonGroup>
-        <SimpleButton
-          label="뒤로 가기"
-          width="174px"
-          height="40px"
-          variant="secondary"
-        />
-
-        <SaveButton
-          label="변경 내용 저장"
-          width="174px"
-          height="40px"
-          variant="primary"
-        />
-      </ButtonGroup>
+      <ProfileEditButtonGroup onEditSubmit={onEditSubmit} />
     </ProfileEditFormWrapper>
   );
 }
