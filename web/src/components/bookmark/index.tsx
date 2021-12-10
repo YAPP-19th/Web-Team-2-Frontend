@@ -4,7 +4,7 @@ import {
 } from 'hooks/bookmark/useBookmarkQueries';
 import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
-import { BookmarkFilterTypes } from 'utils/const';
+import { BookmarkFilterTypes, BOOKMARK_KINDS } from 'utils/const';
 import BookmarkList from './BookmarkList';
 import BookmarkPath from './BookmarkPath';
 import FilterBox from './FilterBox';
@@ -35,6 +35,10 @@ function Bookmark(props: Props): ReactElement {
   const lastPath = path.split('/').pop() || 'main';
 
   const bookmarkCategory = getCategoryOfBookmark(lastPath);
+  const folderId =
+    bookmarkCategory.kind === BOOKMARK_KINDS.FOLDER_DOTORI.kind
+      ? lastPath
+      : undefined;
 
   /** NOTE
    *  Pagination 을 위한 useQueryHook
@@ -43,12 +47,14 @@ function Bookmark(props: Props): ReactElement {
    *  카테고리는 path를 통해 구분하고, search, filter, remind 등의 값은 recoil or props 로 가져옴
    * */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   const { data, isLoading, isFetching, isError } = useBookmarkQuery(
     bookmarkCategory,
     page,
     BookmarkFilterTypes.LATEST_ORDER,
     false,
     keyword,
+    folderId,
   );
 
   return (
