@@ -11,10 +11,9 @@ import Path from 'routes/path';
 
 const routingComponents = [
   { path: Path.MainPage, element: <MainPage /> },
-  { path: Path.FolderPage, element: <MainPage /> },
+  { path: Path.Home, element: <MainPage /> },
   { path: Path.MyPage, element: <MyPage /> },
   { path: Path.ProfileEditPage, element: <ProfileEditPage /> },
-  { path: Path.Home, element: <Navigate replace to={Path.MainPage} /> },
 ];
 
 const publicRoutingComponents = [

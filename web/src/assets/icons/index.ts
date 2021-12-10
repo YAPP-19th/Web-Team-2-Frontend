@@ -33,6 +33,7 @@ export { ReactComponent as UnselectedTrashIcon } from './Icons_trash_unselected.
 export { ReactComponent as X16Icon } from './Icons_x_16.svg';
 export { ReactComponent as X16BigIcon } from './Icons_x_16_big.svg';
 export { ReactComponent as X32Icon } from './Icons_x_32.svg';
+export { ReactComponent as AllFolderSelectedIcon } from './List_selected_16.svg';
 export { ReactComponent as AllFolderIcon } from './List_unselected_16.svg';
 export { ReactComponent as Logo32Icon } from './Logo_32.svg';
 export { ReactComponent as LogoGreenIcon } from './Logo_green.svg';
