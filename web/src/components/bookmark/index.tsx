@@ -30,7 +30,7 @@ const BookmarkNav = styled.div`
 
 function Bookmark(props: Props): ReactElement {
   const { path, keyword } = props;
-  const [page, setPage] = useState<number>(1);
+  const [page, setPage] = useState<number>(0);
 
   const lastPath = path.split('/').pop() || 'main';
 
@@ -52,7 +52,7 @@ function Bookmark(props: Props): ReactElement {
     bookmarkCategory,
     page,
     BookmarkFilterTypes.LATEST_ORDER,
-    false,
+    true,
     keyword,
     folderId,
   );
