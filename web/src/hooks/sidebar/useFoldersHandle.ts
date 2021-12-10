@@ -129,6 +129,21 @@ export default function useFoldersHandle(): IFoldersHandle {
     );
   };
 
+  // 현재 폴더 리스트에서 해당 폴더 삭제, 부모 폴더의 children 에서 삭제
+  const deleteDataInFolders = (folderId: ItemId) => {
+    setFolders((prev) =>
+      produce(prev, (draft) => {
+        const newObj = draft;
+        const parentId = findParentId(newObj, folderId);
+        if (!parentId) return;
+        newObj.items[parentId].children = newObj.items[
+          parentId
+        ].children.filter((id) => id !== folderId);
+        delete newObj.items[folderId];
+      }),
+    );
+  };
+
   //  폴더 생성 API 작동하는 action 함수
   const onCreateFolderAction = async (parentId: ItemId, folderName: string) => {
     try {
@@ -166,9 +181,12 @@ export default function useFoldersHandle(): IFoldersHandle {
 
   // 폴더 삭제
   const onDeleteFolder = async (itemId: ItemId) => {
-    console.log('나', itemId);
-    console.log('부모', findParentId(folders, itemId));
-    await deleteFolder(itemId).catch((e) => console.log(e));
+    try {
+      await deleteFolder(itemId);
+      deleteDataInFolders(itemId);
+    } catch (e) {
+      console.log('폴더 삭제에 실패했습니다');
+    }
   };
 
   // 폴더 이름,이모지 수정
@@ -182,7 +200,7 @@ export default function useFoldersHandle(): IFoldersHandle {
       await updateFolderEmoji(itemId, emoji);
       setFolders(mutateTree(folders, itemId, { data: { name, emoji } }));
     } catch (e) {
-      console.log(e);
+      console.log('폴더 이름, 이모지 수정에 실패했습니다');
     }
   };
 

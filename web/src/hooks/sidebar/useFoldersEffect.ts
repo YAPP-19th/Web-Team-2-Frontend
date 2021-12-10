@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { TreeData } from '@atlaskit/tree';
 import { getFolders } from 'api/folderAPI';
 import { useEffect, useState } from 'react';
@@ -18,10 +19,13 @@ export default function useFoldersEffect(): {
   });
   useEffect(() => {
     const getFolderData = async () => {
-      const data = await getFolders();
-      // eslint-disable-next-line no-console
-      console.log(data);
-      setFolders(data);
+      try {
+        const data = await getFolders();
+        console.log(data);
+        setFolders(data);
+      } catch (e) {
+        console.log(e);
+      }
     };
     getFolderData();
   }, []);

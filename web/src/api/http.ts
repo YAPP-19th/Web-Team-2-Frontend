@@ -4,7 +4,7 @@ import axios, { AxiosInstance } from 'axios';
 import qs from 'qs';
 import { getTokens, setTokens } from 'utils/auth';
 
-export const BASE_URL = 'http://3.38.152.22:8081';
+export const BASE_URL = 'http://34.64.107.177:8080';
 
 class HTTP {
   axios: AxiosInstance;
