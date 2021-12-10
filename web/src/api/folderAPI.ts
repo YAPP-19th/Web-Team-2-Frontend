@@ -3,12 +3,12 @@ import { Client } from 'api/http';
 import { AxiosResponse } from 'axios';
 
 // 폴더 리스트 조회
-export const getFolders = async (): Promise<TreeData> => {
+export const getFolders = (): Promise<TreeData> => {
   return Client.getAxios(`/api/v1/folder`);
 };
 
 // 폴더 추가
-export const createFolder = async (
+export const createFolder = (
   parentId: ItemId,
   name: string,
   index: number,
@@ -22,7 +22,7 @@ export const createFolder = async (
 };
 
 // 폴더 이동
-export const moveFolder = async (
+export const moveFolder = (
   folderId: ItemId,
   prevParentId: ItemId,
   nextParentId: ItemId,
@@ -39,7 +39,7 @@ export const moveFolder = async (
 };
 
 // 폴더 이름 수정
-export const renameFolder = async (
+export const renameFolder = (
   folderId: ItemId,
   name: string,
 ): Promise<AxiosResponse> => {
@@ -47,7 +47,7 @@ export const renameFolder = async (
 };
 
 // 폴더 이모지 수정
-export const updateFolderEmoji = async (
+export const updateFolderEmoji = (
   folderId: ItemId,
   emoji: string,
 ): Promise<AxiosResponse> => {
@@ -55,8 +55,6 @@ export const updateFolderEmoji = async (
 };
 
 // 폴더 삭제
-export const deleteFolder = async (
-  folderId: ItemId,
-): Promise<AxiosResponse> => {
+export const deleteFolder = (folderId: ItemId): Promise<AxiosResponse> => {
   return Client.deleteAxios(`/api/v1/folder/${folderId}`);
 };
