@@ -33,3 +33,5 @@ export enum BookmarkFilterTypes {
 }
 
 export const DEFAULT_IMAGE_FILE_NAME = '선택된 파일 없음';
+
+export const MAX_FOLDERS_LENGTH = 8;

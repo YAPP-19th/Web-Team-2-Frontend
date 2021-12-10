@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import {
   ItemId,
   moveItemOnTree,
@@ -6,91 +7,202 @@ import {
   TreeDestinationPosition,
   TreeSourcePosition,
 } from '@atlaskit/tree';
+import {
+  createFolder,
+  deleteFolder,
+  moveFolder,
+  renameFolder,
+  updateFolderEmoji,
+} from 'api/folderAPI';
+import useToasts from 'hooks/common/useToasts';
 import produce from 'immer';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
+import { findChildrenLength, findParentId } from 'utils/atlaskitTreeFinder';
+import { MAX_FOLDERS_LENGTH } from 'utils/const';
 import useFoldersEffect from './useFoldersEffect';
 
-interface FoldersHandleType {
+export interface IFoldersHandle {
   folders: TreeData;
   onExpandFolder: (itemId: ItemId) => void;
   onCollapseFolder: (itemId: ItemId) => void;
   onDragStartFolder: (itemId: ItemId) => void;
   onDragEndFolder: (
     source: TreeSourcePosition,
-    destination?: TreeDestinationPosition | undefined,
+    destination?: TreeDestinationPosition,
   ) => void;
-  createFolder: (parentId: ItemId) => void;
-  createCabinet: () => void;
+  onCreateFolder: (parentId: ItemId) => void;
+  onCreateCabinet: (cabinetLength: number) => void;
+  onDeleteFolder: (itemId: ItemId) => void;
+  onChangeFolderInfo: (itemId: ItemId, name: string, emoji: string) => void;
+  isOpenFolderIsFullToast: boolean;
 }
 
-export default function useFoldersHandle(): FoldersHandleType {
-  const { folders, setFolders } = useFoldersEffect();
+interface IFolderItem {
+  id: ItemId;
+  children: ItemId[];
+  data: {
+    name: string;
+  };
+}
 
+export default function useFoldersHandle(): IFoldersHandle {
+  const { folders, setFolders } = useFoldersEffect();
+  const [moveFolderId, setMoveFolderId] = useState<ItemId | null>(null);
+  const [isOpenFolderIsFullToast, onFolderIsFullToast] = useToasts();
+
+  // 폴더 열기
   const onExpandFolder = (itemId: ItemId) => {
     setFolders(mutateTree(folders, itemId, { isExpanded: true }));
   };
 
+  // 폴더 접기
   const onCollapseFolder = (itemId: ItemId) => {
     setFolders(mutateTree(folders, itemId, { isExpanded: false }));
   };
 
+  // 드래그앤 드롭 시작
   const onDragStartFolder = (itemId: ItemId) => {
-    // eslint-disable-next-line no-console
     console.log(itemId);
+    setMoveFolderId(itemId);
   };
 
-  const onDragEndFolder = (
+  // 드래그앤 드롭 종료
+  const onDragEndFolder = async (
     source: TreeSourcePosition,
     destination?: TreeDestinationPosition,
   ) => {
     if (!destination) return;
+    if (!moveFolderId) return;
     const newTree = moveItemOnTree(folders, source, destination);
-    // console.log('새로운 부모Id', destination);
-    // console.log('기존 부모Id', source);
+
+    const prevParentId = source.parentId;
+    const nextParentId = destination.parentId;
+    const prevIndex = source.index;
+    const nextIndex =
+      destination.index === undefined
+        ? findChildrenLength(folders, nextParentId)
+        : destination.index;
+
+    console.log('나', moveFolderId);
+    console.log('이전: ', prevParentId, prevIndex);
+    console.log('다음: ', nextParentId, nextIndex);
     setFolders(newTree);
+    try {
+      await moveFolder(
+        moveFolderId,
+        prevParentId,
+        nextParentId,
+        prevIndex,
+        nextIndex,
+      );
+    } catch (e) {
+      console.log(e);
+    }
   };
 
-  const createFolder = useCallback(
-    (parentId: ItemId) => {
-      const newFolderId = Math.random().toString();
-      const newFolder = {
-        id: newFolderId,
-        children: [],
-        data: {
-          title: '제목없음',
-        },
-      };
-
-      setFolders((prev) =>
-        produce(prev, (draft) => {
-          const newObj = draft;
-          newObj.items[newFolderId] = newFolder;
-          newObj.items[parentId].children.push(newFolderId);
-          newObj.items[parentId].isExpanded = true;
-        }),
-      );
-    },
-    [setFolders],
-  );
-
-  const createCabinet = useCallback(() => {
-    const newCabinetId = Math.random().toString();
-    const newCabinet = {
-      id: newCabinetId,
+  // 새로운 폴더 데이터 생성
+  const createNewFolderData = (folderId: ItemId, name: string) => {
+    return {
+      id: folderId,
       children: [],
       data: {
-        title: '임시보관함',
+        name,
       },
     };
+  };
 
+  // 새로운 폴더 데이터를 현재 폴더 리스트에 추가
+  const addNewDataInFolders = (
+    folderId: ItemId,
+    parentId: ItemId | 'root',
+    newData: IFolderItem,
+  ) => {
     setFolders((prev) =>
       produce(prev, (draft) => {
         const newObj = draft;
-        newObj.items[newCabinetId] = newCabinet;
-        newObj.items.userId.children.push(newCabinetId); // userId 부분은 나중에 login 구현되면 실제 유저 아이디 넣는곳임 newObj.items[userId].children.push(newCabinetId);
+        newObj.items[folderId] = newData;
+        newObj.items[parentId].children.push(folderId);
+        if (parentId !== 'root') {
+          newObj.items[parentId].isExpanded = true;
+        }
       }),
     );
-  }, []);
+  };
+
+  // 현재 폴더 리스트에서 해당 폴더 삭제, 부모 폴더의 children 에서 삭제
+  const deleteDataInFolders = (folderId: ItemId) => {
+    setFolders((prev) =>
+      produce(prev, (draft) => {
+        const newObj = draft;
+        const parentId = findParentId(newObj, folderId);
+        if (!parentId) return;
+        newObj.items[parentId].children = newObj.items[
+          parentId
+        ].children.filter((id) => id !== folderId);
+        delete newObj.items[folderId];
+      }),
+    );
+  };
+
+  //  폴더 생성 API 작동하는 action 함수
+  const onCreateFolderAction = async (parentId: ItemId, folderName: string) => {
+    try {
+      const { folderId } = await createFolder(
+        parentId === 'root' ? 0 : parentId,
+        folderName,
+        0,
+      );
+      const newFolder = createNewFolderData(folderId, folderName);
+      addNewDataInFolders(folderId, parentId, newFolder);
+    } catch (e) {
+      console.log('폴더 생성에 실패했습니다.');
+    }
+  };
+
+  // 폴더 생성 (폴더 길이가 8개 이상되면 토스트 알림)
+  const onCreateFolder = useCallback(
+    async (parentId: ItemId) => {
+      if (findChildrenLength(folders, parentId) >= MAX_FOLDERS_LENGTH) {
+        onFolderIsFullToast();
+        return;
+      }
+      await onCreateFolderAction(parentId, '제목없음');
+    },
+    [folders],
+  );
+
+  // 보관함 생성
+  const onCreateCabinet = useCallback(
+    async (cabinetLength: number) => {
+      await onCreateFolderAction('root', `보관함${cabinetLength + 1}`);
+    },
+    [folders],
+  );
+
+  // 폴더 삭제
+  const onDeleteFolder = async (itemId: ItemId) => {
+    try {
+      await deleteFolder(itemId);
+      deleteDataInFolders(itemId);
+    } catch (e) {
+      console.log('폴더 삭제에 실패했습니다');
+    }
+  };
+
+  // 폴더 이름,이모지 수정
+  const onChangeFolderInfo = async (
+    itemId: ItemId,
+    name: string,
+    emoji: string,
+  ) => {
+    try {
+      await renameFolder(itemId, name);
+      await updateFolderEmoji(itemId, emoji);
+      setFolders(mutateTree(folders, itemId, { data: { name, emoji } }));
+    } catch (e) {
+      console.log('폴더 이름, 이모지 수정에 실패했습니다');
+    }
+  };
 
   return {
     folders,
@@ -98,7 +210,10 @@ export default function useFoldersHandle(): FoldersHandleType {
     onCollapseFolder,
     onDragStartFolder,
     onDragEndFolder,
-    createFolder,
-    createCabinet,
+    onCreateFolder,
+    onCreateCabinet,
+    onDeleteFolder,
+    onChangeFolderInfo,
+    isOpenFolderIsFullToast,
   };
 }
