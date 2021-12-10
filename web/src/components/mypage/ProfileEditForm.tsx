@@ -16,6 +16,7 @@ const ProfileEditFormWrapper = styled.div`
 `;
 
 function ProfileEditForm(): ReactElement {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [user, setUser] = useRecoilState(userState);
   const [form, setForm] = useState({
     profileImage: user.imageUrl,

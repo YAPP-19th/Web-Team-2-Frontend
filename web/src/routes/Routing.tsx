@@ -10,7 +10,6 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import Path from 'routes/path';
 
 const routingComponents = [
-  { path: '*', element: <div>Not Found</div> }, // @TODO(dohyun) Not Found 컴포넌트 개발 예정
   { path: Path.MainPage, element: <MainPage /> },
   { path: Path.FolderPage, element: <MainPage /> },
   { path: Path.MyPage, element: <MyPage /> },
