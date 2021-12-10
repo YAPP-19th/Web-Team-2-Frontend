@@ -23,7 +23,7 @@ const publicRoutingComponents = [
   { path: Path.RegisterPage, element: <RegisterPage /> },
   { path: Path.ResetPasswordPage, element: <ResetPasswordPage /> },
   { path: Path.SendPasswordPage, element: <SendPasswordPage /> },
-  { path: Path.Home, element: <Navigate replace to={Path.LoginPage} /> },
+  { path: Path.HomeAll, element: <Navigate replace to={Path.LoginPage} /> },
 ];
 
 export function Routing(): ReactElement {
