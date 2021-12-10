@@ -35,4 +35,16 @@ export namespace auth {
     extends Omit<IAuthUserInfo, 'accessToken' | 'refreshToken'> {
     socialType: string;
   }
+
+  export interface IUserRemindInfo {
+    remindCycle: string;
+    remindToggle: boolean;
+  }
+
+  export interface ILoginResponse extends IAuthToken, IUserRemindInfo {
+    email: string;
+    name: string;
+    image: string;
+    socialType: string;
+  }
 }

@@ -7,8 +7,8 @@ import {
 } from 'react-google-login';
 import { useNavigate } from 'react-router-dom';
 import Path from 'routes/path';
+import { setLoginData } from 'utils/auth';
 import { GOOGLE_CLIENT_ID } from 'utils/config';
-import { LOCAL_STORAGE_KEY } from 'utils/const';
 
 interface GoogleLoginTypes {
   onGoogleLogin: (
@@ -21,34 +21,18 @@ export default function useGoogleLogin(): GoogleLoginTypes {
   const navigate = useNavigate();
 
   const onGoogleLogin = useCallback(async (response) => {
-    const {
-      profileObj: { email, imageUrl, name },
-    } = response;
+    const { profileObj } = response;
 
     const request: auth.ILoginRequest = {
-      email,
-      imageUrl,
-      name,
-      socialType: 'google',
+      email: profileObj.email,
+      imageUrl: profileObj.imageUrl,
+      name: profileObj.name,
+      socialType: profileObj.socialType,
     };
 
     try {
-      const {
-        data: { accessToken, refreshToken },
-      } = await login(request);
-
-      const userInfo: auth.IAuthUserInfo = {
-        accessToken,
-        refreshToken,
-        email,
-        name,
-        imageUrl,
-      };
-
-      localStorage.setItem(
-        LOCAL_STORAGE_KEY.USER_INFO,
-        JSON.stringify(userInfo),
-      );
+      const { data } = await login(request);
+      setLoginData(data);
 
       window.location.href = Path.MainPage;
     } catch (error) {
