@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable no-console */
 import { changeProfileImage, nicknameCheck } from 'api/userAPI';
 import { ColorizeIcon, X16BigIcon } from 'assets/icons';
@@ -82,6 +83,10 @@ const UploadButton = styled.label`
   cursor: pointer;
 `;
 
+const DeleteButton = styled(X16BigIcon)`
+  cursor: pointer;
+`;
+
 const FileInputStyled = styled.input`
   display: none; ;
 `;
@@ -152,6 +157,11 @@ function ProfileEditForm(): ReactElement {
   // 프로필 이미지 업로드
   const onImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files !== null) {
+      if (e.target.files[0].size > 10000000) {
+        alert('파일 용량이 10MB를 초과하였습니다.');
+        return;
+      }
+
       const fd = new FormData();
       fd.append('image', e.target.files[0]);
       console.log(e.target.files[0]);
@@ -161,9 +171,14 @@ function ProfileEditForm(): ReactElement {
         onChangeProfileImage(data, e.target.files[0].name);
         console.log(data);
       } catch (err) {
-        console.log('이미지 업로드에 실패했습니다.');
+        alert('이미지 업로드에 실패했습니다.');
       }
     }
+  };
+
+  // 업로드 한 프로필 이미지 제거
+  const onDeleteImage = async () => {
+    onChangeProfileImage(user.imageUrl); // 초기 값으로 변경
   };
 
   return (
@@ -194,7 +209,7 @@ function ProfileEditForm(): ReactElement {
               onChange={onImageUpload}
             />
             <UploadFileName>{imageFileName}</UploadFileName>
-            <X16BigIcon />
+            <DeleteButton onClick={onDeleteImage} />
           </UploadRow>
           <UploadRow>최대 10MB의 이미지 파일</UploadRow>
         </UploadContent>
