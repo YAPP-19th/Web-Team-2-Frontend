@@ -1,8 +1,12 @@
+import { patchRemindToggle, setRemindCycle } from 'api/remindAPI';
 import ChipButton from 'components/common/ChipButton';
 import SmallBlackLabel from 'components/common/SmallBlackLabel';
 import ToggleIconButton from 'components/common/ToggleIconButton';
 import useToggle from 'hooks/common/useToggle';
 import React, { ReactElement, useState } from 'react';
+import { useMutation } from 'react-query';
+import { useRecoilValue } from 'recoil';
+import { userState } from 'recoil/atoms/userState';
 import styled from 'styled-components';
 import MyPageHead from './MyPageHead';
 
@@ -30,13 +34,33 @@ const RemindSettingButtonGroup = styled.div`
 `;
 
 function Configuration(): ReactElement {
-  const remindCycle = ['3일', '7일', '14일', '30일'];
-  const [isRemind, onToggleRemind] = useToggle(true);
-  const [selectedCycle, setSelectedCycle] = useState('7일'); // @TODO(dohyun) 나중에 유저데이터에서 유저가 설정한 리마인드 주기를 기본값으로 설정
+  const userInfo = useRecoilValue(userState);
+  const remindCycle = ['3', '7', '14', '30'];
+  const [isRemind, onToggleRemind] = useToggle(userInfo.remindToggle);
+  const [selectedCycle, setSelectedCycle] = useState(userInfo.remindCycle);
 
   const onChangeSelectedCycle = (cycle: string) => {
     setSelectedCycle(cycle);
   };
+
+  const { mutate: mutateRemindToggleChange } = useMutation(
+    () => patchRemindToggle({ remindToggle: !isRemind }),
+    {
+      onSuccess: () => {
+        // @TODO(jekoo): data callback 받아서 localstorage, userState 수정
+        onToggleRemind();
+      },
+    },
+  );
+
+  const { mutate: mutateRemindCycleChange } = useMutation(
+    (cycle: string) => setRemindCycle({ remindCycle: cycle }),
+    {
+      onSuccess: () => {
+        // @TODO(jekoo): data callback 받아서 localstorage, userState 수정
+      },
+    },
+  );
 
   return (
     <>
@@ -45,7 +69,10 @@ function Configuration(): ReactElement {
       <ConfigurationWrapper>
         <RemindToggleBlock>
           <SmallBlackLabel width="297px" label="리마인드 알람 받기" />
-          <ToggleIconButton isToggled={isRemind} onClick={onToggleRemind} />
+          <ToggleIconButton
+            isToggled={isRemind}
+            onClick={() => mutateRemindToggleChange()}
+          />
         </RemindToggleBlock>
 
         <RemindSettingBlock>
@@ -54,10 +81,13 @@ function Configuration(): ReactElement {
           <RemindSettingButtonGroup>
             {remindCycle.map((cycle) => (
               <ChipButton
-                label={cycle}
+                label={`${cycle}일`}
                 variant={cycle === selectedCycle ? 'primary' : 'secondary'}
                 key={cycle}
-                onClick={() => onChangeSelectedCycle(cycle)}
+                onClick={() => {
+                  mutateRemindCycleChange(cycle);
+                  onChangeSelectedCycle(cycle);
+                }}
               />
             ))}
           </RemindSettingButtonGroup>

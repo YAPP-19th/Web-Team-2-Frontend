@@ -27,7 +27,7 @@ export default function useGoogleLogin(): GoogleLoginTypes {
       email: profileObj.email,
       imageUrl: profileObj.imageUrl,
       name: profileObj.name,
-      socialType: profileObj.socialType,
+      socialType: 'google',
     };
 
     try {
