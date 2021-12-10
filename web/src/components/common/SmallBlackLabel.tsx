@@ -12,8 +12,16 @@ const SmallBlackLabelStyled = styled.label<{ width?: string }>`
   ${(props) => props.width && `width: ${props.width};`}
 `;
 
-function SmallBlackLabel({ label, width }: SmallBlackLabelProps): ReactElement {
-  return <SmallBlackLabelStyled width={width}>{label}</SmallBlackLabelStyled>;
+function SmallBlackLabel({
+  label,
+  width,
+  ...rest
+}: SmallBlackLabelProps): ReactElement {
+  return (
+    <SmallBlackLabelStyled width={width} {...rest}>
+      {label}
+    </SmallBlackLabelStyled>
+  );
 }
 
 export default SmallBlackLabel;

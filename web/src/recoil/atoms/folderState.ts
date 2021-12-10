@@ -1,6 +1,12 @@
 import { ItemId, TreeData } from '@atlaskit/tree';
 import { atom } from 'recoil';
 
+export interface ISelectedFolder {
+  id: ItemId;
+  name: string;
+  emoji: string;
+}
+
 const initialState: TreeData = {
   rootId: '',
   items: {
@@ -17,7 +23,11 @@ export const folderState = atom<TreeData>({
   default: initialState,
 });
 
-export const selectedFolderState = atom<ItemId>({
+export const selectedFolderState = atom<ISelectedFolder>({
   key: 'selectedFolderState',
-  default: '',
+  default: {
+    id: '',
+    name: '',
+    emoji: '',
+  },
 });
