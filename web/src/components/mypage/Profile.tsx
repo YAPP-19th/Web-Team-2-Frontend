@@ -1,5 +1,8 @@
 import SimpleButton from 'components/common/SimpleButton';
 import React, { ReactElement } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { IUserInfo } from 'recoil/atoms/userState';
+import Path from 'routes/path';
 import styled from 'styled-components';
 import MyPageHead from './MyPageHead';
 
@@ -37,16 +40,19 @@ const ProfileNickname = styled.span`
 
 const ProfileRightBlock = styled.div``;
 
-function Profile(): ReactElement {
+function Profile({ user }: { user: IUserInfo }): ReactElement {
+  const { imageUrl, name } = user;
+  const navigate = useNavigate();
+
   return (
     <>
       <MyPageHead headText="프로필" />
       <ProfileWrapper>
         <ProfileLeftBlock>
           <ProfileImageBox>
-            <ProfileImage />
+            <ProfileImage src={imageUrl} />
           </ProfileImageBox>
-          <ProfileNickname>닉네임</ProfileNickname>
+          <ProfileNickname>{name}</ProfileNickname>
         </ProfileLeftBlock>
 
         <ProfileRightBlock>
@@ -55,6 +61,7 @@ function Profile(): ReactElement {
             variant="secondary"
             width="174px"
             height="36px"
+            onClick={() => navigate(Path.ProfileEditPage)}
           />
         </ProfileRightBlock>
       </ProfileWrapper>

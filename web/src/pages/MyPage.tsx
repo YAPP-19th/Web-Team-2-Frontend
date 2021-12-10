@@ -1,27 +1,20 @@
 import AccountSetting from 'components/mypage/AccountSetting';
 import Configuration from 'components/mypage/Configuration';
+import MyPageTemplate from 'components/mypage/MyPageTemplate';
 import Profile from 'components/mypage/Profile';
 import React, { ReactElement } from 'react';
-import styled from 'styled-components';
-
-const MyPageWrapper = styled.div`
-  width: 667px;
-  margin: 0 auto;
-`;
-
-const MyPageInner = styled.div`
-  padding-top: 48px;
-`;
+import { useRecoilValue } from 'recoil';
+import { userState } from 'recoil/atoms/userState';
 
 function MyPage(): ReactElement {
+  const user = useRecoilValue(userState);
+
   return (
-    <MyPageWrapper>
-      <MyPageInner>
-        <Profile />
-        <Configuration />
-        <AccountSetting />
-      </MyPageInner>
-    </MyPageWrapper>
+    <MyPageTemplate>
+      <Profile user={user} />
+      <Configuration />
+      <AccountSetting email={user.email} />
+    </MyPageTemplate>
   );
 }
 

@@ -23,6 +23,7 @@ declare module 'styled-components' {
       link0: string;
       shadow0: string;
       shadow1: string;
+      shadow2: string;
       hover0: string;
     };
   }
