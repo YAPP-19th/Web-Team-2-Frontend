@@ -9,14 +9,11 @@ import Tree, {
 import { More16Icon, PlusIcon } from 'assets/icons';
 import SmallModal from 'components/common/SmallModal';
 import useToggle from 'hooks/common/useToggle';
-import React, { ReactElement, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { ReactElement, useMemo, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import Path from 'routes/path';
 import { useRecoilState } from 'recoil';
-import {
-  activeFolderState,
-  selectedFolderState,
-} from 'recoil/atoms/folderState';
+import { selectedFolderState } from 'recoil/atoms/folderState';
 import styled, { css } from 'styled-components';
 import FolderItemIcon from './FolderItemIcon';
 import FolderMenuLayer from './FolderMenuLayer';
@@ -121,11 +118,14 @@ function FolderList({
   onChangeFolderInfo,
   isDrag,
 }: FolderListProps): ReactElement {
+  // route
   const navigate = useNavigate();
+  const params = useParams();
+  const parmasFolderId = useMemo(() => params.folderId, [params]);
+
   // state
   const [selectedFolder, setSelectedFolder] =
     useRecoilState(selectedFolderState);
-  const [activeFolder, setActiveFolder] = useRecoilState(activeFolderState);
   const [positionStyle, setPositionStyle] = useState<IPositionStyle>({
     top: 0,
     left: 0,
@@ -162,15 +162,11 @@ function FolderList({
   };
 
   // 폴더 클릭시 해당 폴더 활성화 후 라우트로 이동
-  const onActiveFolder = (folderId: ItemId, name: string) => {
-    setActiveFolder({
-      ...activeFolder,
-      id: folderId,
-      name,
-    });
+  const onActiveFolder = (folderId: ItemId) => {
     navigate(`${Path.MainPage}/${folderId}`);
   };
 
+  // 각 폴더 아이템
   const renderFolderItem = ({
     item,
     onExpand,
@@ -197,8 +193,8 @@ function FolderList({
               />
               {/* eslint-disable-next-line no-console */}
               <FolderTitle
-                active={activeFolder.id === item.id}
-                onClick={() => onActiveFolder(item.id, item.data.name)}
+                active={Number(parmasFolderId) === item.id}
+                onClick={() => onActiveFolder(item.id)}
               >
                 {item.data.name}
               </FolderTitle>
