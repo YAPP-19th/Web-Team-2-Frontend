@@ -71,9 +71,9 @@ const UploadButton = styled.label`
   font-weight: 400;
   line-height: 1.5;
   font-size: 14px;
-  background-color: #ffffff;
+  background-color: ${(props) => props.theme.color.white};
   color: #323232;
-  border: 1px solid #aaaaaa;
+  border: 1px solid ${(props) => props.theme.color.gray};
   margin-right: 16px;
   display: flex;
   align-items: center;
