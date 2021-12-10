@@ -2,6 +2,7 @@ enum Path {
   Home = '/',
   MainPage = '/:folderId/*',
   TrashPage = '/trash',
+  SearchPage = '/search',
   MyPage = '/mypage',
   ProfileEditPage = '/mypage/profile',
   LoginPage = '/login',
