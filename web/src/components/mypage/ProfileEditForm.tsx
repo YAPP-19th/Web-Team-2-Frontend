@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { changeProfileImage, nicknameCheck } from 'api/userAPI';
 import { ColorizeIcon, X16BigIcon } from 'assets/icons';
 import SimpleButton from 'components/common/SimpleButton';
@@ -8,6 +9,7 @@ import React, { ReactElement, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { userState } from 'recoil/atoms/userState';
 import styled from 'styled-components';
+import { DEFAULT_IMAGE_FILE_NAME } from 'utils/const';
 import ProfileColorPalette from './ProfileColorPalette';
 
 const ProfileEditFormWrapper = styled.div`
@@ -84,7 +86,7 @@ const FileInputStyled = styled.input`
   display: none; ;
 `;
 
-const UploadPath = styled.span`
+const UploadFileName = styled.span`
   line-height: 1.5;
   margin-right: 4px;
 `;
@@ -124,23 +126,30 @@ function ProfileEditForm(): ReactElement {
   const [user, setUser] = useRecoilState(userState);
   const [form, setForm] = useState({
     profileImage: user.imageUrl,
+    imageFileName: DEFAULT_IMAGE_FILE_NAME,
     nickname: user.name,
   });
-  const { profileImage, nickname } = form;
+  const { profileImage, imageFileName, nickname } = form;
 
+  // 닉네임 인풋 상태 변경
   const onChangeNickname = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, nickname: e.target.value });
   };
 
-  const onChangeProfileImage = (newImg: string) => {
-    setForm({ ...form, profileImage: newImg });
+  // 프로필 이미지, 이름 상태 변경
+  const onChangeProfileImage = (
+    newImg: string,
+    newFileName: string | undefined = DEFAULT_IMAGE_FILE_NAME,
+  ) => {
+    setForm({ ...form, profileImage: newImg, imageFileName: newFileName });
   };
 
+  // 닉네임 인풋에서 초점을 벗어났을 시에 액션
   const onFocusOutNickname = async () => {
-    // eslint-disable-next-line no-console
-    await nicknameCheck(nickname).catch((err) => console.log(err)); // 여기다 에러처리
+    await nicknameCheck(nickname).catch((err) => console.log(err)); // TODO(dohyun) 여기다 에러처리
   };
 
+  // 프로필 이미지 업로드
   const onImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files !== null) {
       const fd = new FormData();
@@ -148,10 +157,11 @@ function ProfileEditForm(): ReactElement {
       console.log(e.target.files[0]);
 
       try {
-        const image = await changeProfileImage(fd);
-        console.log(image);
+        const { data } = await changeProfileImage(fd);
+        onChangeProfileImage(data, e.target.files[0].name);
+        console.log(data);
       } catch (err) {
-        alert('이미지 업로드에 실패했습니다.');
+        console.log('이미지 업로드에 실패했습니다.');
       }
     }
   };
@@ -183,7 +193,7 @@ function ProfileEditForm(): ReactElement {
               // eslint-disable-next-line no-console
               onChange={onImageUpload}
             />
-            <UploadPath>선택된 파일 없음</UploadPath>
+            <UploadFileName>{imageFileName}</UploadFileName>
             <X16BigIcon />
           </UploadRow>
           <UploadRow>최대 10MB의 이미지 파일</UploadRow>

@@ -31,3 +31,5 @@ export enum BookmarkFilterTypes {
   FREQUENTLY_VISITED = 'clickCount,desc',
   LESS_VISITED = 'clickCount,asc',
 }
+
+export const DEFAULT_IMAGE_FILE_NAME = '선택된 파일 없음';
