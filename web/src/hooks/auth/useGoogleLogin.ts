@@ -50,7 +50,7 @@ export default function useGoogleLogin(): GoogleLoginTypes {
         JSON.stringify(userInfo),
       );
 
-      window.location.href = Path.MainPage;
+      window.location.href = Path.Home;
     } catch (error) {
       // @TODO(jekoo): oauth login 실패 에러처리
       // eslint-disable-next-line no-alert
