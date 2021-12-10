@@ -46,8 +46,8 @@ function Bookmark(props: Props): ReactElement {
    *  4가지의 값으로 가져옴
    *  카테고리는 path를 통해 구분하고, search, filter, remind 등의 값은 recoil or props 로 가져옴
    * */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data, isLoading, isFetching, isError } = useBookmarkQuery(
     bookmarkCategory,
     page,
