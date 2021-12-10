@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
-import MainFolderList from './MainFolderList';
-import MainFolderSelectBox from './MainFolderSelectBox';
+import SubFolderList from './SubFolderList';
+import SubFolderSelectBox from './SubFolderSelectBox';
 
-const MainFoldersNav = styled.div`
+const SubFoldersNav = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -13,15 +13,15 @@ const MainFoldersNav = styled.div`
   color: ${(props) => props.theme.color.grayDarkest};
 `;
 
-function MainFolders(): ReactElement {
+function SubFolders(): ReactElement {
   return (
     <>
-      <MainFoldersNav>
-        <MainFolderSelectBox />
-      </MainFoldersNav>
-      <MainFolderList />
+      <SubFoldersNav>
+        <SubFolderSelectBox />
+      </SubFoldersNav>
+      <SubFolderList />
     </>
   );
 }
 
-export default MainFolders;
+export default SubFolders;

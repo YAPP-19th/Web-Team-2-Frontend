@@ -1,5 +1,5 @@
 import Bookmark from 'components/bookmark';
-import MainFolders from 'components/mainFolders';
+import SubFolders from 'components/subFolders';
 import Reminder from 'components/reminder';
 import SideBar from 'components/sidebar';
 import React, { ReactElement, useEffect, useState } from 'react';
@@ -37,7 +37,7 @@ function MainPage(): ReactElement {
       <SideBar />
       <ContentLayout>
         <ContentInner>
-          <MainFolders />
+          <SubFolders />
           {location.pathname === Path.Home && <Reminder />}
           {path && <Bookmark path={path} />}
         </ContentInner>

@@ -1,14 +1,14 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import tempData from './data/tempFolderData.json';
-import MainFolderListItem from './MainFolderListItem';
+import MainFolderListItem from './SubFolderListItem';
 
 const FolderListWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
 `;
 
-function MainFolderList(): ReactElement {
+function SubFolderList(): ReactElement {
   return (
     <FolderListWrapper>
       {tempData.folders.map((folder) => (
@@ -18,4 +18,4 @@ function MainFolderList(): ReactElement {
   );
 }
 
-export default MainFolderList;
+export default SubFolderList;

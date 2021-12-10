@@ -2,7 +2,7 @@ import CheckBox from 'components/common/CheckBox';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
-interface MainFolderListItemProps {
+interface SubFolderListItemProps {
   name: string;
 }
 
@@ -31,7 +31,7 @@ const SelectButton = styled(CheckBox)`
   z-index: 100;
 `;
 
-function MainFolderListItem({ name }: MainFolderListItemProps): ReactElement {
+function SubFolderListItem({ name }: SubFolderListItemProps): ReactElement {
   return (
     <FolderItem>
       <SelectButton
@@ -45,4 +45,4 @@ function MainFolderListItem({ name }: MainFolderListItemProps): ReactElement {
   );
 }
 
-export default MainFolderListItem;
+export default SubFolderListItem;
