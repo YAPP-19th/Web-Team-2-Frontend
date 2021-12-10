@@ -1,11 +1,14 @@
-import { UnselectedTrashIcon } from 'assets/icons';
+import { SelectedTrashIcon, UnselectedTrashIcon } from 'assets/icons';
 import React, { ReactElement } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import Path from 'routes/path';
 import styled from 'styled-components';
 
 const TrashWrapper = styled.div`
   display: flex;
   height: 21px;
   width: 166px;
+  cursor: pointer;
 `;
 
 const TrashIconBox = styled.div`
@@ -26,21 +29,26 @@ const UnselectedTrash = styled(UnselectedTrashIcon)``;
 
 // const SelectedTrash = styled(SelectedTrashIcon)``;
 
-const TrashName = styled.span`
+const TrashName = styled.span<{ active: boolean }>`
   height: 100%;
-  color: ${(props) => props.theme.color.grayDark};
+  color: ${(props) =>
+    props.active ? props.theme.color.primary : props.theme.color.grayDark};
+  ${(props) => props.active && 'font-weight: 500;'}
   font-size: 14px;
   width: 133px;
   line-height: 21px;
 `;
 
 function TrashBox(): ReactElement {
+  const navigate = useNavigate();
+  const { folderId } = useParams();
+  console.log(folderId);
   return (
-    <TrashWrapper>
+    <TrashWrapper onClick={() => navigate(Path.TrashPage)}>
       <TrashIconBox>
-        <UnselectedTrash />
+        {folderId === 'trash' ? <SelectedTrashIcon /> : <UnselectedTrash />}
       </TrashIconBox>
-      <TrashName>휴지통</TrashName>
+      <TrashName active={folderId === 'trash'}>휴지통</TrashName>
     </TrashWrapper>
   );
 }

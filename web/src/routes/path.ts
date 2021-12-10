@@ -7,6 +7,7 @@ enum Path {
   RegisterPage = '/register',
   ResetPasswordPage = '/resetpw',
   SendPasswordPage = '/sendpw',
+  TrashPage = '/main/trash',
 }
 
 export default Path;
