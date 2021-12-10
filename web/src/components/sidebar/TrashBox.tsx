@@ -42,7 +42,6 @@ const TrashName = styled.span<{ active: boolean }>`
 function TrashBox(): ReactElement {
   const navigate = useNavigate();
   const { folderId } = useParams();
-  console.log(folderId);
   return (
     <TrashWrapper onClick={() => navigate(Path.TrashPage)}>
       <TrashIconBox>
