@@ -3,7 +3,9 @@ import axios, { AxiosResponse } from 'axios';
 import { auth } from 'models/auth';
 import { getTokens } from 'utils/auth';
 
-export const login = (request: auth.ILoginRequest): Promise<AxiosResponse> => {
+export const login = (
+  request: auth.ILoginRequest,
+): Promise<AxiosResponse<auth.ILoginResponse>> => {
   return axios.post(`${BASE_URL}/api/v1/user/oauth2Login`, request);
 };
 

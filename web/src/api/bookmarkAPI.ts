@@ -76,10 +76,7 @@ export const deleteBookmark = (
  */
 export const moveBookmark = (
   bookmarkId: string,
-  requestData: {
-    prevFolderId: string;
-    nextFolderId: string;
-  },
+  requestData: bookmarks.IBookmarkMoveRequest,
 ): Promise<bookmarks.IBookmarkMoveResponse> => {
   return Client.patchAxios<
     bookmarks.IBookmarkMoveRequest,
@@ -94,10 +91,7 @@ export const moveBookmark = (
  */
 export const updateBookmark = (
   bookmarkId: string,
-  requestData: {
-    title: string;
-    remind: boolean;
-  },
+  requestData: bookmarks.IBookmarkUpdateRequest,
 ): Promise<bookmarks.IBookmarkUpdateResponse> => {
   return Client.patchAxios<
     bookmarks.IBookmarkUpdateRequest,

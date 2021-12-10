@@ -1,5 +1,7 @@
 export enum LOCAL_STORAGE_KEY {
-  USER_INFO = 'userInfo',
+  USER_TOKEN = 'userToken',
+  USER_BASE_INFO = 'userBaseInfo',
+  USER_REMIND_INFO = 'userRemindInfo',
 }
 
 export enum QueryKey {
