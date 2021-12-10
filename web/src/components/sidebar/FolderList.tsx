@@ -126,7 +126,6 @@ function FolderList({
   const [selectedFolder, setSelectedFolder] =
     useRecoilState(selectedFolderState);
   const [activeFolder, setActiveFolder] = useRecoilState(activeFolderState);
-  const [selectedFolderName, setSelectedFolderName] = useState('');
   const [positionStyle, setPositionStyle] = useState<IPositionStyle>({
     top: 0,
     left: 0,
@@ -150,8 +149,11 @@ function FolderList({
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     item: TreeItem,
   ) => {
-    setSelectedFolder(item.id);
-    setSelectedFolderName(item.data.name);
+    setSelectedFolder({
+      id: item.id,
+      name: item.data.name,
+      emoji: item.data.emoji,
+    });
     onToggleMenuLayer();
     setPositionStyle({
       top: e.currentTarget.getBoundingClientRect().top,
@@ -246,7 +248,7 @@ function FolderList({
           content="폴더에 있는 모든 내용들이 <br/> 휴지통으로 들어가요!"
           buttonName="삭제"
           // eslint-disable-next-line no-console
-          onClick={() => onDeleteFolder(selectedFolder)}
+          onClick={() => onDeleteFolder(selectedFolder.id)}
         />
       )}
 
@@ -254,7 +256,6 @@ function FolderList({
         <FolderRenameModal
           positionStyle={positionStyle}
           onToggleModal={onToggleRenameModal}
-          folderName={selectedFolderName}
           onChangeFolderInfo={onChangeFolderInfo}
           selectedFolder={selectedFolder}
         />

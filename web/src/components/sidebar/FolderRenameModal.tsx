@@ -1,9 +1,10 @@
-import { X16Icon } from 'assets/icons';
+import { FolderIcon, X16Icon } from 'assets/icons';
 import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
 import { EmojiPicker, EmojiObject, Emoji } from 'react-twemoji-picker';
 import EmojiData from 'react-twemoji-picker/data/twemoji.json';
 import 'react-twemoji-picker/dist/EmojiPicker.css';
+import { ISelectedFolder } from 'recoil/atoms/folderState';
 import { ItemId } from '@atlaskit/tree';
 import SimpleInput from 'components/common/SimpleInput';
 import SimpleButton from 'components/common/SimpleButton';
@@ -13,8 +14,7 @@ interface FolderRenameModalProps {
   positionStyle: IPositionStyle;
   onToggleModal: () => void;
   onChangeFolderInfo: (ItemId: ItemId, name: string, emoji: string) => void;
-  selectedFolder: ItemId;
-  folderName: string;
+  selectedFolder: ISelectedFolder;
 }
 
 const FolderRenameModalWrapper = styled.div`
@@ -90,19 +90,23 @@ const RenameButton = styled(SimpleButton)`
   font-size: 12px;
 `;
 
+const FolderIconStyled = styled(FolderIcon)`
+  width: 18px;
+  height: 18px;
+`;
+
 function FolderRenameModal({
   positionStyle,
   onToggleModal,
-  folderName,
   onChangeFolderInfo,
   selectedFolder,
 }: FolderRenameModalProps): ReactElement {
   const { top, left } = positionStyle;
   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false);
-  const [newFolderName, setNewFolderName] = useState(folderName);
+  const [newFolderName, setNewFolderName] = useState(selectedFolder.name);
   const [chosenEmoji, setChosenEmoji] = useState<EmojiObject>({
-    unicode: '1f603', // api 연동되면 이 부분을 설정된 폴더 이모지로 설정
-    name: 'grinning face',
+    unicode: selectedFolder.emoji, // api 연동되면 이 부분을 설정된 폴더 이모지로 설정
+    name: 'emoji',
   });
 
   const emojiData = Object.freeze(EmojiData);
@@ -125,7 +129,7 @@ function FolderRenameModal({
   };
 
   const onSubmitFolderInfo = () => {
-    onChangeFolderInfo(selectedFolder, newFolderName, chosenEmoji.unicode);
+    onChangeFolderInfo(selectedFolder.id, newFolderName, chosenEmoji.unicode);
   };
 
   return (
@@ -145,9 +149,13 @@ function FolderRenameModal({
           <EmojiBox
             onClick={(e) => onToggleEmojiPicker(e, !emojiPickerVisible)}
           >
-            <EmojiIcon
-              emoji={{ name: chosenEmoji.name, unicode: chosenEmoji.unicode }}
-            />
+            {chosenEmoji.unicode ? (
+              <EmojiIcon
+                emoji={{ name: chosenEmoji.name, unicode: chosenEmoji.unicode }}
+              />
+            ) : (
+              <FolderIconStyled />
+            )}
           </EmojiBox>
 
           <FolderNameInput
