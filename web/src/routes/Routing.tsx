@@ -1,6 +1,7 @@
 import LoginPage from 'pages/LoginPage';
 import MainPage from 'pages/MainPage';
 import MyPage from 'pages/MyPage';
+import NotFoundPage from 'pages/NotFoundPage';
 import ProfileEditPage from 'pages/ProfileEditPage';
 import RegisterPage from 'pages/RegisterPage';
 import ResetPasswordPage from 'pages/ResetPasswordPage';
@@ -10,6 +11,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import Path from 'routes/path';
 
 const routingComponents = [
+  { path: '*', element: <NotFoundPage /> },
   { path: Path.MainPage, element: <MainPage /> },
   { path: Path.Home, element: <MainPage /> },
   { path: Path.MyPage, element: <MyPage /> },
@@ -21,7 +23,7 @@ const publicRoutingComponents = [
   { path: Path.RegisterPage, element: <RegisterPage /> },
   { path: Path.ResetPasswordPage, element: <ResetPasswordPage /> },
   { path: Path.SendPasswordPage, element: <SendPasswordPage /> },
-  { path: Path.Home, element: <Navigate replace to={Path.LoginPage} /> },
+  { path: Path.HomeAll, element: <Navigate replace to={Path.LoginPage} /> },
 ];
 
 export function Routing(): ReactElement {
