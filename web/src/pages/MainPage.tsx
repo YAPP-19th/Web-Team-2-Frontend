@@ -7,6 +7,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import Path from 'routes/path';
 import styled from 'styled-components';
 import qs from 'qs';
+import BookmarkPath from 'components/bookmark/BookmarkPath';
 
 const MainWrapper = styled.div`
   display: flex;
@@ -46,8 +47,9 @@ function MainPage(): ReactElement {
       <SideBar />
       <ContentLayout>
         <ContentInner>
-          <SubFolders />
           {location.pathname === Path.Home && <Reminder />}
+          <BookmarkPath />
+          <SubFolders />
           {path && <Bookmark path={path} keyword={query.q} />}
         </ContentInner>
       </ContentLayout>
