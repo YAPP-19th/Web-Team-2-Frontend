@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import MainFolderList from './MainFolderList';
 import MainFolderSelectBox from './MainFolderSelectBox';
 
 const MainFoldersNav = styled.div`
@@ -7,7 +8,7 @@ const MainFoldersNav = styled.div`
   justify-content: space-between;
   align-items: center;
   height: 24px;
-  margin-bottom: 28px;
+  margin-bottom: 16px;
   font-size: 12px;
   color: ${(props) => props.theme.color.grayDarkest};
 `;
@@ -18,6 +19,7 @@ function MainFolders(): ReactElement {
       <MainFoldersNav>
         <MainFolderSelectBox />
       </MainFoldersNav>
+      <MainFolderList />
     </>
   );
 }
