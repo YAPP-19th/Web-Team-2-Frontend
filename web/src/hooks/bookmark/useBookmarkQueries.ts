@@ -1,7 +1,9 @@
 /* eslint-disable no-console */
+import { ItemId } from '@atlaskit/tree';
 import {
   deleteBookmark,
   getAllBookmark,
+  getFolderBookmark,
   getSearchBookmark,
   getTrashBookmark,
   moveBookmark,
@@ -24,7 +26,7 @@ export function getCategoryOfBookmark(
     case 'search':
       return SEARCH;
     default:
-      return ALL_DOTORI;
+      return FOLDER_DOTORI;
   }
 }
 
@@ -34,9 +36,11 @@ export function useBookmarkQuery(
   filter: string,
   remind: boolean,
   keyword?: string,
+  folderId?: ItemId,
 ): typeof query {
   function getBookmarkAPI(bookmarkKind: bookmarks.bookmarkKindItem) {
     const searchKeyword = keyword || '';
+    const folderIdKey = folderId || '';
     switch (bookmarkKind.kind) {
       case TRASH_BIN.kind:
         return getTrashBookmark(page, bookmarkKind.numOfPage, filter, remind);
@@ -49,7 +53,13 @@ export function useBookmarkQuery(
           remind,
         );
       case FOLDER_DOTORI.kind:
-        return undefined;
+        return getFolderBookmark(
+          folderIdKey,
+          page,
+          bookmarkKind.numOfPage,
+          filter,
+          remind,
+        );
       case ALL_DOTORI.kind:
         return getAllBookmark(page, bookmarkKind.numOfPage, filter, remind);
       default:

@@ -2,10 +2,11 @@ import Bookmark from 'components/bookmark';
 import SubFolders from 'components/subFolders';
 import Reminder from 'components/reminder';
 import SideBar from 'components/sidebar';
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import Path from 'routes/path';
 import styled from 'styled-components';
+import qs from 'qs';
 import BookmarkPath from 'components/bookmark/BookmarkPath';
 
 const MainWrapper = styled.div`
@@ -33,16 +34,23 @@ function MainPage(): ReactElement {
     setPath(location.pathname);
   }, [params]);
 
+  // 쿼리스트링 추출
+  const query = useMemo(() => {
+    const parsed = qs.parse(location.search, {
+      ignoreQueryPrefix: true,
+    }) as { q: string };
+    return parsed;
+  }, [location.search]);
+
   return (
     <MainWrapper>
       <SideBar />
       <ContentLayout>
         <ContentInner>
           {location.pathname === Path.Home && <Reminder />}
-
           <BookmarkPath />
           <SubFolders />
-          {path && <Bookmark path={path} />}
+          {path && <Bookmark path={path} keyword={query.q} />}
         </ContentInner>
       </ContentLayout>
     </MainWrapper>

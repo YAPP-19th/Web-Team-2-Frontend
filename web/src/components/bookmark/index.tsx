@@ -4,7 +4,7 @@ import {
 } from 'hooks/bookmark/useBookmarkQueries';
 import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
-import { BookmarkFilterTypes } from 'utils/const';
+import { BookmarkFilterTypes, BOOKMARK_KINDS } from 'utils/const';
 import BookmarkList from './BookmarkList';
 import FilterBox from './FilterBox';
 import Pagination from './Pagination';
@@ -12,6 +12,7 @@ import SelectBox from './SelectBox';
 
 interface Props {
   path: string;
+  keyword?: string;
 }
 
 const BookmarkWrapper = styled.div``;
@@ -27,12 +28,16 @@ const BookmarkNav = styled.div`
 `;
 
 function Bookmark(props: Props): ReactElement {
-  const { path } = props;
-  const [page, setPage] = useState<number>(1);
+  const { path, keyword } = props;
+  const [page, setPage] = useState<number>(0);
 
   const lastPath = path.split('/').pop() || 'main';
 
   const bookmarkCategory = getCategoryOfBookmark(lastPath);
+  const folderId =
+    bookmarkCategory.kind === BOOKMARK_KINDS.FOLDER_DOTORI.kind
+      ? lastPath
+      : undefined;
 
   /** NOTE
    *  Pagination 을 위한 useQueryHook
@@ -40,13 +45,15 @@ function Bookmark(props: Props): ReactElement {
    *  4가지의 값으로 가져옴
    *  카테고리는 path를 통해 구분하고, search, filter, remind 등의 값은 recoil or props 로 가져옴
    * */
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data, isLoading, isFetching, isError } = useBookmarkQuery(
     bookmarkCategory,
     page,
     BookmarkFilterTypes.LATEST_ORDER,
-    false,
-    'naver',
+    true,
+    keyword,
+    folderId,
   );
 
   return (
