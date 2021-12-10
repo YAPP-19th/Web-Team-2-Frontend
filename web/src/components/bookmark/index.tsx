@@ -6,7 +6,6 @@ import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
 import { BookmarkFilterTypes } from 'utils/const';
 import BookmarkList from './BookmarkList';
-import BookmarkPath from './BookmarkPath';
 import FilterBox from './FilterBox';
 import Pagination from './Pagination';
 import SelectBox from './SelectBox';
@@ -52,7 +51,6 @@ function Bookmark(props: Props): ReactElement {
 
   return (
     <BookmarkWrapper>
-      <BookmarkPath />
       <BookmarkNav>
         <SelectBox />
         <FilterBox />

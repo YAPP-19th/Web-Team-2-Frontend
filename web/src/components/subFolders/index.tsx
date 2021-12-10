@@ -3,6 +3,10 @@ import styled from 'styled-components';
 import SubFolderList from './SubFolderList';
 import SubFolderSelectBox from './SubFolderSelectBox';
 
+const SubFoldersWrapper = styled.div`
+  margin-bottom: 19px;
+`;
+
 const SubFoldersNav = styled.div`
   display: flex;
   justify-content: space-between;
@@ -15,12 +19,12 @@ const SubFoldersNav = styled.div`
 
 function SubFolders(): ReactElement {
   return (
-    <>
+    <SubFoldersWrapper>
       <SubFoldersNav>
         <SubFolderSelectBox />
       </SubFoldersNav>
       <SubFolderList />
-    </>
+    </SubFoldersWrapper>
   );
 }
 
