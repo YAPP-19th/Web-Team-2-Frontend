@@ -3,15 +3,18 @@ import Tree, {
   RenderItemParams,
   TreeData,
   TreeDestinationPosition,
+  TreeItem,
   TreeSourcePosition,
 } from '@atlaskit/tree';
 import { More16Icon, PlusIcon } from 'assets/icons';
 import SmallModal from 'components/common/SmallModal';
 import useToggle from 'hooks/common/useToggle';
-import React, { ReactElement, useState } from 'react';
-import { useSetRecoilState } from 'recoil';
+import React, { ReactElement, useMemo, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import Path from 'routes/path';
+import { useRecoilState } from 'recoil';
 import { selectedFolderState } from 'recoil/atoms/folderState';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import FolderItemIcon from './FolderItemIcon';
 import FolderMenuLayer from './FolderMenuLayer';
 import FolderMoveModal from './FolderMoveModal';
@@ -26,7 +29,9 @@ interface FolderListProps {
     source: TreeSourcePosition,
     destination?: TreeDestinationPosition,
   ) => void;
-  createFolder: (parentId: ItemId) => void;
+  onCreateFolder: (parentId: ItemId) => void;
+  onDeleteFolder: (itemId: ItemId) => void;
+  onChangeFolderInfo: (itemId: ItemId, name: string, emoji: string) => void;
   isDrag: boolean;
 }
 
@@ -60,7 +65,8 @@ const FolderItemBlock = styled.div`
   padding: 5px 2px;
   border-radius: 4px;
   &:hover {
-    background-color: #f3f2ef;
+    background-color: ${(props) => props.theme.color.hover0};
+    font-weight: 500;
     ${FolderRightBox} {
       display: flex;
     }
@@ -73,7 +79,7 @@ const FolderLeftBox = styled.div`
   min-width: 65px;
 `;
 
-const FolderTitle = styled.span`
+const FolderTitle = styled.span<{ active: boolean }>`
   cursor: pointer;
   height: 28px;
   line-height: 25px;
@@ -83,6 +89,12 @@ const FolderTitle = styled.span`
   &:hover {
     text-decoration: underline;
   }
+  ${(props) =>
+    props.active &&
+    css`
+      font-weight: 500;
+      color: ${props.theme.color.primary};
+    `}
 `;
 
 const FolderETCButton = styled.button`
@@ -97,15 +109,23 @@ const FolderETCButton = styled.button`
 
 function FolderList({
   folders,
-  createFolder,
+  onCreateFolder,
   onExpandFolder,
   onDragStartFolder,
   onDragEndFolder,
   onCollapseFolder,
+  onDeleteFolder,
+  onChangeFolderInfo,
   isDrag,
 }: FolderListProps): ReactElement {
+  // route
+  const navigate = useNavigate();
+  const params = useParams();
+  const parmasFolderId = useMemo(() => params.folderId, [params]);
+
   // state
-  const setSelectedFolder = useSetRecoilState(selectedFolderState);
+  const [selectedFolder, setSelectedFolder] =
+    useRecoilState(selectedFolderState);
   const [positionStyle, setPositionStyle] = useState<IPositionStyle>({
     top: 0,
     left: 0,
@@ -127,9 +147,13 @@ function FolderList({
   // function
   const onToggleMenu = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    itemId: ItemId,
+    item: TreeItem,
   ) => {
-    setSelectedFolder(itemId);
+    setSelectedFolder({
+      id: item.id,
+      name: item.data.name,
+      emoji: item.data.emoji,
+    });
     onToggleMenuLayer();
     setPositionStyle({
       top: e.currentTarget.getBoundingClientRect().top,
@@ -137,6 +161,12 @@ function FolderList({
     });
   };
 
+  // 폴더 클릭시 해당 폴더 활성화 후 라우트로 이동
+  const onActiveFolder = (folderId: ItemId) => {
+    navigate(`${Path.MainPage}/${folderId}`);
+  };
+
+  // 각 폴더 아이템
   const renderFolderItem = ({
     item,
     onExpand,
@@ -162,16 +192,19 @@ function FolderList({
                 onExpand={onExpand}
               />
               {/* eslint-disable-next-line no-console */}
-              <FolderTitle onClick={() => console.log('폴더 클릭')}>
-                {item.data.title}
+              <FolderTitle
+                active={Number(parmasFolderId) === item.id}
+                onClick={() => onActiveFolder(item.id)}
+              >
+                {item.data.name}
               </FolderTitle>
             </FolderLeftBox>
             {isDrag && (
               <FolderRightBox onMouseDown={(e) => e.stopPropagation()}>
-                <FolderETCButton onClick={() => createFolder(item.id)}>
+                <FolderETCButton onClick={() => onCreateFolder(item.id)}>
                   <PlusIcon />
                 </FolderETCButton>
-                <FolderETCButton onClick={(e) => onToggleMenu(e, item.id)}>
+                <FolderETCButton onClick={(e) => onToggleMenu(e, item)}>
                   <More16Icon />
                 </FolderETCButton>
               </FolderRightBox>
@@ -211,7 +244,7 @@ function FolderList({
           content="폴더에 있는 모든 내용들이 <br/> 휴지통으로 들어가요!"
           buttonName="삭제"
           // eslint-disable-next-line no-console
-          onClick={() => console.log('API생성되면 추가하겠음!')}
+          onClick={() => onDeleteFolder(selectedFolder.id)}
         />
       )}
 
@@ -219,6 +252,8 @@ function FolderList({
         <FolderRenameModal
           positionStyle={positionStyle}
           onToggleModal={onToggleRenameModal}
+          onChangeFolderInfo={onChangeFolderInfo}
+          selectedFolder={selectedFolder}
         />
       )}
 

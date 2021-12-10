@@ -1,16 +1,60 @@
+import { ItemId, TreeData } from '@atlaskit/tree';
 import { Client } from 'api/http';
 import { AxiosResponse } from 'axios';
 
-// sample API
-export const getFolderList = (
-  userId: string,
-  keyWord: string,
-  page: number,
-  size: number,
-  sort: string,
-  remind: boolean,
+// 폴더 리스트 조회
+export const getFolders = (): Promise<TreeData> => {
+  return Client.getAxios(`/api/v1/folder`);
+};
+
+// 폴더 추가
+export const createFolder = (
+  parentId: ItemId,
+  name: string,
+  index: number,
+): Promise<{ folderId: ItemId }> => {
+  const body = {
+    parentId,
+    name,
+    index,
+  };
+  return Client.postAxios(`/api/v1/folder`, body);
+};
+
+// 폴더 이동
+export const moveFolder = (
+  folderId: ItemId,
+  prevParentId: ItemId,
+  nextParentId: ItemId,
+  prevIndex: ItemId,
+  nextIndex: ItemId,
 ): Promise<AxiosResponse> => {
-  return Client.getAxios(
-    `api/v1/${userId}/${keyWord}?page=${page}&size=${size}&sort=${sort}&remind=${remind}`,
-  );
+  const body = {
+    prevParentId,
+    nextParentId,
+    prevIndex,
+    nextIndex,
+  };
+  return Client.patchAxios(`/api/v1/folder/${folderId}/move`, body);
+};
+
+// 폴더 이름 수정
+export const renameFolder = (
+  folderId: ItemId,
+  name: string,
+): Promise<AxiosResponse> => {
+  return Client.patchAxios(`/api/v1/folder/${folderId}/name`, { name });
+};
+
+// 폴더 이모지 수정
+export const updateFolderEmoji = (
+  folderId: ItemId,
+  emoji: string,
+): Promise<AxiosResponse> => {
+  return Client.patchAxios(`/api/v1/folder/${folderId}/emoji`, { emoji });
+};
+
+// 폴더 삭제
+export const deleteFolder = (folderId: ItemId): Promise<AxiosResponse> => {
+  return Client.deleteAxios(`/api/v1/folder/${folderId}`);
 };

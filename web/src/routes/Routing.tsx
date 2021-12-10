@@ -1,6 +1,7 @@
 import LoginPage from 'pages/LoginPage';
 import MainPage from 'pages/MainPage';
 import MyPage from 'pages/MyPage';
+import ProfileEditPage from 'pages/ProfileEditPage';
 import RegisterPage from 'pages/RegisterPage';
 import ResetPasswordPage from 'pages/ResetPasswordPage';
 import SendPasswordPage from 'pages/SendPasswordPage';
@@ -12,14 +13,15 @@ const routingComponents = [
   { path: Path.MainPage, element: <MainPage /> },
   { path: Path.FolderPage, element: <MainPage /> },
   { path: Path.MyPage, element: <MyPage /> },
-  { path: Path.RegisterPage, element: <RegisterPage /> },
-  { path: Path.ResetPasswordPage, element: <ResetPasswordPage /> },
-  { path: Path.SendPasswordPage, element: <SendPasswordPage /> },
+  { path: Path.ProfileEditPage, element: <ProfileEditPage /> },
   { path: Path.Home, element: <Navigate replace to={Path.MainPage} /> },
 ];
 
 const publicRoutingComponents = [
   { path: Path.LoginPage, element: <LoginPage /> },
+  { path: Path.RegisterPage, element: <RegisterPage /> },
+  { path: Path.ResetPasswordPage, element: <ResetPasswordPage /> },
+  { path: Path.SendPasswordPage, element: <SendPasswordPage /> },
   { path: Path.Home, element: <Navigate replace to={Path.LoginPage} /> },
 ];
 

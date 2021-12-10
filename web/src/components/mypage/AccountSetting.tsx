@@ -29,14 +29,14 @@ const LogoutText = styled.button`
   color: ${(props) => props.theme.color.gray};
 `;
 
-function AccountSetting(): ReactElement {
+function AccountSetting({ email }: { email: string }): ReactElement {
   return (
     <>
       <MyPageHead headText="계정 설정" />
       <AccountSettingWrapper>
         <AccountInfoBlock>
           <AccountLabel>이메일</AccountLabel>
-          <AccountText>dotoriham@naver.com</AccountText>
+          <AccountText>{email}</AccountText>
         </AccountInfoBlock>
 
         <AccountInfoBlock>

@@ -2,6 +2,7 @@ import useFoldersHandle from 'hooks/sidebar/useFoldersHandle';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import QuestionButton from 'components/tutorial/QuestionButton';
+import Toasts from 'components/common/Toasts';
 import AllFolder from './AllFolder';
 import CabinetBox from './CabinetBox';
 import FolderList from './FolderList';
@@ -38,13 +39,16 @@ const FolderBox = styled.div`
 
 function SideBar(): ReactElement {
   const {
-    createCabinet,
-    createFolder,
+    onCreateCabinet,
+    onCreateFolder,
     folders,
     onCollapseFolder,
     onDragEndFolder,
     onDragStartFolder,
     onExpandFolder,
+    onDeleteFolder,
+    onChangeFolderInfo,
+    isOpenFolderIsFullToast,
   } = useFoldersHandle();
 
   return (
@@ -53,19 +57,22 @@ function SideBar(): ReactElement {
         <AllFolder />
         <FolderList
           folders={folders}
-          createFolder={createFolder}
+          onCreateFolder={onCreateFolder}
           onCollapseFolder={onCollapseFolder}
           onDragEndFolder={onDragEndFolder}
           onDragStartFolder={onDragStartFolder}
           onExpandFolder={onExpandFolder}
+          onDeleteFolder={onDeleteFolder}
+          onChangeFolderInfo={onChangeFolderInfo}
           isDrag
         />
       </FolderBox>
 
-      <CabinetBox createCabinet={createCabinet} />
+      <CabinetBox folders={folders} onCreateCabinet={onCreateCabinet} />
       <TrashBox />
 
       <QuestionButton />
+      <Toasts isOpen={isOpenFolderIsFullToast} type="folderIsFull" />
     </SideBarWrapper>
   );
 }
