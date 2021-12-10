@@ -1,5 +1,7 @@
 import { Search24Icon } from 'assets/icons';
 import React, { ReactElement, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Path from 'routes/path';
 import styled from 'styled-components';
 
 const SearchBarBox = styled.div`
@@ -42,20 +44,23 @@ const SearchBarInput = styled.input`
 `;
 
 function SearchBar(): ReactElement {
+  const navigate = useNavigate();
   const [searchMessage, setSearchMessage] = useState('');
 
   const onChangeSearchMessage = (e: { target: { value: string } }): void => {
     setSearchMessage(e.target.value);
   };
 
-  const searchHandler = () => {
+  const onSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     // eslint-disable-next-line no-console
     console.log(searchMessage);
+    navigate(`${Path.SearchPage}?q=${searchMessage}`);
   };
 
   return (
     <SearchBarBox>
-      <FormBox onSubmit={searchHandler}>
+      <FormBox onSubmit={onSearch}>
         <IconButton type="submit">
           <SearchIconBox />
         </IconButton>

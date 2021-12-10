@@ -42,12 +42,13 @@ const TrashName = styled.span<{ active: boolean }>`
 function TrashBox(): ReactElement {
   const navigate = useNavigate();
   const { folderId } = useParams();
+  const isActive = folderId === 'trash';
   return (
     <TrashWrapper onClick={() => navigate(Path.TrashPage)}>
       <TrashIconBox>
-        {folderId === 'trash' ? <SelectedTrashIcon /> : <UnselectedTrash />}
+        {isActive ? <SelectedTrashIcon /> : <UnselectedTrash />}
       </TrashIconBox>
-      <TrashName active={folderId === 'trash'}>휴지통</TrashName>
+      <TrashName active={isActive}>휴지통</TrashName>
     </TrashWrapper>
   );
 }

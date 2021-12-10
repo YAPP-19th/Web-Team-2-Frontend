@@ -1,14 +1,14 @@
 enum Path {
-  Home = '/*',
-  MainPage = '/main',
-  FolderPage = '/main/:folderId/*',
+  Home = '/',
+  MainPage = '/:folderId/*',
+  TrashPage = '/trash',
+  SearchPage = '/search',
   MyPage = '/mypage',
   ProfileEditPage = '/mypage/profile',
   LoginPage = '/login',
   RegisterPage = '/register',
   ResetPasswordPage = '/resetpw',
   SendPasswordPage = '/sendpw',
-  TrashPage = '/main/trash',
 }
 
 export default Path;

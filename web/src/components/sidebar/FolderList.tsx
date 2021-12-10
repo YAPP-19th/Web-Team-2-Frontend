@@ -11,7 +11,6 @@ import SmallModal from 'components/common/SmallModal';
 import useToggle from 'hooks/common/useToggle';
 import React, { ReactElement, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import Path from 'routes/path';
 import { useRecoilState } from 'recoil';
 import { selectedFolderState } from 'recoil/atoms/folderState';
 import styled, { css } from 'styled-components';
@@ -163,7 +162,7 @@ function FolderList({
 
   // 폴더 클릭시 해당 폴더 활성화 후 라우트로 이동
   const onActiveFolder = (folderId: ItemId) => {
-    navigate(`${Path.MainPage}/${folderId}`);
+    navigate(`/${folderId}`);
   };
 
   // 각 폴더 아이템
