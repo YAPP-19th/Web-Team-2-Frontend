@@ -16,7 +16,7 @@ const SideBarWrapper = styled.div`
   padding: 20px 0;
   position: relative;
   background-color: ${(props) => props.theme.color.white};
-  overflow: auto;
+  /* overflow: auto; */
 `;
 
 const FolderBox = styled.div`
