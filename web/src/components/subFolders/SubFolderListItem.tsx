@@ -28,7 +28,7 @@ const SelectButton = styled(CheckBox)`
   position: absolute;
   top: 5px;
   left: 4px;
-  z-index: 100;
+  z-index: 50;
 `;
 
 function SubFolderListItem({ name }: SubFolderListItemProps): ReactElement {
