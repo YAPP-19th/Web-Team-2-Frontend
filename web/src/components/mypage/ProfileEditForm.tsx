@@ -19,7 +19,7 @@ function ProfileEditForm(): ReactElement {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [user, setUser] = useRecoilState(userState);
   const [form, setForm] = useState({
-    profileImage: user.imageUrl,
+    profileImage: user.image,
     imageFileName: DEFAULT_IMAGE_FILE_NAME,
     nickname: user.name,
   });
@@ -67,7 +67,7 @@ function ProfileEditForm(): ReactElement {
 
   // 업로드 한 프로필 이미지 제거
   const onDeleteImage = async () => {
-    onChangeProfileImage(user.imageUrl); // 초기 값으로 변경
+    onChangeProfileImage(user.image); // 초기 값으로 변경
   };
 
   // 변경 내용 저장

@@ -2,13 +2,13 @@ import { auth } from 'models/auth';
 import { atom } from 'recoil';
 
 export interface IUserInfo
-  extends Pick<auth.IAuthUserInfo, 'name' | 'email' | 'imageUrl'>,
+  extends Pick<auth.IAuthUserInfo, 'name' | 'email' | 'image'>,
     auth.IUserRemindInfo {}
 
 const initialState: IUserInfo = {
   name: '',
   email: '',
-  imageUrl: '',
+  image: '',
   remindCycle: '',
   remindToggle: false,
 };

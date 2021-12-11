@@ -15,7 +15,7 @@ export const getInitialUserInfo = ({ set }: MutableSnapshot): void => {
     const initialUserState = {
       name: userBaseInfo.name,
       email: userBaseInfo.email,
-      imageUrl: userBaseInfo.image,
+      image: userBaseInfo.image,
       remindCycle: userRemindInfo.remindCycle,
       remindToggle: userRemindInfo.remindToggle,
     };
@@ -25,7 +25,7 @@ export const getInitialUserInfo = ({ set }: MutableSnapshot): void => {
   set(userState, {
     name: '',
     email: '',
-    imageUrl: '',
+    image: '',
     remindCycle: '7',
     remindToggle: false,
   });

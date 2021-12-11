@@ -25,7 +25,7 @@ export default function useGoogleLogin(): GoogleLoginTypes {
 
     const request: auth.ILoginRequest = {
       email: profileObj.email,
-      imageUrl: profileObj.imageUrl,
+      image: profileObj.imageUrl,
       name: profileObj.name,
       socialType: 'google',
     };
