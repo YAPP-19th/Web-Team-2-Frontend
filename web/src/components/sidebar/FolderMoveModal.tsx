@@ -1,13 +1,15 @@
 import FolderListInModal from 'components/common/FolderListInModal';
 import ModalTemplate from 'components/common/ModalTemplate';
 import SimpleButton from 'components/common/SimpleButton';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
+import { ArrowSide16Icon } from 'assets/icons';
 import styled from 'styled-components';
 import AllFolder from './AllFolder';
 
 interface FolderMoveModalProps {
   isModal: boolean;
   onToggleModal: () => void;
+  prevFoldeName?: string;
 }
 
 const ModalInner = styled.div`
@@ -23,6 +25,7 @@ const ModalTitle = styled.div`
 `;
 
 const FolderPath = styled.div`
+  display: flex;
   margin-bottom: 9px;
   font-size: 12px;
   color: ${(props) => props.theme.color.gray};
@@ -64,7 +67,11 @@ const CancelButton = styled(SimpleButton)`
 function FolderMoveModal({
   isModal,
   onToggleModal,
+  prevFoldeName,
 }: FolderMoveModalProps): ReactElement {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [folderPath, setFolderPath] = useState([prevFoldeName, '테스트']);
+
   return (
     <ModalTemplate
       isModal={isModal}
@@ -74,7 +81,14 @@ function FolderMoveModal({
     >
       <ModalInner>
         <ModalTitle>위치 선택</ModalTitle>
-        <FolderPath>모든 도토리 {'>'}</FolderPath>
+        <FolderPath>
+          {folderPath.map((path, index) => (
+            <React.Fragment key={index}>
+              {index === 0 ? '' : <ArrowSide16Icon />}
+              {path}
+            </React.Fragment>
+          ))}
+        </FolderPath>
         <FolderListBox>
           <AllFolder />
           <FolderListInModal />

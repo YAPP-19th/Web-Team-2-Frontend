@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { ItemId } from '@atlaskit/tree';
 import BlankSlate from 'components/common/BlankSlate';
 import SmallModal from 'components/common/SmallModal';
 import FolderMoveModal from 'components/sidebar/FolderMoveModal';
@@ -20,6 +21,7 @@ export interface IBookmarkMenu {
     title: string,
     isOpen: boolean,
     remindTime: null | string,
+    folderId?: ItemId,
   ) => void;
   onToggleDeleteModal: () => void;
   onToggleEditModal: () => void;
@@ -31,6 +33,7 @@ export interface IBookmarkOpenMenu {
   title: string;
   remindTime: null | string;
   isOpen: boolean;
+  folderId?: ItemId;
 }
 
 const BookmarkListWrapper = styled.div`
@@ -53,6 +56,7 @@ function BookmarkList(props: Props): ReactElement {
     title: '',
     remindTime: null,
     isOpen: false,
+    folderId: '',
   });
   const [isDeleteModal, onToggleDeleteModal] = useToggle();
   const [isEditModal, onToggleEditModal] = useToggle();
@@ -63,8 +67,9 @@ function BookmarkList(props: Props): ReactElement {
     title: string,
     isOpen: boolean,
     remindTime: null | string,
+    folderId?: ItemId,
   ) => {
-    setIsOpenMenu({ ...isOpenMenu, id, title, isOpen, remindTime });
+    setIsOpenMenu({ ...isOpenMenu, id, title, isOpen, remindTime, folderId });
   };
 
   const onToggleModal: IBookmarkMenu = {
@@ -116,6 +121,7 @@ function BookmarkList(props: Props): ReactElement {
 
       {isMoveModal && (
         <FolderMoveModal
+          prevFoldeName="dd"
           isModal={isMoveModal}
           onToggleModal={onToggleMoveModal}
         />

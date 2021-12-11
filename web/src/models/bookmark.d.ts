@@ -1,3 +1,5 @@
+import { ItemId } from '@atlaskit/tree';
+
 /* eslint-disable @typescript-eslint/no-empty-interface */
 export namespace bookmarks {
   export interface IBookmark {
@@ -7,7 +9,7 @@ export namespace bookmarks {
     description: null | string;
     nickname?: string;
     folder?: string;
-    folderId?: number;
+    folderId?: ItemId;
     id: string;
     link: string;
     remindTime: null | LocalDateTime;

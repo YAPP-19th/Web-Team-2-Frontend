@@ -259,6 +259,7 @@ function FolderList({
 
       {isMoveModal && (
         <FolderMoveModal
+          prevFoldeName={selectedFolder.name}
           isModal={isMoveModal}
           onToggleModal={onToggleMoveModal}
         />

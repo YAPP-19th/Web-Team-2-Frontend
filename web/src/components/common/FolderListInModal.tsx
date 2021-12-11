@@ -94,8 +94,7 @@ function FolderListInModal(): ReactElement {
                 onCollapse={onCollapse}
                 onExpand={onExpand}
               />
-              {/* eslint-disable-next-line no-console */}
-              <FolderTitle active>{item.data.name}</FolderTitle>
+              <FolderTitle active={false}>{item.data.name}</FolderTitle>
             </FolderLeftBox>
           </FolderItemBlock>
         </FolderItemWrapper>

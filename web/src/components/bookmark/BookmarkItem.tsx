@@ -148,7 +148,7 @@ function BookmarkItem({
   isOpenMenu,
   onToggleModal,
 }: BookmarkItemProps): ReactElement {
-  const { id, title, description, link, remindTime } = bookmark;
+  const { id, title, description, link, remindTime, folderId } = bookmark;
   const [selectedBookmarks, setSelectedBookmarks] = useRecoilState(
     selectedBookmarksState,
   );
@@ -242,7 +242,7 @@ function BookmarkItem({
 
             <OptionButton
               onClick={(e) => {
-                onToggleOpenMenu(id, title, true, remindTime);
+                onToggleOpenMenu(id, title, true, remindTime, folderId);
                 e.stopPropagation();
               }}
             >
