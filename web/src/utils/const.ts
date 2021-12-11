@@ -9,8 +9,8 @@ export enum QueryKey {
 }
 
 export const ReactQueryKey = {
-  bookmarkContents: (kind: string, page: number) =>
-    [QueryKey.BOOKMARK_CONTENTS, kind, page] as const,
+  bookmarkContents: (kind: string, detailInfo: string | number, page: number) =>
+    [QueryKey.BOOKMARK_CONTENTS, kind, detailInfo, page] as const,
 };
 
 export enum NumOfBookmarkPerPage {
