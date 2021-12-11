@@ -1,14 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { deleteBookmark } from 'api/bookmarkAPI';
 import BlankSlate from 'components/common/BlankSlate';
 import SmallModal from 'components/common/SmallModal';
-import { useBookmarkMutationQuery } from 'hooks/bookmark/useBookmarkQueries';
+import useHandleBookmark from 'hooks/bookmark/useHandleBookmark';
 import useToggle from 'hooks/common/useToggle';
 import { bookmarks } from 'models/bookmark';
 import React, { ReactElement, useState } from 'react';
-import { useQueryClient } from 'react-query';
 import styled from 'styled-components';
-import { QueryKey } from 'utils/const';
 import BookmarkEditModal from './BookmarkEditModal';
 import BookmarkItem from './BookmarkItem';
 
@@ -76,16 +73,7 @@ function BookmarkList(props: Props): ReactElement {
     onToggleMoveModal,
   };
 
-  const queryClient = useQueryClient();
-  const onDeleteBookmark = async (id: string) => {
-    try {
-      await deleteBookmark(id);
-      queryClient.invalidateQueries(QueryKey.BOOKMARK_CONTENTS);
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.log(e);
-    }
-  };
+  const { onDeleteBookmark } = useHandleBookmark();
 
   return (
     <BookmarkListWrapper>

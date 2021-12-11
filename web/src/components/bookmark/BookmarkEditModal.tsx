@@ -1,11 +1,9 @@
-import { updateBookmark } from 'api/bookmarkAPI';
 import ModalTemplate from 'components/common/ModalTemplate';
 import SimpleButton from 'components/common/SimpleButton';
 import SimpleInput from 'components/common/SimpleInput';
+import useHandleBookmark from 'hooks/bookmark/useHandleBookmark';
 import React, { ReactElement, useState } from 'react';
-import { useQueryClient } from 'react-query';
 import styled from 'styled-components';
-import { QueryKey } from 'utils/const';
 import { IBookmarkOpenMenu } from './BookmarkList';
 
 interface BookmarkEditModalProps {
@@ -68,26 +66,12 @@ function BookmarkEditModal({
 }: BookmarkEditModalProps): ReactElement {
   const [title, setTitle] = useState(isOpenMenu.title);
 
+  const { onEditBookmark } = useHandleBookmark();
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (title.length >= 100) {
       return;
     }
     setTitle(e.target.value);
-  };
-
-  const queryClient = useQueryClient();
-
-  const onEditSubmit = async () => {
-    try {
-      await updateBookmark(isOpenMenu.id, {
-        title,
-        remind: !!isOpenMenu.remindTime,
-      });
-      queryClient.invalidateQueries(QueryKey.BOOKMARK_CONTENTS);
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.log(e);
-    }
   };
 
   return (
@@ -126,7 +110,7 @@ function BookmarkEditModal({
             borderRadius="8px"
             label="편집"
             onClick={() => {
-              onEditSubmit();
+              onEditBookmark(isOpenMenu.id, title, !!isOpenMenu.remindTime);
               onToggleModal();
             }}
           />
