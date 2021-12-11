@@ -9,6 +9,8 @@ import FilterMenu from './FilterMenu';
 const FilterBoxWrapper = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  width: 277px;
 `;
 
 const RemindToggle = styled.div`
