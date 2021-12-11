@@ -41,7 +41,7 @@ const ProfileNickname = styled.span`
 const ProfileRightBlock = styled.div``;
 
 function Profile({ user }: { user: IUserInfo }): ReactElement {
-  const { imageUrl, name } = user;
+  const { image, name } = user;
   const navigate = useNavigate();
 
   return (
@@ -50,7 +50,7 @@ function Profile({ user }: { user: IUserInfo }): ReactElement {
       <ProfileWrapper>
         <ProfileLeftBlock>
           <ProfileImageBox>
-            <ProfileImage src={imageUrl} />
+            <ProfileImage src={image} />
           </ProfileImageBox>
           <ProfileNickname>{name}</ProfileNickname>
         </ProfileLeftBlock>

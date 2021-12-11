@@ -42,8 +42,8 @@ function Info(): ReactElement {
       </BellIconBox>
       <Link to={Path.MyPage}>
         <ProfileImg
-          src={userInfo.imageUrl}
-          alt={userInfo.imageUrl}
+          src={userInfo.image}
+          alt={userInfo.image}
           // @TODO(jekoo) get user error default profile other Img or Element
           // eslint-disable-next-line no-return-assign
           onError={(e) => (e.currentTarget.src = LogoGreenIMG)}
