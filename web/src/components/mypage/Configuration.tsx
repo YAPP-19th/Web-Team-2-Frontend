@@ -8,6 +8,10 @@ import { useMutation } from 'react-query';
 import { useRecoilValue } from 'recoil';
 import { userState } from 'recoil/atoms/userState';
 import styled from 'styled-components';
+import {
+  changeRemindCycleLocalInfo,
+  changeRemindToggleLocalInfo,
+} from 'utils/remind';
 import MyPageHead from './MyPageHead';
 
 const ConfigurationWrapper = styled.div`
@@ -47,7 +51,7 @@ function Configuration(): ReactElement {
     () => patchRemindToggle({ remindToggle: !isRemind }),
     {
       onSuccess: () => {
-        // @TODO(jekoo): data callback 받아서 localstorage, userState 수정
+        changeRemindToggleLocalInfo(!isRemind);
         onToggleRemind();
       },
     },
@@ -57,7 +61,8 @@ function Configuration(): ReactElement {
     (cycle: string) => setRemindCycle({ remindCycle: cycle }),
     {
       onSuccess: () => {
-        // @TODO(jekoo): data callback 받아서 localstorage, userState 수정
+        // eslint-disable-next-line no-console
+        console.log('success');
       },
     },
   );
@@ -86,6 +91,7 @@ function Configuration(): ReactElement {
                 key={cycle}
                 onClick={() => {
                   mutateRemindCycleChange(cycle);
+                  changeRemindCycleLocalInfo(cycle);
                   onChangeSelectedCycle(cycle);
                 }}
               />
