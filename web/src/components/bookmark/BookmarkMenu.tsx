@@ -1,11 +1,12 @@
 import useLayerClose from 'hooks/common/useLayerClose';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
-import { IBookmarkMenu } from './BookmarkList';
+import { IBookmarkMenu, IBookmarkOpenMenu } from './BookmarkList';
 
 interface BookmarkMenuProps {
   isOpen: boolean;
   onToggleModal: IBookmarkMenu;
+  isOpenMenu: IBookmarkOpenMenu;
 }
 
 const BookmarkMenuWrapper = styled.div`
@@ -38,6 +39,7 @@ const BookmarkMenuItem = styled.div`
 function BookmarkMenu({
   isOpen,
   onToggleModal,
+  isOpenMenu,
 }: BookmarkMenuProps): ReactElement {
   const {
     onToggleOpenMenu,
@@ -62,7 +64,8 @@ function BookmarkMenu({
   ];
 
   const onClose = () => {
-    onToggleOpenMenu('', '');
+    const { id, title } = isOpenMenu;
+    onToggleOpenMenu(id, title, false);
   };
 
   const { targetEl } = useLayerClose(isOpen, onClose);

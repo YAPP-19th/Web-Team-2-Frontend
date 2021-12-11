@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   BellSelectedIcon,
   BellUnSelectedIcon,
@@ -8,6 +9,7 @@ import {
 import { ellipsis } from 'assets/styles/utilStyles';
 import CheckBox from 'components/common/CheckBox';
 import Toasts from 'components/common/Toasts';
+import { useBookmarkMutationQuery } from 'hooks/bookmark/useBookmarkQueries';
 import useToasts from 'hooks/common/useToasts';
 import { bookmarks } from 'models/bookmark';
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
@@ -158,26 +160,22 @@ function BookmarkItem({
 
   const { onToggleOpenMenu } = onToggleModal;
 
-  /*
-  NOTE: Bookmark mutation 
-  
-  const { mutateBookmarkDelete, mutateBookmarkMove, mutateBookmarkUpdate } =
-    useBookmarkMutationQuery(id);
+  // const { mutateBookmarkDelete, mutateBookmarkMove, mutateBookmarkUpdate } =
+  //   useBookmarkMutationQuery(id);
 
-  mutateBookmarkDelete();
+  // // mutateBookmarkDelete();
 
-  const updateRequestData: bookmarks.IBookmarkUpdateRequest = {
-    title,
-    remind: false,
-  };
-  mutateBookmarkUpdate(updateRequestData);
+  // const updateRequestData: bookmarks.IBookmarkUpdateRequest = {
+  //   title,
+  //   remind: false,
+  // };
+  // mutateBookmarkUpdate(updateRequestData);
 
-  const moveRequestData: bookmarks.IBookmarkMoveRequest = {
-    prevFolderId: 'prev',
-    nextFolderId: 'next',
-  };
-  mutateBookmarkMove(moveRequestData);
-  */
+  // // const moveRequestData: bookmarks.IBookmarkMoveRequest = {
+  // //   prevFolderId: 'prev',
+  // //   nextFolderId: 'next',
+  // // };
+  // // mutateBookmarkMove(moveRequestData);
 
   useEffect(() => {
     setIsChecked(
@@ -244,14 +242,15 @@ function BookmarkItem({
 
             <OptionButton
               onClick={(e) => {
-                onToggleOpenMenu(id, title);
+                onToggleOpenMenu(id, title, true);
                 e.stopPropagation();
               }}
             >
               <More24Icon />
-              {isOpenMenu.id === id && (
+              {isOpenMenu.id === id && isOpenMenu.isOpen && (
                 <BookmarkMenu
                   isOpen={isOpenMenu.id === id}
+                  isOpenMenu={isOpenMenu}
                   onToggleModal={onToggleModal}
                 />
               )}

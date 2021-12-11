@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import BlankSlate from 'components/common/BlankSlate';
+import { useBookmarkMutationQuery } from 'hooks/bookmark/useBookmarkQueries';
 import useToggle from 'hooks/common/useToggle';
 import { bookmarks } from 'models/bookmark';
 import React, { ReactElement, useState } from 'react';
@@ -12,7 +13,7 @@ interface Props {
 }
 
 export interface IBookmarkMenu {
-  onToggleOpenMenu: (id: string, title: string) => void;
+  onToggleOpenMenu: (id: string, title: string, isOpen: boolean) => void;
   onToggleDeleteModal: () => void;
   onToggleEditModal: () => void;
   onToggleMoveModal: () => void;
@@ -21,6 +22,7 @@ export interface IBookmarkMenu {
 export interface IBookmarkOpenMenu {
   id: string;
   title: string;
+  isOpen: boolean;
 }
 
 const BookmarkListWrapper = styled.div`
@@ -41,13 +43,14 @@ function BookmarkList(props: Props): ReactElement {
   const [isOpenMenu, setIsOpenMenu] = useState<IBookmarkOpenMenu>({
     id: '',
     title: '',
+    isOpen: false,
   });
   const [isDeleteModal, onToggleDeleteModal] = useToggle();
   const [isEditModal, onToggleEditModal] = useToggle();
   const [isMoveModal, onToggleMoveModal] = useToggle();
 
-  const onToggleOpenMenu = (id: string, title: string) => {
-    setIsOpenMenu({ ...isOpenMenu, id, title });
+  const onToggleOpenMenu = (id: string, title: string, isOpen: boolean) => {
+    setIsOpenMenu({ ...isOpenMenu, id, title, isOpen });
   };
 
   const onToggleModal: IBookmarkMenu = {
@@ -56,6 +59,7 @@ function BookmarkList(props: Props): ReactElement {
     onToggleEditModal,
     onToggleMoveModal,
   };
+
   return (
     <BookmarkListWrapper>
       {bookmarkList.length === 0 && (

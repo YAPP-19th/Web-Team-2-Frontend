@@ -1,3 +1,4 @@
+import { updateBookmark } from 'api/bookmarkAPI';
 import ModalTemplate from 'components/common/ModalTemplate';
 import SimpleButton from 'components/common/SimpleButton';
 import SimpleInput from 'components/common/SimpleInput';
@@ -63,13 +64,25 @@ function BookmarkEditModal({
   onToggleModal,
   isOpenMenu,
 }: BookmarkEditModalProps): ReactElement {
-  const [editForm, setEditForm] = useState(isOpenMenu.title);
+  const [title, setTitle] = useState(isOpenMenu.title);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (editForm.length >= 100) {
+    if (title.length >= 100) {
       return;
     }
-    setEditForm(e.target.value);
+    setTitle(e.target.value);
+  };
+
+  const onEditSubmit = async () => {
+    try {
+      await updateBookmark(isOpenMenu.id, {
+        title,
+        remind: true,
+      });
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.log(e);
+    }
   };
 
   return (
@@ -83,12 +96,12 @@ function BookmarkEditModal({
         <ModalTitle>도토리 편집</ModalTitle>
         <ModalContent>
           <InputInfo>
-            제목 <InputCount>{editForm.length}/100</InputCount>
+            제목 <InputCount>{title.length}/100</InputCount>
           </InputInfo>
           <EditInput
             width="280px"
             height="35px"
-            value={editForm}
+            value={title}
             onChange={onChange}
           />
         </ModalContent>
@@ -108,6 +121,7 @@ function BookmarkEditModal({
             borderRadius="8px"
             label="편집"
             onClick={() => {
+              onEditSubmit();
               onToggleModal();
             }}
           />
