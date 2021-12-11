@@ -41,7 +41,6 @@ const Option = styled.div`
 
 function SelectBox({ bookmarkList }: SelectBoxProps): ReactElement {
   const [isChecked, setIsChecked] = useState(false);
-  // const bookmarks = useRecoilValue(bookmarksState);
   const [selectedBookmarks, setSelectedBookmarks] = useRecoilState(
     selectedBookmarksState,
   );

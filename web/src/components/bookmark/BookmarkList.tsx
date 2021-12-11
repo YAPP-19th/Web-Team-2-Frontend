@@ -1,10 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { deleteBookmark } from 'api/bookmarkAPI';
 import BlankSlate from 'components/common/BlankSlate';
+import SmallModal from 'components/common/SmallModal';
 import { useBookmarkMutationQuery } from 'hooks/bookmark/useBookmarkQueries';
 import useToggle from 'hooks/common/useToggle';
 import { bookmarks } from 'models/bookmark';
 import React, { ReactElement, useState } from 'react';
+import { useQueryClient } from 'react-query';
 import styled from 'styled-components';
+import { QueryKey } from 'utils/const';
 import BookmarkEditModal from './BookmarkEditModal';
 import BookmarkItem from './BookmarkItem';
 
@@ -72,6 +76,17 @@ function BookmarkList(props: Props): ReactElement {
     onToggleMoveModal,
   };
 
+  const queryClient = useQueryClient();
+  const onDeleteBookmark = async (id: string) => {
+    try {
+      await deleteBookmark(id);
+      queryClient.invalidateQueries(QueryKey.BOOKMARK_CONTENTS);
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.log(e);
+    }
+  };
+
   return (
     <BookmarkListWrapper>
       {bookmarkList.length === 0 && (
@@ -95,6 +110,18 @@ function BookmarkList(props: Props): ReactElement {
           isModal={isEditModal}
           onToggleModal={onToggleEditModal}
           isOpenMenu={isOpenMenu}
+        />
+      )}
+
+      {isDeleteModal && (
+        <SmallModal
+          isModal={isDeleteModal}
+          onToggleModal={onToggleDeleteModal}
+          title="선택한 도토리를 삭제할까요?"
+          content="삭제된 도토리는 완전히 사라져요!"
+          buttonName="삭제"
+          isOneLine
+          onClick={() => onDeleteBookmark(isOpenMenu.id)}
         />
       )}
     </BookmarkListWrapper>
