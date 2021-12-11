@@ -64,8 +64,8 @@ function BookmarkMenu({
   ];
 
   const onClose = () => {
-    const { id, title } = isOpenMenu;
-    onToggleOpenMenu(id, title, false);
+    const { id, title, remindTime } = isOpenMenu;
+    onToggleOpenMenu(id, title, false, remindTime);
   };
 
   const { targetEl } = useLayerClose(isOpen, onClose);

@@ -242,7 +242,7 @@ function BookmarkItem({
 
             <OptionButton
               onClick={(e) => {
-                onToggleOpenMenu(id, title, true);
+                onToggleOpenMenu(id, title, true, remindTime);
                 e.stopPropagation();
               }}
             >

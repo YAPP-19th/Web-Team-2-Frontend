@@ -77,7 +77,7 @@ function BookmarkEditModal({
     try {
       await updateBookmark(isOpenMenu.id, {
         title,
-        remind: true,
+        remind: !!isOpenMenu.remindTime,
       });
     } catch (e) {
       // eslint-disable-next-line no-console

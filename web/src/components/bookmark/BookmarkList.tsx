@@ -13,7 +13,12 @@ interface Props {
 }
 
 export interface IBookmarkMenu {
-  onToggleOpenMenu: (id: string, title: string, isOpen: boolean) => void;
+  onToggleOpenMenu: (
+    id: string,
+    title: string,
+    isOpen: boolean,
+    remindTime: null | string,
+  ) => void;
   onToggleDeleteModal: () => void;
   onToggleEditModal: () => void;
   onToggleMoveModal: () => void;
@@ -22,6 +27,7 @@ export interface IBookmarkMenu {
 export interface IBookmarkOpenMenu {
   id: string;
   title: string;
+  remindTime: null | string;
   isOpen: boolean;
 }
 
@@ -43,14 +49,20 @@ function BookmarkList(props: Props): ReactElement {
   const [isOpenMenu, setIsOpenMenu] = useState<IBookmarkOpenMenu>({
     id: '',
     title: '',
+    remindTime: null,
     isOpen: false,
   });
   const [isDeleteModal, onToggleDeleteModal] = useToggle();
   const [isEditModal, onToggleEditModal] = useToggle();
   const [isMoveModal, onToggleMoveModal] = useToggle();
 
-  const onToggleOpenMenu = (id: string, title: string, isOpen: boolean) => {
-    setIsOpenMenu({ ...isOpenMenu, id, title, isOpen });
+  const onToggleOpenMenu = (
+    id: string,
+    title: string,
+    isOpen: boolean,
+    remindTime: null | string,
+  ) => {
+    setIsOpenMenu({ ...isOpenMenu, id, title, isOpen, remindTime });
   };
 
   const onToggleModal: IBookmarkMenu = {
