@@ -1,5 +1,7 @@
 import { LogoGreenIcon } from 'assets/icons';
 import React, { ReactElement } from 'react';
+import { useRecoilValue } from 'recoil';
+import { userState } from 'recoil/atoms/userState';
 import Path from 'routes/path';
 import styled from 'styled-components';
 
@@ -24,9 +26,13 @@ const LogoSpan = styled.span`
 `;
 
 function Logo(): ReactElement {
+  const user = useRecoilValue(userState);
+
   return (
     <HeaderLogo>
-      <LogoWithText href={Path.Home}>
+      <LogoWithText
+        href={user.name ? Path.Home : 'https://dotoriham2.netlify.app/'}
+      >
         <LogoGreenIcon />
         <LogoSpan>도토리함</LogoSpan>
       </LogoWithText>

@@ -1,4 +1,6 @@
 import React, { ReactElement } from 'react';
+import { useRecoilValue } from 'recoil';
+import { userState } from 'recoil/atoms/userState';
 import styled from 'styled-components';
 import Info from './Info';
 import Logo from './Logo';
@@ -16,16 +18,21 @@ const HeaderInner = styled.div`
   color: ${(props) => props.theme.color.black};
   display: flex;
   align-items: center;
-  justify-content: center;
 `;
 
 function Header(): ReactElement {
+  const user = useRecoilValue(userState);
+
   return (
     <HeaderLayout>
       <HeaderInner>
         <Logo />
-        <SearchBar />
-        <Info />
+        {user.name && (
+          <>
+            <SearchBar />
+            <Info />
+          </>
+        )}
       </HeaderInner>
     </HeaderLayout>
   );
