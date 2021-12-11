@@ -3,10 +3,12 @@ import SimpleButton from 'components/common/SimpleButton';
 import SimpleInput from 'components/common/SimpleInput';
 import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
+import { IBookmarkOpenMenu } from './BookmarkList';
 
 interface BookmarkEditModalProps {
   isModal: boolean;
   onToggleModal: () => void;
+  isOpenMenu: IBookmarkOpenMenu;
 }
 
 const ModalStyled = styled.div`
@@ -59,8 +61,9 @@ const CancelButton = styled(SimpleButton)`
 function BookmarkEditModal({
   isModal,
   onToggleModal,
+  isOpenMenu,
 }: BookmarkEditModalProps): ReactElement {
-  const [editForm, setEditForm] = useState('');
+  const [editForm, setEditForm] = useState(isOpenMenu.title);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (editForm.length >= 100) {

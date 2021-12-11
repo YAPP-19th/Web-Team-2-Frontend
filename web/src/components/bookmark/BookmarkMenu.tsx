@@ -62,8 +62,7 @@ function BookmarkMenu({
   ];
 
   const onClose = () => {
-    onToggleOpenMenu('');
-    console.log('d');
+    onToggleOpenMenu('', '');
   };
 
   const { targetEl } = useLayerClose(isOpen, onClose);
@@ -72,14 +71,7 @@ function BookmarkMenu({
     <BookmarkMenuWrapper ref={targetEl}>
       <BookmarkMenuInner>
         {BookmarkMenuItems.map((item) => (
-          <BookmarkMenuItem
-            key={item.name}
-            onClick={(e) => {
-              item.onClick();
-              e.stopPropagation();
-              onClose();
-            }}
-          >
+          <BookmarkMenuItem key={item.name} onClick={item.onClick}>
             {item.name}
           </BookmarkMenuItem>
         ))}
