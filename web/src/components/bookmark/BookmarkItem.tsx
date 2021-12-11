@@ -14,12 +14,13 @@ import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { selectedBookmarksState } from 'recoil/atoms/bookmarkState';
 import styled from 'styled-components';
+import { IBookmarkMenu } from './BookmarkList';
 import BookmarkMenu from './BookmarkMenu';
 
 interface BookmarkItemProps {
   bookmark: bookmarks.IBookmark;
   isOpenMenuId?: string;
-  onToggleOpenMenu: (id: string) => void;
+  onToggleModal: IBookmarkMenu;
 }
 
 const BookmarkItemWrapper = styled.div`
@@ -143,7 +144,7 @@ const UrlTextArea = styled.textarea`
 function BookmarkItem({
   bookmark,
   isOpenMenuId,
-  onToggleOpenMenu,
+  onToggleModal,
 }: BookmarkItemProps): ReactElement {
   const { id, title, description, link, remindTime } = bookmark;
   const [selectedBookmarks, setSelectedBookmarks] = useRecoilState(
@@ -154,6 +155,8 @@ function BookmarkItem({
   const [isOpenRemindToast, onRemindToast] = useToasts();
 
   const copyUrlRef = useRef<HTMLTextAreaElement>(null);
+
+  const { onToggleOpenMenu } = onToggleModal;
 
   /*
   NOTE: Bookmark mutation 
@@ -249,7 +252,7 @@ function BookmarkItem({
               {isOpenMenuId === id && (
                 <BookmarkMenu
                   isOpen={isOpenMenuId === id}
-                  onToggleOpenMenu={onToggleOpenMenu}
+                  onToggleModal={onToggleModal}
                 />
               )}
             </OptionButton>

@@ -1,4 +1,5 @@
 import BlankSlate from 'components/common/BlankSlate';
+import useToggle from 'hooks/common/useToggle';
 import { bookmarks } from 'models/bookmark';
 import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
@@ -6,6 +7,13 @@ import BookmarkItem from './BookmarkItem';
 
 interface Props {
   bookmarkList: bookmarks.IBookmark[];
+}
+
+export interface IBookmarkMenu {
+  onToggleOpenMenu: (id: string) => void;
+  onToggleDeleteModal: () => void;
+  onToggleEditModal: () => void;
+  onToggleMoveModal: () => void;
 }
 
 const BookmarkListWrapper = styled.div`
@@ -24,11 +32,20 @@ const BlankBox = styled.div`
 function BookmarkList(props: Props): ReactElement {
   const { bookmarkList } = props;
   const [isOpenMenuId, setIsOpenMenuId] = useState<string>();
+  const [isDeleteModal, onToggleDeleteModal] = useToggle();
+  const [isEditModal, onToggleEditModal] = useToggle();
+  const [isMoveModal, onToggleMoveModal] = useToggle();
 
   const onToggleOpenMenu = (id: string) => {
     setIsOpenMenuId(id);
   };
 
+  const onToggleModal: IBookmarkMenu = {
+    onToggleOpenMenu,
+    onToggleDeleteModal,
+    onToggleEditModal,
+    onToggleMoveModal,
+  };
   return (
     <BookmarkListWrapper>
       {bookmarkList.length === 0 && (
@@ -43,7 +60,7 @@ function BookmarkList(props: Props): ReactElement {
           bookmark={bookmark}
           key={index}
           isOpenMenuId={isOpenMenuId}
-          onToggleOpenMenu={onToggleOpenMenu}
+          onToggleModal={onToggleModal}
         />
       ))}
     </BookmarkListWrapper>
