@@ -3,8 +3,6 @@ import {
   useBookmarkQuery,
 } from 'hooks/bookmark/useBookmarkQueries';
 import React, { ReactElement, useState } from 'react';
-import { useSetRecoilState } from 'recoil';
-import { bookmarksState } from 'recoil/atoms/bookmarkState';
 import styled from 'styled-components';
 import { BookmarkFilterTypes, BOOKMARK_KINDS } from 'utils/const';
 import BookmarkList from './BookmarkList';
@@ -32,7 +30,6 @@ const BookmarkNav = styled.div`
 function Bookmark(props: Props): ReactElement {
   const { path, keyword } = props;
   const [page, setPage] = useState<number>(0);
-  const setBookmarkState = useSetRecoilState(bookmarksState);
 
   const lastPath = path.split('/').pop() || 'main';
 
@@ -59,12 +56,10 @@ function Bookmark(props: Props): ReactElement {
     folderId,
   );
 
-  if (data) setBookmarkState(data.content);
-
   return (
     <BookmarkWrapper>
       <BookmarkNav>
-        <SelectBox />
+        {data && <SelectBox bookmarkList={data.content} />}
         <FilterBox />
       </BookmarkNav>
       {data && (
