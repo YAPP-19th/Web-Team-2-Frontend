@@ -38,9 +38,10 @@ export function useBookmarkQuery(
   keyword?: string,
   folderId?: ItemId,
 ): typeof query {
+  const searchKeyword = keyword || '';
+  const folderIdKey = folderId || '';
+  const detailInfo = searchKeyword || folderIdKey || 'normal';
   function getBookmarkAPI(bookmarkKind: bookmarks.bookmarkKindItem) {
-    const searchKeyword = keyword || '';
-    const folderIdKey = folderId || '';
     switch (bookmarkKind.kind) {
       case TRASH_BIN.kind:
         return getTrashBookmark(page, bookmarkKind.numOfPage, filter, remind);
@@ -68,11 +69,12 @@ export function useBookmarkQuery(
   }
 
   const query = useQuery(
-    ReactQueryKey.bookmarkContents(bookmarkItem.kind, page),
+    ReactQueryKey.bookmarkContents(bookmarkItem.kind, detailInfo, page),
     () => getBookmarkAPI(bookmarkItem),
     {
       cacheTime: 5 * 60 * 1000,
       staleTime: 5 * 60 * 1000,
+      retry: false,
     },
   );
 
