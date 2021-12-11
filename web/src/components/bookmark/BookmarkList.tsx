@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import BlankSlate from 'components/common/BlankSlate';
 import SmallModal from 'components/common/SmallModal';
+import FolderMoveModal from 'components/sidebar/FolderMoveModal';
 import useHandleBookmark from 'hooks/bookmark/useHandleBookmark';
 import useToggle from 'hooks/common/useToggle';
 import { bookmarks } from 'models/bookmark';
@@ -110,6 +111,13 @@ function BookmarkList(props: Props): ReactElement {
           buttonName="삭제"
           isOneLine
           onClick={() => onDeleteBookmark(isOpenMenu.id)}
+        />
+      )}
+
+      {isMoveModal && (
+        <FolderMoveModal
+          isModal={isMoveModal}
+          onToggleModal={onToggleMoveModal}
         />
       )}
     </BookmarkListWrapper>

@@ -162,6 +162,7 @@ function FolderList({
 
   // 폴더 클릭시 해당 폴더 활성화 후 라우트로 이동
   const onActiveFolder = (folderId: ItemId) => {
+    if (!isDrag) return;
     navigate(`/${folderId}`);
   };
 
