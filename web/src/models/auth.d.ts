@@ -28,7 +28,7 @@ export namespace auth {
   export interface IAuthUserInfo extends IAuthToken {
     email: string;
     name: string;
-    imageUrl: string;
+    image: string;
   }
 
   export interface ILoginRequest
