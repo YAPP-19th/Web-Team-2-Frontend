@@ -39,12 +39,31 @@ function BookmarkMenu({
   isOpen,
   onToggleModal,
 }: BookmarkMenuProps): ReactElement {
-  const BookmarkMenuItems = ['이동', '편집', '삭제'];
+  const {
+    onToggleOpenMenu,
+    onToggleDeleteModal,
+    onToggleEditModal,
+    onToggleMoveModal,
+  } = onToggleModal;
 
-  const { onToggleOpenMenu } = onToggleModal;
+  const BookmarkMenuItems = [
+    {
+      name: '이동',
+      onClick: onToggleMoveModal,
+    },
+    {
+      name: '편집',
+      onClick: onToggleEditModal,
+    },
+    {
+      name: '삭제',
+      onClick: onToggleDeleteModal,
+    },
+  ];
 
   const onClose = () => {
     onToggleOpenMenu('');
+    console.log('d');
   };
 
   const { targetEl } = useLayerClose(isOpen, onClose);
@@ -53,7 +72,16 @@ function BookmarkMenu({
     <BookmarkMenuWrapper ref={targetEl}>
       <BookmarkMenuInner>
         {BookmarkMenuItems.map((item) => (
-          <BookmarkMenuItem key={item}>{item}</BookmarkMenuItem>
+          <BookmarkMenuItem
+            key={item.name}
+            onClick={(e) => {
+              item.onClick();
+              e.stopPropagation();
+              onClose();
+            }}
+          >
+            {item.name}
+          </BookmarkMenuItem>
         ))}
       </BookmarkMenuInner>
     </BookmarkMenuWrapper>

@@ -3,6 +3,7 @@ import useToggle from 'hooks/common/useToggle';
 import { bookmarks } from 'models/bookmark';
 import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
+import BookmarkEditModal from './BookmarkEditModal';
 import BookmarkItem from './BookmarkItem';
 
 interface Props {
@@ -63,6 +64,13 @@ function BookmarkList(props: Props): ReactElement {
           onToggleModal={onToggleModal}
         />
       ))}
+
+      {isEditModal && (
+        <BookmarkEditModal
+          isModal={isEditModal}
+          onToggleModal={onToggleEditModal}
+        />
+      )}
     </BookmarkListWrapper>
   );
 }
