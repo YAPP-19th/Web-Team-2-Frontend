@@ -9,7 +9,6 @@ import {
 import { ellipsis } from 'assets/styles/utilStyles';
 import CheckBox from 'components/common/CheckBox';
 import Toasts from 'components/common/Toasts';
-import { useBookmarkMutationQuery } from 'hooks/bookmark/useBookmarkQueries';
 import useToasts from 'hooks/common/useToasts';
 import { bookmarks } from 'models/bookmark';
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
@@ -35,10 +34,10 @@ const BookmarkItemWrapper = styled.div`
   position: relative;
 `;
 
-const BookmarkThumbnail = styled.div`
+const BookmarkThumbnail = styled.a`
   width: 273px;
   height: 168px;
-  background-color: ${(props) => props.theme.color.grayLightest};
+  background-color: ${(props) => props.theme.color.primaryLight};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -126,6 +125,10 @@ const OptionButton = styled.button`
   position: relative;
 `;
 
+const LinkedStyled = styled.a`
+  overflow: hidden;
+`;
+
 const SelectedStyled = styled.div`
   width: 100%;
   height: 100%;
@@ -207,12 +210,15 @@ function BookmarkItem({
 
   return (
     <BookmarkItemWrapper>
-      <BookmarkThumbnail>
+      <BookmarkThumbnail href={link} target="_blank" rel="noopener noreferrer">
         {/* @TODO(dohyun) 만약에 썸네일이 있으면 img 보여주고 없으면 기본 로고 보여주기 */}
         <SymbolIcon />
         {selectedBookmarks.length > 0 && (
           <SelectButton
-            onClick={onToggleCheckBox}
+            onClick={(e) => {
+              e.preventDefault();
+              onToggleCheckBox();
+            }}
             variant="primary"
             isChecked={isChecked}
           />
@@ -220,8 +226,10 @@ function BookmarkItem({
       </BookmarkThumbnail>
 
       <BookmarkContent>
-        <Title>{title}</Title>
-        <Description>{description}</Description>
+        <LinkedStyled href={link} target="_blank" rel="noopener noreferrer">
+          <Title>{title}</Title>
+          <Description>{description}</Description>
+        </LinkedStyled>
         <DividerLine />
         <BookmarkInfo>
           <BookmarkLinkBox>
