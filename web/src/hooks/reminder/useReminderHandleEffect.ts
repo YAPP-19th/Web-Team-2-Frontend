@@ -1,8 +1,9 @@
+import { remind } from 'models/remind';
 import { useEffect, useRef, useState } from 'react';
-import useRemindEffect, { ImockData } from './useRemindEffect';
+import { useRemindQuery } from './useRemindQueries';
 
 interface ReturnTypes {
-  reminds: ImockData[];
+  reminds: remind.IRemindInfo[];
   currentSlide: number;
   onNextSlide: () => void;
   onBackSlide: () => void;
@@ -12,7 +13,8 @@ interface ReturnTypes {
 }
 
 export default function useReminderHandleEffect(): ReturnTypes {
-  const { reminds } = useRemindEffect();
+  const { data } = useRemindQuery();
+  const reminds = data?.remindBookmarkList || [];
 
   const TOTAL_SLIDES = reminds.length;
   const SHOW_SLIDE_LENGTH = 2;

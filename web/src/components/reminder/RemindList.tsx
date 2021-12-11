@@ -6,9 +6,9 @@ import {
   Next24IMG2x,
   Next24IMG3x,
 } from 'assets/images';
+import useReminderHandleEffect from 'hooks/reminder/useReminderHandleEffect';
 import React, { ReactElement } from 'react';
 import styled, { css } from 'styled-components';
-import useReminderHandleEffect from 'hooks/reminder/useReminderHandleEffect';
 import RemindListItem from './RemindListItem';
 
 const RemindListWrapper = styled.div`
@@ -86,7 +86,7 @@ function RemindList(): ReactElement {
       <RemindListContainer>
         <RemindListBlock ref={slideRef}>
           {reminds.map((data) => (
-            <RemindListItem key={data.id} title={data.title} />
+            <RemindListItem key={data.id} remindData={data} />
           ))}
         </RemindListBlock>
       </RemindListContainer>

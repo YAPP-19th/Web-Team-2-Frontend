@@ -1,9 +1,13 @@
+import { deleteRemind } from 'api/remindAPI';
 import { Symbol36Icon, X16Icon } from 'assets/icons';
+import { remind } from 'models/remind';
 import React, { ReactElement } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
 import styled from 'styled-components';
+import { QueryKey } from 'utils/const';
 
 interface RemindListItemProps {
-  title: string;
+  remindData: remind.IRemindInfo;
 }
 
 const RemindListItemWrapper = styled.div`
@@ -58,15 +62,30 @@ const DeleteButton = styled(X16Icon)`
 `;
 
 function RemindListItem(props: RemindListItemProps): ReactElement {
-  const { title } = props;
+  const { remindData } = props;
+  const queryClient = useQueryClient();
+
+  const { mutate: mutateDeleteRemind } = useMutation(
+    () => deleteRemind(remindData.id),
+    {
+      onSuccess: () => {
+        // eslint-disable-next-line no-console
+        console.log('success');
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries(QueryKey.REMIND_CONTENTS);
+      },
+    },
+  );
+
   return (
     <RemindListItemWrapper>
       <RemindItemLeftBox>
         <Symbol36Icon />
       </RemindItemLeftBox>
       <RemindItemRightBox>
-        <DeleteButton />
-        <RightBoxText>{title}</RightBoxText>
+        <DeleteButton onClick={() => mutateDeleteRemind()} />
+        <RightBoxText>{remindData.title}</RightBoxText>
       </RemindItemRightBox>
     </RemindListItemWrapper>
   );

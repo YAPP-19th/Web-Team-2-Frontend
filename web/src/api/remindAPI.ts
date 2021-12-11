@@ -18,3 +18,15 @@ export const patchRemindToggle = (
     remind.IRemindPatchToggleResponse
   >(`api/v1/mypage/remind/toggle`, requestData);
 };
+
+export const getRemindList = (): Promise<remind.IRemindListResponse> => {
+  return Client.getAxios<remind.IRemindListResponse>(`api/v1/page/today`);
+};
+
+export const deleteRemind = (
+  bookmarkId: string,
+): Promise<remind.IRemindDeleteResponse> => {
+  return Client.deleteAxios<remind.IRemindDeleteResponse>(
+    `api/v1/remind/${bookmarkId}`,
+  );
+};
