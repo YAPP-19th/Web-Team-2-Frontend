@@ -3,7 +3,9 @@ import ModalTemplate from 'components/common/ModalTemplate';
 import SimpleButton from 'components/common/SimpleButton';
 import SimpleInput from 'components/common/SimpleInput';
 import React, { ReactElement, useState } from 'react';
+import { useQueryClient } from 'react-query';
 import styled from 'styled-components';
+import { QueryKey } from 'utils/const';
 import { IBookmarkOpenMenu } from './BookmarkList';
 
 interface BookmarkEditModalProps {
@@ -73,12 +75,15 @@ function BookmarkEditModal({
     setTitle(e.target.value);
   };
 
+  const queryClient = useQueryClient();
+
   const onEditSubmit = async () => {
     try {
       await updateBookmark(isOpenMenu.id, {
         title,
         remind: !!isOpenMenu.remindTime,
       });
+      queryClient.invalidateQueries(QueryKey.BOOKMARK_CONTENTS);
     } catch (e) {
       // eslint-disable-next-line no-console
       console.log(e);
