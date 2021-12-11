@@ -10,6 +10,7 @@ interface SmallModalProps {
   content: string;
   buttonName: string;
   onClick: () => void;
+  isOneLine?: boolean;
 }
 
 const SmallModalStyled = styled.div`
@@ -27,7 +28,7 @@ const SmallModalTitle = styled.div`
 `;
 
 const SmallModalContent = styled.div`
-  height: 42px;
+  /* height: 42px; */
   font-size: 14px;
   line-height: 1.5;
   color: ${(props) => props.theme.color.grayDark};
@@ -51,11 +52,12 @@ function SmallModal({
   content,
   buttonName,
   onClick,
+  isOneLine,
 }: SmallModalProps): ReactElement {
   return (
     <ModalTemplate
       width="328px"
-      height="200px"
+      height={isOneLine ? '178px' : '200px'}
       isModal={isModal}
       onToggleModal={onToggleModal}
     >

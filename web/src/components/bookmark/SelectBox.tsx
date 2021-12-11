@@ -1,11 +1,13 @@
 import CheckBox from 'components/common/CheckBox';
+import { bookmarks } from 'models/bookmark';
 import React, { ReactElement, useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import {
-  selectedBookmarksState,
-  bookmarksState,
-} from 'recoil/atoms/bookmarkState';
+import { useRecoilState } from 'recoil';
+import { selectedBookmarksState } from 'recoil/atoms/bookmarkState';
 import styled from 'styled-components';
+
+interface SelectBoxProps {
+  bookmarkList: bookmarks.IBookmark[];
+}
 
 const SelectBoxWrapper = styled.div`
   display: flex;
@@ -37,9 +39,8 @@ const Option = styled.div`
   cursor: pointer;
 `;
 
-function SelectBox(): ReactElement {
+function SelectBox({ bookmarkList }: SelectBoxProps): ReactElement {
   const [isChecked, setIsChecked] = useState(false);
-  const bookmarks = useRecoilValue(bookmarksState);
   const [selectedBookmarks, setSelectedBookmarks] = useRecoilState(
     selectedBookmarksState,
   );
@@ -47,15 +48,15 @@ function SelectBox(): ReactElement {
   const onCheck = () => {
     setIsChecked(!isChecked);
     setSelectedBookmarks(
-      selectedBookmarks.length === bookmarks.length ? [] : bookmarks,
+      selectedBookmarks.length === bookmarkList.length ? [] : bookmarkList,
     );
   };
 
   useEffect(() => {
-    if (bookmarks.length > 0) {
-      setIsChecked(selectedBookmarks.length === bookmarks.length);
+    if (bookmarkList.length > 0) {
+      setIsChecked(selectedBookmarks.length === bookmarkList.length);
     }
-  }, [selectedBookmarks, bookmarks]);
+  }, [selectedBookmarks, bookmarkList]);
 
   return (
     <SelectBoxWrapper>

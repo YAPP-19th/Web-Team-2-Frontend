@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   BellSelectedIcon,
   BellUnSelectedIcon,
@@ -8,18 +9,20 @@ import {
 import { ellipsis } from 'assets/styles/utilStyles';
 import CheckBox from 'components/common/CheckBox';
 import Toasts from 'components/common/Toasts';
+import { useBookmarkMutationQuery } from 'hooks/bookmark/useBookmarkQueries';
 import useToasts from 'hooks/common/useToasts';
 import { bookmarks } from 'models/bookmark';
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { selectedBookmarksState } from 'recoil/atoms/bookmarkState';
 import styled from 'styled-components';
+import { IBookmarkMenu, IBookmarkOpenMenu } from './BookmarkList';
 import BookmarkMenu from './BookmarkMenu';
 
 interface BookmarkItemProps {
   bookmark: bookmarks.IBookmark;
-  isOpenMenuId?: string;
-  onToggleOpenMenu: (id: string) => void;
+  isOpenMenu: IBookmarkOpenMenu;
+  onToggleModal: IBookmarkMenu;
 }
 
 const BookmarkItemWrapper = styled.div`
@@ -142,10 +145,10 @@ const UrlTextArea = styled.textarea`
 
 function BookmarkItem({
   bookmark,
-  isOpenMenuId,
-  onToggleOpenMenu,
+  isOpenMenu,
+  onToggleModal,
 }: BookmarkItemProps): ReactElement {
-  const { id, title, description, link, remindTime } = bookmark;
+  const { id, title, description, link, remindTime, folderId } = bookmark;
   const [selectedBookmarks, setSelectedBookmarks] = useRecoilState(
     selectedBookmarksState,
   );
@@ -155,26 +158,24 @@ function BookmarkItem({
 
   const copyUrlRef = useRef<HTMLTextAreaElement>(null);
 
-  /*
-  NOTE: Bookmark mutation 
-  
-  const { mutateBookmarkDelete, mutateBookmarkMove, mutateBookmarkUpdate } =
-    useBookmarkMutationQuery(id);
+  const { onToggleOpenMenu } = onToggleModal;
 
-  mutateBookmarkDelete();
+  // const { mutateBookmarkDelete, mutateBookmarkMove, mutateBookmarkUpdate } =
+  //   useBookmarkMutationQuery(id);
 
-  const updateRequestData: bookmarks.IBookmarkUpdateRequest = {
-    title,
-    remind: false,
-  };
-  mutateBookmarkUpdate(updateRequestData);
+  // // mutateBookmarkDelete();
 
-  const moveRequestData: bookmarks.IBookmarkMoveRequest = {
-    prevFolderId: 'prev',
-    nextFolderId: 'next',
-  };
-  mutateBookmarkMove(moveRequestData);
-  */
+  // const updateRequestData: bookmarks.IBookmarkUpdateRequest = {
+  //   title,
+  //   remind: false,
+  // };
+  // mutateBookmarkUpdate(updateRequestData);
+
+  // // const moveRequestData: bookmarks.IBookmarkMoveRequest = {
+  // //   prevFolderId: 'prev',
+  // //   nextFolderId: 'next',
+  // // };
+  // // mutateBookmarkMove(moveRequestData);
 
   useEffect(() => {
     setIsChecked(
@@ -241,15 +242,16 @@ function BookmarkItem({
 
             <OptionButton
               onClick={(e) => {
-                onToggleOpenMenu(id);
+                onToggleOpenMenu(id, title, true, remindTime, folderId);
                 e.stopPropagation();
               }}
             >
               <More24Icon />
-              {isOpenMenuId === id && (
+              {isOpenMenu.id === id && isOpenMenu.isOpen && (
                 <BookmarkMenu
-                  isOpen={isOpenMenuId === id}
-                  onToggleOpenMenu={onToggleOpenMenu}
+                  isOpen={isOpenMenu.id === id}
+                  isOpenMenu={isOpenMenu}
+                  onToggleModal={onToggleModal}
                 />
               )}
             </OptionButton>

@@ -1,10 +1,12 @@
 import useLayerClose from 'hooks/common/useLayerClose';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import { IBookmarkMenu, IBookmarkOpenMenu } from './BookmarkList';
 
 interface BookmarkMenuProps {
   isOpen: boolean;
-  onToggleOpenMenu: (id: string) => void;
+  onToggleModal: IBookmarkMenu;
+  isOpenMenu: IBookmarkOpenMenu;
 }
 
 const BookmarkMenuWrapper = styled.div`
@@ -36,12 +38,34 @@ const BookmarkMenuItem = styled.div`
 
 function BookmarkMenu({
   isOpen,
-  onToggleOpenMenu,
+  onToggleModal,
+  isOpenMenu,
 }: BookmarkMenuProps): ReactElement {
-  const BookmarkMenuItems = ['이동', '편집', '삭제'];
+  const {
+    onToggleOpenMenu,
+    onToggleDeleteModal,
+    onToggleEditModal,
+    onToggleMoveModal,
+  } = onToggleModal;
+
+  const BookmarkMenuItems = [
+    {
+      name: '이동',
+      onClick: onToggleMoveModal,
+    },
+    {
+      name: '편집',
+      onClick: onToggleEditModal,
+    },
+    {
+      name: '삭제',
+      onClick: onToggleDeleteModal,
+    },
+  ];
 
   const onClose = () => {
-    onToggleOpenMenu('');
+    const { id, title, remindTime } = isOpenMenu;
+    onToggleOpenMenu(id, title, false, remindTime);
   };
 
   const { targetEl } = useLayerClose(isOpen, onClose);
@@ -50,7 +74,9 @@ function BookmarkMenu({
     <BookmarkMenuWrapper ref={targetEl}>
       <BookmarkMenuInner>
         {BookmarkMenuItems.map((item) => (
-          <BookmarkMenuItem key={item}>{item}</BookmarkMenuItem>
+          <BookmarkMenuItem key={item.name} onClick={item.onClick}>
+            {item.name}
+          </BookmarkMenuItem>
         ))}
       </BookmarkMenuInner>
     </BookmarkMenuWrapper>

@@ -59,7 +59,7 @@ function Bookmark(props: Props): ReactElement {
   return (
     <BookmarkWrapper>
       <BookmarkNav>
-        <SelectBox />
+        {data && <SelectBox bookmarkList={data.content} />}
         <FilterBox />
       </BookmarkNav>
       {data && (
