@@ -5,9 +5,7 @@ import styled from 'styled-components';
 import TutorialModal from './TutorialModal';
 
 const QuestionButtonStyled = styled.button`
-  position: absolute;
-  top: 762px;
-  left: 0px;
+  margin-top: 50px;
 `;
 
 function QuestionButton(): ReactElement {
