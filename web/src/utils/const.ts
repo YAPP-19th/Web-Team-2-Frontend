@@ -6,11 +6,13 @@ export enum LOCAL_STORAGE_KEY {
 
 export enum QueryKey {
   BOOKMARK_CONTENTS = 'bookmarkContents',
+  REMIND_CONTENTS = 'remindContents',
 }
 
 export const ReactQueryKey = {
   bookmarkContents: (kind: string, detailInfo: string | number, page: number) =>
     [QueryKey.BOOKMARK_CONTENTS, kind, detailInfo, page] as const,
+  remindContents: () => [QueryKey.REMIND_CONTENTS] as const,
 };
 
 export enum NumOfBookmarkPerPage {

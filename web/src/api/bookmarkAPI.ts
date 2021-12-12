@@ -16,7 +16,7 @@ export const getTrashBookmark = (
   remind: boolean,
 ): Promise<bookmarks.IBookmarkGetResponse> => {
   return Client.getAxios<bookmarks.IBookmarkGetResponse>(
-    `api/v1/page/trash?page=${page}&size=${size}&sort=${sort}&remind=${remind}`,
+    `api/v1/page/trash?page=${page}&size=${size}&sort=str${sort}&remind=${remind}`,
   );
 };
 
