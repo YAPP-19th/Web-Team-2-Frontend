@@ -28,11 +28,18 @@ const ContentInner = styled.div`
 function MainPage(): ReactElement {
   const location = useLocation();
   const params = useParams();
+  const { folderId } = params;
   const [path, setPath] = useState<string>();
+  const [isFolderPage, setIsFolderPage] = useState<boolean>(false);
+  const abs = folderId && folderId !== 'trash' && folderId !== 'search';
   useEffect(() => {
-    // setPath(params.folderId || 'main');
     setPath(location.pathname);
-  }, [params]);
+    if (folderId && folderId !== 'trash' && folderId !== 'search') {
+      setIsFolderPage(true);
+    } else {
+      setIsFolderPage(false);
+    }
+  }, [location.pathname]);
 
   // 쿼리스트링 추출
   const query = useMemo(() => {
@@ -49,7 +56,7 @@ function MainPage(): ReactElement {
         <ContentInner>
           {location.pathname === Path.Home && <Reminder />}
           <BookmarkPath />
-          <SubFolders />
+          {isFolderPage && <SubFolders />}
           {path && <Bookmark path={path} keyword={query.q} />}
         </ContentInner>
       </ContentLayout>

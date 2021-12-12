@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import useChildFoldersEffect from 'hooks/folder/useChildFoldersEffect';
 import tempData from './data/tempFolderData.json';
 import MainFolderListItem from './SubFolderListItem';
 
@@ -9,6 +10,8 @@ const FolderListWrapper = styled.div`
 `;
 
 function SubFolderList(): ReactElement {
+  useChildFoldersEffect();
+
   return (
     <FolderListWrapper>
       {tempData.folders.map((folder) => (
