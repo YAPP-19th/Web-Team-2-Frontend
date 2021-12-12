@@ -8,6 +8,7 @@ import Path from 'routes/path';
 import styled from 'styled-components';
 import qs from 'qs';
 import BookmarkPath from 'components/bookmark/BookmarkPath';
+import { checkFolderPage } from 'utils/checkFolderPage';
 
 const MainWrapper = styled.div`
   display: flex;
@@ -31,14 +32,10 @@ function MainPage(): ReactElement {
   const { folderId } = params;
   const [path, setPath] = useState<string>();
   const [isFolderPage, setIsFolderPage] = useState<boolean>(false);
-  const abs = folderId && folderId !== 'trash' && folderId !== 'search';
+
   useEffect(() => {
     setPath(location.pathname);
-    if (folderId && folderId !== 'trash' && folderId !== 'search') {
-      setIsFolderPage(true);
-    } else {
-      setIsFolderPage(false);
-    }
+    setIsFolderPage(checkFolderPage(folderId));
   }, [location.pathname]);
 
   // 쿼리스트링 추출

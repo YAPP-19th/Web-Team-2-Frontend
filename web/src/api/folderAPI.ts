@@ -1,6 +1,7 @@
 import { ItemId, TreeData } from '@atlaskit/tree';
 import { Client } from 'api/http';
 import { AxiosResponse } from 'axios';
+import { folder } from 'models/folder';
 
 // 폴더 리스트 조회
 export const getFolders = (): Promise<TreeData> => {
@@ -60,6 +61,8 @@ export const deleteFolder = (folderId: ItemId): Promise<AxiosResponse> => {
 };
 
 // 자식 폴더 리스트 조회
-export const getChildFolders = (folderId: ItemId): Promise<AxiosResponse> => {
+export const getChildFolders = (
+  folderId: ItemId,
+): Promise<folder.IChildFoldersGetResponse> => {
   return Client.getAxios(`/api/v1/folder/${folderId}/children`);
 };

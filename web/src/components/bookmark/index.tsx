@@ -15,8 +15,6 @@ interface Props {
   keyword?: string;
 }
 
-const BookmarkWrapper = styled.div``;
-
 const BookmarkNav = styled.div`
   display: flex;
   justify-content: space-between;
@@ -57,13 +55,14 @@ function Bookmark(props: Props): ReactElement {
   );
 
   return (
-    <BookmarkWrapper>
-      <BookmarkNav>
-        {data && <SelectBox bookmarkList={data.content} />}
-        <FilterBox />
-      </BookmarkNav>
+    <>
       {data && (
         <>
+          <BookmarkNav>
+            <SelectBox bookmarkList={data.content} />
+            <FilterBox />
+          </BookmarkNav>
+
           <BookmarkList bookmarkList={data.content} />
           <Pagination
             page={page}
@@ -73,7 +72,7 @@ function Bookmark(props: Props): ReactElement {
           />
         </>
       )}
-    </BookmarkWrapper>
+    </>
   );
 }
 
