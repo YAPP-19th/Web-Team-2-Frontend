@@ -149,11 +149,13 @@ export default function useFoldersHandle(): IFoldersHandle {
 
   //  폴더 생성 API 작동하는 action 함수
   const onCreateFolderAction = async (parentId: ItemId, folderName: string) => {
+    const ParentFolderChildrenLength = findChildrenLength(folders, parentId);
+
     try {
       const { folderId } = await createFolder(
         parentId === 'root' ? 0 : parentId,
         folderName,
-        0,
+        ParentFolderChildrenLength,
       );
       const newFolder = createNewFolderData(folderId, folderName);
       addNewDataInFolders(folderId, parentId, newFolder);
