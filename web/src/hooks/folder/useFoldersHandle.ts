@@ -17,8 +17,9 @@ import {
 import useToasts from 'hooks/common/useToasts';
 import produce from 'immer';
 import { useCallback, useState } from 'react';
+import { useQueryClient } from 'react-query';
 import { findChildrenLength, findParentId } from 'utils/atlaskitTreeFinder';
-import { MAX_FOLDERS_LENGTH } from 'utils/const';
+import { MAX_FOLDERS_LENGTH, QueryKey } from 'utils/const';
 import useFoldersEffect from './useFoldersEffect';
 
 export interface IFoldersHandle {
@@ -49,6 +50,8 @@ export default function useFoldersHandle(): IFoldersHandle {
   const { folders, setFolders } = useFoldersEffect();
   const [moveFolderId, setMoveFolderId] = useState<ItemId | null>(null);
   const [isOpenFolderIsFullToast, onFolderIsFullToast] = useToasts();
+
+  const queryClient = useQueryClient();
 
   // 폴더 열기
   const onExpandFolder = (itemId: ItemId) => {
@@ -167,6 +170,7 @@ export default function useFoldersHandle(): IFoldersHandle {
         return;
       }
       await onCreateFolderAction(parentId, '제목없음');
+      queryClient.invalidateQueries(QueryKey.SUBFOLDER_CONTENTS);
     },
     [folders],
   );
@@ -184,6 +188,7 @@ export default function useFoldersHandle(): IFoldersHandle {
     try {
       await deleteFolder(itemId);
       deleteDataInFolders(itemId);
+      queryClient.invalidateQueries(QueryKey.SUBFOLDER_CONTENTS);
     } catch (e) {
       console.log('폴더 삭제에 실패했습니다');
     }
@@ -199,6 +204,7 @@ export default function useFoldersHandle(): IFoldersHandle {
       await renameFolder(itemId, name);
       await updateFolderEmoji(itemId, emoji);
       setFolders(mutateTree(folders, itemId, { data: { name, emoji } }));
+      queryClient.invalidateQueries(QueryKey.SUBFOLDER_CONTENTS);
     } catch (e) {
       console.log('폴더 이름, 이모지 수정에 실패했습니다');
     }
