@@ -1,3 +1,5 @@
+import { ItemId } from '@atlaskit/tree';
+
 export enum LOCAL_STORAGE_KEY {
   USER_TOKEN = 'userToken',
   USER_BASE_INFO = 'userBaseInfo',
@@ -7,12 +9,15 @@ export enum LOCAL_STORAGE_KEY {
 export enum QueryKey {
   BOOKMARK_CONTENTS = 'bookmarkContents',
   REMIND_CONTENTS = 'remindContents',
+  SUBFOLDER_CONTENTS = 'subfolderContents',
 }
 
 export const ReactQueryKey = {
-  bookmarkContents: (kind: string, detailInfo: string | number, page: number) =>
+  bookmarkContents: (kind: string, detailInfo: ItemId, page: number) =>
     [QueryKey.BOOKMARK_CONTENTS, kind, detailInfo, page] as const,
   remindContents: () => [QueryKey.REMIND_CONTENTS] as const,
+  subFolderContents: (detailInfo: ItemId) =>
+    [QueryKey.SUBFOLDER_CONTENTS, detailInfo] as const,
 };
 
 export enum NumOfBookmarkPerPage {
