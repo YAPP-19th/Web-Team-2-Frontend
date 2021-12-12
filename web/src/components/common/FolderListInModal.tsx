@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import Tree, { RenderItemParams } from '@atlaskit/tree';
 import styled, { css } from 'styled-components';
-import useFoldersHandle from 'hooks/sidebar/useFoldersHandle';
+import useFoldersHandle from 'hooks/folder/useFoldersHandle';
 import FolderItemIcon from 'components/sidebar/FolderItemIcon';
 
 const FolderListWrapper = styled.div`

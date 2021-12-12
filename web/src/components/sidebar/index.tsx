@@ -1,4 +1,4 @@
-import useFoldersHandle from 'hooks/sidebar/useFoldersHandle';
+import useFoldersHandle from 'hooks/folder/useFoldersHandle';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import QuestionButton from 'components/tutorial/QuestionButton';

@@ -58,3 +58,8 @@ export const updateFolderEmoji = (
 export const deleteFolder = (folderId: ItemId): Promise<AxiosResponse> => {
   return Client.deleteAxios(`/api/v1/folder/${folderId}`);
 };
+
+// 자식 폴더 리스트 조회
+export const getChildFolders = (folderId: ItemId): Promise<AxiosResponse> => {
+  return Client.getAxios(`/api/v1/folder/${folderId}/children`);
+};
