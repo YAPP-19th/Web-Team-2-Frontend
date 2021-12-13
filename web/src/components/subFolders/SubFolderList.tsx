@@ -1,28 +1,22 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
-import useChildFoldersEffect from 'hooks/folder/useChildFoldersQueries';
-import { useParams } from 'react-router-dom';
-import { checkFolderPage } from 'utils/checkFolderPage';
+import { folder } from 'models/folder';
 import MainFolderListItem from './SubFolderListItem';
 
-export interface FolderIdParams {
-  folderId: string;
+interface SubFolderListProps {
+  subFolders: folder.IChildFoldersGetResponse;
 }
+
 const FolderListWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
 `;
 
-function SubFolderList(): ReactElement | null {
-  const { folderId } = useParams<keyof FolderIdParams>() as FolderIdParams;
-  if (!checkFolderPage(folderId)) return null;
-
-  const { data } = useChildFoldersEffect(folderId);
-
+function SubFolderList({ subFolders }: SubFolderListProps): ReactElement {
   return (
     <FolderListWrapper>
-      {data?.map((folder) => (
-        <MainFolderListItem key={folder.folderId} name={folder.name} />
+      {subFolders.map((subFolder) => (
+        <MainFolderListItem key={subFolder.folderId} name={subFolder.name} />
       ))}
     </FolderListWrapper>
   );

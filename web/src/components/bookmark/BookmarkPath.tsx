@@ -1,14 +1,10 @@
-import { FolderIdParams } from 'components/subFolders/SubFolderList';
+import { FolderIdParams } from 'components/subFolders';
 import usePagePathEffect from 'hooks/common/usePagePathEffect';
 import usePagePathQueries from 'hooks/common/usePagePathQueries';
 import React, { ReactElement } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { checkFolderPage } from 'utils/checkFolderPage';
-
-interface BookmarkPathProps {
-  path: string;
-}
 
 const BookmarkPathWrapper = styled.div`
   margin-bottom: 28px;
@@ -21,30 +17,40 @@ const PathText = styled.span`
   color: ${(props) => props.theme.color.grayDarkest};
 `;
 
-function BookmarkPath({ path }: BookmarkPathProps): ReactElement | null {
-  const { folderId } = useParams<keyof FolderIdParams>() as FolderIdParams;
-  const { data } = usePagePathQueries(folderId);
+function NormalPath(): ReactElement {
+  const location = useLocation();
   const { getPath } = usePagePathEffect();
-  const pathName = getPath(path);
-
-  const foldersPath = () => {
-    return (
-      <>
-        {data?.map((item) => (
-          <PathText key={item.name}>{item.name}</PathText>
-        ))}
-      </>
-    );
-  };
-
+  const pathName = getPath(location.pathname);
   return (
     <BookmarkPathWrapper>
-      {checkFolderPage(folderId) ? (
-        foldersPath()
-      ) : (
-        <PathText> {pathName} </PathText>
-      )}
+      <PathText> {pathName} </PathText>
     </BookmarkPathWrapper>
+  );
+}
+
+function FolderPath({ folderId }: { folderId: string }): ReactElement | null {
+  const { data } = usePagePathQueries(folderId);
+  if (!data) return null;
+  return (
+    <BookmarkPathWrapper>
+      {data.map((item) => (
+        <PathText key={item.folderId}>{item.name}</PathText>
+      ))}
+    </BookmarkPathWrapper>
+  );
+}
+
+function BookmarkPath(): ReactElement | null {
+  const { folderId } = useParams<keyof FolderIdParams>() as FolderIdParams;
+
+  return (
+    <>
+      {checkFolderPage(folderId) ? (
+        <FolderPath folderId={folderId} />
+      ) : (
+        <NormalPath />
+      )}
+    </>
   );
 }
 

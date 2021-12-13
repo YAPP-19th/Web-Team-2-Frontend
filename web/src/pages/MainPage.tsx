@@ -1,8 +1,8 @@
 import Bookmark from 'components/bookmark';
-import SubFolders from 'components/subFolders';
+import SubFolders, { FolderIdParams } from 'components/subFolders';
 import Reminder from 'components/reminder';
 import SideBar from 'components/sidebar';
-import React, { ReactElement, useEffect, useMemo, useState } from 'react';
+import React, { ReactElement, useMemo } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import Path from 'routes/path';
 import styled from 'styled-components';
@@ -28,15 +28,7 @@ const ContentInner = styled.div`
 
 function MainPage(): ReactElement {
   const location = useLocation();
-  const params = useParams();
-  const { folderId } = params;
-  const [path, setPath] = useState<string>('');
-  const [isFolderPage, setIsFolderPage] = useState<boolean>(false);
-
-  useEffect(() => {
-    setPath(location.pathname);
-    setIsFolderPage(checkFolderPage(folderId));
-  }, [location, folderId]);
+  const { folderId } = useParams<keyof FolderIdParams>() as FolderIdParams;
 
   // 쿼리스트링 추출
   const query = useMemo(() => {
@@ -46,21 +38,15 @@ function MainPage(): ReactElement {
     return parsed;
   }, [location.search]);
 
-  /* @NOTE 
-  - '모든 도토리' 일 경우에만 Reminder 를 보여주기
-  - '검색 페이지 일 경우에만 BookmarkPath 를 보여주지 말기
-  - '각 보관함 or 폴더 페이지에만  SubFolders 를 보여주기
-   */
-
   return (
     <MainWrapper>
       <SideBar />
       <ContentLayout>
         <ContentInner>
-          {path === Path.Home && <Reminder />}
-          {path !== Path.SearchPage && <BookmarkPath path={path} />}
-          {isFolderPage && <SubFolders />}
-          <Bookmark path={path} keyword={query.q} />
+          {location.pathname === Path.Home && <Reminder />}
+          <BookmarkPath />
+          {checkFolderPage(folderId) && <SubFolders />}
+          <Bookmark path={location.pathname} keyword={query.q} />
         </ContentInner>
       </ContentLayout>
     </MainWrapper>
