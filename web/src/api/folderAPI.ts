@@ -66,3 +66,10 @@ export const getChildFolders = (
 ): Promise<folder.IChildFoldersGetResponse> => {
   return Client.getAxios(`/api/v1/folder/${folderId}/children`);
 };
+
+// 부모 폴더 리스트 조회
+export const getParentFolders = (
+  folderId: ItemId,
+): Promise<folder.IParentFoldersGetResponse> => {
+  return Client.getAxios(`/api/v1/folder/${folderId}/parent`);
+};

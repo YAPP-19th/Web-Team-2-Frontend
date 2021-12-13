@@ -30,7 +30,7 @@ function MainPage(): ReactElement {
   const location = useLocation();
   const params = useParams();
   const { folderId } = params;
-  const [path, setPath] = useState<string>();
+  const [path, setPath] = useState<string>('');
   const [isFolderPage, setIsFolderPage] = useState<boolean>(false);
 
   useEffect(() => {
@@ -57,8 +57,8 @@ function MainPage(): ReactElement {
       <SideBar />
       <ContentLayout>
         <ContentInner>
-          {location.pathname === Path.Home && <Reminder />}
-          {location.pathname !== Path.SearchPage && <BookmarkPath />}
+          {path === Path.Home && <Reminder />}
+          {path !== Path.SearchPage && <BookmarkPath path={path} />}
           {isFolderPage && <SubFolders />}
           {path && <Bookmark path={path} keyword={query.q} />}
         </ContentInner>

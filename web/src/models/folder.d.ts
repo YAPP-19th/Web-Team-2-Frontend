@@ -8,4 +8,5 @@ export namespace folder {
   }
 
   export type IChildFoldersGetResponse = IChildFolderItem[];
+  export type IParentFoldersGetResponse = IChildFolderItem[];
 }
