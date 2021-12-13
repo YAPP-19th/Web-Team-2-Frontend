@@ -1,17 +1,13 @@
+import { FolderIdParams } from 'components/subFolders/SubFolderList';
 import usePagePathEffect from 'hooks/common/usePagePathEffect';
 import usePagePathQueries from 'hooks/common/usePagePathQueries';
 import React, { ReactElement } from 'react';
 import { useParams } from 'react-router-dom';
-import Path from 'routes/path';
 import styled from 'styled-components';
 import { checkFolderPage } from 'utils/checkFolderPage';
 
 interface BookmarkPathProps {
   path: string;
-}
-
-interface FolderIdParams {
-  folderId: string;
 }
 
 const BookmarkPathWrapper = styled.div`
@@ -26,17 +22,28 @@ const PathText = styled.span`
 `;
 
 function BookmarkPath({ path }: BookmarkPathProps): ReactElement | null {
-  const { getPathName } = usePagePathEffect();
-  const pathName = getPathName(path);
-
   const { folderId } = useParams<keyof FolderIdParams>() as FolderIdParams;
-  if (!checkFolderPage(folderId)) return null;
-
   const { data } = usePagePathQueries(folderId);
-  console.log('data', data);
+  const { getPath } = usePagePathEffect();
+  const pathName = getPath(path);
+
+  const foldersPath = () => {
+    return (
+      <>
+        {data?.map((item) => (
+          <PathText key={item.name}>{item.name}</PathText>
+        ))}
+      </>
+    );
+  };
+
   return (
     <BookmarkPathWrapper>
-      <PathText>{pathName}</PathText>
+      {checkFolderPage(folderId) ? (
+        foldersPath()
+      ) : (
+        <PathText> {pathName} </PathText>
+      )}
     </BookmarkPathWrapper>
   );
 }

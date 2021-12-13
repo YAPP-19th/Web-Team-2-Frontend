@@ -3,7 +3,6 @@ import { useQuery } from 'react-query';
 import { ReactQueryKey } from 'utils/const';
 
 export default function usePagePathQueries(folderId: string): typeof query {
-  console.log('난?');
   const query = useQuery(
     ReactQueryKey.pagePathContents(folderId),
     () => getParentFolders(folderId),

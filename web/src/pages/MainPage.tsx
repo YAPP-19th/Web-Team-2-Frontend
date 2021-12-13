@@ -36,7 +36,7 @@ function MainPage(): ReactElement {
   useEffect(() => {
     setPath(location.pathname);
     setIsFolderPage(checkFolderPage(folderId));
-  }, [location.pathname]);
+  }, [location, folderId]);
 
   // 쿼리스트링 추출
   const query = useMemo(() => {
@@ -60,7 +60,7 @@ function MainPage(): ReactElement {
           {path === Path.Home && <Reminder />}
           {path !== Path.SearchPage && <BookmarkPath path={path} />}
           {isFolderPage && <SubFolders />}
-          {path && <Bookmark path={path} keyword={query.q} />}
+          <Bookmark path={path} keyword={query.q} />
         </ContentInner>
       </ContentLayout>
     </MainWrapper>
