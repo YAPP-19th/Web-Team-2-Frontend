@@ -46,13 +46,19 @@ function MainPage(): ReactElement {
     return parsed;
   }, [location.search]);
 
+  /* @NOTE 
+  - '모든 도토리' 일 경우에만 Reminder 를 보여주기
+  - '검색 페이지 일 경우에만 BookmarkPath 를 보여주지 말기
+  - '각 보관함 or 폴더 페이지에만  SubFolders 를 보여주기
+   */
+
   return (
     <MainWrapper>
       <SideBar />
       <ContentLayout>
         <ContentInner>
           {location.pathname === Path.Home && <Reminder />}
-          <BookmarkPath />
+          {location.pathname !== Path.SearchPage && <BookmarkPath />}
           {isFolderPage && <SubFolders />}
           {path && <Bookmark path={path} keyword={query.q} />}
         </ContentInner>
