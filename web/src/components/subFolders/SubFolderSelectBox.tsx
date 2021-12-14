@@ -42,7 +42,6 @@ function MainFolderSelectBox(): ReactElement {
 
       <SelectOption>
         <Option>삭제</Option>
-        <Option>이동</Option>
       </SelectOption>
     </SelectBoxWrapper>
   );
