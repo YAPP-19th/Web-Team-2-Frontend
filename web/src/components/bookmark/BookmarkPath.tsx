@@ -60,6 +60,11 @@ const SubFolderName = styled(Link)`
   }
 `;
 
+const FolderPathEllipsis = styled.span`
+  display: flex;
+  align-items: center;
+`;
+
 function NormalPath(): ReactElement {
   const location = useLocation();
   const { getPath } = usePagePathEffect();
@@ -94,16 +99,25 @@ function FolderPath({
         {folderPathList.map((item, index) => {
           const { name, folderId, emoji } = item;
           return (
-            <PathText pathType="folder" key={folderId}>
-              {emoji ? (
-                <EmojiIcon emoji={{ name: 'emoji', unicode: emoji }} />
-              ) : (
-                <FolderIconStyled />
-              )}
+            <>
+              {index === 0 || index === folderPathList.length - 1 ? (
+                <PathText pathType="folder" key={folderId}>
+                  {emoji ? (
+                    <EmojiIcon emoji={{ name: 'emoji', unicode: emoji }} />
+                  ) : (
+                    <FolderIconStyled />
+                  )}
 
-              <SubFolderName to={`/${folderId}`}>{name}</SubFolderName>
-              {folderPathList.length - 1 !== index && <ArrowSide16Icon />}
-            </PathText>
+                  <SubFolderName to={`/${folderId}`}>{name}</SubFolderName>
+                  {folderPathList.length - 1 !== index && <ArrowSide16Icon />}
+                </PathText>
+              ) : (
+                <FolderPathEllipsis>
+                  ...
+                  <ArrowSide16Icon />
+                </FolderPathEllipsis>
+              )}
+            </>
           );
         })}
       </FolderPathList>
