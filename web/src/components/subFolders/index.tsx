@@ -1,7 +1,7 @@
 import { ItemId } from '@atlaskit/tree';
 import useChildFoldersEffect from 'hooks/folder/useChildFoldersQueries';
 import { folder } from 'models/folder';
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import SubFolderList from './SubFolderList';
@@ -69,6 +69,10 @@ function SubFolders(): ReactElement | null {
     setIsAllChecked(!isAllChecked);
   };
 
+  const IsActiveSubFolder = useMemo(() => {
+    return subFolderList.some((subFolder) => subFolder.checked);
+  }, [subFolderList]);
+
   if (!data || data.length === 0) return null;
   return (
     <SubFoldersWrapper>
@@ -76,11 +80,13 @@ function SubFolders(): ReactElement | null {
         <SubFolderSelectBox
           onToggleAllChecked={onToggleAllChecked}
           isAllChecked={isAllChecked}
+          IsActiveSubFolder={IsActiveSubFolder}
         />
       </SubFoldersNav>
       <SubFolderList
         subFolders={subFolderList}
         onToggleChecked={onToggleChecked}
+        IsActiveSubFolder={IsActiveSubFolder}
       />
     </SubFoldersWrapper>
   );

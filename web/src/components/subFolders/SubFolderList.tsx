@@ -7,6 +7,7 @@ import MainFolderListItem from './SubFolderListItem';
 interface SubFolderListProps {
   subFolders: folder.ICheckedChildFolderItem[];
   onToggleChecked: (subFolderId: ItemId) => void;
+  IsActiveSubFolder: boolean;
 }
 
 const FolderListWrapper = styled.div`
@@ -17,6 +18,7 @@ const FolderListWrapper = styled.div`
 function SubFolderList({
   subFolders,
   onToggleChecked,
+  IsActiveSubFolder,
 }: SubFolderListProps): ReactElement {
   return (
     <FolderListWrapper>
@@ -25,6 +27,7 @@ function SubFolderList({
           key={subFolder.folderId}
           subFolder={subFolder}
           onToggleChecked={onToggleChecked}
+          IsActiveSubFolder={IsActiveSubFolder}
         />
       ))}
     </FolderListWrapper>

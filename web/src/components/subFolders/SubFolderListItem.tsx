@@ -7,6 +7,7 @@ import styled from 'styled-components';
 interface SubFolderListItemProps {
   subFolder: folder.ICheckedChildFolderItem;
   onToggleChecked: (subFolderId: ItemId) => void;
+  IsActiveSubFolder: boolean;
 }
 
 const FolderItem = styled.div<{ isChecked: boolean }>`
@@ -28,7 +29,8 @@ const FolderItem = styled.div<{ isChecked: boolean }>`
   }
 `;
 
-const SelectButton = styled(CheckBox)`
+const SelectButton = styled(CheckBox)<{ active: boolean }>`
+  ${(props) => !props.active && `display:none;`}
   position: absolute;
   top: 5px;
   left: 4px;
@@ -51,11 +53,13 @@ const SelectedStyled = styled.div`
 function SubFolderListItem({
   subFolder,
   onToggleChecked,
+  IsActiveSubFolder,
 }: SubFolderListItemProps): ReactElement {
   const { name, checked, folderId } = subFolder;
   return (
     <FolderItem isChecked={checked}>
       <SelectButton
+        active={IsActiveSubFolder}
         onClick={() => onToggleChecked(folderId)}
         variant="secondary"
         isChecked={checked}
