@@ -31,3 +31,8 @@ export const selectedFolderState = atom<ISelectedFolder>({
     emoji: '',
   },
 });
+
+export const activeFolderIdState = atom<ItemId>({
+  key: 'activeFolderIdState',
+  default: '',
+});

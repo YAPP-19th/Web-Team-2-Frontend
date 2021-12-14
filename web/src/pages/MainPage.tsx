@@ -2,13 +2,15 @@ import Bookmark from 'components/bookmark';
 import SubFolders, { FolderIdParams } from 'components/subFolders';
 import Reminder from 'components/reminder';
 import SideBar from 'components/sidebar';
-import React, { ReactElement, useMemo } from 'react';
+import React, { ReactElement, useEffect, useMemo } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import Path from 'routes/path';
 import styled from 'styled-components';
 import qs from 'qs';
 import BookmarkPath from 'components/bookmark/BookmarkPath';
 import { checkFolderPage } from 'utils/checkFolderPage';
+import { useSetRecoilState } from 'recoil';
+import { activeFolderIdState } from 'recoil/atoms/folderState';
 
 const MainWrapper = styled.div`
   display: flex;
@@ -29,6 +31,11 @@ const ContentInner = styled.div`
 function MainPage(): ReactElement {
   const location = useLocation();
   const { folderId } = useParams<keyof FolderIdParams>() as FolderIdParams;
+  const setActiveFolderId = useSetRecoilState(activeFolderIdState);
+
+  useEffect(() => {
+    if (checkFolderPage(folderId)) setActiveFolderId(folderId);
+  }, [folderId, setActiveFolderId]);
 
   // 쿼리스트링 추출
   const query = useMemo(() => {

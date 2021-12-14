@@ -10,14 +10,17 @@ import {
 import {
   createFolder,
   deleteFolder,
+  getParentFolders,
   moveFolder,
   renameFolder,
   updateFolderEmoji,
 } from 'api/folderAPI';
 import useToasts from 'hooks/common/useToasts';
 import produce from 'immer';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useQueryClient } from 'react-query';
+import { useRecoilValue } from 'recoil';
+import { activeFolderIdState } from 'recoil/atoms/folderState';
 import { findChildrenLength, findParentId } from 'utils/atlaskitTreeFinder';
 import { MAX_FOLDERS_LENGTH, QueryKey } from 'utils/const';
 import useFoldersEffect from './useFoldersEffect';
@@ -50,8 +53,30 @@ export default function useFoldersHandle(): IFoldersHandle {
   const { folders, setFolders } = useFoldersEffect();
   const [moveFolderId, setMoveFolderId] = useState<ItemId | null>(null);
   const [isOpenFolderIsFullToast, onFolderIsFullToast] = useToasts();
+  const activeFolderId = useRecoilValue(activeFolderIdState);
 
   const queryClient = useQueryClient();
+
+  // 해당 폴더 id 활성화 되면 해당 폴더를 가지고 있는 부모 폴더 모드 열기
+  const onExpandParentFolder = useCallback(async () => {
+    try {
+      const parentFolderIdList = await getParentFolders(activeFolderId);
+      setFolders((prev) =>
+        produce(prev, (draft) => {
+          const newObj = draft;
+          parentFolderIdList.forEach((parentFolderItem) => {
+            newObj.items[parentFolderItem.folderId].isExpanded = true;
+          });
+        }),
+      );
+    } catch (e) {
+      console.log('부모 폴더 id 조회 실패');
+    }
+  }, [activeFolderId]);
+
+  useEffect(() => {
+    if (activeFolderId) onExpandParentFolder();
+  }, [activeFolderId]);
 
   // 폴더 열기
   const onExpandFolder = (itemId: ItemId) => {
@@ -86,9 +111,6 @@ export default function useFoldersHandle(): IFoldersHandle {
         ? findChildrenLength(folders, nextParentId)
         : destination.index;
 
-    console.log('나', moveFolderId);
-    console.log('이전: ', prevParentId, prevIndex);
-    console.log('다음: ', nextParentId, nextIndex);
     setFolders(newTree);
     try {
       await moveFolder(
