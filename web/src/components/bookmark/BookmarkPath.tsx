@@ -6,12 +6,16 @@ import { useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { checkFolderPage } from 'utils/checkFolderPage';
 
+interface PathTextStyled {
+  pathType: 'normal' | 'folder';
+}
+
 const BookmarkPathWrapper = styled.div`
   margin-bottom: 28px;
 `;
 
-const PathText = styled.span`
-  font-size: 14px;
+const PathText = styled.span<PathTextStyled>`
+  font-size: ${(props) => (props.pathType === 'normal' ? '16px' : '12px')};
   line-height: 1.5;
   font-weight: normal;
   color: ${(props) => props.theme.color.grayDarkest};
@@ -23,7 +27,7 @@ function NormalPath(): ReactElement {
   const pathName = getPath(location.pathname);
   return (
     <BookmarkPathWrapper>
-      <PathText> {pathName} </PathText>
+      <PathText pathType="normal"> {pathName} </PathText>
     </BookmarkPathWrapper>
   );
 }
@@ -31,10 +35,13 @@ function NormalPath(): ReactElement {
 function FolderPath({ folderId }: { folderId: string }): ReactElement | null {
   const { data } = usePagePathQueries(folderId);
   if (!data) return null;
+
   return (
     <BookmarkPathWrapper>
       {data.map((item) => (
-        <PathText key={item.folderId}>{item.name}</PathText>
+        <PathText pathType="folder" key={item.folderId}>
+          {item.name}
+        </PathText>
       ))}
     </BookmarkPathWrapper>
   );

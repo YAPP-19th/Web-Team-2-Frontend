@@ -3,6 +3,7 @@ import { FolderIcon } from 'assets/icons';
 import CheckBox from 'components/common/CheckBox';
 import { folder } from 'models/folder';
 import React, { ReactElement } from 'react';
+import { Link } from 'react-router-dom';
 import { Emoji } from 'react-twemoji-picker';
 import styled from 'styled-components';
 
@@ -62,6 +63,12 @@ const EmojiIcon = styled(Emoji)`
   margin-right: 4px;
 `;
 
+const SubFolderName = styled(Link)`
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
 function SubFolderListItem({
   subFolder,
   onToggleChecked,
@@ -76,12 +83,14 @@ function SubFolderListItem({
         variant="secondary"
         isChecked={checked}
       />
+
       {emoji ? (
         <EmojiIcon emoji={{ name: 'emoji', unicode: emoji }} />
       ) : (
         <FolderIconStyled />
       )}
-      {name}
+
+      <SubFolderName to={`/${folderId}`}>{name}</SubFolderName>
       {checked && <SelectedStyled />}
     </FolderItem>
   );
