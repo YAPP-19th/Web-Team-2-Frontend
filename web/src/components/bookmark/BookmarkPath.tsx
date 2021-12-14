@@ -2,7 +2,7 @@ import { ArrowSide16Icon, FolderIcon } from 'assets/icons';
 import { FolderIdParams } from 'components/subFolders';
 import usePagePathEffect from 'hooks/common/usePagePathEffect';
 import usePagePathQueries from 'hooks/common/usePagePathQueries';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { Emoji } from 'react-twemoji-picker';
 import styled, { css } from 'styled-components';
@@ -65,6 +65,8 @@ const FolderPathEllipsis = styled.span`
   cursor: pointer;
 `;
 
+const Ellipsis = styled.span``;
+
 function NormalPath(): ReactElement {
   const location = useLocation();
   const { getPath } = usePagePathEffect();
@@ -82,7 +84,9 @@ function FolderPath({
   folderIdParams: string;
 }): ReactElement | null {
   const { data } = usePagePathQueries(folderIdParams);
-  console.log(data);
+  const [isOpenEllipsis, setIsOpenEllipsis] = useState(false);
+  const onToggleEllipsis = () => setIsOpenEllipsis(!isOpenEllipsis);
+
   if (!data) return null;
 
   return (
@@ -121,12 +125,16 @@ function FolderPath({
             </PathText>
             <ArrowSide16Icon />
             <FolderPathEllipsis>
-              ...
-              {data.slice(1, data.length - 1).map((item) => (
-                <PathText pathType="folder" key={item.folderId}>
-                  {item.name}
-                </PathText>
-              ))}
+              <Ellipsis onClick={onToggleEllipsis}>...</Ellipsis>
+              {isOpenEllipsis && (
+                <>
+                  {data.slice(1, data.length - 1).map((item) => (
+                    <PathText pathType="folder" key={item.folderId}>
+                      {item.name}
+                    </PathText>
+                  ))}
+                </>
+              )}
             </FolderPathEllipsis>
             <ArrowSide16Icon />
             <PathText pathType="folder">
