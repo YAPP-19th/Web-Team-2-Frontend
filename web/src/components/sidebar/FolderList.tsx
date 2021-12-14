@@ -181,10 +181,10 @@ function FolderList({
           {...provided.dragHandleProps}
         >
           <FolderItemBlock
-          // @TODO(dohyun) 오류 떔에 코드 잠시 주석
-          // onMouseDown={() =>
-          //   item.isExpanded && item.children.length > 0 && onCollapse(item.id)
-          // }
+            // @TODO(dohyun) 오류 떔에 코드 잠시 주석
+            onMouseDown={() =>
+              item.isExpanded && item.children.length > 0 && onCollapse(item.id)
+            }
           >
             <FolderLeftBox>
               <FolderItemIcon
@@ -195,6 +195,7 @@ function FolderList({
               <FolderTitle
                 active={Number(parmasFolderId) === item.id}
                 onClick={() => onActiveFolder(item.id)}
+                onMouseDown={(e) => e.stopPropagation()}
               >
                 {item.data.name}
               </FolderTitle>

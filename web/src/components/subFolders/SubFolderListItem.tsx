@@ -1,5 +1,6 @@
 import { ItemId } from '@atlaskit/tree';
 import { FolderIcon } from 'assets/icons';
+import { ellipsis } from 'assets/styles/utilStyles';
 import CheckBox from 'components/common/CheckBox';
 import { folder } from 'models/folder';
 import React, { ReactElement } from 'react';
@@ -27,6 +28,7 @@ const FolderItem = styled.div<{ isChecked: boolean }>`
   color: ${(props) => props.theme.color.grayDarker};
   margin-right: 24px;
   margin-bottom: 12px;
+  padding-right: 8px;
   &:nth-child(4n) {
     margin-right: 0;
   }
@@ -64,6 +66,9 @@ const EmojiIcon = styled(Emoji)`
 `;
 
 const SubFolderName = styled(Link)`
+  ${ellipsis}
+  display: inline-block;
+  max-width: 135px;
   &:hover {
     text-decoration: underline;
   }
