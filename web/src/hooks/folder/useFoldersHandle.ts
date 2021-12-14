@@ -57,7 +57,7 @@ export default function useFoldersHandle(): IFoldersHandle {
 
   const queryClient = useQueryClient();
 
-  // 해당 폴더 id 활성화 되면 해당 폴더를 가지고 있는 부모 폴더 모드 열기
+  // 해당 폴더 id 활성화 되면 해당 폴더를 가지고 있는 부모 폴더 모두 열기
   const onExpandParentFolder = useCallback(async () => {
     try {
       const parentFolderIdList = await getParentFolders(activeFolderId);

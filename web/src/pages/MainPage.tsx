@@ -33,9 +33,10 @@ function MainPage(): ReactElement {
   const { folderId } = useParams<keyof FolderIdParams>() as FolderIdParams;
   const setActiveFolderId = useSetRecoilState(activeFolderIdState);
 
+  // 로딩 시 현재 페이지가 폴더id 를 가진 페이지이면 activeFolderId 에 id값 설정
   useEffect(() => {
     if (checkFolderPage(folderId)) setActiveFolderId(folderId);
-  }, [folderId, setActiveFolderId]);
+  }, [folderId]);
 
   // 쿼리스트링 추출
   const query = useMemo(() => {
