@@ -4,7 +4,7 @@ import { folder } from 'models/folder';
 import MainFolderListItem from './SubFolderListItem';
 
 interface SubFolderListProps {
-  subFolders: folder.IChildFoldersGetResponse;
+  subFolders: folder.ICheckedChildFolderItem[];
 }
 
 const FolderListWrapper = styled.div`
