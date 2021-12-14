@@ -63,9 +63,30 @@ const FolderPathEllipsis = styled.span`
   display: flex;
   align-items: center;
   cursor: pointer;
+  position: relative;
 `;
 
 const Ellipsis = styled.span``;
+
+const EllipsisMenu = styled.div`
+  position: absolute;
+  padding: 5px 0;
+  top: 20px;
+  left: 0;
+  width: 180px;
+  z-index: 150;
+  box-shadow: rgb(15 15 15 / 5%) 0px 0px 0px 1px,
+    rgb(15 15 15 / 10%) 0px 3px 6px, rgb(15 15 15 / 20%) 0px 9px 24px;
+`;
+
+const EllipsisMenuItem = styled(PathText)`
+  width: 100%;
+  height: 28px;
+  padding: 0 5px;
+  &:hover {
+    background-color: ${(props) => props.theme.color.grayLightest};
+  }
+`;
 
 function NormalPath(): ReactElement {
   const location = useLocation();
@@ -127,13 +148,13 @@ function FolderPath({
             <FolderPathEllipsis>
               <Ellipsis onClick={onToggleEllipsis}>...</Ellipsis>
               {isOpenEllipsis && (
-                <>
+                <EllipsisMenu>
                   {data.slice(1, data.length - 1).map((item) => (
-                    <PathText pathType="folder" key={item.folderId}>
+                    <EllipsisMenuItem pathType="folder" key={item.folderId}>
                       {item.name}
-                    </PathText>
+                    </EllipsisMenuItem>
                   ))}
-                </>
+                </EllipsisMenu>
               )}
             </FolderPathEllipsis>
             <ArrowSide16Icon />
