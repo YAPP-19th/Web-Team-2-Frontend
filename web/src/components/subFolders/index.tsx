@@ -1,3 +1,4 @@
+import { ItemId } from '@atlaskit/tree';
 import useChildFoldersEffect from 'hooks/folder/useChildFoldersQueries';
 import { folder } from 'models/folder';
 import React, { ReactElement, useEffect, useState } from 'react';
@@ -39,13 +40,26 @@ function SubFolders(): ReactElement | null {
     }
   }, [data]);
 
+  const onToggleChecked = (subFolderId: ItemId) => {
+    setSubFolderList(
+      subFolderList.map((subFolder) =>
+        subFolder.folderId === subFolderId
+          ? { ...subFolder, checked: !subFolder.checked }
+          : subFolder,
+      ),
+    );
+  };
+
   if (!data || data.length === 0) return null;
   return (
     <SubFoldersWrapper>
       <SubFoldersNav>
         <SubFolderSelectBox />
       </SubFoldersNav>
-      <SubFolderList subFolders={subFolderList} />
+      <SubFolderList
+        subFolders={subFolderList}
+        onToggleChecked={onToggleChecked}
+      />
     </SubFoldersWrapper>
   );
 }

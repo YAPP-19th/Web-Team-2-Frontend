@@ -1,9 +1,12 @@
+import { ItemId } from '@atlaskit/tree';
 import CheckBox from 'components/common/CheckBox';
+import { folder } from 'models/folder';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
 interface SubFolderListItemProps {
-  name: string;
+  subFolder: folder.ICheckedChildFolderItem;
+  onToggleChecked: (subFolderId: ItemId) => void;
 }
 
 const FolderItem = styled.div`
@@ -31,14 +34,17 @@ const SelectButton = styled(CheckBox)`
   z-index: 50;
 `;
 
-function SubFolderListItem({ name }: SubFolderListItemProps): ReactElement {
+function SubFolderListItem({
+  subFolder,
+  onToggleChecked,
+}: SubFolderListItemProps): ReactElement {
+  const { name, checked, folderId } = subFolder;
   return (
     <FolderItem>
       <SelectButton
-        // eslint-disable-next-line no-console
-        onClick={() => console.log('기능 구현할 때 추가 예정')}
+        onClick={() => onToggleChecked(folderId)}
         variant="secondary"
-        isChecked
+        isChecked={checked}
       />
       {name}
     </FolderItem>
