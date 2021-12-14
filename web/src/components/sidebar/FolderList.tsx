@@ -182,6 +182,9 @@ function FolderList({
         >
           <FolderItemBlock
             // @TODO(dohyun) 오류 떔에 코드 잠시 주석
+            // onMouseDown={() =>
+            //   item.isExpanded && item.children.length > 0 && onCollapse(item.id)
+            // }
             onMouseDown={() =>
               item.isExpanded && item.children.length > 0 && onCollapse(item.id)
             }

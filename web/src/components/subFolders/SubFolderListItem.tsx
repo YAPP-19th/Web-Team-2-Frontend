@@ -68,7 +68,7 @@ const EmojiIcon = styled(Emoji)`
 const SubFolderName = styled(Link)`
   ${ellipsis}
   display: inline-block;
-  max-width: 135px;
+  max-width: 85px;
   &:hover {
     text-decoration: underline;
   }
