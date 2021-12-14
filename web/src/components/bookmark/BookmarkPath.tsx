@@ -1,9 +1,12 @@
+import { ArrowSide16Icon, FolderIcon } from 'assets/icons';
 import { FolderIdParams } from 'components/subFolders';
 import usePagePathEffect from 'hooks/common/usePagePathEffect';
 import usePagePathQueries from 'hooks/common/usePagePathQueries';
-import React, { ReactElement } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
-import styled from 'styled-components';
+import { folder } from 'models/folder';
+import React, { ReactElement, useEffect, useState } from 'react';
+import { Link, useLocation, useParams } from 'react-router-dom';
+import { Emoji } from 'react-twemoji-picker';
+import styled, { css } from 'styled-components';
 import { checkFolderPage } from 'utils/checkFolderPage';
 
 interface PathTextStyled {
@@ -14,11 +17,47 @@ const BookmarkPathWrapper = styled.div`
   margin-bottom: 28px;
 `;
 
+const FolderPathList = styled.div`
+  display: flex;
+`;
+
 const PathText = styled.span<PathTextStyled>`
-  font-size: ${(props) => (props.pathType === 'normal' ? '16px' : '12px')};
+  ${(props) =>
+    props.pathType === 'normal'
+      ? css`
+          font-size: 16px;
+          font-weight: normal;
+          color: ${props.theme.color.grayDarkest};
+        `
+      : css`
+          font-size: 12px;
+          font-weight: 500;
+          color: ${props.theme.color.black};
+        `}
   line-height: 1.5;
-  font-weight: normal;
-  color: ${(props) => props.theme.color.grayDarkest};
+  display: flex;
+  align-items: center;
+`;
+
+const FolderIconStyled = styled(FolderIcon)`
+  margin-right: 4px;
+`;
+
+const EmojiIcon = styled(Emoji)`
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+`;
+
+const SubFolderName = styled(Link)`
+  margin-right: 4px;
+  font-size: 12px;
+  display: block;
+  height: 16px;
+  line-height: 15px;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 function NormalPath(): ReactElement {
@@ -27,22 +66,47 @@ function NormalPath(): ReactElement {
   const pathName = getPath(location.pathname);
   return (
     <BookmarkPathWrapper>
-      <PathText pathType="normal"> {pathName} </PathText>
+      <PathText pathType="normal">{pathName}</PathText>
     </BookmarkPathWrapper>
   );
 }
 
-function FolderPath({ folderId }: { folderId: string }): ReactElement | null {
-  const { data } = usePagePathQueries(folderId);
+function FolderPath({
+  folderIdParams,
+}: {
+  folderIdParams: string;
+}): ReactElement | null {
+  const { data } = usePagePathQueries(folderIdParams);
+  const [folderPathList, setFolderPathList] =
+    useState<folder.IParentFoldersGetResponse>([]);
+
+  useEffect(() => {
+    if (data) {
+      setFolderPathList([...data.reverse()]);
+    }
+  }, [data]);
+
   if (!data) return null;
 
   return (
     <BookmarkPathWrapper>
-      {data.map((item) => (
-        <PathText pathType="folder" key={item.folderId}>
-          {item.name}
-        </PathText>
-      ))}
+      <FolderPathList>
+        {folderPathList.map((item, index) => {
+          const { name, folderId, emoji } = item;
+          return (
+            <PathText pathType="folder" key={folderId}>
+              {emoji ? (
+                <EmojiIcon emoji={{ name: 'emoji', unicode: emoji }} />
+              ) : (
+                <FolderIconStyled />
+              )}
+
+              <SubFolderName to={`/${folderId}`}>{name}</SubFolderName>
+              {folderPathList.length - 1 !== index && <ArrowSide16Icon />}
+            </PathText>
+          );
+        })}
+      </FolderPathList>
     </BookmarkPathWrapper>
   );
 }
@@ -53,7 +117,7 @@ function BookmarkPath(): ReactElement | null {
   return (
     <>
       {checkFolderPage(folderId) ? (
-        <FolderPath folderId={folderId} />
+        <FolderPath folderIdParams={folderId} />
       ) : (
         <NormalPath />
       )}
