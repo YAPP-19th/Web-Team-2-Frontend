@@ -2,8 +2,7 @@ import { ArrowSide16Icon, FolderIcon } from 'assets/icons';
 import { FolderIdParams } from 'components/subFolders';
 import usePagePathEffect from 'hooks/common/usePagePathEffect';
 import usePagePathQueries from 'hooks/common/usePagePathQueries';
-import { folder } from 'models/folder';
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { Emoji } from 'react-twemoji-picker';
 import styled, { css } from 'styled-components';
@@ -82,44 +81,66 @@ function FolderPath({
   folderIdParams: string;
 }): ReactElement | null {
   const { data } = usePagePathQueries(folderIdParams);
-  const [folderPathList, setFolderPathList] =
-    useState<folder.IParentFoldersGetResponse>([]);
-
-  useEffect(() => {
-    if (data) {
-      setFolderPathList([...data.reverse()]);
-    }
-  }, [data]);
 
   if (!data) return null;
 
   return (
     <BookmarkPathWrapper>
       <FolderPathList>
-        {folderPathList.map((item, index) => {
-          const { name, folderId, emoji } = item;
-          return (
-            <>
-              {index === 0 || index === folderPathList.length - 1 ? (
-                <PathText pathType="folder" key={folderId}>
-                  {emoji ? (
-                    <EmojiIcon emoji={{ name: 'emoji', unicode: emoji }} />
-                  ) : (
-                    <FolderIconStyled />
-                  )}
+        {data.length <= 2 ? (
+          <>
+            {data.map((item, index) => {
+              const { name, folderId, emoji } = item;
+              return (
+                <>
+                  <PathText pathType="folder" key={folderId}>
+                    {emoji ? (
+                      <EmojiIcon emoji={{ name: 'emoji', unicode: emoji }} />
+                    ) : (
+                      <FolderIconStyled />
+                    )}
 
-                  <SubFolderName to={`/${folderId}`}>{name}</SubFolderName>
-                  {folderPathList.length - 1 !== index && <ArrowSide16Icon />}
-                </PathText>
+                    <SubFolderName to={`/${folderId}`}>{name}</SubFolderName>
+                    {data.length - 1 !== index && <ArrowSide16Icon />}
+                  </PathText>
+                </>
+              );
+            })}
+          </>
+        ) : (
+          <>
+            <PathText pathType="folder">
+              {data[0].emoji ? (
+                <EmojiIcon emoji={{ name: 'emoji', unicode: data[0].emoji }} />
               ) : (
-                <FolderPathEllipsis>
-                  ...
-                  <ArrowSide16Icon />
-                </FolderPathEllipsis>
+                <FolderIconStyled />
               )}
-            </>
-          );
-        })}
+
+              <SubFolderName to={`/${data[0].folderId}`}>
+                {data[0].name}
+              </SubFolderName>
+            </PathText>
+            <ArrowSide16Icon />
+            <FolderPathEllipsis>...</FolderPathEllipsis>
+            <ArrowSide16Icon />
+            <PathText pathType="folder">
+              {data[data.length - 1].emoji ? (
+                <EmojiIcon
+                  emoji={{
+                    name: 'emoji',
+                    unicode: data[data.length - 1].emoji,
+                  }}
+                />
+              ) : (
+                <FolderIconStyled />
+              )}
+
+              <SubFolderName to={`/${data[data.length - 1].folderId}`}>
+                {data[data.length - 1].name}
+              </SubFolderName>
+            </PathText>
+          </>
+        )}
       </FolderPathList>
     </BookmarkPathWrapper>
   );
