@@ -62,6 +62,7 @@ const SubFolderName = styled(Link)`
 const FolderPathEllipsis = styled.span`
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 function NormalPath(): ReactElement {
@@ -81,7 +82,7 @@ function FolderPath({
   folderIdParams: string;
 }): ReactElement | null {
   const { data } = usePagePathQueries(folderIdParams);
-
+  console.log(data);
   if (!data) return null;
 
   return (
@@ -92,18 +93,16 @@ function FolderPath({
             {data.map((item, index) => {
               const { name, folderId, emoji } = item;
               return (
-                <>
-                  <PathText pathType="folder" key={folderId}>
-                    {emoji ? (
-                      <EmojiIcon emoji={{ name: 'emoji', unicode: emoji }} />
-                    ) : (
-                      <FolderIconStyled />
-                    )}
+                <PathText pathType="folder" key={folderId}>
+                  {emoji ? (
+                    <EmojiIcon emoji={{ name: 'emoji', unicode: emoji }} />
+                  ) : (
+                    <FolderIconStyled />
+                  )}
 
-                    <SubFolderName to={`/${folderId}`}>{name}</SubFolderName>
-                    {data.length - 1 !== index && <ArrowSide16Icon />}
-                  </PathText>
-                </>
+                  <SubFolderName to={`/${folderId}`}>{name}</SubFolderName>
+                  {data.length - 1 !== index && <ArrowSide16Icon />}
+                </PathText>
               );
             })}
           </>
@@ -121,7 +120,14 @@ function FolderPath({
               </SubFolderName>
             </PathText>
             <ArrowSide16Icon />
-            <FolderPathEllipsis>...</FolderPathEllipsis>
+            <FolderPathEllipsis>
+              ...
+              {data.slice(1, data.length - 1).map((item) => (
+                <PathText pathType="folder" key={item.folderId}>
+                  {item.name}
+                </PathText>
+              ))}
+            </FolderPathEllipsis>
             <ArrowSide16Icon />
             <PathText pathType="folder">
               {data[data.length - 1].emoji ? (
