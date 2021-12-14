@@ -1,7 +1,7 @@
 import { ItemId } from '@atlaskit/tree';
 import useChildFoldersEffect from 'hooks/folder/useChildFoldersQueries';
 import { folder } from 'models/folder';
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import SubFolderList from './SubFolderList';
@@ -31,6 +31,7 @@ function SubFolders(): ReactElement | null {
   const [subFolderList, setSubFolderList] = useState<
     folder.ICheckedChildFolderItem[]
   >([]);
+  const isAllChecked = useRef(false);
 
   useEffect(() => {
     if (data) {
@@ -38,6 +39,7 @@ function SubFolders(): ReactElement | null {
         data.map((subFolder) => ({ ...subFolder, checked: false })),
       );
     }
+    isAllChecked.current = false;
   }, [data]);
 
   const onToggleChecked = (subFolderId: ItemId) => {
@@ -50,11 +52,24 @@ function SubFolders(): ReactElement | null {
     );
   };
 
+  const onToggleAllChecked = () => {
+    setSubFolderList(
+      subFolderList.map((subFolder) => ({
+        ...subFolder,
+        checked: !isAllChecked.current,
+      })),
+    );
+    isAllChecked.current = !isAllChecked.current;
+  };
+
   if (!data || data.length === 0) return null;
   return (
     <SubFoldersWrapper>
       <SubFoldersNav>
-        <SubFolderSelectBox />
+        <SubFolderSelectBox
+          onToggleAllChecked={onToggleAllChecked}
+          isAllChecked={isAllChecked.current}
+        />
       </SubFoldersNav>
       <SubFolderList
         subFolders={subFolderList}

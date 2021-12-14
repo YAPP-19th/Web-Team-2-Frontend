@@ -2,6 +2,11 @@ import CheckBox from 'components/common/CheckBox';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
+interface SubFolderSelectBoxProps {
+  onToggleAllChecked: () => void;
+  isAllChecked: boolean;
+}
+
 const SelectBoxWrapper = styled.div`
   display: flex;
 `;
@@ -32,12 +37,19 @@ const Option = styled.div`
   cursor: pointer;
 `;
 
-function MainFolderSelectBox(): ReactElement {
+function MainFolderSelectBox({
+  onToggleAllChecked,
+  isAllChecked,
+}: SubFolderSelectBoxProps): ReactElement {
   return (
     <SelectBoxWrapper>
       <SelectForm>
         <SelectText>선택</SelectText>
-        <SelectButton variant="secondary" isChecked />
+        <SelectButton
+          variant="secondary"
+          isChecked={isAllChecked}
+          onClick={onToggleAllChecked}
+        />
       </SelectForm>
 
       <SelectOption>
