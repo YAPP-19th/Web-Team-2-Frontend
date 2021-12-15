@@ -1,21 +1,21 @@
 import { ArrowSide16Icon, FolderIcon } from 'assets/icons';
-import { ellipsis } from 'assets/styles/utilStyles';
 import usePagePathQueries from 'hooks/common/usePagePathQueries';
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { Emoji } from 'react-twemoji-picker';
 import styled from 'styled-components';
+import FolderPathEllipsis from './FolderPathEllipsis';
 import PathText from './PathText';
 
 const FolderPathList = styled.div`
   display: flex;
 `;
 
-const FolderIconStyled = styled(FolderIcon)`
+export const FolderIconStyled = styled(FolderIcon)`
   margin-right: 4px;
 `;
 
-const EmojiIcon = styled(Emoji)`
+export const EmojiIcon = styled(Emoji)`
   width: 16px;
   height: 16px;
   margin-right: 4px;
@@ -36,63 +36,12 @@ const SubFolderName = styled(Link)`
   }
 `;
 
-const FolderPathEllipsis = styled.span`
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  position: relative;
-`;
-
-const Ellipsis = styled.span``;
-
-const EllipsisMenuTemplate = styled.div`
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-`;
-
-const EllipsisMenu = styled.div`
-  position: absolute;
-  top: 20px;
-  left: 0;
-  width: 150px;
-  background-color: ${(props) => props.theme.color.white};
-  z-index: 150;
-  box-shadow: rgba(15 15 15 / 5%) 0px 0px 0px 1px,
-    rgba(15 15 15 / 10%) 0px 3px 6px, rgba(15 15 15 / 20%) 0px 9px 24px;
-  display: flex;
-  flex-direction: column;
-`;
-
-const EllipsisMenuItem = styled(Link)`
-  font-size: 12px;
-  width: 100%;
-  height: 28px;
-  line-height: 28px;
-  padding: 0 8px;
-  display: flex;
-  align-items: center;
-  &:hover {
-    background-color: ${(props) => props.theme.color.grayLightest};
-  }
-`;
-
-const EllipsisMenuItemName = styled.span`
-  ${ellipsis}
-  display: inline-block;
-  width: 100px;
-`;
-
 function FolderPath({
   folderIdParams,
 }: {
   folderIdParams: string;
 }): ReactElement | null {
   const { data } = usePagePathQueries(folderIdParams);
-  const [isOpenEllipsis, setIsOpenEllipsis] = useState(false);
-  const onToggleEllipsis = () => setIsOpenEllipsis(!isOpenEllipsis);
 
   if (!data) return null;
 
@@ -130,32 +79,9 @@ function FolderPath({
             </SubFolderName>
           </PathText>
           <ArrowSide16Icon />
-          <FolderPathEllipsis>
-            <Ellipsis onClick={onToggleEllipsis}>...</Ellipsis>
-            {isOpenEllipsis && (
-              <>
-                <EllipsisMenuTemplate onClick={onToggleEllipsis} />
-                <EllipsisMenu>
-                  {data.slice(1, data.length - 1).map((item) => (
-                    <EllipsisMenuItem
-                      to={`/${item.folderId}`}
-                      key={item.folderId}
-                      onClick={onToggleEllipsis}
-                    >
-                      {item.emoji ? (
-                        <EmojiIcon
-                          emoji={{ name: 'emoji', unicode: item.emoji }}
-                        />
-                      ) : (
-                        <FolderIconStyled />
-                      )}
-                      <EllipsisMenuItemName>{item.name}</EllipsisMenuItemName>
-                    </EllipsisMenuItem>
-                  ))}
-                </EllipsisMenu>
-              </>
-            )}
-          </FolderPathEllipsis>
+
+          <FolderPathEllipsis folderPathList={data} />
+
           <ArrowSide16Icon />
           <PathText pathType="folder">
             {data[data.length - 1].emoji ? (
