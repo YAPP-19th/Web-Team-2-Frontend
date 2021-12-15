@@ -1,16 +1,16 @@
 import { ArrowSide16Icon, FolderIcon } from 'assets/icons';
 import { ellipsis } from 'assets/styles/utilStyles';
 import { FolderIdParams } from 'components/subFolders';
-import usePagePathEffect from 'hooks/common/usePagePathEffect';
 import usePagePathQueries from 'hooks/common/usePagePathQueries';
 import React, { ReactElement, useState } from 'react';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Emoji } from 'react-twemoji-picker';
 import styled, { css } from 'styled-components';
 import { checkFolderPage } from 'utils/checkFolderPage';
+import GlobalPath from './GlobalPath';
 
 interface PathTextStyled {
-  pathType: 'normal' | 'folder';
+  pathType: 'global' | 'folder';
 }
 
 const BookmarkPathWrapper = styled.div`
@@ -23,7 +23,7 @@ const FolderPathList = styled.div`
 
 const PathText = styled.span<PathTextStyled>`
   ${(props) =>
-    props.pathType === 'normal'
+    props.pathType === 'global'
       ? css`
           font-size: 16px;
           font-weight: normal;
@@ -112,17 +112,6 @@ const EllipsisMenuItemName = styled.span`
   display: inline-block;
   width: 100px;
 `;
-
-function NormalPath(): ReactElement {
-  const location = useLocation();
-  const { getPath } = usePagePathEffect();
-  const pathName = getPath(location.pathname);
-  return (
-    <BookmarkPathWrapper>
-      <PathText pathType="normal">{pathName}</PathText>
-    </BookmarkPathWrapper>
-  );
-}
 
 function FolderPath({
   folderIdParams,
@@ -220,7 +209,7 @@ function FolderPath({
   );
 }
 
-function BookmarkPath(): ReactElement | null {
+function PagePath(): ReactElement | null {
   const { folderId } = useParams<keyof FolderIdParams>() as FolderIdParams;
 
   return (
@@ -228,10 +217,10 @@ function BookmarkPath(): ReactElement | null {
       {checkFolderPage(folderId) ? (
         <FolderPath folderIdParams={folderId} />
       ) : (
-        <NormalPath />
+        <GlobalPath />
       )}
     </>
   );
 }
 
-export default BookmarkPath;
+export default PagePath;

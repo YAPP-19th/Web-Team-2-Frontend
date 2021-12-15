@@ -7,7 +7,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import Path from 'routes/path';
 import styled from 'styled-components';
 import qs from 'qs';
-import BookmarkPath from 'components/bookmark/BookmarkPath';
+import PagePath from 'components/pagePath';
 import { checkFolderPage } from 'utils/checkFolderPage';
 import { useSetRecoilState } from 'recoil';
 import { activeFolderIdState } from 'recoil/atoms/folderState';
@@ -52,7 +52,7 @@ function MainPage(): ReactElement {
       <ContentLayout>
         <ContentInner>
           {location.pathname === Path.Home && <Reminder />}
-          <BookmarkPath />
+          <PagePath />
           {checkFolderPage(folderId) && <SubFolders />}
           <Bookmark path={location.pathname} keyword={query.q} />
         </ContentInner>
