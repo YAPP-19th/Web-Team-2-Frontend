@@ -50,7 +50,7 @@ interface IFolderItem {
 }
 
 export default function useFoldersHandle(): IFoldersHandle {
-  const { folders, setFolders } = useFoldersEffect();
+  const { folders, setFolders, getFolderLoading } = useFoldersEffect();
   const [moveFolderId, setMoveFolderId] = useState<ItemId | null>(null);
   const [isOpenFolderIsFullToast, onFolderIsFullToast] = useToasts();
   const activeFolderId = useRecoilValue(activeFolderIdState);
@@ -61,7 +61,6 @@ export default function useFoldersHandle(): IFoldersHandle {
   const onExpandParentFolder = useCallback(async () => {
     try {
       const parentFolderIdList = await getParentFolders(activeFolderId);
-      console.log('dd', parentFolderIdList);
       setFolders((prev) =>
         produce(prev, (draft) => {
           const newObj = draft;
@@ -80,7 +79,7 @@ export default function useFoldersHandle(): IFoldersHandle {
   useEffect(() => {
     // folderId가 활성화가되고, folders 데이터가 들어온 이후에 onExpandParentFolder 호출
     if (activeFolderId && folders.rootId === 'root') onExpandParentFolder();
-  }, [activeFolderId, folders]);
+  }, [activeFolderId, getFolderLoading]);
 
   // 폴더 열기
   const onExpandFolder = (itemId: ItemId) => {

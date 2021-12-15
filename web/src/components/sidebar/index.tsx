@@ -69,7 +69,6 @@ function SideBar(): ReactElement {
           onExpandFolder={onExpandFolder}
           onDeleteFolder={onDeleteFolder}
           onChangeFolderInfo={onChangeFolderInfo}
-          isDrag
         />
       </FolderBox>
 

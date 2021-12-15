@@ -31,7 +31,6 @@ interface FolderListProps {
   onCreateFolder: (parentId: ItemId) => void;
   onDeleteFolder: (itemId: ItemId) => void;
   onChangeFolderInfo: (itemId: ItemId, name: string, emoji: string) => void;
-  isDrag: boolean;
 }
 
 export interface IPositionStyle {
@@ -115,7 +114,6 @@ function FolderList({
   onCollapseFolder,
   onDeleteFolder,
   onChangeFolderInfo,
-  isDrag,
 }: FolderListProps): ReactElement {
   // route
   const navigate = useNavigate();
@@ -162,7 +160,6 @@ function FolderList({
 
   // 폴더 클릭시 해당 폴더 활성화 후 라우트로 이동
   const onActiveFolder = (folderId: ItemId) => {
-    if (!isDrag) return;
     navigate(`/${folderId}`);
   };
 
@@ -174,48 +171,40 @@ function FolderList({
     provided,
   }: RenderItemParams): ReactElement => {
     return (
-      <>
-        <FolderItemWrapper
-          ref={provided.innerRef}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
+      <FolderItemWrapper
+        ref={provided.innerRef}
+        {...provided.draggableProps}
+        {...provided.dragHandleProps}
+      >
+        <FolderItemBlock
+          onMouseDown={() =>
+            item.isExpanded && item.children.length > 0 && onCollapse(item.id)
+          }
         >
-          <FolderItemBlock
-            // @TODO(dohyun) 오류 떔에 코드 잠시 주석
-            // onMouseDown={() =>
-            //   item.isExpanded && item.children.length > 0 && onCollapse(item.id)
-            // }
-            onMouseDown={() =>
-              item.isExpanded && item.children.length > 0 && onCollapse(item.id)
-            }
-          >
-            <FolderLeftBox>
-              <FolderItemIcon
-                item={item}
-                onCollapse={onCollapse}
-                onExpand={onExpand}
-              />
-              <FolderTitle
-                active={Number(parmasFolderId) === item.id}
-                onClick={() => onActiveFolder(item.id)}
-                onMouseDown={(e) => e.stopPropagation()}
-              >
-                {item.data.name}
-              </FolderTitle>
-            </FolderLeftBox>
-            {isDrag && (
-              <FolderRightBox onMouseDown={(e) => e.stopPropagation()}>
-                <FolderETCButton onClick={() => onCreateFolder(item.id)}>
-                  <PlusIcon />
-                </FolderETCButton>
-                <FolderETCButton onClick={(e) => onToggleMenu(e, item)}>
-                  <More16Icon />
-                </FolderETCButton>
-              </FolderRightBox>
-            )}
-          </FolderItemBlock>
-        </FolderItemWrapper>
-      </>
+          <FolderLeftBox>
+            <FolderItemIcon
+              item={item}
+              onCollapse={onCollapse}
+              onExpand={onExpand}
+            />
+            <FolderTitle
+              active={Number(parmasFolderId) === item.id}
+              onClick={() => onActiveFolder(item.id)}
+              onMouseDown={(e) => e.stopPropagation()}
+            >
+              {item.data.name}
+            </FolderTitle>
+          </FolderLeftBox>
+          <FolderRightBox onMouseDown={(e) => e.stopPropagation()}>
+            <FolderETCButton onClick={() => onCreateFolder(item.id)}>
+              <PlusIcon />
+            </FolderETCButton>
+            <FolderETCButton onClick={(e) => onToggleMenu(e, item)}>
+              <More16Icon />
+            </FolderETCButton>
+          </FolderRightBox>
+        </FolderItemBlock>
+      </FolderItemWrapper>
     );
   };
 
@@ -229,7 +218,7 @@ function FolderList({
         onDragStart={onDragStartFolder}
         onDragEnd={onDragEndFolder}
         offsetPerLevel={16} // 한 깊이당 padding 값
-        isDragEnabled={isDrag}
+        isDragEnabled
         isNestingEnabled
       />
 

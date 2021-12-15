@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 export default function useFoldersEffect(): {
   folders: TreeData;
   setFolders: React.Dispatch<React.SetStateAction<TreeData>>;
+  getFolderLoading: boolean;
 } {
   const [folders, setFolders] = useState<TreeData>({
     rootId: '',
@@ -17,14 +18,18 @@ export default function useFoldersEffect(): {
       },
     },
   });
+  const [getFolderLoading, setGetFolderLoading] = useState<boolean>(false);
   useEffect(() => {
     const getFolderData = async () => {
+      setGetFolderLoading(true);
       try {
         const data = await getFolders();
         console.log(data);
         setFolders(data);
       } catch (e) {
         console.log(e);
+      } finally {
+        setGetFolderLoading(false);
       }
     };
     getFolderData();
@@ -33,5 +38,6 @@ export default function useFoldersEffect(): {
   return {
     folders,
     setFolders,
+    getFolderLoading,
   };
 }
