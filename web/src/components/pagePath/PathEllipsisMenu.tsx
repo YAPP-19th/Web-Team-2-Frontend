@@ -1,9 +1,9 @@
 import { ellipsis } from 'assets/styles/utilStyles';
+import FolderEmoji from 'components/common/FolderEmoji';
 import { folder } from 'models/folder';
 import React, { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { EmojiIcon, FolderIconStyled } from './FolderPath';
 
 interface PathEllipsisMenuProps {
   folderPathList: folder.IParentFoldersGetResponse;
@@ -64,11 +64,7 @@ function PathEllipsisMenu({
             key={item.folderId}
             onClick={onToggleEllipsisMenu}
           >
-            {item.emoji ? (
-              <EmojiIcon emoji={{ name: 'emoji', unicode: item.emoji }} />
-            ) : (
-              <FolderIconStyled />
-            )}
+            <FolderEmoji emoji={item.emoji} />
             <EllipsisMenuItemName>{item.name}</EllipsisMenuItemName>
           </EllipsisMenuItem>
         ))}

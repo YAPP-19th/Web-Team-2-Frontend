@@ -1,24 +1,14 @@
-import { ArrowSide16Icon, FolderIcon } from 'assets/icons';
+import { ArrowSide16Icon } from 'assets/icons';
+import FolderEmoji from 'components/common/FolderEmoji';
 import usePagePathQueries from 'hooks/common/usePagePathQueries';
 import React, { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
-import { Emoji } from 'react-twemoji-picker';
 import styled from 'styled-components';
 import FolderPathEllipsis from './FolderPathEllipsis';
 import PathText from './PathText';
 
 const FolderPathList = styled.div`
   display: flex;
-`;
-
-export const FolderIconStyled = styled(FolderIcon)`
-  margin-right: 4px;
-`;
-
-export const EmojiIcon = styled(Emoji)`
-  width: 16px;
-  height: 16px;
-  margin-right: 4px;
 `;
 
 const SubFolderName = styled(Link)`
@@ -53,12 +43,7 @@ function FolderPath({
             const { name, folderId, emoji } = item;
             return (
               <PathText pathType="folder" key={folderId}>
-                {emoji ? (
-                  <EmojiIcon emoji={{ name: 'emoji', unicode: emoji }} />
-                ) : (
-                  <FolderIconStyled />
-                )}
-
+                <FolderEmoji emoji={emoji} />
                 <SubFolderName to={`/${folderId}`}>{name}</SubFolderName>
                 {data.length - 1 !== index && <ArrowSide16Icon />}
               </PathText>
@@ -68,12 +53,7 @@ function FolderPath({
       ) : (
         <>
           <PathText pathType="folder">
-            {data[0].emoji ? (
-              <EmojiIcon emoji={{ name: 'emoji', unicode: data[0].emoji }} />
-            ) : (
-              <FolderIconStyled />
-            )}
-
+            <FolderEmoji emoji={data[0].emoji} />
             <SubFolderName to={`/${data[0].folderId}`}>
               {data[0].name}
             </SubFolderName>
@@ -84,17 +64,7 @@ function FolderPath({
 
           <ArrowSide16Icon />
           <PathText pathType="folder">
-            {data[data.length - 1].emoji ? (
-              <EmojiIcon
-                emoji={{
-                  name: 'emoji',
-                  unicode: data[data.length - 1].emoji,
-                }}
-              />
-            ) : (
-              <FolderIconStyled />
-            )}
-
+            <FolderEmoji emoji={data[data.length - 1].emoji} />
             <SubFolderName to={`/${data[data.length - 1].folderId}`}>
               {data[data.length - 1].name}
             </SubFolderName>
