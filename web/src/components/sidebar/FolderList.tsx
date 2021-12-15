@@ -31,6 +31,7 @@ interface FolderListProps {
   onCreateFolder: (parentId: ItemId) => void;
   onDeleteFolder: (itemId: ItemId) => void;
   onChangeFolderInfo: (itemId: ItemId, name: string, emoji: string) => void;
+  isDragging: boolean;
 }
 
 export interface IPositionStyle {
@@ -38,9 +39,10 @@ export interface IPositionStyle {
   left: number;
 }
 
-const FolderListWrapper = styled.div`
+const FolderListWrapper = styled.div<{ isDragging: boolean }>`
   position: relative;
   /* overflow: auto; */
+  ${(props) => props.isDragging && 'height: 541px;'}
 `;
 const FolderItemWrapper = styled.div`
   width: 166px;
@@ -114,6 +116,7 @@ function FolderList({
   onCollapseFolder,
   onDeleteFolder,
   onChangeFolderInfo,
+  isDragging,
 }: FolderListProps): ReactElement {
   // route
   const navigate = useNavigate();
@@ -177,9 +180,9 @@ function FolderList({
         {...provided.dragHandleProps}
       >
         <FolderItemBlock
-          onMouseDown={() =>
-            item.isExpanded && item.children.length > 0 && onCollapse(item.id)
-          }
+        // onMouseDown={() =>
+        //   item.isExpanded && item.children.length > 0 && onCollapse(item.id)
+        // }
         >
           <FolderLeftBox>
             <FolderItemIcon
@@ -190,7 +193,7 @@ function FolderList({
             <FolderTitle
               active={Number(parmasFolderId) === item.id}
               onClick={() => onActiveFolder(item.id)}
-              onMouseDown={(e) => e.stopPropagation()}
+              // onMouseDown={(e) => e.stopPropagation()}
             >
               {item.data.name}
             </FolderTitle>
@@ -209,7 +212,7 @@ function FolderList({
   };
 
   return (
-    <FolderListWrapper>
+    <FolderListWrapper isDragging={isDragging}>
       <Tree
         tree={folders}
         renderItem={renderFolderItem}

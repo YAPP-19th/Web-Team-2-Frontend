@@ -52,6 +52,7 @@ function SideBar(): ReactElement {
     onDeleteFolder,
     onChangeFolderInfo,
     isOpenFolderIsFullToast,
+    isDragging,
   } = useFoldersHandle();
 
   const [isTestOpen, onToggleModal] = useToggle();
@@ -69,6 +70,7 @@ function SideBar(): ReactElement {
           onExpandFolder={onExpandFolder}
           onDeleteFolder={onDeleteFolder}
           onChangeFolderInfo={onChangeFolderInfo}
+          isDragging={isDragging}
         />
       </FolderBox>
 
