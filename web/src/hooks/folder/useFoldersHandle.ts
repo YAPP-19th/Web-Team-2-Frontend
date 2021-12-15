@@ -61,6 +61,7 @@ export default function useFoldersHandle(): IFoldersHandle {
   const onExpandParentFolder = useCallback(async () => {
     try {
       const parentFolderIdList = await getParentFolders(activeFolderId);
+      console.log('dd', parentFolderIdList);
       setFolders((prev) =>
         produce(prev, (draft) => {
           const newObj = draft;
@@ -77,12 +78,14 @@ export default function useFoldersHandle(): IFoldersHandle {
   }, [activeFolderId]);
 
   useEffect(() => {
-    if (activeFolderId) onExpandParentFolder();
-  }, [activeFolderId]);
+    // folderId가 활성화가되고, folders 데이터가 들어온 이후에 onExpandParentFolder 호출
+    if (activeFolderId && folders.rootId === 'root') onExpandParentFolder();
+  }, [activeFolderId, folders]);
 
   // 폴더 열기
   const onExpandFolder = (itemId: ItemId) => {
     setFolders(mutateTree(folders, itemId, { isExpanded: true }));
+    console.log(folders);
   };
 
   // 폴더 접기
@@ -92,7 +95,6 @@ export default function useFoldersHandle(): IFoldersHandle {
 
   // 드래그앤 드롭 시작
   const onDragStartFolder = (itemId: ItemId) => {
-    console.log(itemId);
     setMoveFolderId(itemId);
   };
 
