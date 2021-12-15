@@ -39,7 +39,6 @@ export interface IFoldersHandle {
   onDeleteFolder: (itemId: ItemId) => void;
   onChangeFolderInfo: (itemId: ItemId, name: string, emoji: string) => void;
   isOpenFolderIsFullToast: boolean;
-  isDragging: boolean;
 }
 
 interface IFolderItem {
@@ -53,7 +52,6 @@ interface IFolderItem {
 export default function useFoldersHandle(): IFoldersHandle {
   const { folders, setFolders, getFolderLoading } = useFoldersEffect();
   const [moveFolderId, setMoveFolderId] = useState<ItemId | null>(null);
-  const [isDragging, setIsDragging] = useState(false);
   const [isOpenFolderIsFullToast, onFolderIsFullToast] = useToasts();
   const activeFolderId = useRecoilValue(activeFolderIdState);
 
@@ -97,7 +95,6 @@ export default function useFoldersHandle(): IFoldersHandle {
   // 드래그앤 드롭 시작
   const onDragStartFolder = (itemId: ItemId) => {
     setMoveFolderId(itemId);
-    setIsDragging(true);
   };
 
   // 드래그앤 드롭 종료
@@ -126,7 +123,6 @@ export default function useFoldersHandle(): IFoldersHandle {
         prevIndex,
         nextIndex,
       );
-      setIsDragging(false);
     } catch (e) {
       console.log(e);
     }
@@ -252,6 +248,5 @@ export default function useFoldersHandle(): IFoldersHandle {
     onDeleteFolder,
     onChangeFolderInfo,
     isOpenFolderIsFullToast,
-    isDragging,
   };
 }
