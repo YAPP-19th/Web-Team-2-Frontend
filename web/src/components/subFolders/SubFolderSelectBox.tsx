@@ -6,6 +6,7 @@ interface SubFolderSelectBoxProps {
   onToggleAllChecked: () => void;
   isAllChecked: boolean;
   IsActiveSubFolder: boolean;
+  onDeleteSubFolders: () => void;
 }
 
 const SelectBoxWrapper = styled.div`
@@ -42,6 +43,7 @@ function MainFolderSelectBox({
   onToggleAllChecked,
   isAllChecked,
   IsActiveSubFolder,
+  onDeleteSubFolders,
 }: SubFolderSelectBoxProps): ReactElement {
   return (
     <SelectBoxWrapper>
@@ -56,7 +58,7 @@ function MainFolderSelectBox({
 
       {IsActiveSubFolder && (
         <SelectOption>
-          <Option>삭제</Option>
+          <Option onClick={onDeleteSubFolders}>삭제</Option>
         </SelectOption>
       )}
     </SelectBoxWrapper>

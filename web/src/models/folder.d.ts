@@ -13,4 +13,8 @@ export namespace folder {
 
   export type IChildFoldersGetResponse = IChildFolderItem[];
   export type IParentFoldersGetResponse = IChildFolderItem[];
+
+  export interface ISubFoldersDeleteRequest {
+    deleteFolderIdList: ItemId[];
+  }
 }

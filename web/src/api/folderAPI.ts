@@ -73,3 +73,10 @@ export const getParentFolders = (
 ): Promise<folder.IParentFoldersGetResponse> => {
   return Client.getAxios(`/api/v1/folder/${folderId}/parent`);
 };
+
+// 서브 폴더 리스트 삭제
+export const deleteSubFolders = (
+  requestData: folder.ISubFoldersDeleteRequest,
+): Promise<AxiosResponse> => {
+  return Client.postAxios(`/api/v1/folder/deletes`, requestData);
+};

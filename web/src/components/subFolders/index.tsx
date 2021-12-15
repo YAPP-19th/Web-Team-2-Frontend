@@ -1,7 +1,9 @@
 import { ItemId } from '@atlaskit/tree';
+import { deleteSubFolders } from 'api/folderAPI';
 import useChildFoldersEffect from 'hooks/folder/useChildFoldersQueries';
 import { folder } from 'models/folder';
 import React, { ReactElement, useEffect, useMemo, useState } from 'react';
+import { useMutation } from 'react-query';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import SubFolderList from './SubFolderList';
@@ -73,6 +75,30 @@ function SubFolders(): ReactElement | null {
     return subFolderList.some((subFolder) => subFolder.checked);
   }, [subFolderList]);
 
+  const { mutate: mutateSubFoldersDelete } = useMutation(
+    (requestData: folder.ISubFoldersDeleteRequest) =>
+      deleteSubFolders(requestData),
+    {
+      onSuccess: () => {
+        setSubFolderList(
+          subFolderList.filter((subFolder) => !subFolder.checked),
+        );
+        setIsAllChecked(false);
+      },
+      onError: () => {
+        // eslint-disable-next-line no-console
+        console.log('error');
+      },
+    },
+  );
+
+  const onDeleteSubFolders = () => {
+    const checkedSubFolderIds = subFolderList
+      .filter((subFolder) => subFolder.checked)
+      .map((subFolder) => subFolder.folderId);
+    mutateSubFoldersDelete({ deleteFolderIdList: checkedSubFolderIds });
+  };
+
   if (!data || data.length === 0) return null;
   return (
     <SubFoldersWrapper>
@@ -81,6 +107,7 @@ function SubFolders(): ReactElement | null {
           onToggleAllChecked={onToggleAllChecked}
           isAllChecked={isAllChecked}
           IsActiveSubFolder={IsActiveSubFolder}
+          onDeleteSubFolders={onDeleteSubFolders}
         />
       </SubFoldersNav>
       <SubFolderList
