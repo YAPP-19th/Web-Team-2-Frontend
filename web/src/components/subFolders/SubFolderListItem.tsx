@@ -1,11 +1,10 @@
 import { ItemId } from '@atlaskit/tree';
-import { FolderIcon } from 'assets/icons';
 import { ellipsis } from 'assets/styles/utilStyles';
 import CheckBox from 'components/common/CheckBox';
+import FolderEmoji from 'components/common/FolderEmoji';
 import { folder } from 'models/folder';
 import React, { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
-import { Emoji } from 'react-twemoji-picker';
 import styled from 'styled-components';
 
 interface SubFolderListItemProps {
@@ -55,16 +54,6 @@ const SelectedStyled = styled.div`
   border-radius: 6px;
 `;
 
-const FolderIconStyled = styled(FolderIcon)`
-  margin-right: 4px;
-`;
-
-const EmojiIcon = styled(Emoji)`
-  width: 16px;
-  height: 16px;
-  margin-right: 4px;
-`;
-
 const SubFolderName = styled(Link)`
   ${ellipsis}
   display: inline-block;
@@ -89,11 +78,7 @@ function SubFolderListItem({
         isChecked={checked}
       />
 
-      {emoji ? (
-        <EmojiIcon emoji={{ name: 'emoji', unicode: emoji }} />
-      ) : (
-        <FolderIconStyled />
-      )}
+      <FolderEmoji emoji={emoji} />
 
       <SubFolderName to={`/${folderId}`}>{name}</SubFolderName>
       {checked && <SelectedStyled />}
