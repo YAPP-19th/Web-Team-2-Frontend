@@ -52,7 +52,6 @@ export default function useFoldersHandle(): IFoldersHandle {
   const [moveFolderId, setMoveFolderId] = useState<ItemId | null>(null);
   const [isOpenFolderIsFullToast, onFolderIsFullToast] = useToasts();
   const [folders, setFolders] = useRecoilState(folderState);
-
   const queryClient = useQueryClient();
 
   // 폴더 열기

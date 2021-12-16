@@ -25,7 +25,7 @@ const SubFoldersNav = styled.div`
   color: ${(props) => props.theme.color.grayDarkest};
 `;
 
-function SubFolders(): ReactElement {
+function SubFolders(): ReactElement | null {
   const [isAllChecked, setIsAllChecked] = useState(false);
   const subFolderList = useRecoilValue(subFolderState);
   const { onSingleToggle, onAllToggle } = useSubFoldersToggle();
@@ -43,6 +43,8 @@ function SubFolders(): ReactElement {
   const IsActiveSubFolder = useMemo(() => {
     return subFolderList.some((subFolder) => subFolder.checked);
   }, [subFolderList]);
+
+  if (subFolderList.length === 0) return null;
 
   return (
     <SubFoldersWrapper>
