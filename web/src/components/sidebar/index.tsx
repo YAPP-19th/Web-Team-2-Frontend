@@ -52,11 +52,12 @@ function SideBar(): ReactElement {
     onExpandFolder,
     onDeleteFolder,
     onChangeFolderInfo,
-    isOpenFolderIsFullToast,
+    toasts,
   } = useFoldersHandle();
 
   useFoldersLoad();
   const [isTestOpen, onToggleModal] = useToggle();
+  const { isOpenDeleteFolderToast, isOpenFolderIsFullToast } = toasts;
 
   return (
     <SideBarWrapper>
@@ -93,6 +94,12 @@ function SideBar(): ReactElement {
 
       <QuestionButton />
       <Toasts isOpen={isOpenFolderIsFullToast} type="folderIsFull" />
+
+      <Toasts
+        isOpen={isOpenDeleteFolderToast}
+        customEmoji="sad"
+        customMessage="폴더 삭제에 실패했습니다. 다시 시도해 주세요!"
+      />
     </SideBarWrapper>
   );
 }

@@ -16,12 +16,17 @@ import {
 } from 'api/folderAPI';
 import useToasts from 'hooks/common/useToasts';
 import { useCallback, useState } from 'react';
-import { useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { useRecoilValue } from 'recoil';
 import useFolderAction from 'recoil/actions/folderAction';
 import { folderState } from 'recoil/atoms/folderState';
 import { findChildrenLength } from 'utils/atlaskitTreeFinder';
 import { MAX_FOLDERS_LENGTH, QueryKey } from 'utils/const';
+
+interface IToasts {
+  isOpenFolderIsFullToast: boolean;
+  isOpenDeleteFolderToast: boolean;
+}
 
 export interface IFoldersHandle {
   folders: TreeData;
@@ -36,13 +41,20 @@ export interface IFoldersHandle {
   onCreateCabinet: (cabinetLength: number) => void;
   onDeleteFolder: (itemId: ItemId) => void;
   onChangeFolderInfo: (itemId: ItemId, name: string, emoji: string) => void;
-  isOpenFolderIsFullToast: boolean;
+  toasts: IToasts;
   deleteDatasInFolders: (folderIdList: ItemId[]) => Promise<void>;
 }
 
 export default function useFoldersHandle(): IFoldersHandle {
   const [moveFolderId, setMoveFolderId] = useState<ItemId | null>(null);
   const [isOpenFolderIsFullToast, onFolderIsFullToast] = useToasts();
+  const [isOpenDeleteFolderToast, onDeleteFolderToast] = useToasts();
+
+  const toasts = {
+    isOpenFolderIsFullToast,
+    isOpenDeleteFolderToast,
+  };
+
   const folders = useRecoilValue(folderState);
   const {
     expandAndCollapseFolder,
@@ -151,15 +163,18 @@ export default function useFoldersHandle(): IFoldersHandle {
   );
 
   // 폴더 삭제
-  const onDeleteFolder = async (itemId: ItemId) => {
-    try {
-      await deleteFolder(itemId);
-      deleteDataInFolders(itemId);
-      queryClient.invalidateQueries(QueryKey.SUBFOLDER_CONTENTS);
-    } catch (e) {
-      console.log('폴더 삭제에 실패했습니다');
-    }
-  };
+  const { mutate: onDeleteFolder } = useMutation(
+    (itemId: ItemId) => deleteFolder(itemId),
+    {
+      onSuccess: (_, itemId: ItemId) => {
+        deleteDataInFolders(itemId);
+        queryClient.invalidateQueries(QueryKey.SUBFOLDER_CONTENTS);
+      },
+      onError: () => {
+        onDeleteFolderToast();
+      },
+    },
+  );
 
   // 폴더 이름,이모지 수정
   const onChangeFolderInfo = async (
@@ -187,7 +202,7 @@ export default function useFoldersHandle(): IFoldersHandle {
     onCreateCabinet,
     onDeleteFolder,
     onChangeFolderInfo,
-    isOpenFolderIsFullToast,
+    toasts,
     deleteDatasInFolders,
   };
 }

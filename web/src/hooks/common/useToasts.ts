@@ -9,7 +9,7 @@ export default function useToasts(): UseToastsTypes {
     setIsOpenToast(true);
     setTimeout(() => {
       setIsOpenToast(false);
-    }, 1200);
+    }, 1500);
   };
 
   return [isOpenToast, onToast];

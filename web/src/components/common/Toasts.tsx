@@ -1,6 +1,7 @@
 import transitions from 'assets/styles/transitions';
 import React, { ReactElement, useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
+import { RequiredKeys } from 'utility-types';
 import { EMOJI_URL } from 'utils/config';
 import { toasts } from 'utils/toasts';
 
@@ -11,8 +12,10 @@ export interface IEmojis {
 }
 
 interface ToastsProps {
-  type: ToastsTypes;
+  type?: ToastsTypes;
   isOpen: boolean;
+  customMessage?: string;
+  customEmoji?: RequiredKeys<IEmojis>;
 }
 
 export type ToastsTypes =
@@ -68,14 +71,18 @@ const ToastsMessage = styled.span`
   margin: 0 6px;
 `;
 
-function Toasts({ type, isOpen }: ToastsProps): ReactElement | null {
+function Toasts({
+  type,
+  isOpen,
+  customEmoji,
+  customMessage,
+}: ToastsProps): ReactElement | null {
   const emojis: IEmojis = {
     smile: `${EMOJI_URL}/1f600.svg`,
     sad: `${EMOJI_URL}/1f625.svg`,
     clock: `${EMOJI_URL}/23f0.svg`,
   };
 
-  const { text, size, emoji } = toasts[type];
   const [closed, setClosed] = useState(true);
 
   useEffect(() => {
@@ -96,11 +103,22 @@ function Toasts({ type, isOpen }: ToastsProps): ReactElement | null {
   if (!isOpen && closed) return null;
 
   return (
-    <ToastsStyled size={size} isOpen={isOpen}>
-      <EmojiIcon src={emojis[emoji]} alt={text} />
-      <ToastsMessage>{text}</ToastsMessage>
-      <EmojiIcon src={emojis[emoji]} alt={text} />
-    </ToastsStyled>
+    <>
+      {customMessage && customEmoji && (
+        <ToastsStyled size="big" isOpen={isOpen}>
+          <EmojiIcon src={emojis[customEmoji]} alt={customMessage} />
+          <ToastsMessage>{customMessage}</ToastsMessage>
+          <EmojiIcon src={emojis[customEmoji]} alt={customMessage} />
+        </ToastsStyled>
+      )}
+      {type && (
+        <ToastsStyled size={toasts[type].size} isOpen={isOpen}>
+          <EmojiIcon src={emojis[toasts[type].emoji]} alt={toasts[type].text} />
+          <ToastsMessage>{toasts[type].text}</ToastsMessage>
+          <EmojiIcon src={emojis[toasts[type].emoji]} alt={toasts[type].text} />
+        </ToastsStyled>
+      )}
+    </>
   );
 }
 
