@@ -8,7 +8,7 @@ export interface ISelectedFolder {
   emoji: string;
 }
 
-const initialState: TreeData = {
+export const initialFolderState: TreeData = {
   rootId: '',
   items: {
     '': {
@@ -21,7 +21,7 @@ const initialState: TreeData = {
 
 export const folderState = atom<TreeData>({
   key: 'folderState',
-  default: initialState,
+  default: initialFolderState,
 });
 
 export const selectedFolderState = atom<ISelectedFolder>({

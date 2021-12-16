@@ -6,9 +6,9 @@ import Tree, {
   TreeData,
 } from '@atlaskit/tree';
 import styled, { css } from 'styled-components';
-import { initialFolderState } from 'hooks/folder/useFoldersHandle';
 import FolderItemIcon from 'components/sidebar/FolderItemIcon';
 import useFoldersQueries from 'hooks/folder/useFoldersQueries';
+import { initialFolderState } from 'recoil/atoms/folderState';
 
 const FolderListWrapper = styled.div`
   position: relative;

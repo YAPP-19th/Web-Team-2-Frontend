@@ -6,6 +6,7 @@ import {
   useSubFoldersAction,
 } from 'recoil/selectors/folderSelector';
 import { ReactQueryKey } from 'utils/const';
+import useFoldersHandle from './useFoldersHandle';
 
 interface IUseChildFoldersHandle {
   onDeleteSubFolders: () => void;
@@ -15,6 +16,7 @@ export default function useChildFoldersHandle(): IUseChildFoldersHandle {
   const { onDelete } = useSubFoldersAction();
   const checkedSubFolderIds = useCheckedSubFoldersIds();
   const queryClient = useQueryClient();
+  const { deleteDatasInFolders } = useFoldersHandle();
 
   const { mutate: mutateSubFoldersDelete } = useMutation(
     (requestData: folder.ISubFoldersDeleteRequest) =>
@@ -22,6 +24,7 @@ export default function useChildFoldersHandle(): IUseChildFoldersHandle {
     {
       onSuccess: () => {
         onDelete();
+        deleteDatasInFolders(checkedSubFolderIds);
         queryClient.invalidateQueries(ReactQueryKey.folderContents());
       },
       onError: () => {

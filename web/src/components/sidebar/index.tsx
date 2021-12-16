@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import QuestionButton from 'components/tutorial/QuestionButton';
 import SimpleButton from 'components/common/SimpleButton';
 import useToggle from 'hooks/common/useToggle';
+import useFoldersLoad from 'hooks/folder/useFoldersLoad';
 import Toasts from 'components/common/Toasts';
 import AllFolder from './AllFolder';
 import CabinetBox from './CabinetBox';
@@ -54,6 +55,7 @@ function SideBar(): ReactElement {
     isOpenFolderIsFullToast,
   } = useFoldersHandle();
 
+  useFoldersLoad();
   const [isTestOpen, onToggleModal] = useToggle();
 
   return (

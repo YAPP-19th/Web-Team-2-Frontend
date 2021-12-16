@@ -10,20 +10,18 @@ import {
 import {
   createFolder,
   deleteFolder,
-  getParentFolders,
   moveFolder,
   renameFolder,
   updateFolderEmoji,
 } from 'api/folderAPI';
 import useToasts from 'hooks/common/useToasts';
 import produce from 'immer';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useQueryClient } from 'react-query';
-import { useRecoilValue } from 'recoil';
-import { activeFolderIdState } from 'recoil/atoms/folderState';
+import { useRecoilState } from 'recoil';
+import { folderState } from 'recoil/atoms/folderState';
 import { findChildrenLength, findParentId } from 'utils/atlaskitTreeFinder';
 import { MAX_FOLDERS_LENGTH, QueryKey } from 'utils/const';
-import useFoldersQueries from './useFoldersQueries';
 
 export interface IFoldersHandle {
   folders: TreeData;
@@ -39,6 +37,7 @@ export interface IFoldersHandle {
   onDeleteFolder: (itemId: ItemId) => void;
   onChangeFolderInfo: (itemId: ItemId, name: string, emoji: string) => void;
   isOpenFolderIsFullToast: boolean;
+  deleteDatasInFolders: (folderIdList: ItemId[]) => Promise<void>;
 }
 
 interface IFolderItem {
@@ -49,55 +48,12 @@ interface IFolderItem {
   };
 }
 
-export const initialFolderState = {
-  rootId: '',
-  items: {
-    '': {
-      id: '',
-      children: [],
-      data: '',
-    },
-  },
-};
-
 export default function useFoldersHandle(): IFoldersHandle {
-  const { data } = useFoldersQueries();
   const [moveFolderId, setMoveFolderId] = useState<ItemId | null>(null);
   const [isOpenFolderIsFullToast, onFolderIsFullToast] = useToasts();
-  const activeFolderId = useRecoilValue(activeFolderIdState);
-  const [folders, setFolders] = useState<TreeData>(initialFolderState);
-
-  useEffect(() => {
-    if (!data) return;
-    setFolders(data);
-  }, [data]);
+  const [folders, setFolders] = useRecoilState(folderState);
 
   const queryClient = useQueryClient();
-
-  // 해당 폴더 id 활성화 되면 해당 폴더를 가지고 있는 부모 폴더 모두 열기
-  const onExpandParentFolder = useCallback(async () => {
-    try {
-      const parentFolderIdList = await getParentFolders(activeFolderId);
-      setFolders((prev) =>
-        produce(prev, (draft) => {
-          const newObj = draft;
-          parentFolderIdList.forEach((parentFolderItem) => {
-            if (String(parentFolderItem.folderId) !== activeFolderId) {
-              newObj.items[parentFolderItem.folderId].isExpanded = true;
-            }
-          });
-        }),
-      );
-    } catch (e) {
-      console.log('부모 폴더 id 조회 실패');
-    }
-  }, [activeFolderId]);
-
-  useEffect(() => {
-    // folderId가 활성화가되고, folders 데이터가 들어온 이후에 onExpandParentFolder 호출
-    console.log('data', data);
-    if (activeFolderId && data?.rootId === 'root') onExpandParentFolder();
-  }, [activeFolderId, data]);
 
   // 폴더 열기
   const onExpandFolder = (itemId: ItemId) => {
@@ -190,10 +146,26 @@ export default function useFoldersHandle(): IFoldersHandle {
     );
   };
 
+  // 현재 폴더 리스트에서 해당 폴더 리스트 삭제, 부모 폴더의 children 에서 삭제
+  const deleteDatasInFolders = async (folderIdList: ItemId[]) => {
+    setFolders((prev) =>
+      produce(prev, (draft) => {
+        const newObj = draft;
+        folderIdList.forEach((folderId) => {
+          const parentId = findParentId(newObj, folderId);
+          if (!parentId) return;
+          newObj.items[parentId].children = newObj.items[
+            parentId
+          ].children.filter((id) => id !== folderId);
+          delete newObj.items[folderId];
+        });
+      }),
+    );
+  };
+
   //  폴더 생성 API 작동하는 action 함수
   const onCreateFolderAction = async (parentId: ItemId, folderName: string) => {
     const ParentFolderChildrenLength = findChildrenLength(folders, parentId);
-
     try {
       const { folderId } = await createFolder(
         parentId === 'root' ? 0 : parentId,
@@ -266,5 +238,6 @@ export default function useFoldersHandle(): IFoldersHandle {
     onDeleteFolder,
     onChangeFolderInfo,
     isOpenFolderIsFullToast,
+    deleteDatasInFolders,
   };
 }
