@@ -1,8 +1,15 @@
 import { ItemId } from '@atlaskit/tree';
 import { deleteSubFolders } from 'api/folderAPI';
+import LoadingSpinner from 'components/common/LoadingSpinner';
 import useChildFoldersEffect from 'hooks/folder/useChildFoldersQueries';
 import { folder } from 'models/folder';
-import React, { ReactElement, useEffect, useMemo, useState } from 'react';
+import React, {
+  ReactElement,
+  Suspense,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { useMutation } from 'react-query';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
@@ -110,11 +117,13 @@ function SubFolders(): ReactElement | null {
           onDeleteSubFolders={onDeleteSubFolders}
         />
       </SubFoldersNav>
-      <SubFolderList
-        subFolders={subFolderList}
-        onToggleChecked={onToggleChecked}
-        IsActiveSubFolder={IsActiveSubFolder}
-      />
+      <Suspense fallback={<LoadingSpinner />}>
+        <SubFolderList
+          subFolders={subFolderList}
+          onToggleChecked={onToggleChecked}
+          IsActiveSubFolder={IsActiveSubFolder}
+        />
+      </Suspense>
     </SubFoldersWrapper>
   );
 }

@@ -7,6 +7,12 @@ export namespace folder {
     emoji: string;
   }
 
+  export interface ISubFolderItem extends IChildFolderItem {
+    checked: boolean;
+  }
+
+  export type ISubFolderState = ISubFolderItem[];
+
   export interface ICheckedChildFolderItem extends IChildFolderItem {
     checked: boolean;
   }

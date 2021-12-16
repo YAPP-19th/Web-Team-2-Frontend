@@ -2,6 +2,8 @@ import React, { ReactElement } from 'react';
 import { ItemId } from '@atlaskit/tree';
 import styled from 'styled-components';
 import { folder } from 'models/folder';
+import { useRecoilValue } from 'recoil';
+import { getSubFoldersSelector } from 'recoil/selectors/folderSelector';
 import MainFolderListItem from './SubFolderListItem';
 
 interface SubFolderListProps {
@@ -20,6 +22,9 @@ function SubFolderList({
   onToggleChecked,
   IsActiveSubFolder,
 }: SubFolderListProps): ReactElement {
+  const test = useRecoilValue(getSubFoldersSelector(214));
+  console.log(test);
+
   return (
     <FolderListWrapper>
       {subFolders.map((subFolder) => (

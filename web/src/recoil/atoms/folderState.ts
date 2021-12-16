@@ -1,4 +1,5 @@
 import { ItemId, TreeData } from '@atlaskit/tree';
+import { folder } from 'models/folder';
 import { atom } from 'recoil';
 
 export interface ISelectedFolder {
@@ -35,4 +36,9 @@ export const selectedFolderState = atom<ISelectedFolder>({
 export const activeFolderIdState = atom<ItemId>({
   key: 'activeFolderIdState',
   default: '',
+});
+
+export const subFolderState = atom<folder.ISubFolderState>({
+  key: 'subFolderState',
+  default: [],
 });

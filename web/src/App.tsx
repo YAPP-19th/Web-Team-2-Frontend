@@ -30,6 +30,7 @@ const queryClient = new QueryClient();
 
 function App(): ReactElement {
   useLoggedInUserReplace();
+
   return (
     <QueryClientProvider client={queryClient}>
       <AppWrapper>
