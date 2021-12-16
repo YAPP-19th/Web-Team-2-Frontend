@@ -2,7 +2,7 @@ import { getChildFolders } from 'api/folderAPI';
 import { useQuery } from 'react-query';
 import { ReactQueryKey } from 'utils/const';
 
-export default function useChildFoldersEffect(folderId: string): typeof query {
+export default function useChildFoldersQueries(folderId: string): typeof query {
   const query = useQuery(
     ReactQueryKey.subFolderContents(folderId),
     () => getChildFolders(folderId),

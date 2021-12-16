@@ -1,4 +1,5 @@
 import CheckBox from 'components/common/CheckBox';
+import useChildFoldersHandle from 'hooks/folder/useChildFoldersHandle';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
@@ -6,7 +7,6 @@ interface SubFolderSelectBoxProps {
   onToggleAllChecked: () => void;
   isAllChecked: boolean;
   IsActiveSubFolder: boolean;
-  onDeleteSubFolders: () => void;
 }
 
 const SelectBoxWrapper = styled.div`
@@ -43,8 +43,8 @@ function MainFolderSelectBox({
   onToggleAllChecked,
   isAllChecked,
   IsActiveSubFolder,
-  onDeleteSubFolders,
 }: SubFolderSelectBoxProps): ReactElement {
+  const { onDeleteSubFolders } = useChildFoldersHandle();
   return (
     <SelectBoxWrapper>
       <SelectForm>
