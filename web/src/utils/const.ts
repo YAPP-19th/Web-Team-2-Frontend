@@ -11,6 +11,7 @@ export enum QueryKey {
   REMIND_CONTENTS = 'remindContents',
   SUBFOLDER_CONTENTS = 'subfolderContents',
   PAGE_PATH_CONTENTS = 'pagePathContents',
+  FOLDER_CONTENTS = 'folderContents',
 }
 
 export const ReactQueryKey = {
@@ -21,6 +22,7 @@ export const ReactQueryKey = {
     [QueryKey.SUBFOLDER_CONTENTS, detailInfo] as const,
   pagePathContents: (detailInfo: ItemId) =>
     [QueryKey.PAGE_PATH_CONTENTS, detailInfo] as const,
+  folderContents: () => [QueryKey.FOLDER_CONTENTS] as const,
 };
 
 export enum NumOfBookmarkPerPage {

@@ -23,7 +23,7 @@ import { useRecoilValue } from 'recoil';
 import { activeFolderIdState } from 'recoil/atoms/folderState';
 import { findChildrenLength, findParentId } from 'utils/atlaskitTreeFinder';
 import { MAX_FOLDERS_LENGTH, QueryKey } from 'utils/const';
-import useFoldersEffect from './useFoldersEffect';
+import useFoldersQueries from './useFoldersQueries';
 
 export interface IFoldersHandle {
   folders: TreeData;
@@ -49,11 +49,28 @@ interface IFolderItem {
   };
 }
 
+export const initialFolderState = {
+  rootId: '',
+  items: {
+    '': {
+      id: '',
+      children: [],
+      data: '',
+    },
+  },
+};
+
 export default function useFoldersHandle(): IFoldersHandle {
-  const { folders, setFolders, getFolderLoading } = useFoldersEffect();
+  const { data } = useFoldersQueries();
   const [moveFolderId, setMoveFolderId] = useState<ItemId | null>(null);
   const [isOpenFolderIsFullToast, onFolderIsFullToast] = useToasts();
   const activeFolderId = useRecoilValue(activeFolderIdState);
+  const [folders, setFolders] = useState<TreeData>(initialFolderState);
+
+  useEffect(() => {
+    if (!data) return;
+    setFolders(data);
+  }, [data]);
 
   const queryClient = useQueryClient();
 
@@ -78,8 +95,9 @@ export default function useFoldersHandle(): IFoldersHandle {
 
   useEffect(() => {
     // folderId가 활성화가되고, folders 데이터가 들어온 이후에 onExpandParentFolder 호출
-    if (activeFolderId && folders.rootId === 'root') onExpandParentFolder();
-  }, [activeFolderId, getFolderLoading]);
+    console.log('data', data);
+    if (activeFolderId && data?.rootId === 'root') onExpandParentFolder();
+  }, [activeFolderId, data]);
 
   // 폴더 열기
   const onExpandFolder = (itemId: ItemId) => {

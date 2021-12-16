@@ -1,10 +1,11 @@
 import { deleteSubFolders } from 'api/folderAPI';
 import { folder } from 'models/folder';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import {
   useCheckedSubFoldersIds,
   useSubFoldersAction,
 } from 'recoil/selectors/folderSelector';
+import { ReactQueryKey } from 'utils/const';
 
 interface IUseChildFoldersHandle {
   onDeleteSubFolders: () => void;
@@ -13,6 +14,7 @@ interface IUseChildFoldersHandle {
 export default function useChildFoldersHandle(): IUseChildFoldersHandle {
   const { onDelete } = useSubFoldersAction();
   const checkedSubFolderIds = useCheckedSubFoldersIds();
+  const queryClient = useQueryClient();
 
   const { mutate: mutateSubFoldersDelete } = useMutation(
     (requestData: folder.ISubFoldersDeleteRequest) =>
@@ -20,6 +22,7 @@ export default function useChildFoldersHandle(): IUseChildFoldersHandle {
     {
       onSuccess: () => {
         onDelete();
+        queryClient.invalidateQueries(ReactQueryKey.folderContents());
       },
       onError: () => {
         // eslint-disable-next-line no-console
