@@ -17,6 +17,7 @@ export namespace bookmarks {
     title: string;
     userId: number;
     image: string;
+    checked: boolean;
   }
 
   export type bookmarkSortType = {

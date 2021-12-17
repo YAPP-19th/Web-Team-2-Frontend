@@ -4,7 +4,7 @@ import {
 } from 'hooks/bookmark/useBookmarkQueries';
 import useToggle from 'hooks/common/useToggle';
 import { bookmarks } from 'models/bookmark';
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { BOOKMARK_KINDS } from 'utils/const';
 import BookmarkList from './BookmarkList';
@@ -27,9 +27,11 @@ const BookmarkNav = styled.div`
   color: ${(props) => props.theme.color.grayDarkest};
 `;
 
-function Bookmark(props: Props): ReactElement {
+function Bookmark(props: Props): ReactElement | null {
   const { path, keyword } = props;
   const [page, setPage] = useState<number>(1);
+  const [bookmarkList, setBookmarkList] = useState<bookmarks.IBookmark[]>([]);
+  const [isAllChecked, setIsAllChecked] = useState<boolean>(false);
   const [isRemind, onRemindToggle] = useToggle();
   const [filter, setFilter] =
     useState<bookmarks.BookmarkFilterType>('saveTime,desc');
@@ -51,8 +53,7 @@ function Bookmark(props: Props): ReactElement {
       ? lastPath
       : undefined;
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { data, isLoading, isFetching, isError } = useBookmarkQuery(
+  const { data } = useBookmarkQuery(
     bookmarkCategory,
     page - 1, // @Note 페이지네이션 라이브러리에서 기본 값이 1인데, 서버쪽에서 기본 값을 0으로 해둬서 -1을 해줘야 함
     filter,
@@ -61,33 +62,74 @@ function Bookmark(props: Props): ReactElement {
     folderId,
   );
 
+  useEffect(() => {
+    if (!data) return;
+    setBookmarkList(
+      data.content.map((bookmark) => ({ ...bookmark, checked: false })),
+    );
+  }, [data]);
+
+  useEffect(() => {
+    if (bookmarkList.length === 0) return;
+    setIsAllChecked(bookmarkList.every((bookmark) => bookmark.checked));
+  }, [bookmarkList]);
+
+  const IsActiveSelectBox = useMemo(() => {
+    return bookmarkList.some((bookmark) => bookmark.checked);
+  }, [bookmarkList]);
+
+  const onToggleAllChecked = () => {
+    setIsAllChecked(!isAllChecked);
+    setBookmarkList(
+      bookmarkList.map((bookmark) => ({
+        ...bookmark,
+        checked: !isAllChecked,
+      })),
+    );
+  };
+
+  const onToggleSingleChecked = (bookmarkId: string) => {
+    setBookmarkList(
+      bookmarkList.map((bookmark) =>
+        bookmark.id === bookmarkId
+          ? { ...bookmark, checked: !bookmark.checked }
+          : bookmark,
+      ),
+    );
+  };
+
+  if (bookmarkList.length === 0 || !data) return null;
   return (
     <>
-      {data && (
-        <>
-          <BookmarkNav>
-            <SelectBox bookmarkList={data.content} />
-            <FilterBox
-              onRemindToggle={onRemindToggle}
-              isRemind={isRemind}
-              onFiltering={onFiltering}
-              isOpenFilterMenu={isOpenFilterMenu}
-              onToggleFilterMenu={onToggleFilterMenu}
-              onChangeMenuText={onChangeMenuText}
-              menuText={menuText}
-            />
-          </BookmarkNav>
+      <BookmarkNav>
+        <SelectBox
+          IsActiveSelectBox={IsActiveSelectBox}
+          isAllChecked={isAllChecked}
+          onToggleAllChecked={onToggleAllChecked}
+        />
+        <FilterBox
+          onRemindToggle={onRemindToggle}
+          isRemind={isRemind}
+          onFiltering={onFiltering}
+          isOpenFilterMenu={isOpenFilterMenu}
+          onToggleFilterMenu={onToggleFilterMenu}
+          onChangeMenuText={onChangeMenuText}
+          menuText={menuText}
+        />
+      </BookmarkNav>
 
-          <BookmarkList bookmarkList={data.content} />
-          {data.content.length !== 0 && (
-            <Pagination
-              page={page}
-              setPage={setPage}
-              totalElements={data.totalElements}
-              size={bookmarkCategory.numOfPage}
-            />
-          )}
-        </>
+      <BookmarkList
+        bookmarkList={bookmarkList}
+        onToggleSingleChecked={onToggleSingleChecked}
+        IsActiveSelectBox={IsActiveSelectBox}
+      />
+      {bookmarkList.length !== 0 && (
+        <Pagination
+          page={page}
+          setPage={setPage}
+          totalElements={data.totalElements}
+          size={bookmarkCategory.numOfPage}
+        />
       )}
     </>
   );

@@ -13,7 +13,6 @@ import useToasts from 'hooks/common/useToasts';
 import { bookmarks } from 'models/bookmark';
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { selectedBookmarksState } from 'recoil/atoms/bookmarkState';
 import styled from 'styled-components';
 import { IBookmarkMenu, IBookmarkOpenMenu } from './BookmarkList';
 import BookmarkMenu from './BookmarkMenu';
@@ -22,6 +21,8 @@ interface BookmarkItemProps {
   bookmark: bookmarks.IBookmark;
   isOpenMenu: IBookmarkOpenMenu;
   onToggleModal: IBookmarkMenu;
+  onToggleSingleChecked: (bookmarkId: string) => void;
+  IsActiveSelectBox: boolean;
 }
 
 const BookmarkItemWrapper = styled.div`
@@ -181,16 +182,14 @@ function BookmarkItem({
   bookmark,
   isOpenMenu,
   onToggleModal,
+  onToggleSingleChecked,
+  IsActiveSelectBox,
 }: BookmarkItemProps): ReactElement {
-  const { id, title, description, link, remindTime, folderId, image } =
+  const { id, title, description, link, remindTime, folderId, image, checked } =
     bookmark;
-  const [selectedBookmarks, setSelectedBookmarks] = useRecoilState(
-    selectedBookmarksState,
-  );
-  const [isChecked, setIsChecked] = useState(false);
+
   const [isOpenCopyToast, onCopyToast] = useToasts();
   const [isOpenRemindToast, onRemindToast] = useToasts();
-
   const copyUrlRef = useRef<HTMLTextAreaElement>(null);
 
   const { onToggleOpenMenu } = onToggleModal;
@@ -212,28 +211,6 @@ function BookmarkItem({
   // // };
   // // mutateBookmarkMove(moveRequestData);
 
-  useEffect(() => {
-    setIsChecked(
-      selectedBookmarks.some((selectedBookmark) => selectedBookmark.id === id),
-    );
-  }, [selectedBookmarks]);
-
-  const onToggleCheckBox = () => {
-    const isExist = selectedBookmarks.some(
-      (selectedBookmark) => selectedBookmark.id === id,
-    );
-
-    if (isExist) {
-      setSelectedBookmarks(
-        selectedBookmarks.filter(
-          (selectedBookmark) => selectedBookmark.id !== id,
-        ),
-      );
-    } else {
-      setSelectedBookmarks([...selectedBookmarks, bookmark]);
-    }
-  };
-
   const onCopyUrl = async () => {
     copyUrlRef.current?.select();
     await navigator.clipboard.writeText(link);
@@ -241,92 +218,90 @@ function BookmarkItem({
   };
 
   return (
-    <>
-      <BookmarkItemWrapper>
-        <ItemInner>
-          <BookmarkThumbnail
-            href={link}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {image ? (
-              <BookmarkImage src={image} alt="thumbnail" />
-            ) : (
-              <BookmarkDefaultImage>
-                <SymbolIcon />
-              </BookmarkDefaultImage>
-            )}
+    <BookmarkItemWrapper>
+      <ItemInner>
+        <BookmarkThumbnail
+          href={link}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {image ? (
+            <BookmarkImage src={image} alt="thumbnail" />
+          ) : (
+            <BookmarkDefaultImage>
+              <SymbolIcon />
+            </BookmarkDefaultImage>
+          )}
 
-            {selectedBookmarks.length > 0 && (
-              <SelectButton
+          {IsActiveSelectBox && (
+            <SelectButton
+              onClick={(e) => {
+                e.preventDefault();
+                onToggleSingleChecked(id);
+              }}
+              variant="primary"
+              isChecked={checked}
+            />
+          )}
+        </BookmarkThumbnail>
+
+        <BookmarkContent>
+          <InnerContent href={link} target="_blank" rel="noopener noreferrer">
+            <Title>{title}</Title>
+            <Description>{description}</Description>
+          </InnerContent>
+          <DividerLine />
+          <BookmarkInfo>
+            <BookmarkLinkBox>
+              <BookmarkLink
+                href={link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {link}
+              </BookmarkLink>
+            </BookmarkLinkBox>
+
+            <BookmarkOption>
+              <OptionButton
+                onClick={onRemindToast}
+                disabled={isOpenRemindToast}
+              >
+                {remindTime ? <BellSelectedIcon /> : <BellUnSelectedIcon />}
+              </OptionButton>
+
+              <OptionButton onClick={onCopyUrl} disabled={isOpenCopyToast}>
+                <Copy24Icon />
+              </OptionButton>
+
+              <OptionButton
                 onClick={(e) => {
-                  e.preventDefault();
-                  onToggleCheckBox();
+                  onToggleOpenMenu(id, title, true, remindTime, folderId);
+                  e.stopPropagation();
                 }}
-                variant="primary"
-                isChecked={isChecked}
-              />
-            )}
-          </BookmarkThumbnail>
+              >
+                <More24Icon />
+                {isOpenMenu.id === id && isOpenMenu.isOpen && (
+                  <BookmarkMenu
+                    isOpen={isOpenMenu.id === id}
+                    isOpenMenu={isOpenMenu}
+                    onToggleModal={onToggleModal}
+                  />
+                )}
+              </OptionButton>
+            </BookmarkOption>
+          </BookmarkInfo>
+        </BookmarkContent>
 
-          <BookmarkContent>
-            <InnerContent href={link} target="_blank" rel="noopener noreferrer">
-              <Title>{title}</Title>
-              <Description>{description}</Description>
-            </InnerContent>
-            <DividerLine />
-            <BookmarkInfo>
-              <BookmarkLinkBox>
-                <BookmarkLink
-                  href={link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {link}
-                </BookmarkLink>
-              </BookmarkLinkBox>
-
-              <BookmarkOption>
-                <OptionButton
-                  onClick={onRemindToast}
-                  disabled={isOpenRemindToast}
-                >
-                  {remindTime ? <BellSelectedIcon /> : <BellUnSelectedIcon />}
-                </OptionButton>
-
-                <OptionButton onClick={onCopyUrl} disabled={isOpenCopyToast}>
-                  <Copy24Icon />
-                </OptionButton>
-
-                <OptionButton
-                  onClick={(e) => {
-                    onToggleOpenMenu(id, title, true, remindTime, folderId);
-                    e.stopPropagation();
-                  }}
-                >
-                  <More24Icon />
-                  {isOpenMenu.id === id && isOpenMenu.isOpen && (
-                    <BookmarkMenu
-                      isOpen={isOpenMenu.id === id}
-                      isOpenMenu={isOpenMenu}
-                      onToggleModal={onToggleModal}
-                    />
-                  )}
-                </OptionButton>
-              </BookmarkOption>
-            </BookmarkInfo>
-          </BookmarkContent>
-
-          <UrlTextArea readOnly ref={copyUrlRef} value={link} />
-          {isChecked && <SelectedStyled />}
-        </ItemInner>
-        <Toasts isOpen={isOpenCopyToast} type="copyLink" />
-        <Toasts
-          isOpen={isOpenRemindToast}
-          type={remindTime ? 'remindDisabled' : 'remindSetting'}
-        />
-      </BookmarkItemWrapper>
-    </>
+        <UrlTextArea readOnly ref={copyUrlRef} value={link} />
+        {checked && <SelectedStyled />}
+      </ItemInner>
+      <Toasts isOpen={isOpenCopyToast} type="copyLink" />
+      <Toasts
+        isOpen={isOpenRemindToast}
+        type={remindTime ? 'remindDisabled' : 'remindSetting'}
+      />
+    </BookmarkItemWrapper>
   );
 }
 

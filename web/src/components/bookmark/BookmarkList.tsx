@@ -13,6 +13,8 @@ import BookmarkItem from './BookmarkItem';
 
 interface Props {
   bookmarkList: bookmarks.IBookmark[];
+  onToggleSingleChecked: (bookmarkId: string) => void;
+  IsActiveSelectBox: boolean;
 }
 
 export interface IBookmarkMenu {
@@ -50,7 +52,7 @@ const BlankBox = styled.div`
 `;
 
 function BookmarkList(props: Props): ReactElement {
-  const { bookmarkList } = props;
+  const { bookmarkList, onToggleSingleChecked, IsActiveSelectBox } = props;
   const [isOpenMenu, setIsOpenMenu] = useState<IBookmarkOpenMenu>({
     id: '',
     title: '',
@@ -96,6 +98,8 @@ function BookmarkList(props: Props): ReactElement {
           key={index}
           isOpenMenu={isOpenMenu}
           onToggleModal={onToggleModal}
+          onToggleSingleChecked={onToggleSingleChecked}
+          IsActiveSelectBox={IsActiveSelectBox}
         />
       ))}
 
