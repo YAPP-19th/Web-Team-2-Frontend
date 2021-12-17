@@ -98,7 +98,8 @@ function Bookmark(props: Props): ReactElement | null {
     );
   };
 
-  if (bookmarkList.length === 0 || !data) return null;
+  if (!data) return null;
+
   return (
     <>
       <BookmarkNav>

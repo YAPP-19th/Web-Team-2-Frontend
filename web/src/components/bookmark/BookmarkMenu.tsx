@@ -13,7 +13,7 @@ const BookmarkMenuWrapper = styled.div`
   position: absolute;
   top: 0px;
   left: 24px;
-  z-index: 102;
+  z-index: 1002;
 `;
 
 const BookmarkMenuInner = styled.div`

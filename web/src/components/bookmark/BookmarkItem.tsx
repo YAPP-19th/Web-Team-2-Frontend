@@ -9,6 +9,7 @@ import {
 import { ellipsis } from 'assets/styles/utilStyles';
 import CheckBox from 'components/common/CheckBox';
 import Toasts from 'components/common/Toasts';
+import useHandleBookmark from 'hooks/bookmark/useHandleBookmark';
 import useToasts from 'hooks/common/useToasts';
 import { bookmarks } from 'models/bookmark';
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
@@ -45,6 +46,7 @@ const ItemInner = styled.div`
   &:hover {
     transform: translateY(-6px);
     box-shadow: 0 12px 20px 0 ${(props) => props.theme.color.shadow3};
+    z-index: 9999;
   }
 `;
 
@@ -190,6 +192,7 @@ function BookmarkItem({
 
   const [isOpenCopyToast, onCopyToast] = useToasts();
   const [isOpenRemindToast, onRemindToast] = useToasts();
+  const { onEditBookmark } = useHandleBookmark();
   const copyUrlRef = useRef<HTMLTextAreaElement>(null);
 
   const { onToggleOpenMenu } = onToggleModal;
@@ -264,7 +267,10 @@ function BookmarkItem({
 
             <BookmarkOption>
               <OptionButton
-                onClick={onRemindToast}
+                onClick={() => {
+                  onRemindToast();
+                  onEditBookmark(id, title, !remindTime);
+                }}
                 disabled={isOpenRemindToast}
               >
                 {remindTime ? <BellSelectedIcon /> : <BellUnSelectedIcon />}
@@ -299,7 +305,7 @@ function BookmarkItem({
       <Toasts isOpen={isOpenCopyToast} type="copyLink" />
       <Toasts
         isOpen={isOpenRemindToast}
-        type={remindTime ? 'remindDisabled' : 'remindSetting'}
+        type={remindTime ? 'remindSetting' : 'remindDisabled'}
       />
     </BookmarkItemWrapper>
   );
