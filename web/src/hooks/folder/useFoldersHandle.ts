@@ -25,7 +25,6 @@ import { MAX_FOLDERS_LENGTH, QueryKey } from 'utils/const';
 
 interface IToasts {
   isOpenFolderIsFullToast: boolean;
-  isOpenDeleteFolderToast: boolean;
 }
 
 export interface IFoldersHandle {
@@ -48,11 +47,9 @@ export interface IFoldersHandle {
 export default function useFoldersHandle(): IFoldersHandle {
   const [moveFolderId, setMoveFolderId] = useState<ItemId | null>(null);
   const [isOpenFolderIsFullToast, onFolderIsFullToast] = useToasts();
-  const [isOpenDeleteFolderToast, onDeleteFolderToast] = useToasts();
 
   const toasts = {
     isOpenFolderIsFullToast,
-    isOpenDeleteFolderToast,
   };
 
   const folders = useRecoilValue(folderState);
@@ -171,7 +168,7 @@ export default function useFoldersHandle(): IFoldersHandle {
         queryClient.invalidateQueries(QueryKey.SUBFOLDER_CONTENTS);
       },
       onError: () => {
-        onDeleteFolderToast();
+        console.log('폴더 삭제를 실패했습니다.');
       },
     },
   );
