@@ -1,5 +1,6 @@
 import Footer from 'components/footer';
 import Header from 'components/header';
+import useLoggedInUserReplace from 'hooks/auth/useLoggedInUserReplace';
 import React, { ReactElement } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -28,6 +29,8 @@ const AppLayout = styled.div`
 const queryClient = new QueryClient();
 
 function App(): ReactElement {
+  useLoggedInUserReplace();
+
   return (
     <QueryClientProvider client={queryClient}>
       <AppWrapper>

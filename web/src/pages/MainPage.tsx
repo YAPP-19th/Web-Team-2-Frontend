@@ -1,13 +1,16 @@
 import Bookmark from 'components/bookmark';
-import SubFolders from 'components/subFolders';
+import SubFolders, { FolderIdParams } from 'components/subFolders';
 import Reminder from 'components/reminder';
 import SideBar from 'components/sidebar';
-import React, { ReactElement, useEffect, useMemo, useState } from 'react';
+import React, { ReactElement, useEffect, useMemo } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import Path from 'routes/path';
 import styled from 'styled-components';
 import qs from 'qs';
-import BookmarkPath from 'components/bookmark/BookmarkPath';
+import PagePath from 'components/pagePath';
+import { isFolderPage } from 'utils/checkFolderPage';
+import { useSetRecoilState } from 'recoil';
+import { activeFolderIdState } from 'recoil/atoms/folderState';
 
 const MainWrapper = styled.div`
   display: flex;
@@ -27,12 +30,13 @@ const ContentInner = styled.div`
 
 function MainPage(): ReactElement {
   const location = useLocation();
-  const params = useParams();
-  const [path, setPath] = useState<string>();
+  const { folderId } = useParams<keyof FolderIdParams>() as FolderIdParams;
+  const setActiveFolderId = useSetRecoilState(activeFolderIdState);
+
+  // 로딩 시 현재 페이지가 폴더id 를 가진 페이지이면 activeFolderId 에 id값 설정
   useEffect(() => {
-    // setPath(params.folderId || 'main');
-    setPath(location.pathname);
-  }, [params]);
+    if (isFolderPage(folderId)) setActiveFolderId(folderId);
+  }, [folderId]);
 
   // 쿼리스트링 추출
   const query = useMemo(() => {
@@ -48,9 +52,9 @@ function MainPage(): ReactElement {
       <ContentLayout>
         <ContentInner>
           {location.pathname === Path.Home && <Reminder />}
-          <BookmarkPath />
-          <SubFolders />
-          {path && <Bookmark path={path} keyword={query.q} />}
+          <PagePath />
+          {isFolderPage(folderId) && <SubFolders />}
+          <Bookmark path={location.pathname} keyword={query.q} />
         </ContentInner>
       </ContentLayout>
     </MainWrapper>

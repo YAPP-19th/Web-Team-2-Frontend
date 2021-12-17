@@ -1,7 +1,7 @@
 import { ItemId, TreeItem } from '@atlaskit/tree';
-import { ArrowDownIcon, ArrowSideIcon, FolderIcon } from 'assets/icons';
+import { ArrowDownIcon, ArrowSideIcon } from 'assets/icons';
+import FolderEmoji from 'components/common/FolderEmoji';
 import React, { ReactElement } from 'react';
-import { Emoji } from 'react-twemoji-picker';
 import styled from 'styled-components';
 
 interface FolderItemIconProps {
@@ -24,16 +24,6 @@ const ArrowButton = styled.button<{ isShow: boolean }>`
   }
 `;
 
-const FolderIconStyled = styled(FolderIcon)`
-  margin-right: 4px;
-`;
-
-const EmojiIcon = styled(Emoji)`
-  width: 16px;
-  height: 16px;
-  margin-right: 4px;
-`;
-
 function FolderItemIcon({
   item,
   onExpand,
@@ -50,11 +40,7 @@ function FolderItemIcon({
       >
         {item.isExpanded ? <ArrowDownIcon /> : <ArrowSideIcon />}
       </ArrowButton>
-      {item.data.emoji ? (
-        <EmojiIcon emoji={{ name: 'emoji', unicode: item.data.emoji }} />
-      ) : (
-        <FolderIconStyled />
-      )}
+      <FolderEmoji emoji={item.data.emoji} />
     </FolderItemIconWrapper>
   );
 }

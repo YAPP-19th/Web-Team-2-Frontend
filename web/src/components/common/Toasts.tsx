@@ -49,7 +49,6 @@ const ToastsStyled = styled.div<IToastsStyledProps>`
   font-weight: 400;
   z-index: 9999;
   color: ${(props) => props.theme.color.white};
-
   ${(props) =>
     props.isOpen
       ? css`

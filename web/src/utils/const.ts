@@ -7,12 +7,20 @@ export enum LOCAL_STORAGE_KEY {
 export enum QueryKey {
   BOOKMARK_CONTENTS = 'bookmarkContents',
   REMIND_CONTENTS = 'remindContents',
+  SUBFOLDER_CONTENTS = 'subfolderContents',
+  PAGE_PATH_CONTENTS = 'pagePathContents',
+  FOLDER_CONTENTS = 'folderContents',
 }
 
 export const ReactQueryKey = {
   bookmarkContents: (kind: string, detailInfo: string | number, page: number) =>
     [QueryKey.BOOKMARK_CONTENTS, kind, detailInfo, page] as const,
   remindContents: () => [QueryKey.REMIND_CONTENTS] as const,
+  subFolderContents: (detailInfo: string | number) =>
+    [QueryKey.SUBFOLDER_CONTENTS, detailInfo] as const,
+  pagePathContents: (detailInfo: string | number) =>
+    [QueryKey.PAGE_PATH_CONTENTS, detailInfo] as const,
+  folderContents: () => [QueryKey.FOLDER_CONTENTS] as const,
 };
 
 export enum NumOfBookmarkPerPage {

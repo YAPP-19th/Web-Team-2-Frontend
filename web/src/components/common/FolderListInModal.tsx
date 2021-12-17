@@ -1,8 +1,14 @@
-import React, { ReactElement } from 'react';
-import Tree, { RenderItemParams } from '@atlaskit/tree';
+import React, { ReactElement, useEffect, useState } from 'react';
+import Tree, {
+  ItemId,
+  mutateTree,
+  RenderItemParams,
+  TreeData,
+} from '@atlaskit/tree';
 import styled, { css } from 'styled-components';
-import useFoldersHandle from 'hooks/sidebar/useFoldersHandle';
 import FolderItemIcon from 'components/sidebar/FolderItemIcon';
+import useFoldersQueries from 'hooks/folder/useFoldersQueries';
+import { initialFolderState } from 'recoil/atoms/folderState';
 
 const FolderListWrapper = styled.div`
   position: relative;
@@ -62,13 +68,22 @@ const FolderTitle = styled.span<{ active: boolean }>`
 `;
 
 function FolderListInModal(): ReactElement {
-  const {
-    folders,
-    onDragEndFolder,
-    onCollapseFolder,
-    onExpandFolder,
-    onDragStartFolder,
-  } = useFoldersHandle();
+  const { data } = useFoldersQueries();
+
+  const [folders, setFolders] = useState<TreeData>(initialFolderState);
+
+  useEffect(() => {
+    if (!data) return;
+    setFolders(data);
+  }, [data]);
+
+  const onExpandFolder = (itemId: ItemId) => {
+    setFolders(mutateTree(folders, itemId, { isExpanded: true }));
+  };
+
+  const onCollapseFolder = (itemId: ItemId) => {
+    setFolders(mutateTree(folders, itemId, { isExpanded: false }));
+  };
 
   const renderFolderItem = ({
     item,
@@ -109,8 +124,6 @@ function FolderListInModal(): ReactElement {
         renderItem={renderFolderItem}
         onExpand={onExpandFolder}
         onCollapse={onCollapseFolder}
-        onDragStart={onDragStartFolder}
-        onDragEnd={onDragEndFolder}
         offsetPerLevel={16} // 한 깊이당 padding 값
         isNestingEnabled
       />

@@ -6,6 +6,8 @@ enum Path {
   SearchPage = '/search',
   MyPage = '/mypage',
   ProfileEditPage = '/mypage/profile',
+
+  // no Logged In
   LoginPage = '/login',
   RegisterPage = '/register',
   ResetPasswordPage = '/resetpw',

@@ -1,9 +1,10 @@
-import useFoldersHandle from 'hooks/sidebar/useFoldersHandle';
+import useFoldersHandle from 'hooks/folder/useFoldersHandle';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import QuestionButton from 'components/tutorial/QuestionButton';
 import SimpleButton from 'components/common/SimpleButton';
 import useToggle from 'hooks/common/useToggle';
+import useFoldersLoad from 'hooks/folder/useFoldersLoad';
 import Toasts from 'components/common/Toasts';
 import AllFolder from './AllFolder';
 import CabinetBox from './CabinetBox';
@@ -51,10 +52,12 @@ function SideBar(): ReactElement {
     onExpandFolder,
     onDeleteFolder,
     onChangeFolderInfo,
-    isOpenFolderIsFullToast,
+    toasts,
   } = useFoldersHandle();
 
+  useFoldersLoad();
   const [isTestOpen, onToggleModal] = useToggle();
+  const { isOpenFolderIsFullToast } = toasts;
 
   return (
     <SideBarWrapper>
@@ -69,7 +72,6 @@ function SideBar(): ReactElement {
           onExpandFolder={onExpandFolder}
           onDeleteFolder={onDeleteFolder}
           onChangeFolderInfo={onChangeFolderInfo}
-          isDrag
         />
       </FolderBox>
 

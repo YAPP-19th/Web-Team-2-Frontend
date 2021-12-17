@@ -53,8 +53,6 @@ function SearchBar(): ReactElement {
 
   const onSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // eslint-disable-next-line no-console
-    console.log(searchMessage);
     navigate(`${Path.SearchPage}?q=${searchMessage}`);
   };
 

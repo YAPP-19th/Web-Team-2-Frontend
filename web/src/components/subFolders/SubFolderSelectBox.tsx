@@ -1,6 +1,13 @@
 import CheckBox from 'components/common/CheckBox';
+import useChildFoldersHandle from 'hooks/folder/useChildFoldersHandle';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+
+interface SubFolderSelectBoxProps {
+  onToggleAllChecked: () => void;
+  isAllChecked: boolean;
+  IsActiveSubFolder: boolean;
+}
 
 const SelectBoxWrapper = styled.div`
   display: flex;
@@ -32,18 +39,28 @@ const Option = styled.div`
   cursor: pointer;
 `;
 
-function MainFolderSelectBox(): ReactElement {
+function MainFolderSelectBox({
+  onToggleAllChecked,
+  isAllChecked,
+  IsActiveSubFolder,
+}: SubFolderSelectBoxProps): ReactElement {
+  const { onDeleteSubFolders } = useChildFoldersHandle();
   return (
     <SelectBoxWrapper>
       <SelectForm>
         <SelectText>선택</SelectText>
-        <SelectButton variant="secondary" isChecked />
+        <SelectButton
+          variant="secondary"
+          isChecked={isAllChecked}
+          onClick={onToggleAllChecked}
+        />
       </SelectForm>
 
-      <SelectOption>
-        <Option>삭제</Option>
-        <Option>이동</Option>
-      </SelectOption>
+      {IsActiveSubFolder && (
+        <SelectOption>
+          <Option onClick={onDeleteSubFolders}>삭제</Option>
+        </SelectOption>
+      )}
     </SelectBoxWrapper>
   );
 }

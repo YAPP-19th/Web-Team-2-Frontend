@@ -7,7 +7,7 @@ import RemindList from './RemindList';
 const ReminderWrapper = styled.div``;
 
 const Title = styled.div`
-  font-size: 14px;
+  font-size: 16px;
   font-weight: normal;
   margin: 0;
   margin-bottom: 16px;

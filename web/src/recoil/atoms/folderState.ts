@@ -1,4 +1,5 @@
 import { ItemId, TreeData } from '@atlaskit/tree';
+import { folder } from 'models/folder';
 import { atom } from 'recoil';
 
 export interface ISelectedFolder {
@@ -7,7 +8,7 @@ export interface ISelectedFolder {
   emoji: string;
 }
 
-const initialState: TreeData = {
+export const initialFolderState: TreeData = {
   rootId: '',
   items: {
     '': {
@@ -20,7 +21,7 @@ const initialState: TreeData = {
 
 export const folderState = atom<TreeData>({
   key: 'folderState',
-  default: initialState,
+  default: initialFolderState,
 });
 
 export const selectedFolderState = atom<ISelectedFolder>({
@@ -30,4 +31,14 @@ export const selectedFolderState = atom<ISelectedFolder>({
     name: '',
     emoji: '',
   },
+});
+
+export const activeFolderIdState = atom<ItemId>({
+  key: 'activeFolderIdState',
+  default: '',
+});
+
+export const subFolderState = atom<folder.ISubFolderState>({
+  key: 'subFolderState',
+  default: [],
 });
