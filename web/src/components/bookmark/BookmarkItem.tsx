@@ -68,7 +68,11 @@ const Title = styled.div`
   width: 233px;
   color: ${(props) => props.theme.color.black};
   margin-bottom: 8px;
-  ${ellipsis};
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
 
 const Description = styled.div`
@@ -96,13 +100,6 @@ const BookmarkInfo = styled.div`
 const BookmarkLinkBox = styled.div`
   display: flex;
   align-items: center;
-`;
-
-const BookmarkFavicon = styled.div`
-  width: 16px;
-  height: 16px;
-  margin-right: 8px;
-  background-color: ${(props) => props.theme.color.grayLightest};
 `;
 
 const BookmarkLink = styled.a`
@@ -233,7 +230,6 @@ function BookmarkItem({
         <DividerLine />
         <BookmarkInfo>
           <BookmarkLinkBox>
-            <BookmarkFavicon />
             <BookmarkLink href={link} target="_blank" rel="noopener noreferrer">
               {link}
             </BookmarkLink>
