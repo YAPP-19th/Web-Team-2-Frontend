@@ -10,7 +10,7 @@ interface RemindListItemProps {
   remindData: remind.IRemindInfo;
 }
 
-const RemindListItemWrapper = styled.div`
+const RemindListItemWrapper = styled.a`
   width: 174px;
   height: 96px;
   display: flex;
@@ -21,13 +21,25 @@ const RemindListItemWrapper = styled.div`
 `;
 
 const RemindItemLeftBox = styled.div`
+  width: 94px;
+  height: 100%;
+`;
+
+const RemindItemDefaultImage = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 94px;
+  width: 100%;
   height: 100%;
   border-radius: 10px 0 0 10px;
   background-color: ${(props) => props.theme.color.primaryLight};
+`;
+
+const RemindItemImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px 0 0 10px;
 `;
 
 const RemindItemRightBox = styled.div`
@@ -59,11 +71,15 @@ const DeleteButton = styled(X16Icon)`
   top: 8px;
   right: 10px;
   cursor: pointer;
+  z-index: 105;
 `;
 
 function RemindListItem(props: RemindListItemProps): ReactElement {
   const { remindData } = props;
+  const { description, image, title, link } = remindData;
   const queryClient = useQueryClient();
+
+  const remindText = title || description; // @Note og 이미지가 없으면 title 표시
 
   const { mutate: mutateDeleteRemind } = useMutation(
     () => deleteRemind(remindData.id),
@@ -79,13 +95,28 @@ function RemindListItem(props: RemindListItemProps): ReactElement {
   );
 
   return (
-    <RemindListItemWrapper>
+    <RemindListItemWrapper
+      href={link}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       <RemindItemLeftBox>
-        <Symbol36Icon />
+        {image ? (
+          <RemindItemImage src={image} />
+        ) : (
+          <RemindItemDefaultImage>
+            <Symbol36Icon />
+          </RemindItemDefaultImage>
+        )}
       </RemindItemLeftBox>
       <RemindItemRightBox>
-        <DeleteButton onClick={() => mutateDeleteRemind()} />
-        <RightBoxText>{remindData.title}</RightBoxText>
+        <DeleteButton
+          onClick={(e) => {
+            e.preventDefault(); // @Note Delete 버튼은 a태그의 새창 열기를 막기 위해
+            mutateDeleteRemind();
+          }}
+        />
+        <RightBoxText>{remindText}</RightBoxText>
       </RemindItemRightBox>
     </RemindListItemWrapper>
   );
