@@ -1,9 +1,8 @@
 import { DropDownIcon } from 'assets/icons';
 import { UnionIMG } from 'assets/images';
 import ToggleIconButton from 'components/common/ToggleIconButton';
-import useToggle from 'hooks/common/useToggle';
 import { bookmarks } from 'models/bookmark';
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import FilterMenu from './FilterMenu';
 

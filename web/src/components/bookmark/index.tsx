@@ -6,7 +6,7 @@ import useToggle from 'hooks/common/useToggle';
 import { bookmarks } from 'models/bookmark';
 import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
-import { BookmarkFilterTypes, BOOKMARK_KINDS } from 'utils/const';
+import { BOOKMARK_KINDS } from 'utils/const';
 import BookmarkList from './BookmarkList';
 import FilterBox from './FilterBox';
 import Pagination from './Pagination';
@@ -29,7 +29,7 @@ const BookmarkNav = styled.div`
 
 function Bookmark(props: Props): ReactElement {
   const { path, keyword } = props;
-  const [page, setPage] = useState<number>(0);
+  const [page, setPage] = useState<number>(1);
   const [isRemind, onRemindToggle] = useToggle();
   const [filter, setFilter] =
     useState<bookmarks.BookmarkFilterType>('saveTime,desc');
@@ -54,7 +54,7 @@ function Bookmark(props: Props): ReactElement {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data, isLoading, isFetching, isError } = useBookmarkQuery(
     bookmarkCategory,
-    page,
+    page - 1, // @Note 페이지네이션 라이브러리에서 기본 값이 1인데, 서버쪽에서 기본 값을 0으로 해둬서 -1을 해줘야 함
     filter,
     isRemind,
     keyword,
@@ -79,12 +79,14 @@ function Bookmark(props: Props): ReactElement {
           </BookmarkNav>
 
           <BookmarkList bookmarkList={data.content} />
-          <Pagination
-            page={page}
-            setPage={setPage}
-            totalElements={data.totalElements}
-            size={bookmarkCategory.numOfPage}
-          />
+          {data.content.length !== 0 && (
+            <Pagination
+              page={page}
+              setPage={setPage}
+              totalElements={data.totalElements}
+              size={bookmarkCategory.numOfPage}
+            />
+          )}
         </>
       )}
     </>
