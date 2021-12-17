@@ -6,6 +6,11 @@ import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
 import FilterMenu from './FilterMenu';
 
+interface FilterBoxProps {
+  onRemindToggle: () => void;
+  isRemind: boolean;
+}
+
 const FilterBoxWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -58,8 +63,7 @@ const FilterMenuButton = styled.div`
 
 const FilterMenuText = styled.span``;
 
-function FilterBox(): ReactElement {
-  const [isRemind, onRemindToggle] = useToggle();
+function FilterBox({ isRemind, onRemindToggle }: FilterBoxProps): ReactElement {
   const [isOpenFilterMenu, onToggleFilterMenu] = useToggle(false);
   const [menuText, setMenuText] = useState<string>('최신순');
 

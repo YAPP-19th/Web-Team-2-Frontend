@@ -29,7 +29,6 @@ const BookmarkItemWrapper = styled.div`
   &:nth-child(3n) {
     margin-right: 0px;
   }
-  border-radius: 8px;
   display: flex;
   flex-direction: column;
 `;
@@ -38,6 +37,7 @@ const ItemInner = styled.div`
   flex: 1 auto;
   display: flex;
   flex-direction: column;
+  border-radius: 8px;
   transition: box-shadow 0.25s ease-in 0s, transform 0.25s ease-in 0s;
   box-shadow: 0 1px 4px 0 ${(props) => props.theme.color.shadow0};
   &:hover {

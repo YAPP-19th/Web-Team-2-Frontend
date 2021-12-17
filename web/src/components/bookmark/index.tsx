@@ -2,6 +2,7 @@ import {
   getCategoryOfBookmark,
   useBookmarkQuery,
 } from 'hooks/bookmark/useBookmarkQueries';
+import useToggle from 'hooks/common/useToggle';
 import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
 import { BookmarkFilterTypes, BOOKMARK_KINDS } from 'utils/const';
@@ -28,6 +29,7 @@ const BookmarkNav = styled.div`
 function Bookmark(props: Props): ReactElement {
   const { path, keyword } = props;
   const [page, setPage] = useState<number>(0);
+  const [isRemind, onRemindToggle] = useToggle();
 
   const lastPath = path.split('/').pop() || 'main';
 
@@ -49,7 +51,7 @@ function Bookmark(props: Props): ReactElement {
     bookmarkCategory,
     page,
     BookmarkFilterTypes.LATEST_ORDER,
-    false,
+    isRemind,
     keyword,
     folderId,
   );
@@ -62,7 +64,7 @@ function Bookmark(props: Props): ReactElement {
         <>
           <BookmarkNav>
             <SelectBox bookmarkList={data.content} />
-            <FilterBox />
+            <FilterBox onRemindToggle={onRemindToggle} isRemind={isRemind} />
           </BookmarkNav>
 
           <BookmarkList bookmarkList={data.content} />
