@@ -29,15 +29,20 @@ const BookmarkItemWrapper = styled.div`
   &:nth-child(3n) {
     margin-right: 0px;
   }
-  box-shadow: 0 1px 4px 0 ${(props) => props.theme.color.shadow0};
   border-radius: 8px;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+`;
+
+const ItemInner = styled.div`
+  flex: 1 auto;
   display: flex;
   flex-direction: column;
   transition: box-shadow 0.25s ease-in 0s, transform 0.25s ease-in 0s;
+  box-shadow: 0 1px 4px 0 ${(props) => props.theme.color.shadow0};
   &:hover {
     transform: translateY(-6px);
-    box-shadow: 0 12px 20px 0 rgba(0, 0, 0, 0.08);
+    box-shadow: 0 12px 20px 0 ${(props) => props.theme.color.shadow3};
   }
 `;
 
@@ -66,6 +71,7 @@ const BookmarkImage = styled.img`
   top: 0px;
   left: 0px;
   object-fit: cover;
+  border-radius: 8px 8px 0 0;
 `;
 
 const SelectButton = styled(CheckBox)`
@@ -234,79 +240,93 @@ function BookmarkItem({
   };
 
   return (
-    <BookmarkItemWrapper>
-      <BookmarkThumbnail href={link} target="_blank" rel="noopener noreferrer">
-        {image ? (
-          <BookmarkImage src={image} alt="thumbnail" />
-        ) : (
-          <BookmarkDefaultImage>
-            <SymbolIcon />
-          </BookmarkDefaultImage>
-        )}
+    <>
+      <BookmarkItemWrapper>
+        <ItemInner>
+          <BookmarkThumbnail
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {image ? (
+              <BookmarkImage src={image} alt="thumbnail" />
+            ) : (
+              <BookmarkDefaultImage>
+                <SymbolIcon />
+              </BookmarkDefaultImage>
+            )}
 
-        {selectedBookmarks.length > 0 && (
-          <SelectButton
-            onClick={(e) => {
-              e.preventDefault();
-              onToggleCheckBox();
-            }}
-            variant="primary"
-            isChecked={isChecked}
-          />
-        )}
-      </BookmarkThumbnail>
+            {selectedBookmarks.length > 0 && (
+              <SelectButton
+                onClick={(e) => {
+                  e.preventDefault();
+                  onToggleCheckBox();
+                }}
+                variant="primary"
+                isChecked={isChecked}
+              />
+            )}
+          </BookmarkThumbnail>
 
-      <BookmarkContent>
-        <InnerContent href={link} target="_blank" rel="noopener noreferrer">
-          <Title>{title}</Title>
-          <Description>{description}</Description>
-        </InnerContent>
-        <DividerLine />
-        <BookmarkInfo>
-          <BookmarkLinkBox>
-            <BookmarkLink href={link} target="_blank" rel="noopener noreferrer">
-              {link}
-            </BookmarkLink>
-          </BookmarkLinkBox>
+          <BookmarkContent>
+            <InnerContent href={link} target="_blank" rel="noopener noreferrer">
+              <Title>{title}</Title>
+              <Description>{description}</Description>
+            </InnerContent>
+            <DividerLine />
+            <BookmarkInfo>
+              <BookmarkLinkBox>
+                <BookmarkLink
+                  href={link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {link}
+                </BookmarkLink>
+              </BookmarkLinkBox>
 
-          <BookmarkOption>
-            <OptionButton onClick={onRemindToast} disabled={isOpenRemindToast}>
-              {remindTime ? <BellSelectedIcon /> : <BellUnSelectedIcon />}
-            </OptionButton>
+              <BookmarkOption>
+                <OptionButton
+                  onClick={onRemindToast}
+                  disabled={isOpenRemindToast}
+                >
+                  {remindTime ? <BellSelectedIcon /> : <BellUnSelectedIcon />}
+                </OptionButton>
 
-            <OptionButton onClick={onCopyUrl} disabled={isOpenCopyToast}>
-              <Copy24Icon />
-            </OptionButton>
+                <OptionButton onClick={onCopyUrl} disabled={isOpenCopyToast}>
+                  <Copy24Icon />
+                </OptionButton>
 
-            <OptionButton
-              onClick={(e) => {
-                onToggleOpenMenu(id, title, true, remindTime, folderId);
-                e.stopPropagation();
-              }}
-            >
-              <More24Icon />
-              {isOpenMenu.id === id && isOpenMenu.isOpen && (
-                <BookmarkMenu
-                  isOpen={isOpenMenu.id === id}
-                  isOpenMenu={isOpenMenu}
-                  onToggleModal={onToggleModal}
-                />
-              )}
-            </OptionButton>
-          </BookmarkOption>
-        </BookmarkInfo>
-      </BookmarkContent>
+                <OptionButton
+                  onClick={(e) => {
+                    onToggleOpenMenu(id, title, true, remindTime, folderId);
+                    e.stopPropagation();
+                  }}
+                >
+                  <More24Icon />
+                  {isOpenMenu.id === id && isOpenMenu.isOpen && (
+                    <BookmarkMenu
+                      isOpen={isOpenMenu.id === id}
+                      isOpenMenu={isOpenMenu}
+                      onToggleModal={onToggleModal}
+                    />
+                  )}
+                </OptionButton>
+              </BookmarkOption>
+            </BookmarkInfo>
+          </BookmarkContent>
 
-      <UrlTextArea readOnly ref={copyUrlRef} value={link} />
+          <UrlTextArea readOnly ref={copyUrlRef} value={link} />
 
-      {isChecked && <SelectedStyled />}
-
-      <Toasts isOpen={isOpenCopyToast} type="copyLink" />
-      <Toasts
-        isOpen={isOpenRemindToast}
-        type={remindTime ? 'remindDisabled' : 'remindSetting'}
-      />
-    </BookmarkItemWrapper>
+          {isChecked && <SelectedStyled />}
+        </ItemInner>
+        <Toasts isOpen={isOpenCopyToast} type="copyLink" />
+        <Toasts
+          isOpen={isOpenRemindToast}
+          type={remindTime ? 'remindDisabled' : 'remindSetting'}
+        />
+      </BookmarkItemWrapper>
+    </>
   );
 }
 

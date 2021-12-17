@@ -24,6 +24,7 @@ declare module 'styled-components' {
       shadow0: string;
       shadow1: string;
       shadow2: string;
+      shadow3: string;
       hover0: string;
     };
   }
