@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from 'react';
 
 import { IMetaData } from '../../contexts';
-import { IDtoDotori } from '../../domain';
+import { DtoFolderList, IDtoDotori } from '../../domain';
 import {
   LoginSection,
   FormSection,
@@ -18,7 +18,7 @@ import {
 
 interface IProps {
   isLogin: boolean;
-  dotoriList: Array<IDtoDotori>;
+  dotoriList: DtoFolderList;
   metaData: IMetaData;
   saveDotori: (dotori: IDtoDotori) => Promise<void>;
   login: () => void;

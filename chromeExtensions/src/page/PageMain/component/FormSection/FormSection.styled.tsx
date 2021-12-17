@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 
 export const Wrapper = styled.section`
+  flex: 1;
   display: flex;
 `;
 export const Article = styled.div`

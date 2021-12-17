@@ -2,7 +2,7 @@ import React, { ReactElement, useEffect, useState } from 'react';
 
 import { AlarmIcon, OgImage } from '..';
 import { IMetaData } from '../../../../contexts';
-import { IDtoDotori } from '../../../../domain';
+import { IDtoDotori, DtoFolderList, DtoFolder } from '../../../../domain';
 import {
   AlarmArea,
   AlarmIconWrapper,
@@ -19,7 +19,7 @@ import {
 
 interface IProps {
   saveDotori: (dotori: IDtoDotori) => Promise<void>;
-  dotoriList: Array<IDtoDotori>;
+  dotoriList: DtoFolderList;
   metaData: IMetaData;
 }
 
@@ -32,7 +32,7 @@ export function FormSection({
   const [title, setTitle] = useState<IDtoDotori['title']>('');
   const [remind, setRemind] = useState<IDtoDotori['remind']>(false);
   const [image, setImage] = useState<IDtoDotori['image']>('');
-  const [folderId, setFolderId] = useState<IDtoDotori['folderId']>('');
+  const [folderId, setFolderId] = useState<IDtoDotori['folderId']>('40');
   useEffect(() => {
     const {
       ogImage: metaDataOgImage,
@@ -54,6 +54,9 @@ export function FormSection({
     };
     await propSaveDotori(dotori);
   };
+  const clickFolder = (id: string) => {
+    setFolderId(id);
+  };
   return (
     <Wrapper>
       <InputArticle>
@@ -74,7 +77,13 @@ export function FormSection({
       </InputArticle>
       <HorizontalDivider />
       <Article>
-        <p>메인에 있는거 컴포넌트로 카피</p>
+        <div>
+          {Object.values(dotoriList.items).map((el) => (
+            <div onClick={() => clickFolder(el.id)}>
+              {(el as DtoFolder).data ? (el as DtoFolder).data.name : ''}
+            </div>
+          ))}
+        </div>
         <ButtonArea>
           <Button onClick={saveDotori}>저장하기</Button>
         </ButtonArea>

@@ -2,13 +2,16 @@ import React, { ReactElement, useEffect, useState } from 'react';
 
 import { getDotoriList, createDotori } from '../../apies';
 import { useMetaData } from '../../contexts';
-import { IDtoDotori } from '../../domain';
+import { DtoFolderList, IDtoDotori } from '../../domain';
 import { getStorageTokens } from '../../helper';
 import { ViewPageMain } from './ViewPageMain';
 
 export function PageMain(): ReactElement {
   const [isLogin, setIsLogin] = useState<boolean>(false);
-  const [dotoriList, setDotoriList] = useState<Array<IDtoDotori>>([]);
+  const [dotoriList, setDotoriList] = useState<DtoFolderList>({
+    rootId: 'root',
+    items: {},
+  });
   const { metaData } = useMetaData();
   useEffect(() => {
     const fetch = async () => {

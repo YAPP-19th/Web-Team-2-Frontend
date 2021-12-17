@@ -20,7 +20,7 @@ export async function request<R, P extends unknown>(
       url,
       params,
       headers: {
-        accessToken: `Banner ${accessToken}`,
+        accessToken: `Bearer ${accessToken}`,
         ...headers,
       },
     }),

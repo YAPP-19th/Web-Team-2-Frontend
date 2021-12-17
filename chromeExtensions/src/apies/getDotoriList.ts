@@ -1,40 +1,8 @@
-import { DtoDotori } from '../domain/DtoDotori';
+import { DtoFolderList } from '../domain';
 
-const mock: Array<DtoDotori> = [
-  {
-    url: 'https:/asdjfaklsjdflsdjf',
-    title: 'asdjfklasjflkasjd',
-    remind: false,
-    image: 'sdhfahfkljas',
-    folderId: 'asdfjf3j23kj4',
-    description: 'sfasdf',
-  },
-  {
-    url: 'https:/asdjfaklsjdflsdjf',
-    title: 'asdjfklasjflkasjd',
-    remind: false,
-    image: 'sdhfahfkljas',
-    folderId: 'asdfjf3j23kj4',
-    description: 'sfasdf',
-  },
-  {
-    url: 'https:/asdjfaklsjdflsdjf',
-    title: 'asdjfklasjflkasjd',
-    remind: false,
-    image: 'sdhfahfkljas',
-    folderId: 'asdfjf3j23kj4',
-    description: 'sfasdf',
-  },
-  {
-    url: 'https:/asdjfaklsjdflsdjf',
-    title: 'asdjfklasjflkasjd',
-    remind: false,
-    image: 'sdhfahfkljas',
-    folderId: 'asdfjf3j23kj4',
-    description: 'sfasdf',
-  },
-];
+import { request } from '.';
 
-export async function getDotoriList(): Promise<Array<DtoDotori>> {
-  return mock;
+export async function getDotoriList(): Promise<DtoFolderList> {
+  const res = await request<DtoFolderList, unknown>('get', 'api/v1/folder');
+  return res;
 }
