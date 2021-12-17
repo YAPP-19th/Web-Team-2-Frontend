@@ -7,6 +7,7 @@ interface ProfileNicknameFormProps {
   nickname: string;
   onChangeNickname: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onFocusOutNickname: () => void;
+  errorMessage?: string;
 }
 
 const NicknameFormWrapper = styled.div`
@@ -32,6 +33,7 @@ function ProfileNicknameForm({
   nickname,
   onChangeNickname,
   onFocusOutNickname,
+  errorMessage,
 }: ProfileNicknameFormProps): ReactElement {
   return (
     <NicknameFormWrapper>
@@ -45,7 +47,9 @@ function ProfileNicknameForm({
           onChange={onChangeNickname}
           onBlur={onFocusOutNickname}
         />
-        <NicknameCheckError>이미 사용 중인 닉네임입니다.</NicknameCheckError>
+        {errorMessage && (
+          <NicknameCheckError>{errorMessage}</NicknameCheckError>
+        )}
       </NicknameInput>
     </NicknameFormWrapper>
   );

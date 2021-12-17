@@ -86,15 +86,7 @@ function FilterBox({
     <>
       <FilterBoxWrapper>
         <RemindToggle>
-          <RemindToggleText>
-            리마인드 도토리
-            {/* <RemindTextBallon>
-              <BallonImage src={UnionIMG} />
-              <BallonText>
-                깜빡하면 안 되는 도토리 &nbsp; 한눈에 보기!
-              </BallonText>
-            </RemindTextBallon> */}
-          </RemindToggleText>
+          <RemindToggleText>리마인드 도토리</RemindToggleText>
           <BallonStandard>
             <RemindToggleButton isToggled={isRemind} onClick={onRemindToggle} />
             <RemindTextBallon>
