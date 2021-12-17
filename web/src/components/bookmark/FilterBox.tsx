@@ -1,5 +1,6 @@
 import { DropDownIcon } from 'assets/icons';
 import { UnionIMG } from 'assets/images';
+import transitions from 'assets/styles/transitions';
 import ToggleIconButton from 'components/common/ToggleIconButton';
 import { bookmarks } from 'models/bookmark';
 import React, { ReactElement } from 'react';
@@ -34,10 +35,14 @@ const RemindTextBallon = styled.div`
   left: 18px;
   bottom: 36px;
   display: none;
+  animation: ${transitions.fadeIn} 0.4s ease-in-out;
 `;
 
 const RemindToggleText = styled.span`
   margin-right: 12px;
+`;
+
+const BallonStandard = styled.div`
   &:hover ${RemindTextBallon} {
     display: block;
   }
@@ -83,14 +88,22 @@ function FilterBox({
         <RemindToggle>
           <RemindToggleText>
             리마인드 도토리
+            {/* <RemindTextBallon>
+              <BallonImage src={UnionIMG} />
+              <BallonText>
+                깜빡하면 안 되는 도토리 &nbsp; 한눈에 보기!
+              </BallonText>
+            </RemindTextBallon> */}
+          </RemindToggleText>
+          <BallonStandard>
+            <RemindToggleButton isToggled={isRemind} onClick={onRemindToggle} />
             <RemindTextBallon>
               <BallonImage src={UnionIMG} />
               <BallonText>
                 깜빡하면 안 되는 도토리 &nbsp; 한눈에 보기!
               </BallonText>
             </RemindTextBallon>
-          </RemindToggleText>
-          <RemindToggleButton isToggled={isRemind} onClick={onRemindToggle} />
+          </BallonStandard>
         </RemindToggle>
 
         <FilterMenuButton onClick={onToggleFilterMenu}>
