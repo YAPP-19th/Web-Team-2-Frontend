@@ -8,7 +8,7 @@ import Path from 'routes/path';
 import styled from 'styled-components';
 import qs from 'qs';
 import PagePath from 'components/pagePath';
-import { checkFolderPage } from 'utils/checkFolderPage';
+import { isFolderPage } from 'utils/checkFolderPage';
 import { useSetRecoilState } from 'recoil';
 import { activeFolderIdState } from 'recoil/atoms/folderState';
 
@@ -35,7 +35,7 @@ function MainPage(): ReactElement {
 
   // 로딩 시 현재 페이지가 폴더id 를 가진 페이지이면 activeFolderId 에 id값 설정
   useEffect(() => {
-    if (checkFolderPage(folderId)) setActiveFolderId(folderId);
+    if (isFolderPage(folderId)) setActiveFolderId(folderId);
   }, [folderId]);
 
   // 쿼리스트링 추출
@@ -53,7 +53,7 @@ function MainPage(): ReactElement {
         <ContentInner>
           {location.pathname === Path.Home && <Reminder />}
           <PagePath />
-          {checkFolderPage(folderId) && <SubFolders />}
+          {isFolderPage(folderId) && <SubFolders />}
           <Bookmark path={location.pathname} keyword={query.q} />
         </ContentInner>
       </ContentLayout>

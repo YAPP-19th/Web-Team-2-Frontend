@@ -1,5 +1,3 @@
-import { ItemId } from '@atlaskit/tree';
-
 export enum LOCAL_STORAGE_KEY {
   USER_TOKEN = 'userToken',
   USER_BASE_INFO = 'userBaseInfo',
@@ -15,12 +13,12 @@ export enum QueryKey {
 }
 
 export const ReactQueryKey = {
-  bookmarkContents: (kind: string, detailInfo: ItemId, page: number) =>
+  bookmarkContents: (kind: string, detailInfo: string | number, page: number) =>
     [QueryKey.BOOKMARK_CONTENTS, kind, detailInfo, page] as const,
   remindContents: () => [QueryKey.REMIND_CONTENTS] as const,
-  subFolderContents: (detailInfo: ItemId) =>
+  subFolderContents: (detailInfo: string | number) =>
     [QueryKey.SUBFOLDER_CONTENTS, detailInfo] as const,
-  pagePathContents: (detailInfo: ItemId) =>
+  pagePathContents: (detailInfo: string | number) =>
     [QueryKey.PAGE_PATH_CONTENTS, detailInfo] as const,
   folderContents: () => [QueryKey.FOLDER_CONTENTS] as const,
 };

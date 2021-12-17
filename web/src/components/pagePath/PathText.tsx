@@ -1,11 +1,11 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 
 type PathTypes = 'global' | 'folder';
 
 interface PathTextProps {
   pathType: PathTypes;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const PathTextStyled = styled.span<{ pathType: PathTypes }>`

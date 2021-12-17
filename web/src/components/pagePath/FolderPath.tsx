@@ -20,6 +20,7 @@ function FolderPath({
 
   const FIRST_FOLDER_INFO = data[0];
   const LAST_FOLDER_INFO = data[data.length - 1];
+  const NUMBER_OF_FOLDERS = data.length - 1;
 
   return (
     <FolderPathList>
@@ -28,7 +29,7 @@ function FolderPath({
           {data.map((item, index) => (
             <React.Fragment key={item.folderId}>
               <FolderEmojiAndName folderInfo={item} />
-              {data.length - 1 !== index && <ArrowSide16Icon />}
+              {NUMBER_OF_FOLDERS !== index && <ArrowSide16Icon />}
             </React.Fragment>
           ))}
         </>

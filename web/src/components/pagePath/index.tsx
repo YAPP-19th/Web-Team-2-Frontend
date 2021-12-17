@@ -2,7 +2,7 @@ import { FolderIdParams } from 'components/subFolders';
 import React, { ReactElement } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { checkFolderPage } from 'utils/checkFolderPage';
+import { isFolderPage } from 'utils/checkFolderPage';
 import FolderPath from './FolderPath';
 import GlobalPath from './GlobalPath';
 
@@ -15,7 +15,7 @@ function PagePath(): ReactElement | null {
 
   return (
     <PagePathWrapper>
-      {checkFolderPage(folderId) ? (
+      {isFolderPage(folderId) ? (
         <FolderPath folderIdParams={folderId} />
       ) : (
         <GlobalPath />
