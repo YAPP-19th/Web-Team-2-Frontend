@@ -16,6 +16,7 @@ export namespace bookmarks {
     saveTime: string;
     title: string;
     userId: number;
+    image: string;
   }
 
   export type bookmarkSortType = {

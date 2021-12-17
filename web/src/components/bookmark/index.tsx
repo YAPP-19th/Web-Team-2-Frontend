@@ -49,10 +49,12 @@ function Bookmark(props: Props): ReactElement {
     bookmarkCategory,
     page,
     BookmarkFilterTypes.LATEST_ORDER,
-    true,
+    false,
     keyword,
     folderId,
   );
+
+  console.log('data', data);
 
   return (
     <>

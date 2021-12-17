@@ -32,16 +32,40 @@ const BookmarkItemWrapper = styled.div`
   box-shadow: 0 1px 4px 0 ${(props) => props.theme.color.shadow0};
   border-radius: 8px;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.25s ease-in 0s, transform 0.25s ease-in 0s;
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 20px 0 rgba(0, 0, 0, 0.08);
+  }
 `;
 
 const BookmarkThumbnail = styled.a`
   width: 273px;
-  height: 168px;
-  background-color: ${(props) => props.theme.color.primaryLight};
+  height: 152px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+`;
+
+const BookmarkDefaultImage = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: ${(props) => props.theme.color.primaryLight};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const BookmarkImage = styled.img`
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  object-fit: cover;
 `;
 
 const SelectButton = styled(CheckBox)`
@@ -59,10 +83,17 @@ const SymbolIcon = styled(Symbol36Icon)`
 const BookmarkContent = styled.div`
   padding: 14px 20px 15px;
   width: 273px;
+  display: flex;
+  flex-direction: column;
+  flex: 1 auto;
+`;
+
+const InnerContent = styled.a`
+  flex: 1 auto;
 `;
 
 const Title = styled.div`
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
   line-height: 1.5;
   width: 233px;
@@ -76,7 +107,7 @@ const Title = styled.div`
 `;
 
 const Description = styled.div`
-  font-size: 12px;
+  font-size: 14px;
   font-weight: normal;
   line-height: 1.42;
   width: 233px;
@@ -122,10 +153,6 @@ const OptionButton = styled.button`
   position: relative;
 `;
 
-const LinkedStyled = styled.a`
-  overflow: hidden;
-`;
-
 const SelectedStyled = styled.div`
   width: 100%;
   height: 100%;
@@ -148,7 +175,8 @@ function BookmarkItem({
   isOpenMenu,
   onToggleModal,
 }: BookmarkItemProps): ReactElement {
-  const { id, title, description, link, remindTime, folderId } = bookmark;
+  const { id, title, description, link, remindTime, folderId, image } =
+    bookmark;
   const [selectedBookmarks, setSelectedBookmarks] = useRecoilState(
     selectedBookmarksState,
   );
@@ -208,8 +236,14 @@ function BookmarkItem({
   return (
     <BookmarkItemWrapper>
       <BookmarkThumbnail href={link} target="_blank" rel="noopener noreferrer">
-        {/* @TODO(dohyun) 만약에 썸네일이 있으면 img 보여주고 없으면 기본 로고 보여주기 */}
-        <SymbolIcon />
+        {image ? (
+          <BookmarkImage src={image} alt="thumbnail" />
+        ) : (
+          <BookmarkDefaultImage>
+            <SymbolIcon />
+          </BookmarkDefaultImage>
+        )}
+
         {selectedBookmarks.length > 0 && (
           <SelectButton
             onClick={(e) => {
@@ -223,10 +257,10 @@ function BookmarkItem({
       </BookmarkThumbnail>
 
       <BookmarkContent>
-        <LinkedStyled href={link} target="_blank" rel="noopener noreferrer">
+        <InnerContent href={link} target="_blank" rel="noopener noreferrer">
           <Title>{title}</Title>
           <Description>{description}</Description>
-        </LinkedStyled>
+        </InnerContent>
         <DividerLine />
         <BookmarkInfo>
           <BookmarkLinkBox>
