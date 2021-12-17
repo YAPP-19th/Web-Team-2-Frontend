@@ -38,6 +38,7 @@ const ItemInner = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 8px;
+  position: relative;
   transition: box-shadow 0.25s ease-in 0s, transform 0.25s ease-in 0s;
   box-shadow: 0 1px 4px 0 ${(props) => props.theme.color.shadow0};
   &:hover {
@@ -317,7 +318,6 @@ function BookmarkItem({
           </BookmarkContent>
 
           <UrlTextArea readOnly ref={copyUrlRef} value={link} />
-
           {isChecked && <SelectedStyled />}
         </ItemInner>
         <Toasts isOpen={isOpenCopyToast} type="copyLink" />

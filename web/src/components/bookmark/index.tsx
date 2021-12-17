@@ -3,6 +3,7 @@ import {
   useBookmarkQuery,
 } from 'hooks/bookmark/useBookmarkQueries';
 import useToggle from 'hooks/common/useToggle';
+import { bookmarks } from 'models/bookmark';
 import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
 import { BookmarkFilterTypes, BOOKMARK_KINDS } from 'utils/const';
@@ -30,33 +31,35 @@ function Bookmark(props: Props): ReactElement {
   const { path, keyword } = props;
   const [page, setPage] = useState<number>(0);
   const [isRemind, onRemindToggle] = useToggle();
+  const [filter, setFilter] =
+    useState<bookmarks.BookmarkFilterType>('saveTime,desc');
+  const [isOpenFilterMenu, onToggleFilterMenu] = useToggle(false);
+  const [menuText, setMenuText] = useState<string>('최신순');
+
+  const onChangeMenuText = (text: string) => {
+    setMenuText(text);
+  };
+
+  const onFiltering = (filterType: bookmarks.BookmarkFilterType) => {
+    setFilter(filterType);
+  };
 
   const lastPath = path.split('/').pop() || 'main';
-
   const bookmarkCategory = getCategoryOfBookmark(lastPath);
   const folderId =
     bookmarkCategory.kind === BOOKMARK_KINDS.FOLDER_DOTORI.kind
       ? lastPath
       : undefined;
 
-  /** NOTE
-   *  Pagination 을 위한 useQueryHook
-   *  북마크 카테고리(휴지통, 전체, ...), 요청 페이지, 필터링, 리마인드
-   *  4가지의 값으로 가져옴
-   *  카테고리는 path를 통해 구분하고, search, filter, remind 등의 값은 recoil or props 로 가져옴
-   * */
-
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data, isLoading, isFetching, isError } = useBookmarkQuery(
     bookmarkCategory,
     page,
-    BookmarkFilterTypes.LATEST_ORDER,
+    filter,
     isRemind,
     keyword,
     folderId,
   );
-
-  console.log('data', data);
 
   return (
     <>
@@ -64,7 +67,15 @@ function Bookmark(props: Props): ReactElement {
         <>
           <BookmarkNav>
             <SelectBox bookmarkList={data.content} />
-            <FilterBox onRemindToggle={onRemindToggle} isRemind={isRemind} />
+            <FilterBox
+              onRemindToggle={onRemindToggle}
+              isRemind={isRemind}
+              onFiltering={onFiltering}
+              isOpenFilterMenu={isOpenFilterMenu}
+              onToggleFilterMenu={onToggleFilterMenu}
+              onChangeMenuText={onChangeMenuText}
+              menuText={menuText}
+            />
           </BookmarkNav>
 
           <BookmarkList bookmarkList={data.content} />

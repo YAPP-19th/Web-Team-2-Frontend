@@ -68,4 +68,10 @@ export namespace bookmarks {
   }
 
   export interface IBookmarkUpdateResponse {}
+
+  export type BookmarkFilterType =
+    | 'saveTime,desc'
+    | 'saveTime,asc'
+    | 'clickCount,desc'
+    | 'clickCount,asc';
 }

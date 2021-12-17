@@ -1,3 +1,5 @@
+import { bookmarks } from 'models/bookmark';
+
 export enum LOCAL_STORAGE_KEY {
   USER_TOKEN = 'userToken',
   USER_BASE_INFO = 'userBaseInfo',
@@ -18,7 +20,16 @@ export const ReactQueryKey = {
     detailInfo: string | number,
     page: number,
     remind: boolean,
-  ) => [QueryKey.BOOKMARK_CONTENTS, kind, detailInfo, page, remind] as const,
+    filter: bookmarks.BookmarkFilterType,
+  ) =>
+    [
+      QueryKey.BOOKMARK_CONTENTS,
+      kind,
+      detailInfo,
+      page,
+      remind,
+      filter,
+    ] as const,
   remindContents: () => [QueryKey.REMIND_CONTENTS] as const,
   subFolderContents: (detailInfo: string | number) =>
     [QueryKey.SUBFOLDER_CONTENTS, detailInfo] as const,

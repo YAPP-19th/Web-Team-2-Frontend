@@ -1,12 +1,15 @@
 import useLayerClose from 'hooks/common/useLayerClose';
+import { bookmarks } from 'models/bookmark';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import { BookmarkFilterTypes } from 'utils/const';
 
 interface FilterMenuProps {
   isOpenFilterMenu: boolean;
   onToggleFilterMenu: () => void;
   menuText: string;
   onChangeMenuText: (text: string) => void;
+  onFiltering: (filterType: bookmarks.BookmarkFilterType) => void;
 }
 
 const FilterMenuWrapper = styled.div`
@@ -45,13 +48,25 @@ function FilterMenu({
   onToggleFilterMenu,
   menuText,
   onChangeMenuText,
+  onFiltering,
 }: FilterMenuProps): ReactElement {
-  // @TODO(dohyun) 필터 기능 구현시 수정 예정
   const filterMenuItems = [
-    '최신순',
-    '오래된 순',
-    '자주 방문한 순',
-    '적게 방문한 순',
+    {
+      text: '최신순',
+      label: BookmarkFilterTypes.LATEST_ORDER,
+    },
+    {
+      text: '오래된 순',
+      label: BookmarkFilterTypes.OLDEST_ORDER,
+    },
+    {
+      text: '자주 방문한 순',
+      label: BookmarkFilterTypes.FREQUENTLY_VISITED,
+    },
+    {
+      text: '적게 방문한 순',
+      label: BookmarkFilterTypes.LESS_VISITED,
+    },
   ];
 
   const { targetEl } = useLayerClose(isOpenFilterMenu, onToggleFilterMenu);
@@ -62,10 +77,13 @@ function FilterMenu({
         {filterMenuItems.map((item, index) => (
           <MenuItem
             key={index}
-            isSelected={menuText === item}
-            onClick={() => onChangeMenuText(item)}
+            isSelected={menuText === item.text}
+            onClick={() => {
+              onChangeMenuText(item.text);
+              onFiltering(item.label);
+            }}
           >
-            <MenuItemText>{item}</MenuItemText>
+            <MenuItemText>{item.text}</MenuItemText>
           </MenuItem>
         ))}
       </FilterMenuInner>

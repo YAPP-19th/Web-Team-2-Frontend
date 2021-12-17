@@ -33,7 +33,7 @@ export function getCategoryOfBookmark(
 export function useBookmarkQuery(
   bookmarkItem: bookmarks.bookmarkKindItem,
   page: number,
-  filter: string,
+  filter: bookmarks.BookmarkFilterType,
   remind: boolean,
   keyword?: string,
   folderId?: ItemId,
@@ -70,7 +70,13 @@ export function useBookmarkQuery(
   }
 
   const query = useQuery(
-    ReactQueryKey.bookmarkContents(bookmarkItem.kind, detailInfo, page, remind),
+    ReactQueryKey.bookmarkContents(
+      bookmarkItem.kind,
+      detailInfo,
+      page,
+      remind,
+      filter,
+    ),
     () => getBookmarkAPI(bookmarkItem),
     {
       cacheTime: 5 * 60 * 1000,

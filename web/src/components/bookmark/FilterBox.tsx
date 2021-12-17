@@ -2,6 +2,7 @@ import { DropDownIcon } from 'assets/icons';
 import { UnionIMG } from 'assets/images';
 import ToggleIconButton from 'components/common/ToggleIconButton';
 import useToggle from 'hooks/common/useToggle';
+import { bookmarks } from 'models/bookmark';
 import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
 import FilterMenu from './FilterMenu';
@@ -9,6 +10,11 @@ import FilterMenu from './FilterMenu';
 interface FilterBoxProps {
   onRemindToggle: () => void;
   isRemind: boolean;
+  onFiltering: (filterType: bookmarks.BookmarkFilterType) => void;
+  isOpenFilterMenu: boolean;
+  onToggleFilterMenu: () => void;
+  menuText: string;
+  onChangeMenuText: (text: string) => void;
 }
 
 const FilterBoxWrapper = styled.div`
@@ -63,14 +69,15 @@ const FilterMenuButton = styled.div`
 
 const FilterMenuText = styled.span``;
 
-function FilterBox({ isRemind, onRemindToggle }: FilterBoxProps): ReactElement {
-  const [isOpenFilterMenu, onToggleFilterMenu] = useToggle(false);
-  const [menuText, setMenuText] = useState<string>('최신순');
-
-  const onChangeMenuText = (text: string) => {
-    setMenuText(text);
-  };
-
+function FilterBox({
+  isRemind,
+  onRemindToggle,
+  onFiltering,
+  isOpenFilterMenu,
+  menuText,
+  onChangeMenuText,
+  onToggleFilterMenu,
+}: FilterBoxProps): ReactElement {
   return (
     <>
       <FilterBoxWrapper>
@@ -96,6 +103,7 @@ function FilterBox({ isRemind, onRemindToggle }: FilterBoxProps): ReactElement {
               onToggleFilterMenu={onToggleFilterMenu}
               menuText={menuText}
               onChangeMenuText={onChangeMenuText}
+              onFiltering={onFiltering}
             />
           )}
         </FilterMenuButton>
