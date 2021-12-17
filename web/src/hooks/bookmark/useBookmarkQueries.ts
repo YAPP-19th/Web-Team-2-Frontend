@@ -41,6 +41,7 @@ export function useBookmarkQuery(
   const searchKeyword = keyword || '';
   const folderIdKey = folderId || '';
   const detailInfo = searchKeyword || folderIdKey || 'normal';
+
   function getBookmarkAPI(bookmarkKind: bookmarks.bookmarkKindItem) {
     switch (bookmarkKind.kind) {
       case TRASH_BIN.kind:
@@ -69,7 +70,7 @@ export function useBookmarkQuery(
   }
 
   const query = useQuery(
-    ReactQueryKey.bookmarkContents(bookmarkItem.kind, detailInfo, page),
+    ReactQueryKey.bookmarkContents(bookmarkItem.kind, detailInfo, page, remind),
     () => getBookmarkAPI(bookmarkItem),
     {
       cacheTime: 5 * 60 * 1000,
