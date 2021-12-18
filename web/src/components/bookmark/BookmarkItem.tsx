@@ -327,34 +327,36 @@ function BookmarkItem({
               </BookmarkLink>
             </BookmarkLinkBox>
 
-            <BookmarkOption>
-              <OptionButton
-                onClick={onRemindToggleButton}
-                disabled={isOpenRemindToast}
-              >
-                {remindTime ? <BellSelectedIcon /> : <BellUnSelectedIcon />}
-              </OptionButton>
+            {path.folderId !== 'trash' && (
+              <BookmarkOption>
+                <OptionButton
+                  onClick={onRemindToggleButton}
+                  disabled={isOpenRemindToast}
+                >
+                  {remindTime ? <BellSelectedIcon /> : <BellUnSelectedIcon />}
+                </OptionButton>
 
-              <OptionButton onClick={onCopyUrl} disabled={isOpenCopyToast}>
-                <Copy24Icon />
-              </OptionButton>
+                <OptionButton onClick={onCopyUrl} disabled={isOpenCopyToast}>
+                  <Copy24Icon />
+                </OptionButton>
 
-              <OptionButton
-                onClick={(e) => {
-                  onToggleOpenMenu(id, title, true, remindTime, folderId);
-                  e.stopPropagation();
-                }}
-              >
-                <More24Icon />
-                {isOpenMenu.id === id && isOpenMenu.isOpen && (
-                  <BookmarkMenu
-                    isOpen={isOpenMenu.id === id}
-                    isOpenMenu={isOpenMenu}
-                    onToggleModal={onToggleModal}
-                  />
-                )}
-              </OptionButton>
-            </BookmarkOption>
+                <OptionButton
+                  onClick={(e) => {
+                    onToggleOpenMenu(id, title, true, remindTime, folderId);
+                    e.stopPropagation();
+                  }}
+                >
+                  <More24Icon />
+                  {isOpenMenu.id === id && isOpenMenu.isOpen && (
+                    <BookmarkMenu
+                      isOpen={isOpenMenu.id === id}
+                      isOpenMenu={isOpenMenu}
+                      onToggleModal={onToggleModal}
+                    />
+                  )}
+                </OptionButton>
+              </BookmarkOption>
+            )}
           </BookmarkInfo>
         </BookmarkContent>
 
