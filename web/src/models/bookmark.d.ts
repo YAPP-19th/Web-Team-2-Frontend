@@ -80,6 +80,10 @@ export namespace bookmarks {
     bookmarkIdList: string[];
   }
 
+  export interface IBookmarkTruncateRequest {
+    bookmarkIdList: string[];
+  }
+
   export type BookmarkFilterType =
     | 'saveTime,desc'
     | 'saveTime,asc'

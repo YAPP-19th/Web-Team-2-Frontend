@@ -4,6 +4,7 @@ import {
   deleteBookmark,
   moveBookmark,
   restoreBookmark,
+  truncateBookmark,
   updateBookmark,
 } from 'api/bookmarkAPI';
 import { useQueryClient } from 'react-query';
@@ -21,6 +22,7 @@ interface IUseHandleBookmark {
     nextFolderId: ItemId,
   ) => Promise<void>;
   onRestoreBookmark: (bookmarkIdList: string[]) => Promise<void>;
+  onTruncateBookmark: (bookmarkIdList: string[]) => Promise<void>;
 }
 
 export default function useHandleBookmark(): IUseHandleBookmark {
@@ -83,10 +85,24 @@ export default function useHandleBookmark(): IUseHandleBookmark {
     }
   };
 
+  const onTruncateBookmark = async (bookmarkIdList: string[]) => {
+    console.log(bookmarkIdList);
+    try {
+      const requestData = {
+        bookmarkIdList,
+      };
+      await truncateBookmark(requestData);
+      queryClient.invalidateQueries(QueryKey.BOOKMARK_CONTENTS);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return {
     onEditBookmark,
     onDeleteBookmark,
     onMoveBookmark,
     onRestoreBookmark,
+    onTruncateBookmark,
   };
 }

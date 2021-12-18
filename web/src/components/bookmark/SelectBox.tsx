@@ -10,6 +10,7 @@ interface SelectBoxProps {
   onToggleMoveModal: () => void;
   onActiveSelectFolder: () => void;
   onToggleRestoreModal: () => void;
+  onToggleTruncateModal: () => void;
   IsRestore?: boolean;
 }
 
@@ -51,6 +52,7 @@ function SelectBox({
   onToggleMoveModal,
   onActiveSelectFolder,
   onToggleRestoreModal,
+  onToggleTruncateModal,
   IsRestore,
 }: SelectBoxProps): ReactElement {
   return (
@@ -78,7 +80,9 @@ function SelectBox({
             </Option>
           )}
 
-          <Option onClick={onToggleModal}>삭제</Option>
+          <Option onClick={IsRestore ? onToggleTruncateModal : onToggleModal}>
+            삭제
+          </Option>
         </SelectOption>
       )}
     </SelectBoxWrapper>

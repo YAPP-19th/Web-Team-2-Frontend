@@ -121,3 +121,12 @@ export const restoreBookmark = (
     requestData,
   );
 };
+
+export const truncateBookmark = (
+  requestData: bookmarks.IBookmarkTruncateRequest,
+): Promise<AxiosResponse> => {
+  return Client.postAxios<bookmarks.IBookmarkTruncateRequest, AxiosResponse>(
+    `api/v1/trash/truncate`,
+    requestData,
+  );
+};

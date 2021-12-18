@@ -47,8 +47,13 @@ function Bookmark(props: Props): ReactElement | null {
   const [isDeleteModal, onToggleDeleteModal] = useToggle();
   const [isMoveModal, onToggleMoveModal] = useToggle();
   const [isRestoreModal, onToggleRestoreModal] = useToggle();
-  const { onDeleteBookmark, onMoveBookmark, onRestoreBookmark } =
-    useHandleBookmark();
+  const [isTruncateModal, onToggleTruncateModal] = useToggle();
+  const {
+    onDeleteBookmark,
+    onMoveBookmark,
+    onRestoreBookmark,
+    onTruncateBookmark,
+  } = useHandleBookmark();
   const [selectedFolder, setSelectedFolder] =
     useRecoilState(selectedFolderState);
 
@@ -139,6 +144,15 @@ function Bookmark(props: Props): ReactElement | null {
     onToggleRestoreModal();
   };
 
+  const onTruncateBookmarkList = () => {
+    const checkedBookmarkList = bookmarkList
+      .filter((bookmark) => bookmark.checked)
+      .map((bookmark) => bookmark.id);
+    if (checkedBookmarkList.length === 0) return;
+    onTruncateBookmark(checkedBookmarkList);
+    onToggleTruncateModal();
+  };
+
   const onActiveSelectFolder = () => {
     setSelectedFolder({
       id: folderId as ItemId,
@@ -160,6 +174,7 @@ function Bookmark(props: Props): ReactElement | null {
           onActiveSelectFolder={onActiveSelectFolder}
           IsRestore={path === Path.TrashPage}
           onToggleRestoreModal={onToggleRestoreModal}
+          onToggleTruncateModal={onToggleTruncateModal}
         />
         <FilterBox
           onRemindToggle={onRemindToggle}
@@ -213,6 +228,18 @@ function Bookmark(props: Props): ReactElement | null {
           content="기존 보관 위치가 삭제된 도토리는 <br/> '모든 도토리'에서 확인할 수 있어요!"
           buttonName="복원"
           onClick={onRestoreBookmarkList}
+        />
+      )}
+
+      {isTruncateModal && (
+        <SmallModal
+          isModal={isTruncateModal}
+          onToggleModal={onToggleTruncateModal}
+          title="선택한 도토리를 삭제할까요?"
+          content="삭제된 도토리는 완전히 사라져요!"
+          buttonName="삭제"
+          isOneLine
+          onClick={onTruncateBookmarkList}
         />
       )}
     </>
