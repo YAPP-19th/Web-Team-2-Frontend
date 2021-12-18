@@ -11,6 +11,7 @@ interface PagePathProps {
 const PagePathWrapper = styled.div``;
 
 function PagePath({ folderId }: PagePathProps): ReactElement | null {
+  console.log('여기', folderId);
   return (
     <PagePathWrapper>
       {isFolderPage(folderId) ? (

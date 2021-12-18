@@ -7,7 +7,7 @@ import useHandleBookmark from 'hooks/bookmark/useHandleBookmark';
 import useToggle from 'hooks/common/useToggle';
 import { bookmarks } from 'models/bookmark';
 import React, { ReactElement, useState } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { selectedFolderState } from 'recoil/atoms/folderState';
 import styled from 'styled-components';
 import BookmarkEditModal from './BookmarkEditModal';
@@ -65,7 +65,8 @@ function BookmarkList(props: Props): ReactElement {
   const [isDeleteModal, onToggleDeleteModal] = useToggle();
   const [isEditModal, onToggleEditModal] = useToggle();
   const [isMoveModal, onToggleMoveModal] = useToggle();
-  const setSelectedFolder = useSetRecoilState(selectedFolderState);
+  const [selectedFolder, setSelectedFolder] =
+    useRecoilState(selectedFolderState);
 
   const onToggleOpenMenu = (
     id: string,
@@ -89,7 +90,12 @@ function BookmarkList(props: Props): ReactElement {
     onToggleMoveModal,
   };
 
-  const { onDeleteBookmark } = useHandleBookmark();
+  const { onDeleteBookmark, onMoveBookmark } = useHandleBookmark();
+
+  const onMoveBookmarkList = async () => {
+    onMoveBookmark([isOpenMenu.id], selectedFolder.id);
+    onToggleMoveModal();
+  };
 
   return (
     <BookmarkListWrapper>
@@ -135,7 +141,7 @@ function BookmarkList(props: Props): ReactElement {
         <FolderMoveModal
           isModal={isMoveModal}
           onToggleModal={onToggleMoveModal}
-          onClick={() => console.log('dd')}
+          onClick={onMoveBookmarkList}
         />
       )}
     </BookmarkListWrapper>

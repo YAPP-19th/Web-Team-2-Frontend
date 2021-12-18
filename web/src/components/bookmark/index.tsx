@@ -120,7 +120,7 @@ function Bookmark(props: Props): ReactElement | null {
     onToggleDeleteModal();
   };
 
-  const onMoveBookmarkList = async () => {
+  const onMoveBookmarkList = () => {
     const checkedBookmarkList = bookmarkList
       .filter((bookmark) => bookmark.checked)
       .map((bookmark) => bookmark.id);
