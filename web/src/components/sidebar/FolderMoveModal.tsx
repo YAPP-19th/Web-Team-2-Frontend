@@ -1,9 +1,11 @@
 import FolderListInModal from 'components/common/FolderListInModal';
 import ModalTemplate from 'components/common/ModalTemplate';
 import SimpleButton from 'components/common/SimpleButton';
-import React, { ReactElement, useState } from 'react';
-import { ArrowSide16Icon } from 'assets/icons';
+import React, { ReactElement } from 'react';
+import PagePath from 'components/pagePath';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
+import { selectedFolderState } from 'recoil/atoms/folderState';
 import AllFolder from './AllFolder';
 
 interface FolderMoveModalProps {
@@ -24,13 +26,6 @@ const ModalTitle = styled.div`
   margin-bottom: 8px;
 `;
 
-const FolderPath = styled.div`
-  display: flex;
-  margin-bottom: 9px;
-  font-size: 12px;
-  color: ${(props) => props.theme.color.gray};
-`;
-
 const FolderListBox = styled.div`
   width: 408px;
   height: 303px;
@@ -38,6 +33,7 @@ const FolderListBox = styled.div`
   border: 0.031rem solid ${(props) => props.theme.color.gray};
   border-radius: 6px;
   padding: 9.5px 0 0 10px;
+  margin-top: 8px;
   margin-bottom: 18px;
   &::-webkit-scrollbar {
     width: 12px;
@@ -69,8 +65,7 @@ function FolderMoveModal({
   onToggleModal,
   prevFoldeName,
 }: FolderMoveModalProps): ReactElement {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [folderPath, setFolderPath] = useState([prevFoldeName, '테스트']);
+  const selectFolder = useRecoilValue(selectedFolderState);
 
   return (
     <ModalTemplate
@@ -81,14 +76,8 @@ function FolderMoveModal({
     >
       <ModalInner>
         <ModalTitle>위치 선택</ModalTitle>
-        <FolderPath>
-          {folderPath.map((path, index) => (
-            <React.Fragment key={index}>
-              {index === 0 ? '' : <ArrowSide16Icon />}
-              {path}
-            </React.Fragment>
-          ))}
-        </FolderPath>
+
+        <PagePath folderId={selectFolder.id as string} />
         <FolderListBox>
           <AllFolder />
           <FolderListInModal />

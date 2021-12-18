@@ -28,6 +28,10 @@ const ContentInner = styled.div`
   height: 100%;
 `;
 
+const FolderPath = styled.div`
+  margin-bottom: 28px;
+`;
+
 function MainPage(): ReactElement {
   const location = useLocation();
   const { folderId } = useParams<keyof FolderIdParams>() as FolderIdParams;
@@ -52,7 +56,9 @@ function MainPage(): ReactElement {
       <ContentLayout>
         <ContentInner>
           {location.pathname === Path.Home && <Reminder />}
-          <PagePath />
+          <FolderPath>
+            <PagePath folderId={folderId} />
+          </FolderPath>
           {isFolderPage(folderId) && <SubFolders />}
           <Bookmark path={location.pathname} keyword={query.q} />
         </ContentInner>
