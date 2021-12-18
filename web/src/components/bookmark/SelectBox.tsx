@@ -8,6 +8,7 @@ interface SelectBoxProps {
   isAllChecked: boolean;
   onToggleDeleteModal: () => void;
   onToggleMoveModal: () => void;
+  onActiveSelectFolder: () => void;
 }
 
 const SelectBoxWrapper = styled.div`
@@ -46,6 +47,7 @@ function SelectBox({
   isAllChecked,
   onToggleDeleteModal,
   onToggleMoveModal,
+  onActiveSelectFolder,
 }: SelectBoxProps): ReactElement {
   return (
     <SelectBoxWrapper>
@@ -60,7 +62,14 @@ function SelectBox({
       {IsActiveSelectBox && (
         <SelectOption>
           <Option onClick={onToggleDeleteModal}>삭제</Option>
-          <Option onClick={onToggleMoveModal}>이동</Option>
+          <Option
+            onClick={() => {
+              onActiveSelectFolder();
+              onToggleMoveModal();
+            }}
+          >
+            이동
+          </Option>
         </SelectOption>
       )}
     </SelectBoxWrapper>

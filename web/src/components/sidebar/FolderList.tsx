@@ -253,6 +253,7 @@ function FolderList({
         <FolderMoveModal
           isModal={isMoveModal}
           onToggleModal={onToggleMoveModal}
+          onClick={() => console.log('dd')}
         />
       )}
     </FolderListWrapper>

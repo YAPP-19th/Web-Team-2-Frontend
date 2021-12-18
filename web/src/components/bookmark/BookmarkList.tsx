@@ -135,6 +135,7 @@ function BookmarkList(props: Props): ReactElement {
         <FolderMoveModal
           isModal={isMoveModal}
           onToggleModal={onToggleMoveModal}
+          onClick={() => console.log('dd')}
         />
       )}
     </BookmarkListWrapper>

@@ -9,7 +9,7 @@ import useHandleBookmark from 'hooks/bookmark/useHandleBookmark';
 import useToggle from 'hooks/common/useToggle';
 import { bookmarks } from 'models/bookmark';
 import React, { ReactElement, useEffect, useMemo, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectedFolderState } from 'recoil/atoms/folderState';
 import styled from 'styled-components';
 import { BOOKMARK_KINDS } from 'utils/const';
@@ -46,7 +46,8 @@ function Bookmark(props: Props): ReactElement | null {
   const [isDeleteModal, onToggleDeleteModal] = useToggle();
   const [isMoveModal, onToggleMoveModal] = useToggle();
   const { onDeleteBookmark, onMoveBookmark } = useHandleBookmark();
-  const selectedFolder = useRecoilValue(selectedFolderState);
+  const [selectedFolder, setSelectedFolder] =
+    useRecoilState(selectedFolderState);
 
   const onChangeMenuText = (text: string) => {
     setMenuText(text);
@@ -125,12 +126,18 @@ function Bookmark(props: Props): ReactElement | null {
       .map((bookmark) => bookmark.id);
     if (checkedBookmarkList.length === 0) return;
     onMoveBookmark(checkedBookmarkList, selectedFolder.id);
-    onToggleDeleteModal();
+    onToggleMoveModal();
+  };
+
+  const onActiveSelectFolder = () => {
+    setSelectedFolder({
+      id: folderId as ItemId,
+      name: '이동',
+      emoji: '이동',
+    });
   };
 
   if (!data) return null;
-
-  console.log('data', data);
 
   return (
     <>
@@ -141,6 +148,7 @@ function Bookmark(props: Props): ReactElement | null {
           onToggleAllChecked={onToggleAllChecked}
           onToggleDeleteModal={onToggleDeleteModal}
           onToggleMoveModal={onToggleMoveModal}
+          onActiveSelectFolder={onActiveSelectFolder}
         />
         <FilterBox
           onRemindToggle={onRemindToggle}
@@ -183,6 +191,7 @@ function Bookmark(props: Props): ReactElement | null {
         <FolderMoveModal
           isModal={isMoveModal}
           onToggleModal={onToggleMoveModal}
+          onClick={onMoveBookmarkList}
         />
       )}
     </>

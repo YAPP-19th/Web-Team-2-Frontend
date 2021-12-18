@@ -10,6 +10,7 @@ import { selectedFolderState } from 'recoil/atoms/folderState';
 interface FolderMoveModalProps {
   isModal: boolean;
   onToggleModal: () => void;
+  onClick: () => void;
 }
 
 const ModalInner = styled.div`
@@ -61,6 +62,7 @@ const CancelButton = styled(SimpleButton)`
 function FolderMoveModal({
   isModal,
   onToggleModal,
+  onClick,
 }: FolderMoveModalProps): ReactElement {
   const selectedFolder = useRecoilValue(selectedFolderState);
 
@@ -92,6 +94,7 @@ function FolderMoveModal({
             width="63px"
             height="26px"
             label="확인"
+            onClick={onClick}
           />
         </ButtonGroup>
       </ModalInner>
