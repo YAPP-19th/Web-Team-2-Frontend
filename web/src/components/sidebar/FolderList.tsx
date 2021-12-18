@@ -14,6 +14,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { selectedFolderState } from 'recoil/atoms/folderState';
 import styled, { css } from 'styled-components';
+import { isFolderPage } from 'utils/checkFolderPage';
 import FolderItemIcon from './FolderItemIcon';
 import FolderMenuLayer from './FolderMenuLayer';
 import FolderMoveModal from './FolderMoveModal';
@@ -142,7 +143,11 @@ function FolderList({
   };
 
   useEffect(() => {
-    if (params.folderId && folders.rootId === 'root') {
+    if (
+      params.folderId &&
+      folders.rootId === 'root' &&
+      isFolderPage(params.folderId)
+    ) {
       if (!folders.items[params.folderId]) {
         navigate('/');
       }
