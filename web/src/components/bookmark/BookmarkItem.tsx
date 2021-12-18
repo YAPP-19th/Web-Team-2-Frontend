@@ -307,7 +307,7 @@ function BookmarkItem({
             <Title>{title}</Title>
             <Description>{description}</Description>
           </InnerContent>
-          {isShowFolderInfo && (
+          {isShowFolderInfo && folderId && (
             <FolderInfo>
               <FolderEmoji emoji={folderEmoji} />
               <FolderName to={`/${folderId}`}>{folderName}</FolderName>
