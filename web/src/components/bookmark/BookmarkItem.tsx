@@ -294,13 +294,13 @@ function BookmarkItem({
           <InnerContent href={link} target="_blank" rel="noopener noreferrer">
             <Title>{title}</Title>
             <Description>{description}</Description>
-            {isShowFolderInfo && (
-              <FolderInfo>
-                <FolderEmoji emoji={folderEmoji} />
-                <FolderName to={`/${folderId}`}>{folderName}</FolderName>
-              </FolderInfo>
-            )}
           </InnerContent>
+          {isShowFolderInfo && (
+            <FolderInfo>
+              <FolderEmoji emoji={folderEmoji} />
+              <FolderName to={`/${folderId}`}>{folderName}</FolderName>
+            </FolderInfo>
+          )}
           <DividerLine />
           <BookmarkInfo>
             <BookmarkLinkBox>

@@ -9,7 +9,7 @@ import useHandleBookmark from 'hooks/bookmark/useHandleBookmark';
 import useToggle from 'hooks/common/useToggle';
 import { bookmarks } from 'models/bookmark';
 import React, { ReactElement, useEffect, useMemo, useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { selectedFolderState } from 'recoil/atoms/folderState';
 import styled from 'styled-components';
 import { BOOKMARK_KINDS } from 'utils/const';
@@ -63,8 +63,6 @@ function Bookmark(props: Props): ReactElement | null {
     bookmarkCategory.kind === BOOKMARK_KINDS.FOLDER_DOTORI.kind
       ? lastPath
       : undefined;
-
-  console.log('folderId', folderId);
 
   const { data } = useBookmarkQuery(
     bookmarkCategory,
@@ -138,7 +136,6 @@ function Bookmark(props: Props): ReactElement | null {
   };
 
   if (!data) return null;
-  console.log(data);
   return (
     <>
       <BookmarkNav>

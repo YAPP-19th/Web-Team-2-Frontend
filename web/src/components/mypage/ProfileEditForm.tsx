@@ -1,11 +1,11 @@
 /* eslint-disable no-alert */
 /* eslint-disable no-console */
-import { changeProfileImage, nicknameCheck } from 'api/userAPI';
+import { uploadProfileImage, nicknameCheck, changeProfile } from 'api/userAPI';
 import React, { ReactElement, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { userState } from 'recoil/atoms/userState';
 import styled from 'styled-components';
-import { DEFAULT_IMAGE_FILE_NAME } from 'utils/const';
+import { DEFAULT_IMAGE_FILE_NAME, LOCAL_STORAGE_KEY } from 'utils/const';
 import ProfileEditButtonGroup from './ProfileEditButtonGroup';
 import ProfileImageForm from './ProfileImageForm';
 import ProfileNicknameForm from './ProfileNicknameForm';
@@ -16,7 +16,6 @@ const ProfileEditFormWrapper = styled.div`
 `;
 
 function ProfileEditForm(): ReactElement {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [user, setUser] = useRecoilState(userState);
   const [errorMessage, setErrorMessage] = useState('');
   const [form, setForm] = useState({
@@ -24,8 +23,8 @@ function ProfileEditForm(): ReactElement {
     imageFileName: DEFAULT_IMAGE_FILE_NAME,
     nickname: user.name,
   });
-  const { nickname } = form;
-
+  const { nickname, profileImage } = form;
+  console.log(form);
   // 닉네임 인풋 상태 변경
   const onChangeNickname = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, nickname: e.target.value });
@@ -64,8 +63,8 @@ function ProfileEditForm(): ReactElement {
       console.log(e.target.files[0]);
 
       try {
-        const { data } = await changeProfileImage(fd);
-        onChangeProfileImage(data, e.target.files[0].name);
+        const { data } = await uploadProfileImage(fd);
+        onChangeProfileImage(data.imageUrl, e.target.files[0].name);
         console.log(data);
       } catch (err) {
         alert('이미지 업로드에 실패했습니다.');
@@ -80,7 +79,26 @@ function ProfileEditForm(): ReactElement {
 
   // 변경 내용 저장
   const onEditSubmit = async () => {
-    console.log('변경 내용 저장 ');
+    try {
+      await changeProfile(profileImage, nickname);
+      setUser({ ...user, image: profileImage, name: nickname });
+      const localStorageItem = localStorage.getItem(
+        LOCAL_STORAGE_KEY.USER_BASE_INFO,
+      );
+      if (localStorageItem) {
+        const localStorageUser = JSON.parse(localStorageItem);
+        localStorage.setItem(
+          LOCAL_STORAGE_KEY.USER_BASE_INFO,
+          JSON.stringify({
+            ...localStorageUser,
+            image: profileImage,
+            name: nickname,
+          }),
+        );
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
