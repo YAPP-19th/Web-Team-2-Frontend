@@ -6,12 +6,10 @@ import PagePath from 'components/pagePath';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import { selectedFolderState } from 'recoil/atoms/folderState';
-import AllFolder from './AllFolder';
 
 interface FolderMoveModalProps {
   isModal: boolean;
   onToggleModal: () => void;
-  prevFoldeName?: string;
 }
 
 const ModalInner = styled.div`
@@ -63,9 +61,8 @@ const CancelButton = styled(SimpleButton)`
 function FolderMoveModal({
   isModal,
   onToggleModal,
-  prevFoldeName,
 }: FolderMoveModalProps): ReactElement {
-  const selectFolder = useRecoilValue(selectedFolderState);
+  const selectedFolder = useRecoilValue(selectedFolderState);
 
   return (
     <ModalTemplate
@@ -77,9 +74,8 @@ function FolderMoveModal({
       <ModalInner>
         <ModalTitle>위치 선택</ModalTitle>
 
-        <PagePath folderId={selectFolder.id as string} />
+        <PagePath folderId={selectedFolder.id as string} />
         <FolderListBox>
-          <AllFolder />
           <FolderListInModal />
         </FolderListBox>
         <ButtonGroup>

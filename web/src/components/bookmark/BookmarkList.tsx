@@ -125,7 +125,6 @@ function BookmarkList(props: Props): ReactElement {
 
       {isMoveModal && (
         <FolderMoveModal
-          prevFoldeName="dd"
           isModal={isMoveModal}
           onToggleModal={onToggleMoveModal}
         />
