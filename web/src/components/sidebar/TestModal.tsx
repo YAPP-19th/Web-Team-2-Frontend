@@ -67,6 +67,7 @@ function TestModal({ isModal, onToggleModal }: Props): ReactElement {
       );
       onToggleModal();
       queryClient.invalidateQueries(QueryKey.BOOKMARK_CONTENTS);
+      queryClient.invalidateQueries(QueryKey.REMIND_CONTENTS);
     } catch (e) {
       console.log(e);
     }

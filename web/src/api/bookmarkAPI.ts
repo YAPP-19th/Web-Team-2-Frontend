@@ -130,3 +130,9 @@ export const truncateBookmark = (
     requestData,
   );
 };
+
+export const clickCountBookmark = (
+  bookmarkId: string,
+): Promise<AxiosResponse> => {
+  return Client.getAxios<AxiosResponse>(`api/v1/bookmark/click/${bookmarkId}`);
+};

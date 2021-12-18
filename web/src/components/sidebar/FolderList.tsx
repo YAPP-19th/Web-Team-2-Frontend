@@ -9,7 +9,7 @@ import Tree, {
 import { More16Icon, PlusIcon } from 'assets/icons';
 import SmallModal from 'components/common/SmallModal';
 import useToggle from 'hooks/common/useToggle';
-import React, { ReactElement, useMemo, useState } from 'react';
+import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { selectedFolderState } from 'recoil/atoms/folderState';
@@ -140,6 +140,14 @@ function FolderList({
     onToggleRenameModal,
     onToggleMoveModal,
   };
+
+  useEffect(() => {
+    if (params.folderId) {
+      if (!folders.items[params.folderId]) {
+        navigate('/');
+      }
+    }
+  }, [folders]);
 
   // function
   const onToggleMenu = (
