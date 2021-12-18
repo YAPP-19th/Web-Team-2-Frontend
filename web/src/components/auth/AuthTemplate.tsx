@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { auth } from 'models/auth';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
