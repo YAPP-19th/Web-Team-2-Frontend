@@ -177,15 +177,17 @@ function Bookmark(props: Props): ReactElement | null {
           onToggleRestoreModal={onToggleRestoreModal}
           onToggleTruncateModal={onToggleTruncateModal}
         />
-        <FilterBox
-          onRemindToggle={onRemindToggle}
-          isRemind={isRemind}
-          onFiltering={onFiltering}
-          isOpenFilterMenu={isOpenFilterMenu}
-          onToggleFilterMenu={onToggleFilterMenu}
-          onChangeMenuText={onChangeMenuText}
-          menuText={menuText}
-        />
+        {path !== Path.TrashPage && (
+          <FilterBox
+            onRemindToggle={onRemindToggle}
+            isRemind={isRemind}
+            onFiltering={onFiltering}
+            isOpenFilterMenu={isOpenFilterMenu}
+            onToggleFilterMenu={onToggleFilterMenu}
+            onChangeMenuText={onChangeMenuText}
+            menuText={menuText}
+          />
+        )}
       </BookmarkNav>
 
       <BookmarkList
