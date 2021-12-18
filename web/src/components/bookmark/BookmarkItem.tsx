@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+import { clickCountBookmark } from 'api/bookmarkAPI';
 import {
   BellSelectedIcon,
   BellUnSelectedIcon,
@@ -262,6 +264,14 @@ function BookmarkItem({
     return false;
   }, [path]);
 
+  const onClickCountBookmark = async () => {
+    try {
+      await clickCountBookmark(id);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <BookmarkItemWrapper>
       <ItemInner>
@@ -269,6 +279,7 @@ function BookmarkItem({
           href={link}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={onClickCountBookmark}
         >
           {image ? (
             <BookmarkImage src={image} alt="thumbnail" />
@@ -291,7 +302,12 @@ function BookmarkItem({
         </BookmarkThumbnail>
 
         <BookmarkContent>
-          <InnerContent href={link} target="_blank" rel="noopener noreferrer">
+          <InnerContent
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={onClickCountBookmark}
+          >
             <Title>{title}</Title>
             <Description>{description}</Description>
           </InnerContent>
@@ -308,6 +324,7 @@ function BookmarkItem({
                 href={link}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={onClickCountBookmark}
               >
                 {link}
               </BookmarkLink>
