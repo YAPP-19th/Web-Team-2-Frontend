@@ -11,8 +11,7 @@ import {
   createFolder,
   deleteFolder,
   moveFolder,
-  renameFolder,
-  updateFolderEmoji,
+  updateFolder,
 } from 'api/folderAPI';
 import useToasts from 'hooks/common/useToasts';
 import { useCallback, useState } from 'react';
@@ -187,10 +186,10 @@ export default function useFoldersHandle(): IFoldersHandle {
     emoji: string,
   ) => {
     try {
-      await renameFolder(itemId, name);
-      await updateFolderEmoji(itemId, emoji);
+      await updateFolder(itemId, name, emoji);
       changeFolderState(mutateTree(folders, itemId, { data: { name, emoji } }));
       queryClient.invalidateQueries(QueryKey.SUBFOLDER_CONTENTS);
+      queryClient.invalidateQueries(QueryKey.BOOKMARK_CONTENTS);
     } catch (e) {
       console.log('폴더 이름, 이모지 수정에 실패했습니다');
     }

@@ -39,20 +39,13 @@ export const moveFolder = (
   return Client.patchAxios(`/api/v1/folder/${folderId}/move`, body);
 };
 
-// 폴더 이름 수정
-export const renameFolder = (
+// 폴더 수정
+export const updateFolder = (
   folderId: ItemId,
   name: string,
-): Promise<AxiosResponse> => {
-  return Client.patchAxios(`/api/v1/folder/${folderId}/name`, { name });
-};
-
-// 폴더 이모지 수정
-export const updateFolderEmoji = (
-  folderId: ItemId,
   emoji: string,
 ): Promise<AxiosResponse> => {
-  return Client.patchAxios(`/api/v1/folder/${folderId}/emoji`, { emoji });
+  return Client.patchAxios(`/api/v1/folder/${folderId}`, { name, emoji });
 };
 
 // 폴더 삭제
