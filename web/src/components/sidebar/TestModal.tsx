@@ -46,7 +46,7 @@ function TestModal({ isModal, onToggleModal }: Props): ReactElement {
       refreshToken: `Bearer ${refreshToken}`,
     };
     const encodeUrl = encodeURIComponent(url);
-    const API_KEY = '5531f655-999a-4fff-bb3f-1cbbe425acec';
+    const API_KEY = 'eed71a48-4db8-4e02-b05f-7012173e619f';
     try {
       const oginfo = await axios.get(
         `https://opengraph.io/api/1.1/site/${encodeUrl}?app_id=${API_KEY}`,

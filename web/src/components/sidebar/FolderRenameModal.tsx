@@ -130,6 +130,7 @@ function FolderRenameModal({
 
   const onSubmitFolderInfo = () => {
     onChangeFolderInfo(selectedFolder.id, newFolderName, chosenEmoji.unicode);
+    onToggleModal();
   };
 
   return (
