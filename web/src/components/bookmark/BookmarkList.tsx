@@ -121,11 +121,10 @@ function BookmarkList(props: Props): ReactElement {
         </BlankBox>
       )}
 
-      {/* @TODO(dohyun) 실제 데이터 불러올때 북마크 디비 고유id 값을 key 값으로 전달 */}
-      {bookmarkList.map((bookmark, index) => (
+      {bookmarkList.map((bookmark) => (
         <BookmarkItem
           bookmark={bookmark}
-          key={index}
+          key={bookmark.id}
           isOpenMenu={isOpenMenu}
           onToggleModal={onToggleModal}
           onToggleSingleChecked={onToggleSingleChecked}
@@ -135,7 +134,6 @@ function BookmarkList(props: Props): ReactElement {
 
       {isEditModal && (
         <BookmarkEditModal
-          isModal={isEditModal}
           onToggleModal={onToggleEditModal}
           isOpenMenu={isOpenMenu}
         />

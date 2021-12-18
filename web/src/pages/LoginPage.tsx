@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import AuthForm from 'components/auth/AuthForm';
 import AuthTemplate from 'components/auth/AuthTemplate';
 import React, { ReactElement } from 'react';
@@ -8,7 +7,7 @@ function LoginPage(): ReactElement {
 
   return (
     <AuthTemplate AuthType={AuthType}>
-      {/* <AuthForm AuthType={AuthType} /> */}
+      <AuthForm AuthType={AuthType} />
     </AuthTemplate>
   );
 }

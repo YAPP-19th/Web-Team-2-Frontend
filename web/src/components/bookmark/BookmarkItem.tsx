@@ -14,11 +14,12 @@ import Toasts from 'components/common/Toasts';
 import useHandleBookmark from 'hooks/bookmark/useHandleBookmark';
 import useToasts from 'hooks/common/useToasts';
 import { bookmarks } from 'models/bookmark';
-import React, { ReactElement, useMemo, useRef } from 'react';
+import React, { ReactElement, useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { userState } from 'recoil/atoms/userState';
 import styled from 'styled-components';
+import { isFolderPage } from 'utils/checkFolderPage';
 import { IBookmarkMenu, IBookmarkOpenMenu } from './BookmarkList';
 import BookmarkMenu from './BookmarkMenu';
 
@@ -240,17 +241,6 @@ function BookmarkItem({
     onCopyToast();
   };
 
-  const isShowFolderInfo = useMemo(() => {
-    if (
-      !path.folderId ||
-      path.folderId === 'trash' ||
-      path.folderId === 'search'
-    ) {
-      return true;
-    }
-    return false;
-  }, [path]);
-
   const onClickCountBookmark = async () => {
     try {
       await clickCountBookmark(id);
@@ -307,7 +297,7 @@ function BookmarkItem({
             <Title>{title}</Title>
             <Description>{description}</Description>
           </InnerContent>
-          {isShowFolderInfo && folderId && (
+          {!isFolderPage(path.folderId) && folderId && (
             <FolderInfo>
               <FolderEmoji emoji={folderEmoji} />
               <FolderName to={`/${folderId}`}>{folderName}</FolderName>
