@@ -7,7 +7,7 @@ function LoginPage(): ReactElement {
 
   return (
     <AuthTemplate AuthType={AuthType}>
-      <AuthForm AuthType={AuthType} />
+      {/* <AuthForm AuthType={AuthType} /> */}
     </AuthTemplate>
   );
 }
