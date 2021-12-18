@@ -138,7 +138,7 @@ function Bookmark(props: Props): ReactElement | null {
   };
 
   if (!data) return null;
-
+  console.log(data);
   return (
     <>
       <BookmarkNav>

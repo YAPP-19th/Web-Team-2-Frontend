@@ -9,7 +9,7 @@ export namespace bookmarks {
     description: null | string;
     nickname?: string;
     folder?: string;
-    folderId?: ItemId;
+    folderId: ItemId;
     id: string;
     link: string;
     remindTime: null | LocalDateTime;
@@ -18,6 +18,8 @@ export namespace bookmarks {
     userId: number;
     image: string;
     checked: boolean;
+    folderName: string;
+    folderEmoji: string;
   }
 
   export type bookmarkSortType = {

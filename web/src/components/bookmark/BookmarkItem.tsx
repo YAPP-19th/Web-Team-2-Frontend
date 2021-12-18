@@ -8,11 +8,21 @@ import {
 } from 'assets/icons';
 import { ellipsis } from 'assets/styles/utilStyles';
 import CheckBox from 'components/common/CheckBox';
+import FolderEmoji from 'components/common/FolderEmoji';
 import Toasts from 'components/common/Toasts';
+import FolderEmojiAndName from 'components/pagePath/FolderEmojiAndName';
+import { FolderIdParams } from 'components/subFolders';
 import useHandleBookmark from 'hooks/bookmark/useHandleBookmark';
 import useToasts from 'hooks/common/useToasts';
 import { bookmarks } from 'models/bookmark';
-import React, { ReactElement, useEffect, useRef, useState } from 'react';
+import React, {
+  ReactElement,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import { Link, useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { selectedFolderState } from 'recoil/atoms/folderState';
 import styled from 'styled-components';
@@ -181,6 +191,26 @@ const UrlTextArea = styled.textarea`
   display: none;
 `;
 
+const FolderInfo = styled.div`
+  margin-bottom: 11px;
+  display: flex;
+  align-items: center;
+`;
+
+const FolderName = styled(Link)`
+  margin-right: 4px;
+  font-size: 10px;
+  color: ${(props) => props.theme.color.gray};
+  height: 16px;
+  line-height: 16px;
+  ${ellipsis}
+  display: inline-block;
+  max-width: 135px;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
 function BookmarkItem({
   bookmark,
   isOpenMenu,
@@ -188,9 +218,20 @@ function BookmarkItem({
   onToggleSingleChecked,
   IsActiveSelectBox,
 }: BookmarkItemProps): ReactElement {
-  const { id, title, description, link, remindTime, folderId, image, checked } =
-    bookmark;
+  const {
+    id,
+    title,
+    description,
+    link,
+    remindTime,
+    folderId,
+    image,
+    checked,
+    folderName,
+    folderEmoji,
+  } = bookmark;
 
+  const path = useParams();
   const [isOpenCopyToast, onCopyToast] = useToasts();
   const [isOpenRemindToast, onRemindToast] = useToasts();
   const { onEditBookmark } = useHandleBookmark();
@@ -220,6 +261,17 @@ function BookmarkItem({
     await navigator.clipboard.writeText(link);
     onCopyToast();
   };
+
+  const isShowFolderInfo = useMemo(() => {
+    if (
+      !path.folderId ||
+      path.folderId === 'trash' ||
+      path.folderId === 'search'
+    ) {
+      return true;
+    }
+    return false;
+  }, [path]);
 
   return (
     <BookmarkItemWrapper>
@@ -253,6 +305,12 @@ function BookmarkItem({
           <InnerContent href={link} target="_blank" rel="noopener noreferrer">
             <Title>{title}</Title>
             <Description>{description}</Description>
+            {isShowFolderInfo && (
+              <FolderInfo>
+                <FolderEmoji emoji={folderEmoji} />
+                <FolderName to={`/${folderId}`}>{folderName}</FolderName>
+              </FolderInfo>
+            )}
           </InnerContent>
           <DividerLine />
           <BookmarkInfo>

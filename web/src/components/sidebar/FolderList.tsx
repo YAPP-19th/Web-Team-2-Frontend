@@ -253,6 +253,7 @@ function FolderList({
         <FolderMoveModal
           isModal={isMoveModal}
           onToggleModal={onToggleMoveModal}
+          // eslint-disable-next-line no-console
           onClick={() => console.log('dd')}
         />
       )}
