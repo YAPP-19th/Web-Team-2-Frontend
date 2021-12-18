@@ -46,9 +46,8 @@ export default function useGoogleLogin(): GoogleLoginTypes {
     try {
       const { data } = await login(request);
       setLoginData(data);
-      console.log(data);
 
-      window.location.href = Path.Home;
+      navigate(Path.Home);
       if (!data.isRegistered) {
         setTutorialModal(true);
       }

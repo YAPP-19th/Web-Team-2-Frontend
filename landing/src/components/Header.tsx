@@ -49,10 +49,11 @@ const DownloadButton = styled.button`
   }
 `;
 
-const LinkButton = styled.button`
+const LinkButton = styled.a`
   ${ButtonStyled}
   background-color: #fff;
   border: 1px solid #aaa;
+  text-align: center;
   color: #323232;
   ${media.mobile} {
     display: none;
@@ -74,7 +75,11 @@ function Header(): ReactElement {
           <DownloadButton>
             <ButtonText>다운로드</ButtonText>
           </DownloadButton>
-          <LinkButton>
+          <LinkButton
+            href="https://dotoriham.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <ButtonText>도토리함 가기</ButtonText>
           </LinkButton>
         </HeaderButtonGroup>
