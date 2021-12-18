@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 interface SimpleInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -22,12 +22,20 @@ function SimpleInput({
   borderRadius = '4px',
   ...rest
 }: SimpleInputProps): ReactElement {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
   return (
     <SimpleInputStyled
       {...rest}
       borderRadius={borderRadius}
       width={width}
       height={height}
+      ref={inputRef}
     />
   );
 }
