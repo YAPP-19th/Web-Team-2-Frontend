@@ -1,7 +1,9 @@
+import SmallModal from 'components/common/SmallModal';
 import {
   getCategoryOfBookmark,
   useBookmarkQuery,
 } from 'hooks/bookmark/useBookmarkQueries';
+import useHandleBookmark from 'hooks/bookmark/useHandleBookmark';
 import useToggle from 'hooks/common/useToggle';
 import { bookmarks } from 'models/bookmark';
 import React, { ReactElement, useEffect, useMemo, useState } from 'react';
@@ -37,6 +39,8 @@ function Bookmark(props: Props): ReactElement | null {
     useState<bookmarks.BookmarkFilterType>('saveTime,desc');
   const [isOpenFilterMenu, onToggleFilterMenu] = useToggle(false);
   const [menuText, setMenuText] = useState<string>('최신순');
+  const [isDeleteModal, onToggleDeleteModal] = useToggle();
+  const { onDeleteBookmark } = useHandleBookmark();
 
   const onChangeMenuText = (text: string) => {
     setMenuText(text);
@@ -98,6 +102,15 @@ function Bookmark(props: Props): ReactElement | null {
     );
   };
 
+  const onDeleteBookmarkList = async () => {
+    const checkedBookmarkList = bookmarkList
+      .filter((bookmark) => bookmark.checked)
+      .map((bookmark) => bookmark.id);
+    if (checkedBookmarkList.length === 0) return;
+    onDeleteBookmark(checkedBookmarkList);
+    onToggleDeleteModal();
+  };
+
   if (!data) return null;
 
   console.log('data', data);
@@ -109,6 +122,7 @@ function Bookmark(props: Props): ReactElement | null {
           IsActiveSelectBox={IsActiveSelectBox}
           isAllChecked={isAllChecked}
           onToggleAllChecked={onToggleAllChecked}
+          onToggleDeleteModal={onToggleDeleteModal}
         />
         <FilterBox
           onRemindToggle={onRemindToggle}
@@ -132,6 +146,18 @@ function Bookmark(props: Props): ReactElement | null {
           setPage={setPage}
           totalElements={data.totalElements}
           size={bookmarkCategory.numOfPage}
+        />
+      )}
+
+      {isDeleteModal && (
+        <SmallModal
+          isModal={isDeleteModal}
+          onToggleModal={onToggleDeleteModal}
+          title="선택한 도토리를 삭제할까요?"
+          content="삭제된 도토리는 완전히 사라져요!"
+          buttonName="삭제"
+          isOneLine
+          onClick={onDeleteBookmarkList}
         />
       )}
     </>
