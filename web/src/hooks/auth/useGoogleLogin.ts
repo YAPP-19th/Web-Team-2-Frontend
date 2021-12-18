@@ -7,6 +7,8 @@ import {
   GoogleLoginResponseOffline,
 } from 'react-google-login';
 import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
+import { tutorialModalState } from 'recoil/atoms/tutorialState';
 import Path from 'routes/path';
 import { setLoginData } from 'utils/auth';
 import { GOOGLE_CLIENT_ID } from 'utils/config';
@@ -20,6 +22,7 @@ interface GoogleLoginTypes {
 
 export default function useGoogleLogin(): GoogleLoginTypes {
   const navigate = useNavigate();
+  const setTutorialModal = useSetRecoilState(tutorialModalState);
 
   const onGoogleLogin = useCallback(async (response) => {
     const { profileObj } = response;
@@ -43,8 +46,12 @@ export default function useGoogleLogin(): GoogleLoginTypes {
     try {
       const { data } = await login(request);
       setLoginData(data);
+      console.log(data);
 
       window.location.href = Path.Home;
+      if (!data.isRegistered) {
+        setTutorialModal(true);
+      }
     } catch (error) {
       // @TODO(jekoo): oauth login 실패 에러처리
       // eslint-disable-next-line no-alert

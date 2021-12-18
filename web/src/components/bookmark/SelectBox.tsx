@@ -6,7 +6,7 @@ interface SelectBoxProps {
   IsActiveSelectBox: boolean;
   onToggleAllChecked: () => void;
   isAllChecked: boolean;
-  onToggleModal: () => void;
+  onToggleDeleteModal: () => void;
   onToggleMoveModal: () => void;
   onActiveSelectFolder: () => void;
   onToggleRestoreModal: () => void;
@@ -48,7 +48,7 @@ function SelectBox({
   IsActiveSelectBox,
   onToggleAllChecked,
   isAllChecked,
-  onToggleModal,
+  onToggleDeleteModal,
   onToggleMoveModal,
   onActiveSelectFolder,
   onToggleRestoreModal,
@@ -80,7 +80,9 @@ function SelectBox({
             </Option>
           )}
 
-          <Option onClick={IsRestore ? onToggleTruncateModal : onToggleModal}>
+          <Option
+            onClick={IsRestore ? onToggleTruncateModal : onToggleDeleteModal}
+          >
             삭제
           </Option>
         </SelectOption>

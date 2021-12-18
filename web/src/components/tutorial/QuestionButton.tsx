@@ -1,6 +1,7 @@
 import { QuestionIcon } from 'assets/icons';
-import useToggle from 'hooks/common/useToggle';
 import React, { ReactElement } from 'react';
+import { useRecoilState } from 'recoil';
+import { tutorialModalState } from 'recoil/atoms/tutorialState';
 import styled from 'styled-components';
 import TutorialModal from './TutorialModal';
 
@@ -9,16 +10,24 @@ const QuestionButtonStyled = styled.button`
 `;
 
 function QuestionButton(): ReactElement {
-  const [isModal, onToggleModal] = useToggle();
+  const [isTutorialModal, setIsTutorialModal] =
+    useRecoilState(tutorialModalState);
+
+  const onToggleTutorialModal = () => {
+    setIsTutorialModal(!isTutorialModal);
+  };
 
   return (
     <>
-      <QuestionButtonStyled onClick={onToggleModal}>
+      <QuestionButtonStyled onClick={onToggleTutorialModal}>
         <QuestionIcon />
       </QuestionButtonStyled>
 
-      {isModal && (
-        <TutorialModal isModal={isModal} onToggleModal={onToggleModal} />
+      {isTutorialModal && (
+        <TutorialModal
+          isModal={isTutorialModal}
+          onToggleModal={onToggleTutorialModal}
+        />
       )}
     </>
   );

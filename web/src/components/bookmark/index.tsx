@@ -169,7 +169,7 @@ function Bookmark(props: Props): ReactElement | null {
           IsActiveSelectBox={IsActiveSelectBox}
           isAllChecked={isAllChecked}
           onToggleAllChecked={onToggleAllChecked}
-          onToggleModal={onToggleDeleteModal}
+          onToggleDeleteModal={onToggleDeleteModal}
           onToggleMoveModal={onToggleMoveModal}
           onActiveSelectFolder={onActiveSelectFolder}
           IsRestore={path === Path.TrashPage}

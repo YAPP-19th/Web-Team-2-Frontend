@@ -46,5 +46,6 @@ export namespace auth {
     name: string;
     image: string;
     socialType: string;
+    isRegistered: boolean;
   }
 }
