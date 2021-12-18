@@ -11,8 +11,7 @@ import {
   createFolder,
   deleteFolder,
   moveFolder,
-  renameFolder,
-  updateFolderEmoji,
+  updateFolder,
 } from 'api/folderAPI';
 import useToasts from 'hooks/common/useToasts';
 import { useCallback, useState } from 'react';
@@ -75,6 +74,10 @@ export default function useFoldersHandle(): IFoldersHandle {
     expandAndCollapseFolder(itemId, false);
   };
 
+  const onToastFolderIsFull = (isCabinetToast: boolean) => {
+    return isCabinetToast ? onCabinetIsFullToast() : onFolderIsFullToast();
+  };
+
   // 드래그앤 드롭 시작
   const onDragStartFolder = (itemId: ItemId) => {
     setMoveFolderId(itemId);
@@ -96,6 +99,11 @@ export default function useFoldersHandle(): IFoldersHandle {
       destination.index === undefined
         ? findChildrenLength(folders, nextParentId)
         : destination.index;
+
+    if (findChildrenLength(folders, nextParentId) >= MAX_FOLDERS_LENGTH) {
+      onToastFolderIsFull(isCabinet(folders, nextParentId));
+      return;
+    }
 
     changeFolderState(newTree);
     try {
@@ -141,10 +149,6 @@ export default function useFoldersHandle(): IFoldersHandle {
     }
   };
 
-  const onToastFolderIsFull = (isCabinetToast: boolean) => {
-    return isCabinetToast ? onCabinetIsFullToast() : onFolderIsFullToast();
-  };
-
   // 폴더 생성 (폴더 길이가 8개 이상되면 토스트 알림) // 부모가 보관함이면 토스트 보관함 알림으로 변경
   const onCreateFolder = useCallback(
     async (parentId: ItemId) => {
@@ -187,10 +191,10 @@ export default function useFoldersHandle(): IFoldersHandle {
     emoji: string,
   ) => {
     try {
-      await renameFolder(itemId, name);
-      await updateFolderEmoji(itemId, emoji);
+      await updateFolder(itemId, name, emoji);
       changeFolderState(mutateTree(folders, itemId, { data: { name, emoji } }));
       queryClient.invalidateQueries(QueryKey.SUBFOLDER_CONTENTS);
+      queryClient.invalidateQueries(QueryKey.BOOKMARK_CONTENTS);
     } catch (e) {
       console.log('폴더 이름, 이모지 수정에 실패했습니다');
     }
