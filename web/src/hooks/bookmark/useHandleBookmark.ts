@@ -1,6 +1,11 @@
 /* eslint-disable no-console */
 import { ItemId } from '@atlaskit/tree';
-import { deleteBookmark, moveBookmark, updateBookmark } from 'api/bookmarkAPI';
+import {
+  deleteBookmark,
+  moveBookmark,
+  restoreBookmark,
+  updateBookmark,
+} from 'api/bookmarkAPI';
 import { useQueryClient } from 'react-query';
 import { QueryKey } from 'utils/const';
 
@@ -15,6 +20,7 @@ interface IUseHandleBookmark {
     bookmarkIdList: string[],
     nextFolderId: ItemId,
   ) => Promise<void>;
+  onRestoreBookmark: (bookmarkIdList: string[]) => Promise<void>;
 }
 
 export default function useHandleBookmark(): IUseHandleBookmark {
@@ -64,9 +70,23 @@ export default function useHandleBookmark(): IUseHandleBookmark {
     }
   };
 
+  const onRestoreBookmark = async (bookmarkIdList: string[]) => {
+    console.log(bookmarkIdList);
+    try {
+      const requestData = {
+        bookmarkIdList,
+      };
+      await restoreBookmark(requestData);
+      queryClient.invalidateQueries(QueryKey.BOOKMARK_CONTENTS);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return {
     onEditBookmark,
     onDeleteBookmark,
     onMoveBookmark,
+    onRestoreBookmark,
   };
 }

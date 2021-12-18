@@ -146,9 +146,8 @@ function BookmarkList(props: Props): ReactElement {
           isModal={isDeleteModal}
           onToggleModal={onToggleDeleteModal}
           title="선택한 도토리를 삭제할까요?"
-          content="삭제된 도토리는 완전히 사라져요!"
+          content="삭제된 도토리는 모두 <br/> 휴지통으로 들어가요!"
           buttonName="삭제"
-          isOneLine
           onClick={() => onDeleteBookmark([isOpenMenu.id])}
         />
       )}

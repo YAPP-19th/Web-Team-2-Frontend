@@ -11,6 +11,7 @@ import { bookmarks } from 'models/bookmark';
 import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { selectedFolderState } from 'recoil/atoms/folderState';
+import Path from 'routes/path';
 import styled from 'styled-components';
 import { BOOKMARK_KINDS } from 'utils/const';
 import BookmarkList from './BookmarkList';
@@ -45,7 +46,9 @@ function Bookmark(props: Props): ReactElement | null {
   const [menuText, setMenuText] = useState<string>('최신순');
   const [isDeleteModal, onToggleDeleteModal] = useToggle();
   const [isMoveModal, onToggleMoveModal] = useToggle();
-  const { onDeleteBookmark, onMoveBookmark } = useHandleBookmark();
+  const [isRestoreModal, onToggleRestoreModal] = useToggle();
+  const { onDeleteBookmark, onMoveBookmark, onRestoreBookmark } =
+    useHandleBookmark();
   const [selectedFolder, setSelectedFolder] =
     useRecoilState(selectedFolderState);
 
@@ -127,6 +130,15 @@ function Bookmark(props: Props): ReactElement | null {
     onToggleMoveModal();
   };
 
+  const onRestoreBookmarkList = () => {
+    const checkedBookmarkList = bookmarkList
+      .filter((bookmark) => bookmark.checked)
+      .map((bookmark) => bookmark.id);
+    if (checkedBookmarkList.length === 0) return;
+    onRestoreBookmark(checkedBookmarkList);
+    onToggleRestoreModal();
+  };
+
   const onActiveSelectFolder = () => {
     setSelectedFolder({
       id: folderId as ItemId,
@@ -143,9 +155,11 @@ function Bookmark(props: Props): ReactElement | null {
           IsActiveSelectBox={IsActiveSelectBox}
           isAllChecked={isAllChecked}
           onToggleAllChecked={onToggleAllChecked}
-          onToggleDeleteModal={onToggleDeleteModal}
+          onToggleModal={onToggleDeleteModal}
           onToggleMoveModal={onToggleMoveModal}
           onActiveSelectFolder={onActiveSelectFolder}
+          IsRestore={path === Path.TrashPage}
+          onToggleRestoreModal={onToggleRestoreModal}
         />
         <FilterBox
           onRemindToggle={onRemindToggle}
@@ -177,9 +191,8 @@ function Bookmark(props: Props): ReactElement | null {
           isModal={isDeleteModal}
           onToggleModal={onToggleDeleteModal}
           title="선택한 도토리를 삭제할까요?"
-          content="삭제된 도토리는 완전히 사라져요!"
+          content="삭제된 도토리는 모두 <br/> 휴지통으로 들어가요!"
           buttonName="삭제"
-          isOneLine
           onClick={onDeleteBookmarkList}
         />
       )}
@@ -189,6 +202,17 @@ function Bookmark(props: Props): ReactElement | null {
           isModal={isMoveModal}
           onToggleModal={onToggleMoveModal}
           onClick={onMoveBookmarkList}
+        />
+      )}
+
+      {isRestoreModal && (
+        <SmallModal
+          isModal={isRestoreModal}
+          onToggleModal={onToggleRestoreModal}
+          title="선택한 도토리를 원래 위치로 복원할까요?"
+          content="기존 보관 위치가 삭제된 도토리는 <br/> '모든 도토리'에서 확인할 수 있어요!"
+          buttonName="복원"
+          onClick={onRestoreBookmarkList}
         />
       )}
     </>

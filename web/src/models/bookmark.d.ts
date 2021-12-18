@@ -76,6 +76,10 @@ export namespace bookmarks {
 
   export interface IBookmarkUpdateResponse {}
 
+  export interface IBookmarkRestoreRequest {
+    bookmarkIdList: string[];
+  }
+
   export type BookmarkFilterType =
     | 'saveTime,desc'
     | 'saveTime,asc'

@@ -1,5 +1,6 @@
 import { ItemId } from '@atlaskit/tree';
 import { Client } from 'api/http';
+import { AxiosResponse } from 'axios';
 import { bookmarks } from 'models/bookmark';
 
 /**
@@ -110,4 +111,13 @@ export const updateBookmark = (
     bookmarks.IBookmarkUpdateRequest,
     bookmarks.IBookmarkUpdateResponse
   >(`api/v1/bookmark/${bookmarkId}`, requestData);
+};
+
+export const restoreBookmark = (
+  requestData: bookmarks.IBookmarkRestoreRequest,
+): Promise<AxiosResponse> => {
+  return Client.patchAxios<bookmarks.IBookmarkRestoreRequest, AxiosResponse>(
+    `api/v1/trash/restore`,
+    requestData,
+  );
 };
