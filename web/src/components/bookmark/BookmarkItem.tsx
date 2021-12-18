@@ -16,6 +16,8 @@ import useToasts from 'hooks/common/useToasts';
 import { bookmarks } from 'models/bookmark';
 import React, { ReactElement, useMemo, useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { userState } from 'recoil/atoms/userState';
 import styled from 'styled-components';
 import { IBookmarkMenu, IBookmarkOpenMenu } from './BookmarkList';
 import BookmarkMenu from './BookmarkMenu';
@@ -223,29 +225,15 @@ function BookmarkItem({
   } = bookmark;
 
   const path = useParams();
+  const user = useRecoilValue(userState);
+  console.log(user);
   const [isOpenCopyToast, onCopyToast] = useToasts();
   const [isOpenRemindToast, onRemindToast] = useToasts();
+  const [isOpenRemindReco, onRemindRecoToast] = useToasts();
   const { onEditBookmark } = useHandleBookmark();
   const copyUrlRef = useRef<HTMLTextAreaElement>(null);
 
   const { onToggleOpenMenu } = onToggleModal;
-
-  // const { mutateBookmarkDelete, mutateBookmarkMove, mutateBookmarkUpdate } =
-  //   useBookmarkMutationQuery(id);
-
-  // // mutateBookmarkDelete();
-
-  // const updateRequestData: bookmarks.IBookmarkUpdateRequest = {
-  //   title,
-  //   remind: false,
-  // };
-  // mutateBookmarkUpdate(updateRequestData);
-
-  // // const moveRequestData: bookmarks.IBookmarkMoveRequest = {
-  // //   prevFolderId: 'prev',
-  // //   nextFolderId: 'next',
-  // // };
-  // // mutateBookmarkMove(moveRequestData);
 
   const onCopyUrl = async () => {
     copyUrlRef.current?.select();
@@ -270,6 +258,15 @@ function BookmarkItem({
     } catch (e) {
       console.log(e);
     }
+  };
+
+  const onRemindToggleButton = () => {
+    if (!remindTime && !user.remindToggle) {
+      onRemindRecoToast();
+      return;
+    }
+    onRemindToast();
+    onEditBookmark(id, title, !remindTime);
   };
 
   return (
@@ -332,10 +329,7 @@ function BookmarkItem({
 
             <BookmarkOption>
               <OptionButton
-                onClick={() => {
-                  onRemindToast();
-                  onEditBookmark(id, title, !remindTime);
-                }}
+                onClick={onRemindToggleButton}
                 disabled={isOpenRemindToast}
               >
                 {remindTime ? <BellSelectedIcon /> : <BellUnSelectedIcon />}
@@ -372,6 +366,7 @@ function BookmarkItem({
         isOpen={isOpenRemindToast}
         type={remindTime ? 'remindSetting' : 'remindDisabled'}
       />
+      <Toasts isOpen={isOpenRemindReco} type="remindRecommendation" />
     </BookmarkItemWrapper>
   );
 }
