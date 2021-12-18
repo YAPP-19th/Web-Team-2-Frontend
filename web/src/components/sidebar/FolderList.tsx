@@ -142,7 +142,7 @@ function FolderList({
   };
 
   useEffect(() => {
-    if (params.folderId) {
+    if (params.folderId && folders.rootId === 'root') {
       if (!folders.items[params.folderId]) {
         navigate('/');
       }
