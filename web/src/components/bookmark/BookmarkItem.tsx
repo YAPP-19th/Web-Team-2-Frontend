@@ -14,6 +14,7 @@ import useToasts from 'hooks/common/useToasts';
 import { bookmarks } from 'models/bookmark';
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
+import { selectedFolderState } from 'recoil/atoms/folderState';
 import styled from 'styled-components';
 import { IBookmarkMenu, IBookmarkOpenMenu } from './BookmarkList';
 import BookmarkMenu from './BookmarkMenu';

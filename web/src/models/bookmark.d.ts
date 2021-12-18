@@ -61,8 +61,8 @@ export namespace bookmarks {
   export interface IBookmarkDeleteResponse {}
 
   export interface IBookmarkMoveRequest {
-    prevFolderId: string;
-    nextFolderId: string;
+    bookmarkIdList: string[];
+    nextFolderId: ItemId;
   }
 
   export interface IBookmarkMoveResponse {}

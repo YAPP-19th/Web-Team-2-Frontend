@@ -1,4 +1,6 @@
+import { ItemId } from '@atlaskit/tree';
 import SmallModal from 'components/common/SmallModal';
+import FolderMoveModal from 'components/sidebar/FolderMoveModal';
 import {
   getCategoryOfBookmark,
   useBookmarkQuery,
@@ -7,6 +9,8 @@ import useHandleBookmark from 'hooks/bookmark/useHandleBookmark';
 import useToggle from 'hooks/common/useToggle';
 import { bookmarks } from 'models/bookmark';
 import React, { ReactElement, useEffect, useMemo, useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { selectedFolderState } from 'recoil/atoms/folderState';
 import styled from 'styled-components';
 import { BOOKMARK_KINDS } from 'utils/const';
 import BookmarkList from './BookmarkList';
@@ -40,7 +44,9 @@ function Bookmark(props: Props): ReactElement | null {
   const [isOpenFilterMenu, onToggleFilterMenu] = useToggle(false);
   const [menuText, setMenuText] = useState<string>('최신순');
   const [isDeleteModal, onToggleDeleteModal] = useToggle();
-  const { onDeleteBookmark } = useHandleBookmark();
+  const [isMoveModal, onToggleMoveModal] = useToggle();
+  const { onDeleteBookmark, onMoveBookmark } = useHandleBookmark();
+  const selectedFolder = useRecoilValue(selectedFolderState);
 
   const onChangeMenuText = (text: string) => {
     setMenuText(text);
@@ -56,6 +62,8 @@ function Bookmark(props: Props): ReactElement | null {
     bookmarkCategory.kind === BOOKMARK_KINDS.FOLDER_DOTORI.kind
       ? lastPath
       : undefined;
+
+  console.log('folderId', folderId);
 
   const { data } = useBookmarkQuery(
     bookmarkCategory,
@@ -111,6 +119,15 @@ function Bookmark(props: Props): ReactElement | null {
     onToggleDeleteModal();
   };
 
+  const onMoveBookmarkList = async () => {
+    const checkedBookmarkList = bookmarkList
+      .filter((bookmark) => bookmark.checked)
+      .map((bookmark) => bookmark.id);
+    if (checkedBookmarkList.length === 0) return;
+    onMoveBookmark(checkedBookmarkList, selectedFolder.id);
+    onToggleDeleteModal();
+  };
+
   if (!data) return null;
 
   console.log('data', data);
@@ -123,6 +140,7 @@ function Bookmark(props: Props): ReactElement | null {
           isAllChecked={isAllChecked}
           onToggleAllChecked={onToggleAllChecked}
           onToggleDeleteModal={onToggleDeleteModal}
+          onToggleMoveModal={onToggleMoveModal}
         />
         <FilterBox
           onRemindToggle={onRemindToggle}
@@ -158,6 +176,13 @@ function Bookmark(props: Props): ReactElement | null {
           buttonName="삭제"
           isOneLine
           onClick={onDeleteBookmarkList}
+        />
+      )}
+
+      {isMoveModal && (
+        <FolderMoveModal
+          isModal={isMoveModal}
+          onToggleModal={onToggleMoveModal}
         />
       )}
     </>

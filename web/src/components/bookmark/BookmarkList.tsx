@@ -7,6 +7,8 @@ import useHandleBookmark from 'hooks/bookmark/useHandleBookmark';
 import useToggle from 'hooks/common/useToggle';
 import { bookmarks } from 'models/bookmark';
 import React, { ReactElement, useState } from 'react';
+import { useSetRecoilState } from 'recoil';
+import { selectedFolderState } from 'recoil/atoms/folderState';
 import styled from 'styled-components';
 import BookmarkEditModal from './BookmarkEditModal';
 import BookmarkItem from './BookmarkItem';
@@ -63,6 +65,7 @@ function BookmarkList(props: Props): ReactElement {
   const [isDeleteModal, onToggleDeleteModal] = useToggle();
   const [isEditModal, onToggleEditModal] = useToggle();
   const [isMoveModal, onToggleMoveModal] = useToggle();
+  const setSelectedFolder = useSetRecoilState(selectedFolderState);
 
   const onToggleOpenMenu = (
     id: string,
@@ -72,6 +75,11 @@ function BookmarkList(props: Props): ReactElement {
     folderId?: ItemId,
   ) => {
     setIsOpenMenu({ ...isOpenMenu, id, title, isOpen, remindTime, folderId });
+    setSelectedFolder({
+      id: folderId as ItemId,
+      name: '이동',
+      emoji: '이동',
+    });
   };
 
   const onToggleModal: IBookmarkMenu = {

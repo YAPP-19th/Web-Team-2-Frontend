@@ -89,13 +89,12 @@ export const deleteBookmark = (
  * @returns Promise<bookmarks.IBookmarkMoveResponse>
  */
 export const moveBookmark = (
-  bookmarkId: string,
   requestData: bookmarks.IBookmarkMoveRequest,
 ): Promise<bookmarks.IBookmarkMoveResponse> => {
   return Client.patchAxios<
     bookmarks.IBookmarkMoveRequest,
     bookmarks.IBookmarkMoveResponse
-  >(`api/v1/bookmark/move/${bookmarkId}`, requestData);
+  >(`api/v1/bookmark/moveList`, requestData);
 };
 
 /**
