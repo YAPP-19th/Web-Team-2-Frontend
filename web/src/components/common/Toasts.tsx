@@ -35,13 +35,13 @@ interface IToastsStyledProps {
 
 const ToastsStyled = styled.div<IToastsStyledProps>`
   width: ${(props) => (props.size === 'big' ? '471px' : '273px')};
+  margin-left: ${(props) => (props.size === 'big' ? '-235px' : '-137px')};
   height: 42px;
   background-color: rgba(0, 0, 0, 0.8);
   border-radius: 4px;
   position: fixed;
   bottom: 140px;
   left: 50%;
-  transform: translate(-50%, 0);
   display: flex;
   align-items: center;
   justify-content: center;

@@ -1,6 +1,8 @@
 /* eslint-disable no-alert */
 /* eslint-disable no-console */
 import { uploadProfileImage, nicknameCheck, changeProfile } from 'api/userAPI';
+import Toasts from 'components/common/Toasts';
+import useToasts from 'hooks/common/useToasts';
 import React, { ReactElement, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { userState } from 'recoil/atoms/userState';
@@ -17,6 +19,7 @@ const ProfileEditFormWrapper = styled.div`
 
 function ProfileEditForm(): ReactElement {
   const [user, setUser] = useRecoilState(userState);
+  const [isOpenProfileEditToast, onProfileEditToast] = useToasts();
   const [errorMessage, setErrorMessage] = useState('');
   const [form, setForm] = useState({
     profileImage: user.image,
@@ -24,7 +27,6 @@ function ProfileEditForm(): ReactElement {
     nickname: user.name,
   });
   const { nickname, profileImage } = form;
-  console.log(form);
   // 닉네임 인풋 상태 변경
   const onChangeNickname = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, nickname: e.target.value });
@@ -96,29 +98,33 @@ function ProfileEditForm(): ReactElement {
           }),
         );
       }
+      onProfileEditToast();
     } catch (e) {
       console.log(e);
     }
   };
 
   return (
-    <ProfileEditFormWrapper>
-      <ProfileImageForm
-        form={form}
-        onChangeProfileImage={onChangeProfileImage}
-        onDeleteImage={onDeleteImage}
-        onImageUpload={onImageUpload}
-      />
+    <>
+      <ProfileEditFormWrapper>
+        <ProfileImageForm
+          form={form}
+          onChangeProfileImage={onChangeProfileImage}
+          onDeleteImage={onDeleteImage}
+          onImageUpload={onImageUpload}
+        />
 
-      <ProfileNicknameForm
-        nickname={nickname}
-        errorMessage={errorMessage}
-        onChangeNickname={onChangeNickname}
-        onFocusOutNickname={onFocusOutNickname}
-      />
+        <ProfileNicknameForm
+          nickname={nickname}
+          errorMessage={errorMessage}
+          onChangeNickname={onChangeNickname}
+          onFocusOutNickname={onFocusOutNickname}
+        />
 
-      <ProfileEditButtonGroup onEditSubmit={onEditSubmit} />
-    </ProfileEditFormWrapper>
+        <ProfileEditButtonGroup onEditSubmit={onEditSubmit} />
+      </ProfileEditFormWrapper>
+      <Toasts isOpen={isOpenProfileEditToast} type="editProfile" />
+    </>
   );
 }
 
