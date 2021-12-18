@@ -1,5 +1,6 @@
 import { ItemId } from '@atlaskit/tree';
 import { Client } from 'api/http';
+import { AxiosResponse } from 'axios';
 import { bookmarks } from 'models/bookmark';
 
 /**
@@ -75,11 +76,12 @@ export const getFolderBookmark = (
  * @returns Promise<bookmarks.IBookmarkDeleteResponse>
  */
 export const deleteBookmark = (
-  bookmarkId: string,
+  bookmarkIdList: string[],
 ): Promise<bookmarks.IBookmarkDeleteResponse> => {
-  return Client.deleteAxios<bookmarks.IBookmarkDeleteResponse>(
-    `api/v1/bookmark/${bookmarkId}`,
-  );
+  return Client.postAxios<
+    bookmarks.IBookmarkDeleteRequest,
+    bookmarks.IBookmarkDeleteResponse
+  >(`api/v1/bookmark/delete`, { idList: bookmarkIdList });
 };
 
 /**
@@ -88,13 +90,12 @@ export const deleteBookmark = (
  * @returns Promise<bookmarks.IBookmarkMoveResponse>
  */
 export const moveBookmark = (
-  bookmarkId: string,
   requestData: bookmarks.IBookmarkMoveRequest,
 ): Promise<bookmarks.IBookmarkMoveResponse> => {
-  return Client.patchAxios<
+  return Client.postAxios<
     bookmarks.IBookmarkMoveRequest,
     bookmarks.IBookmarkMoveResponse
-  >(`api/v1/bookmark/move/${bookmarkId}`, requestData);
+  >(`api/v1/bookmark/moveList`, requestData);
 };
 
 /**
@@ -110,4 +111,22 @@ export const updateBookmark = (
     bookmarks.IBookmarkUpdateRequest,
     bookmarks.IBookmarkUpdateResponse
   >(`api/v1/bookmark/${bookmarkId}`, requestData);
+};
+
+export const restoreBookmark = (
+  requestData: bookmarks.IBookmarkRestoreRequest,
+): Promise<AxiosResponse> => {
+  return Client.patchAxios<bookmarks.IBookmarkRestoreRequest, AxiosResponse>(
+    `api/v1/trash/restore`,
+    requestData,
+  );
+};
+
+export const truncateBookmark = (
+  requestData: bookmarks.IBookmarkTruncateRequest,
+): Promise<AxiosResponse> => {
+  return Client.postAxios<bookmarks.IBookmarkTruncateRequest, AxiosResponse>(
+    `api/v1/trash/truncate`,
+    requestData,
+  );
 };

@@ -1,18 +1,16 @@
-import { FolderIdParams } from 'components/subFolders';
 import React, { ReactElement } from 'react';
-import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { isFolderPage } from 'utils/checkFolderPage';
 import FolderPath from './FolderPath';
 import GlobalPath from './GlobalPath';
 
-const PagePathWrapper = styled.div`
-  margin-bottom: 28px;
-`;
+interface PagePathProps {
+  folderId: string;
+}
 
-function PagePath(): ReactElement | null {
-  const { folderId } = useParams<keyof FolderIdParams>() as FolderIdParams;
+const PagePathWrapper = styled.div``;
 
+function PagePath({ folderId }: PagePathProps): ReactElement | null {
   return (
     <PagePathWrapper>
       {isFolderPage(folderId) ? (

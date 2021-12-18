@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useCallback, useEffect, useState } from 'react';
 import Tree, {
   ItemId,
   mutateTree,
@@ -8,7 +8,13 @@ import Tree, {
 import styled, { css } from 'styled-components';
 import FolderItemIcon from 'components/sidebar/FolderItemIcon';
 import useFoldersQueries from 'hooks/folder/useFoldersQueries';
-import { initialFolderState } from 'recoil/atoms/folderState';
+import {
+  initialFolderState,
+  selectedFolderState,
+} from 'recoil/atoms/folderState';
+import { useRecoilState } from 'recoil';
+import { getParentFolders } from 'api/folderAPI';
+import produce from 'immer';
 
 const FolderListWrapper = styled.div`
   position: relative;
@@ -69,8 +75,9 @@ const FolderTitle = styled.span<{ active: boolean }>`
 
 function FolderListInModal(): ReactElement {
   const { data } = useFoldersQueries();
-
   const [folders, setFolders] = useState<TreeData>(initialFolderState);
+  const [selectedFolder, setSelectedFolder] =
+    useRecoilState(selectedFolderState);
 
   useEffect(() => {
     if (!data) return;
@@ -84,6 +91,29 @@ function FolderListInModal(): ReactElement {
   const onCollapseFolder = (itemId: ItemId) => {
     setFolders(mutateTree(folders, itemId, { isExpanded: false }));
   };
+
+  const onExpandParentFolder = useCallback(async () => {
+    try {
+      const parentFolderIdList = await getParentFolders(selectedFolder.id);
+      setFolders((prev) =>
+        produce(prev, (draft) => {
+          const newObj = draft;
+          parentFolderIdList.forEach((parentFolderItem) => {
+            if (String(parentFolderItem.folderId) !== selectedFolder.id) {
+              newObj.items[parentFolderItem.folderId].isExpanded = true;
+            }
+          });
+        }),
+      );
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.log('부모 폴더 id 조회 실패');
+    }
+  }, [selectedFolder]);
+
+  useEffect(() => {
+    if (selectedFolder.id && data?.rootId === 'root') onExpandParentFolder();
+  }, [selectedFolder.id, data]);
 
   const renderFolderItem = ({
     item,
@@ -99,8 +129,10 @@ function FolderListInModal(): ReactElement {
           {...provided.dragHandleProps}
         >
           <FolderItemBlock
-            onMouseDown={() =>
-              item.isExpanded && item.children.length > 0 && onCollapse(item.id)
+            onClick={() =>
+              item.children.length > 0 && item.isExpanded
+                ? onCollapse(item.id)
+                : onExpand(item.id)
             }
           >
             <FolderLeftBox>
@@ -109,7 +141,18 @@ function FolderListInModal(): ReactElement {
                 onCollapse={onCollapse}
                 onExpand={onExpand}
               />
-              <FolderTitle active={false}>{item.data.name}</FolderTitle>
+              <FolderTitle
+                active={selectedFolder.id === item.id}
+                onClick={() => {
+                  setSelectedFolder({
+                    id: item.id,
+                    name: item.data.name,
+                    emoji: item.data.emoji,
+                  });
+                }}
+              >
+                {item.data.name}
+              </FolderTitle>
             </FolderLeftBox>
           </FolderItemBlock>
         </FolderItemWrapper>

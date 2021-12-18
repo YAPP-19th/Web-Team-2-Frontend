@@ -23,6 +23,7 @@ const theme: DefaultTheme = {
     shadow0: 'rgba(0, 0, 0, 0.15)',
     shadow1: 'rgba(0, 174, 199, 0.1)',
     shadow2: 'rgba(0, 0, 0, 0.1)',
+    shadow3: 'rgba(0, 0, 0, 0.08)',
     hover0: 'rgba(72, 191, 145, 0.1)',
   },
 };

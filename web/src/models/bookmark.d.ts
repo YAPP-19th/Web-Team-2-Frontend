@@ -9,13 +9,17 @@ export namespace bookmarks {
     description: null | string;
     nickname?: string;
     folder?: string;
-    folderId?: ItemId;
+    folderId: ItemId;
     id: string;
     link: string;
     remindTime: null | LocalDateTime;
     saveTime: string;
     title: string;
     userId: number;
+    image: string;
+    checked: boolean;
+    folderName: string;
+    folderEmoji: string;
   }
 
   export type bookmarkSortType = {
@@ -52,11 +56,15 @@ export namespace bookmarks {
     numOfPage: number;
   };
 
+  export interface IBookmarkDeleteRequest {
+    idList: string[];
+  }
+
   export interface IBookmarkDeleteResponse {}
 
   export interface IBookmarkMoveRequest {
-    prevFolderId: string;
-    nextFolderId: string;
+    bookmarkIdList: string[];
+    nextFolderId: ItemId;
   }
 
   export interface IBookmarkMoveResponse {}
@@ -67,4 +75,18 @@ export namespace bookmarks {
   }
 
   export interface IBookmarkUpdateResponse {}
+
+  export interface IBookmarkRestoreRequest {
+    bookmarkIdList: string[];
+  }
+
+  export interface IBookmarkTruncateRequest {
+    bookmarkIdList: string[];
+  }
+
+  export type BookmarkFilterType =
+    | 'saveTime,desc'
+    | 'saveTime,asc'
+    | 'clickCount,desc'
+    | 'clickCount,asc';
 }

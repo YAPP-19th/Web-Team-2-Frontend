@@ -1,10 +1,21 @@
 import { DropDownIcon } from 'assets/icons';
 import { UnionIMG } from 'assets/images';
+import transitions from 'assets/styles/transitions';
 import ToggleIconButton from 'components/common/ToggleIconButton';
-import useToggle from 'hooks/common/useToggle';
-import React, { ReactElement, useState } from 'react';
+import { bookmarks } from 'models/bookmark';
+import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import FilterMenu from './FilterMenu';
+
+interface FilterBoxProps {
+  onRemindToggle: () => void;
+  isRemind: boolean;
+  onFiltering: (filterType: bookmarks.BookmarkFilterType) => void;
+  isOpenFilterMenu: boolean;
+  onToggleFilterMenu: () => void;
+  menuText: string;
+  onChangeMenuText: (text: string) => void;
+}
 
 const FilterBoxWrapper = styled.div`
   display: flex;
@@ -24,10 +35,14 @@ const RemindTextBallon = styled.div`
   left: 18px;
   bottom: 36px;
   display: none;
+  animation: ${transitions.fadeIn} 0.4s ease-in-out;
 `;
 
 const RemindToggleText = styled.span`
   margin-right: 12px;
+`;
+
+const BallonStandard = styled.div`
   &:hover ${RemindTextBallon} {
     display: block;
   }
@@ -58,29 +73,29 @@ const FilterMenuButton = styled.div`
 
 const FilterMenuText = styled.span``;
 
-function FilterBox(): ReactElement {
-  const [isRemind, onRemindToggle] = useToggle();
-  const [isOpenFilterMenu, onToggleFilterMenu] = useToggle(false);
-  const [menuText, setMenuText] = useState<string>('최신순');
-
-  const onChangeMenuText = (text: string) => {
-    setMenuText(text);
-  };
-
+function FilterBox({
+  isRemind,
+  onRemindToggle,
+  onFiltering,
+  isOpenFilterMenu,
+  menuText,
+  onChangeMenuText,
+  onToggleFilterMenu,
+}: FilterBoxProps): ReactElement {
   return (
     <>
       <FilterBoxWrapper>
         <RemindToggle>
-          <RemindToggleText>
-            리마인드 도토리
+          <RemindToggleText>리마인드 도토리</RemindToggleText>
+          <BallonStandard>
+            <RemindToggleButton isToggled={isRemind} onClick={onRemindToggle} />
             <RemindTextBallon>
               <BallonImage src={UnionIMG} />
               <BallonText>
                 깜빡하면 안 되는 도토리 &nbsp; 한눈에 보기!
               </BallonText>
             </RemindTextBallon>
-          </RemindToggleText>
-          <RemindToggleButton isToggled={isRemind} onClick={onRemindToggle} />
+          </BallonStandard>
         </RemindToggle>
 
         <FilterMenuButton onClick={onToggleFilterMenu}>
@@ -92,6 +107,7 @@ function FilterBox(): ReactElement {
               onToggleFilterMenu={onToggleFilterMenu}
               menuText={menuText}
               onChangeMenuText={onChangeMenuText}
+              onFiltering={onFiltering}
             />
           )}
         </FilterMenuButton>

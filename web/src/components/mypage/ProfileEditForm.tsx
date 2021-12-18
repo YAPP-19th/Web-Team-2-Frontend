@@ -1,11 +1,11 @@
 /* eslint-disable no-alert */
 /* eslint-disable no-console */
-import { changeProfileImage, nicknameCheck } from 'api/userAPI';
+import { uploadProfileImage, nicknameCheck, changeProfile } from 'api/userAPI';
 import React, { ReactElement, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { userState } from 'recoil/atoms/userState';
 import styled from 'styled-components';
-import { DEFAULT_IMAGE_FILE_NAME } from 'utils/const';
+import { DEFAULT_IMAGE_FILE_NAME, LOCAL_STORAGE_KEY } from 'utils/const';
 import ProfileEditButtonGroup from './ProfileEditButtonGroup';
 import ProfileImageForm from './ProfileImageForm';
 import ProfileNicknameForm from './ProfileNicknameForm';
@@ -16,15 +16,15 @@ const ProfileEditFormWrapper = styled.div`
 `;
 
 function ProfileEditForm(): ReactElement {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [user, setUser] = useRecoilState(userState);
+  const [errorMessage, setErrorMessage] = useState('');
   const [form, setForm] = useState({
     profileImage: user.image,
     imageFileName: DEFAULT_IMAGE_FILE_NAME,
     nickname: user.name,
   });
-  const { nickname } = form;
-
+  const { nickname, profileImage } = form;
+  console.log(form);
   // 닉네임 인풋 상태 변경
   const onChangeNickname = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, nickname: e.target.value });
@@ -40,7 +40,14 @@ function ProfileEditForm(): ReactElement {
 
   // 닉네임 인풋에서 초점을 벗어났을 시에 액션
   const onFocusOutNickname = async () => {
-    await nicknameCheck(nickname).catch((err) => console.log(err)); // TODO(dohyun) 여기다 에러처리
+    try {
+      await nicknameCheck(nickname);
+      setErrorMessage('');
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        setErrorMessage(e.message);
+      }
+    }
   };
 
   // 프로필 이미지 업로드
@@ -56,8 +63,8 @@ function ProfileEditForm(): ReactElement {
       console.log(e.target.files[0]);
 
       try {
-        const { data } = await changeProfileImage(fd);
-        onChangeProfileImage(data, e.target.files[0].name);
+        const { data } = await uploadProfileImage(fd);
+        onChangeProfileImage(data.imageUrl, e.target.files[0].name);
         console.log(data);
       } catch (err) {
         alert('이미지 업로드에 실패했습니다.');
@@ -72,7 +79,26 @@ function ProfileEditForm(): ReactElement {
 
   // 변경 내용 저장
   const onEditSubmit = async () => {
-    console.log('변경 내용 저장 ');
+    try {
+      await changeProfile(profileImage, nickname);
+      setUser({ ...user, image: profileImage, name: nickname });
+      const localStorageItem = localStorage.getItem(
+        LOCAL_STORAGE_KEY.USER_BASE_INFO,
+      );
+      if (localStorageItem) {
+        const localStorageUser = JSON.parse(localStorageItem);
+        localStorage.setItem(
+          LOCAL_STORAGE_KEY.USER_BASE_INFO,
+          JSON.stringify({
+            ...localStorageUser,
+            image: profileImage,
+            name: nickname,
+          }),
+        );
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -86,6 +112,7 @@ function ProfileEditForm(): ReactElement {
 
       <ProfileNicknameForm
         nickname={nickname}
+        errorMessage={errorMessage}
         onChangeNickname={onChangeNickname}
         onFocusOutNickname={onFocusOutNickname}
       />

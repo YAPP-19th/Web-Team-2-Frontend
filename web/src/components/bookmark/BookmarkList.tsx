@@ -7,12 +7,17 @@ import useHandleBookmark from 'hooks/bookmark/useHandleBookmark';
 import useToggle from 'hooks/common/useToggle';
 import { bookmarks } from 'models/bookmark';
 import React, { ReactElement, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { selectedFolderState } from 'recoil/atoms/folderState';
 import styled from 'styled-components';
 import BookmarkEditModal from './BookmarkEditModal';
 import BookmarkItem from './BookmarkItem';
 
 interface Props {
   bookmarkList: bookmarks.IBookmark[];
+  onToggleSingleChecked: (bookmarkId: string) => void;
+  IsActiveSelectBox: boolean;
 }
 
 export interface IBookmarkMenu {
@@ -50,7 +55,7 @@ const BlankBox = styled.div`
 `;
 
 function BookmarkList(props: Props): ReactElement {
-  const { bookmarkList } = props;
+  const { bookmarkList, onToggleSingleChecked, IsActiveSelectBox } = props;
   const [isOpenMenu, setIsOpenMenu] = useState<IBookmarkOpenMenu>({
     id: '',
     title: '',
@@ -61,6 +66,10 @@ function BookmarkList(props: Props): ReactElement {
   const [isDeleteModal, onToggleDeleteModal] = useToggle();
   const [isEditModal, onToggleEditModal] = useToggle();
   const [isMoveModal, onToggleMoveModal] = useToggle();
+  const [selectedFolder, setSelectedFolder] =
+    useRecoilState(selectedFolderState);
+
+  const path = useParams();
 
   const onToggleOpenMenu = (
     id: string,
@@ -70,6 +79,11 @@ function BookmarkList(props: Props): ReactElement {
     folderId?: ItemId,
   ) => {
     setIsOpenMenu({ ...isOpenMenu, id, title, isOpen, remindTime, folderId });
+    setSelectedFolder({
+      id: folderId as ItemId,
+      name: '이동',
+      emoji: '이동',
+    });
   };
 
   const onToggleModal: IBookmarkMenu = {
@@ -79,13 +93,31 @@ function BookmarkList(props: Props): ReactElement {
     onToggleMoveModal,
   };
 
-  const { onDeleteBookmark } = useHandleBookmark();
+  const { onDeleteBookmark, onMoveBookmark } = useHandleBookmark();
+
+  const onMoveBookmarkList = async () => {
+    onMoveBookmark([isOpenMenu.id], selectedFolder.id);
+    onToggleMoveModal();
+  };
+
+  const blackSlateType = () => {
+    switch (path.folderId) {
+      case 'search':
+        return '찾으시는 도토리가 없어요!';
+      case 'trash':
+        return '휴지통이 비어있어요!';
+      default:
+        return '아직 저장한 도토리가 없어요!';
+    }
+  };
+
+  const blackSlateText = blackSlateType();
 
   return (
     <BookmarkListWrapper>
       {bookmarkList.length === 0 && (
         <BlankBox>
-          <BlankSlate text="아직 저장한 도토리가 없어요!" />
+          <BlankSlate text={blackSlateText} />
         </BlankBox>
       )}
 
@@ -96,6 +128,8 @@ function BookmarkList(props: Props): ReactElement {
           key={index}
           isOpenMenu={isOpenMenu}
           onToggleModal={onToggleModal}
+          onToggleSingleChecked={onToggleSingleChecked}
+          IsActiveSelectBox={IsActiveSelectBox}
         />
       ))}
 
@@ -112,18 +146,17 @@ function BookmarkList(props: Props): ReactElement {
           isModal={isDeleteModal}
           onToggleModal={onToggleDeleteModal}
           title="선택한 도토리를 삭제할까요?"
-          content="삭제된 도토리는 완전히 사라져요!"
+          content="삭제된 도토리는 모두 <br/> 휴지통으로 들어가요!"
           buttonName="삭제"
-          isOneLine
-          onClick={() => onDeleteBookmark(isOpenMenu.id)}
+          onClick={() => onDeleteBookmark([isOpenMenu.id])}
         />
       )}
 
       {isMoveModal && (
         <FolderMoveModal
-          prevFoldeName="dd"
           isModal={isMoveModal}
           onToggleModal={onToggleMoveModal}
+          onClick={onMoveBookmarkList}
         />
       )}
     </BookmarkListWrapper>

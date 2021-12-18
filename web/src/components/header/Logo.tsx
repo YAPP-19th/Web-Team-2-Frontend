@@ -30,9 +30,7 @@ function Logo(): ReactElement {
 
   return (
     <HeaderLogo>
-      <LogoWithText
-        href={user.name ? Path.Home : 'https://dotoriham2.netlify.app/'}
-      >
+      <LogoWithText href={user.name ? Path.Home : 'https://dotoriham.kr/'}>
         <LogoGreenIcon />
         <LogoSpan>도토리함</LogoSpan>
       </LogoWithText>

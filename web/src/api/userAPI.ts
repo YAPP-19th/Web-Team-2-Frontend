@@ -4,17 +4,25 @@ import { BASE_URL, Client } from './http';
 
 export const nicknameCheck = (nickName: string): Promise<AxiosResponse> => {
   return Client.postAxios('api/v1/user/nickNameCheck', {
-    nickName: { nickName },
+    nickName,
   });
 };
 
-export const changeProfileImage = (image: FormData): Promise<AxiosResponse> => {
+export const uploadProfileImage = (image: FormData): Promise<AxiosResponse> => {
   const { accessToken, refreshToken } = getTokens();
-  return axios.post(`${BASE_URL}/api/v1/user/changeProfileImage`, image, {
+  return axios.post(`${BASE_URL}/api/v1/user/uploadProfileImage`, image, {
     headers: {
       'Content-Type': 'multipart/form-data',
       accessToken: `Bearer ${accessToken}`,
       refreshToken: `Bearer ${refreshToken}`,
     },
   });
+};
+
+export const changeProfile = (
+  profileImageUrl: string,
+  name: string,
+): Promise<AxiosResponse> => {
+  const body = { profileImageUrl, name };
+  return Client.postAxios('api/v1/user/changeProfile', body);
 };

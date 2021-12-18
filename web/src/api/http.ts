@@ -91,6 +91,8 @@ Client.intercept().response.use(
         throw new Error('Not Found');
       case ERROR_STATUS_CODE.INTERNAL_SERVER_ERROR:
         throw new Error('Server Error');
+      case ERROR_STATUS_CODE.CONFLICT:
+        throw new Error(error.response.data.message);
       default:
         throw new Error('Unknown Error');
     }

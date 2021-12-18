@@ -1,4 +1,5 @@
 import { ArrowSide16Icon } from 'assets/icons';
+import DefaultLoading from 'components/common/DefaultLoading';
 import usePagePathQueries from 'hooks/common/usePagePathQueries';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
@@ -14,7 +15,7 @@ function FolderPath({
 }: {
   folderIdParams: string;
 }): ReactElement | null {
-  const { data } = usePagePathQueries(folderIdParams);
+  const { data, isFetching } = usePagePathQueries(folderIdParams);
 
   if (!data) return null;
 
@@ -22,6 +23,7 @@ function FolderPath({
   const LAST_FOLDER_INFO = data[data.length - 1];
   const NUMBER_OF_FOLDERS = data.length - 1;
 
+  if (isFetching) return <DefaultLoading />;
   return (
     <FolderPathList>
       {data.length <= 2 ? (

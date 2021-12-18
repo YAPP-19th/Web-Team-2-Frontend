@@ -24,7 +24,9 @@ export default function useFoldersLoad(): void {
         produce(prev, (draft) => {
           const newObj = draft;
           parentFolderIdList.forEach((parentFolderItem) => {
-            newObj.items[parentFolderItem.folderId].isExpanded = true;
+            if (String(parentFolderItem.folderId) !== activeFolderId) {
+              newObj.items[parentFolderItem.folderId].isExpanded = true;
+            }
           });
         }),
       );

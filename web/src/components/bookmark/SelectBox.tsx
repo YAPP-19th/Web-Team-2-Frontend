@@ -1,12 +1,17 @@
 import CheckBox from 'components/common/CheckBox';
-import { bookmarks } from 'models/bookmark';
-import React, { ReactElement, useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { selectedBookmarksState } from 'recoil/atoms/bookmarkState';
+import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
 interface SelectBoxProps {
-  bookmarkList: bookmarks.IBookmark[];
+  IsActiveSelectBox: boolean;
+  onToggleAllChecked: () => void;
+  isAllChecked: boolean;
+  onToggleDeleteModal: () => void;
+  onToggleMoveModal: () => void;
+  onActiveSelectFolder: () => void;
+  onToggleRestoreModal: () => void;
+  onToggleTruncateModal: () => void;
+  IsRestore?: boolean;
 }
 
 const SelectBoxWrapper = styled.div`
@@ -39,39 +44,47 @@ const Option = styled.div`
   cursor: pointer;
 `;
 
-function SelectBox({ bookmarkList }: SelectBoxProps): ReactElement {
-  const [isChecked, setIsChecked] = useState(false);
-  const [selectedBookmarks, setSelectedBookmarks] = useRecoilState(
-    selectedBookmarksState,
-  );
-
-  const onCheck = () => {
-    setIsChecked(!isChecked);
-    setSelectedBookmarks(
-      selectedBookmarks.length === bookmarkList.length ? [] : bookmarkList,
-    );
-  };
-
-  useEffect(() => {
-    if (bookmarkList.length > 0) {
-      setIsChecked(selectedBookmarks.length === bookmarkList.length);
-    }
-  }, [selectedBookmarks, bookmarkList]);
-
+function SelectBox({
+  IsActiveSelectBox,
+  onToggleAllChecked,
+  isAllChecked,
+  onToggleDeleteModal,
+  onToggleMoveModal,
+  onActiveSelectFolder,
+  onToggleRestoreModal,
+  onToggleTruncateModal,
+  IsRestore,
+}: SelectBoxProps): ReactElement {
   return (
     <SelectBoxWrapper>
       <SelectForm>
         <SelectText>선택</SelectText>
         <SelectButton
-          onClick={onCheck}
+          onClick={onToggleAllChecked}
           variant="secondary"
-          isChecked={isChecked}
+          isChecked={isAllChecked}
         />
       </SelectForm>
-      {selectedBookmarks.length > 0 && (
+      {IsActiveSelectBox && (
         <SelectOption>
-          <Option>삭제</Option>
-          <Option>이동</Option>
+          {IsRestore ? (
+            <Option onClick={onToggleRestoreModal}>복원</Option>
+          ) : (
+            <Option
+              onClick={() => {
+                onActiveSelectFolder();
+                onToggleMoveModal();
+              }}
+            >
+              이동
+            </Option>
+          )}
+
+          <Option
+            onClick={IsRestore ? onToggleTruncateModal : onToggleDeleteModal}
+          >
+            삭제
+          </Option>
         </SelectOption>
       )}
     </SelectBoxWrapper>

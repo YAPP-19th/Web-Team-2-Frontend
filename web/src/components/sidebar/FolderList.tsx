@@ -251,9 +251,10 @@ function FolderList({
 
       {isMoveModal && (
         <FolderMoveModal
-          prevFoldeName={selectedFolder.name}
           isModal={isMoveModal}
           onToggleModal={onToggleMoveModal}
+          // eslint-disable-next-line no-console
+          onClick={() => console.log('dd')}
         />
       )}
     </FolderListWrapper>
