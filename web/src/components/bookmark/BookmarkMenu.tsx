@@ -74,7 +74,14 @@ function BookmarkMenu({
     <BookmarkMenuWrapper ref={targetEl}>
       <BookmarkMenuInner>
         {BookmarkMenuItems.map((item) => (
-          <BookmarkMenuItem key={item.name} onClick={item.onClick}>
+          <BookmarkMenuItem
+            key={item.name}
+            onClick={(e) => {
+              e.stopPropagation();
+              onClose();
+              item.onClick();
+            }}
+          >
             {item.name}
           </BookmarkMenuItem>
         ))}

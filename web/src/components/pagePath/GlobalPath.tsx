@@ -3,12 +3,12 @@ import { useLocation } from 'react-router-dom';
 import Path from 'routes/path';
 import PathText from './PathText';
 
-type GlobalPathTypes = '모든도토리' | '휴지통' | undefined;
+type GlobalPathTypes = '모든 도토리' | '휴지통' | undefined;
 
 const getGlobalPagePath = (path: string): GlobalPathTypes => {
   switch (path) {
     case Path.Home:
-      return '모든도토리';
+      return '모든 도토리';
     case Path.TrashPage:
       return '휴지통';
     default:

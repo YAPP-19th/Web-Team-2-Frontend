@@ -57,7 +57,7 @@ function SideBar(): ReactElement {
 
   useFoldersLoad();
   const [isTestOpen, onToggleModal] = useToggle();
-  const { isOpenFolderIsFullToast } = toasts;
+  const { isOpenFolderIsFullToast, isOpenCabinetIsFullToast } = toasts;
 
   return (
     <SideBarWrapper>
@@ -94,6 +94,7 @@ function SideBar(): ReactElement {
 
       <QuestionButton />
       <Toasts isOpen={isOpenFolderIsFullToast} type="folderIsFull" />
+      <Toasts isOpen={isOpenCabinetIsFullToast} type="cabinetIsFull" />
     </SideBarWrapper>
   );
 }

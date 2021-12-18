@@ -20,11 +20,12 @@ import { useMutation, useQueryClient } from 'react-query';
 import { useRecoilValue } from 'recoil';
 import useFolderAction from 'recoil/actions/folderAction';
 import { folderState } from 'recoil/atoms/folderState';
-import { findChildrenLength } from 'utils/atlaskitTreeFinder';
+import { findChildrenLength, isCabinet } from 'utils/atlaskitTreeFinder';
 import { MAX_FOLDERS_LENGTH, QueryKey } from 'utils/const';
 
 interface IToasts {
   isOpenFolderIsFullToast: boolean;
+  isOpenCabinetIsFullToast: boolean;
 }
 
 export interface IFoldersHandle {
@@ -47,9 +48,11 @@ export interface IFoldersHandle {
 export default function useFoldersHandle(): IFoldersHandle {
   const [moveFolderId, setMoveFolderId] = useState<ItemId | null>(null);
   const [isOpenFolderIsFullToast, onFolderIsFullToast] = useToasts();
+  const [isOpenCabinetIsFullToast, onCabinetIsFullToast] = useToasts();
 
   const toasts = {
     isOpenFolderIsFullToast,
+    isOpenCabinetIsFullToast,
   };
 
   const folders = useRecoilValue(folderState);
@@ -138,11 +141,15 @@ export default function useFoldersHandle(): IFoldersHandle {
     }
   };
 
-  // 폴더 생성 (폴더 길이가 8개 이상되면 토스트 알림)
+  const onToastFolderIsFull = (isCabinetToast: boolean) => {
+    return isCabinetToast ? onCabinetIsFullToast() : onFolderIsFullToast();
+  };
+
+  // 폴더 생성 (폴더 길이가 8개 이상되면 토스트 알림) // 부모가 보관함이면 토스트 보관함 알림으로 변경
   const onCreateFolder = useCallback(
     async (parentId: ItemId) => {
       if (findChildrenLength(folders, parentId) >= MAX_FOLDERS_LENGTH) {
-        onFolderIsFullToast();
+        onToastFolderIsFull(isCabinet(folders, parentId));
         return;
       }
       await createFolderAndCabinet(parentId, '제목없음');

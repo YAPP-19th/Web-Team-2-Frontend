@@ -21,3 +21,8 @@ export const findParentId = (
   }
   return null;
 };
+
+// parentId가 보관함 인지 확인
+export const isCabinet = (folders: TreeData, parentId: ItemId): boolean => {
+  return folders.items.root.children.includes(parentId);
+};
