@@ -57,6 +57,12 @@ const ButtonGroup = styled.div`
 
 const CancelButton = styled(SimpleButton)`
   margin-right: 12px;
+  font-size: 12px;
+`;
+
+const MoveButton = styled(SimpleButton)`
+  font-size: 12px;
+  font-weight: 400;
 `;
 
 function FolderMoveModal({
@@ -89,8 +95,8 @@ function FolderMoveModal({
             onClick={onToggleModal}
           />
 
-          <SimpleButton
-            variant="tertiary"
+          <MoveButton
+            variant="primary"
             width="63px"
             height="26px"
             label="확인"
