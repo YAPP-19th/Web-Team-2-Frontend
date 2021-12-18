@@ -75,11 +75,12 @@ export const getFolderBookmark = (
  * @returns Promise<bookmarks.IBookmarkDeleteResponse>
  */
 export const deleteBookmark = (
-  bookmarkId: string,
+  bookmarkIdList: string[],
 ): Promise<bookmarks.IBookmarkDeleteResponse> => {
-  return Client.deleteAxios<bookmarks.IBookmarkDeleteResponse>(
-    `api/v1/bookmark/${bookmarkId}`,
-  );
+  return Client.postAxios<
+    bookmarks.IBookmarkDeleteRequest,
+    bookmarks.IBookmarkDeleteResponse
+  >(`api/v1/bookmark/delete`, { idList: bookmarkIdList });
 };
 
 /**

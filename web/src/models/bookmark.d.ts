@@ -54,6 +54,10 @@ export namespace bookmarks {
     numOfPage: number;
   };
 
+  export interface IBookmarkDeleteRequest {
+    idList: string[];
+  }
+
   export interface IBookmarkDeleteResponse {}
 
   export interface IBookmarkMoveRequest {

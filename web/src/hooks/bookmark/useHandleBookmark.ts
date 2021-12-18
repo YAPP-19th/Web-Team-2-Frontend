@@ -9,7 +9,7 @@ interface IUseHandleBookmark {
     title: string,
     remind: boolean,
   ) => Promise<void>;
-  onDeleteBookmark: (id: string) => Promise<void>;
+  onDeleteBookmark: (bookmarkIdList: string[]) => Promise<void>;
 }
 
 export default function useHandleBookmark(): IUseHandleBookmark {
@@ -32,10 +32,10 @@ export default function useHandleBookmark(): IUseHandleBookmark {
     }
   };
 
-  const onDeleteBookmark = async (id: string) => {
-    console.log(id);
+  const onDeleteBookmark = async (bookmarkIdList: string[]) => {
+    console.log(bookmarkIdList);
     try {
-      await deleteBookmark(id);
+      await deleteBookmark(bookmarkIdList);
       queryClient.invalidateQueries(QueryKey.BOOKMARK_CONTENTS);
     } catch (e) {
       console.log(e);

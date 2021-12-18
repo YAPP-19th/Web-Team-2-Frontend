@@ -1,16 +1,13 @@
 /* eslint-disable no-console */
 import { ItemId } from '@atlaskit/tree';
 import {
-  deleteBookmark,
   getAllBookmark,
   getFolderBookmark,
   getSearchBookmark,
   getTrashBookmark,
-  moveBookmark,
-  updateBookmark,
 } from 'api/bookmarkAPI';
 import { bookmarks } from 'models/bookmark';
-import { useMutation, useQuery } from 'react-query';
+import { useQuery } from 'react-query';
 import { BOOKMARK_KINDS, ReactQueryKey } from 'utils/const';
 
 const { TRASH_BIN, SEARCH, FOLDER_DOTORI, ALL_DOTORI } = BOOKMARK_KINDS;
@@ -86,61 +83,4 @@ export function useBookmarkQuery(
   );
 
   return query;
-}
-
-export function useBookmarkMutationQuery(bookmarkId: string): typeof mutations {
-  const { mutate: mutateBookmarkDelete } = useMutation(
-    () => deleteBookmark(bookmarkId),
-    {
-      onSuccess: () => {
-        console.log('success');
-      },
-      onError: () => {
-        console.log('error');
-      },
-      onSettled: () => {
-        console.log('settle');
-      },
-    },
-  );
-
-  const { mutate: mutateBookmarkMove } = useMutation(
-    (requestData: bookmarks.IBookmarkMoveRequest) =>
-      moveBookmark(bookmarkId, requestData),
-    {
-      onSuccess: () => {
-        console.log('success');
-      },
-      onError: () => {
-        console.log('error');
-      },
-      onSettled: () => {
-        console.log('settle');
-      },
-    },
-  );
-
-  const { mutate: mutateBookmarkUpdate } = useMutation(
-    (requestData: bookmarks.IBookmarkUpdateRequest) =>
-      updateBookmark(bookmarkId, requestData),
-    {
-      onSuccess: () => {
-        console.log('success');
-      },
-      onError: () => {
-        console.log('error');
-      },
-      onSettled: () => {
-        console.log('settle');
-      },
-    },
-  );
-
-  const mutations = {
-    mutateBookmarkDelete,
-    mutateBookmarkMove,
-    mutateBookmarkUpdate,
-  };
-
-  return mutations;
 }

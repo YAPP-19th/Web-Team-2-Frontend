@@ -119,7 +119,7 @@ function BookmarkList(props: Props): ReactElement {
           content="삭제된 도토리는 완전히 사라져요!"
           buttonName="삭제"
           isOneLine
-          onClick={() => onDeleteBookmark(isOpenMenu.id)}
+          onClick={() => onDeleteBookmark([isOpenMenu.id])}
         />
       )}
 
