@@ -65,7 +65,6 @@ function BookmarkMenu({
 
   const onClose = () => {
     const { id, title, remindTime } = isOpenMenu;
-    console.log(id, title);
     onToggleOpenMenu(id, title, false, remindTime);
   };
 
