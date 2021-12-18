@@ -9,6 +9,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { tutorialModalState } from 'recoil/atoms/tutorialState';
+import { userState } from 'recoil/atoms/userState';
 import Path from 'routes/path';
 import { setLoginData } from 'utils/auth';
 import { GOOGLE_CLIENT_ID } from 'utils/config';
@@ -23,6 +24,7 @@ interface GoogleLoginTypes {
 export default function useGoogleLogin(): GoogleLoginTypes {
   const navigate = useNavigate();
   const setTutorialModal = useSetRecoilState(tutorialModalState);
+  const setUser = useSetRecoilState(userState);
 
   const onGoogleLogin = useCallback(async (response) => {
     const { profileObj } = response;
@@ -46,6 +48,14 @@ export default function useGoogleLogin(): GoogleLoginTypes {
     try {
       const { data } = await login(request);
       setLoginData(data);
+
+      setUser({
+        name: data.name,
+        email: data.email,
+        image: data.image,
+        remindCycle: data.remindCycle,
+        remindToggle: data.remindToggle,
+      });
 
       navigate(Path.Home);
       if (!data.isRegistered) {

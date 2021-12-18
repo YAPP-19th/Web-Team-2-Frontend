@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { auth } from 'models/auth';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
@@ -22,9 +23,9 @@ function AuthTemplate({ children, AuthType }: AuthTemplateProps): ReactElement {
 
       <AuthInner>
         <GoogleLoginButton />
-        <AuthDivider />
+        {/* <AuthDivider /> TODO(dohyun) 2차때 주석 해제 */}
         {children}
-        <AuthLinked AuthType={AuthType} />
+        {/* <AuthLinked AuthType={AuthType} /> */}
       </AuthInner>
     </>
   );
