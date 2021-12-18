@@ -226,7 +226,6 @@ function BookmarkItem({
 
   const path = useParams();
   const user = useRecoilValue(userState);
-  console.log(user);
   const [isOpenCopyToast, onCopyToast] = useToasts();
   const [isOpenRemindToast, onRemindToast] = useToasts();
   const [isOpenRemindReco, onRemindRecoToast] = useToasts();

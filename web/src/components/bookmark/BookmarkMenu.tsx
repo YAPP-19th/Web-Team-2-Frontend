@@ -65,6 +65,7 @@ function BookmarkMenu({
 
   const onClose = () => {
     const { id, title, remindTime } = isOpenMenu;
+    console.log(id, title);
     onToggleOpenMenu(id, title, false, remindTime);
   };
 
@@ -74,7 +75,14 @@ function BookmarkMenu({
     <BookmarkMenuWrapper ref={targetEl}>
       <BookmarkMenuInner>
         {BookmarkMenuItems.map((item) => (
-          <BookmarkMenuItem key={item.name} onClick={item.onClick}>
+          <BookmarkMenuItem
+            key={item.name}
+            onClick={(e) => {
+              e.stopPropagation();
+              onClose();
+              item.onClick();
+            }}
+          >
             {item.name}
           </BookmarkMenuItem>
         ))}
