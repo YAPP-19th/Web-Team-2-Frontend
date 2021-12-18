@@ -6,7 +6,7 @@ import styled from 'styled-components';
 interface ProfileNicknameFormProps {
   nickname: string;
   onChangeNickname: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onFocusOutNickname: () => void;
+  onKeyUpNickname: () => void;
   errorMessage?: string;
 }
 
@@ -32,7 +32,7 @@ const NicknameCheckError = styled.p`
 function ProfileNicknameForm({
   nickname,
   onChangeNickname,
-  onFocusOutNickname,
+  onKeyUpNickname,
   errorMessage,
 }: ProfileNicknameFormProps): ReactElement {
   return (
@@ -45,7 +45,7 @@ function ProfileNicknameForm({
           placeholder="닉네임을 입력해주세요"
           value={nickname}
           onChange={onChangeNickname}
-          onBlur={onFocusOutNickname}
+          onKeyUp={onKeyUpNickname}
         />
         {errorMessage && (
           <NicknameCheckError>{errorMessage}</NicknameCheckError>

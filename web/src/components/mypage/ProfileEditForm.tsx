@@ -1,11 +1,10 @@
 /* eslint-disable no-alert */
 /* eslint-disable no-console */
 import { uploadProfileImage, nicknameCheck, changeProfile } from 'api/userAPI';
-import Toasts from 'components/common/Toasts';
-import useToasts from 'hooks/common/useToasts';
 import React, { ReactElement, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { profileEditToastState } from 'recoil/atoms/toastState';
 import { userState } from 'recoil/atoms/userState';
 import Path from 'routes/path';
 import styled from 'styled-components';
@@ -22,7 +21,7 @@ const ProfileEditFormWrapper = styled.div`
 function ProfileEditForm(): ReactElement {
   const navigate = useNavigate();
   const [user, setUser] = useRecoilState(userState);
-  const [isOpenProfileEditToast, onProfileEditToast] = useToasts();
+  const setProfileEditToast = useSetRecoilState(profileEditToastState);
   const [errorMessage, setErrorMessage] = useState('');
   const [form, setForm] = useState({
     profileImage: user.image,
@@ -44,7 +43,7 @@ function ProfileEditForm(): ReactElement {
   };
 
   // 닉네임 인풋에서 초점을 벗어났을 시에 액션
-  const onFocusOutNickname = async () => {
+  const onKeyUpNickname = async () => {
     try {
       await nicknameCheck(nickname);
       setErrorMessage('');
@@ -65,8 +64,6 @@ function ProfileEditForm(): ReactElement {
 
       const fd = new FormData();
       fd.append('image', e.target.files[0]);
-      console.log(e.target.files[0]);
-
       try {
         const { data } = await uploadProfileImage(fd);
         onChangeProfileImage(data.imageUrl, e.target.files[0].name);
@@ -80,6 +77,13 @@ function ProfileEditForm(): ReactElement {
   // 업로드 한 프로필 이미지 제거
   const onDeleteImage = async () => {
     onChangeProfileImage(user.image); // 초기 값으로 변경
+  };
+
+  const onEditToast = () => {
+    setProfileEditToast(true);
+    setTimeout(() => {
+      setProfileEditToast(false);
+    }, 1500);
   };
 
   // 변경 내용 저장
@@ -102,7 +106,7 @@ function ProfileEditForm(): ReactElement {
         );
       }
       navigate(Path.MyPage);
-      onProfileEditToast();
+      onEditToast();
     } catch (e) {
       console.log(e);
     }
@@ -122,12 +126,11 @@ function ProfileEditForm(): ReactElement {
           nickname={nickname}
           errorMessage={errorMessage}
           onChangeNickname={onChangeNickname}
-          onFocusOutNickname={onFocusOutNickname}
+          onKeyUpNickname={onKeyUpNickname}
         />
 
         <ProfileEditButtonGroup onEditSubmit={onEditSubmit} />
       </ProfileEditFormWrapper>
-      <Toasts isOpen={isOpenProfileEditToast} type="editProfile" />
     </>
   );
 }
