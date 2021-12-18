@@ -7,6 +7,7 @@ import useHandleBookmark from 'hooks/bookmark/useHandleBookmark';
 import useToggle from 'hooks/common/useToggle';
 import { bookmarks } from 'models/bookmark';
 import React, { ReactElement, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { selectedFolderState } from 'recoil/atoms/folderState';
 import styled from 'styled-components';
@@ -68,6 +69,8 @@ function BookmarkList(props: Props): ReactElement {
   const [selectedFolder, setSelectedFolder] =
     useRecoilState(selectedFolderState);
 
+  const path = useParams();
+
   const onToggleOpenMenu = (
     id: string,
     title: string,
@@ -97,11 +100,24 @@ function BookmarkList(props: Props): ReactElement {
     onToggleMoveModal();
   };
 
+  const blackSlateType = () => {
+    switch (path.folderId) {
+      case 'search':
+        return '찾으시는 도토리가 없어요!';
+      case 'trash':
+        return '휴지통이 비어있어요!';
+      default:
+        return '아직 저장한 도토리가 없어요!';
+    }
+  };
+
+  const blackSlateText = blackSlateType();
+
   return (
     <BookmarkListWrapper>
       {bookmarkList.length === 0 && (
         <BlankBox>
-          <BlankSlate text="아직 저장한 도토리가 없어요!" />
+          <BlankSlate text={blackSlateText} />
         </BlankBox>
       )}
 

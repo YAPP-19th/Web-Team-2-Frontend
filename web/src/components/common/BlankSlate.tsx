@@ -3,7 +3,10 @@ import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
 interface BlankSlateProps {
-  text: string;
+  text:
+    | '찾으시는 도토리가 없어요!'
+    | '휴지통이 비어있어요!'
+    | '아직 저장한 도토리가 없어요!';
 }
 
 const BlankSlateStyled = styled.div`

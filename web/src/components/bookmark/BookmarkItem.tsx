@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   BellSelectedIcon,
   BellUnSelectedIcon,
@@ -10,21 +9,11 @@ import { ellipsis } from 'assets/styles/utilStyles';
 import CheckBox from 'components/common/CheckBox';
 import FolderEmoji from 'components/common/FolderEmoji';
 import Toasts from 'components/common/Toasts';
-import FolderEmojiAndName from 'components/pagePath/FolderEmojiAndName';
-import { FolderIdParams } from 'components/subFolders';
 import useHandleBookmark from 'hooks/bookmark/useHandleBookmark';
 import useToasts from 'hooks/common/useToasts';
 import { bookmarks } from 'models/bookmark';
-import React, {
-  ReactElement,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { ReactElement, useMemo, useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { selectedFolderState } from 'recoil/atoms/folderState';
 import styled from 'styled-components';
 import { IBookmarkMenu, IBookmarkOpenMenu } from './BookmarkList';
 import BookmarkMenu from './BookmarkMenu';
