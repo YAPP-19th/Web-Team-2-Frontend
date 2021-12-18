@@ -4,8 +4,10 @@ import { uploadProfileImage, nicknameCheck, changeProfile } from 'api/userAPI';
 import Toasts from 'components/common/Toasts';
 import useToasts from 'hooks/common/useToasts';
 import React, { ReactElement, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { userState } from 'recoil/atoms/userState';
+import Path from 'routes/path';
 import styled from 'styled-components';
 import { DEFAULT_IMAGE_FILE_NAME, LOCAL_STORAGE_KEY } from 'utils/const';
 import ProfileEditButtonGroup from './ProfileEditButtonGroup';
@@ -18,6 +20,7 @@ const ProfileEditFormWrapper = styled.div`
 `;
 
 function ProfileEditForm(): ReactElement {
+  const navigate = useNavigate();
   const [user, setUser] = useRecoilState(userState);
   const [isOpenProfileEditToast, onProfileEditToast] = useToasts();
   const [errorMessage, setErrorMessage] = useState('');
@@ -98,6 +101,7 @@ function ProfileEditForm(): ReactElement {
           }),
         );
       }
+      navigate(Path.MyPage);
       onProfileEditToast();
     } catch (e) {
       console.log(e);
