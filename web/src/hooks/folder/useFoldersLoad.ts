@@ -36,7 +36,6 @@ export default function useFoldersLoad(): void {
   }, [activeFolderId]);
 
   useEffect(() => {
-    console.log('data', data);
     if (activeFolderId && data?.rootId === 'root') onExpandParentFolder();
   }, [activeFolderId, data]);
 }

@@ -10,7 +10,6 @@ import { userState } from 'recoil/atoms/userState';
 
 function MyPage(): ReactElement {
   const user = useRecoilValue(userState);
-
   const profileEditToast = useRecoilValue(profileEditToastState);
 
   return (

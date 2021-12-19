@@ -54,9 +54,10 @@ function ModalTemplate({
   isModal,
   onToggleModal,
   children,
+  ...rest
 }: ModalTemplateProps): ReactElement {
   return (
-    <ModalTemplateWrapper onMouseDown={onToggleModal}>
+    <ModalTemplateWrapper onMouseDown={onToggleModal} {...rest}>
       <Inner
         onMouseDown={(e) => e.stopPropagation()}
         width={width}
