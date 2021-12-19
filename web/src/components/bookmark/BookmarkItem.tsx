@@ -227,9 +227,11 @@ function BookmarkItem({
 
   const path = useParams();
   const user = useRecoilValue(userState);
+
   const [isOpenCopyToast, onCopyToast] = useToasts();
   const [isOpenRemindToast, onRemindToast] = useToasts();
-  const [isOpenRemindReco, onRemindRecoToast] = useToasts();
+  const [isOpenRemindRecomenToast, onRemindRecoToast] = useToasts();
+
   const { onEditBookmark } = useHandleBookmark();
   const copyUrlRef = useRef<HTMLTextAreaElement>(null);
 
@@ -357,7 +359,7 @@ function BookmarkItem({
         isOpen={isOpenRemindToast}
         type={remindTime ? 'remindSetting' : 'remindDisabled'}
       />
-      <Toasts isOpen={isOpenRemindReco} type="remindRecommendation" />
+      <Toasts isOpen={isOpenRemindRecomenToast} type="remindRecommendation" />
     </BookmarkItemWrapper>
   );
 }
