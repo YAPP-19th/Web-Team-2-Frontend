@@ -1,8 +1,9 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import { getLastTimeString } from 'utils/time';
 
 interface RemindHistoryProps {
-  historyItem: { time: number; title: string }[];
+  historyItem: { time: string; title: string }[];
 }
 
 const RemindHistoryBox = styled.div`
@@ -65,7 +66,6 @@ const RemindBookmarkTitle = styled.span`
 
 function RemindHistory(props: RemindHistoryProps): ReactElement {
   const { historyItem } = props;
-  // @TODO(jekoo): change format remind time
   return (
     <RemindHistoryBox>
       {historyItem.map((data, idx) => {
@@ -73,7 +73,9 @@ function RemindHistory(props: RemindHistoryProps): ReactElement {
           <RemindHistoryItem key={`${data.title}_${idx}`}>
             <TimeAlramBox>
               <TimeAlarmMessage>리마인드 알림이 도착했어요.</TimeAlarmMessage>
-              <TimeAlarmMessage>{`${data.time}분전`}</TimeAlarmMessage>
+              <TimeAlarmMessage>
+                {getLastTimeString(data.time)}
+              </TimeAlarmMessage>
             </TimeAlramBox>
             <RemindBookmarkTitle>{data.title}</RemindBookmarkTitle>
           </RemindHistoryItem>

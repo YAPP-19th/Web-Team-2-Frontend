@@ -32,17 +32,17 @@ const ProfileImg = styled.img`
   }
 `;
 
-// @TODO(jekoo): get remind web push
+// @TODO(jekoo): get remind web push, sort
 const tempData = [
-  { time: 1, title: '제목' },
-  { time: 2, title: '북북마마크크' },
-  { time: 10, title: '북마크제목' },
-  { time: 10, title: '북마크제목' },
-  { time: 10, title: '북마크제목' },
-  { time: 10, title: '북마크제목' },
-  { time: 10, title: '북마크제목' },
-  { time: 10, title: '북마크제목' },
-  { time: 10, title: '북마크제목' },
+  { time: '2021-12-17T07:29:55.699Z', title: '제목' },
+  { time: '2021-12-15T07:29:55.699Z', title: '북북마마크크' },
+  { time: '2021-12-13T07:29:55.699Z', title: '북마크제목' },
+  { time: '2021-12-19T07:25:55.699Z', title: '북마크제목' },
+  { time: '2021-12-19T07:28:55.699Z', title: '북마크제목' },
+  { time: '2021-12-12T07:28:55.699Z', title: '북마크제목' },
+  { time: '2021-12-19T07:27:55.699Z', title: '북마크제목' },
+  { time: '2021-12-18T07:01:55.699Z', title: '북마크제목' },
+  { time: '2021-12-18T07:13:55.699Z', title: '북마크제목' },
 ];
 
 function Info(): ReactElement {
