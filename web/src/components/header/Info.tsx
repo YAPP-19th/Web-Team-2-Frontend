@@ -33,7 +33,7 @@ const ProfileImg = styled.img`
 `;
 
 // @TODO(jekoo): get remind web push, sort
-const tempData = [
+const tempData: { time: string; title: string }[] = [
   { time: '2021-12-17T07:29:55.699Z', title: '제목' },
   { time: '2021-12-15T07:29:55.699Z', title: '북북마마크크' },
   { time: '2021-12-13T07:29:55.699Z', title: '북마크제목' },

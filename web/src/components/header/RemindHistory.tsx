@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { getLastTimeString } from 'utils/time';
 
 interface RemindHistoryProps {
-  historyItem: { time: string; title: string }[];
+  historyItem: { time: string; title: string }[] | [];
 }
 
 const RemindHistoryBox = styled.div`
@@ -64,23 +64,46 @@ const RemindBookmarkTitle = styled.span`
   margin-bottom: 12px;
 `;
 
+const EmptyHistoryBox = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+
+const EmptyHistorySpan = styled.span`
+  font-size: 12px;
+  line-height: 1.42;
+  text-align: center;
+  color: ${(props) => props.theme.color.grayDark};
+`;
+
 function RemindHistory(props: RemindHistoryProps): ReactElement {
   const { historyItem } = props;
   return (
     <RemindHistoryBox>
-      {historyItem.map((data, idx) => {
-        return (
-          <RemindHistoryItem key={`${data.title}_${idx}`}>
-            <TimeAlramBox>
-              <TimeAlarmMessage>리마인드 알림이 도착했어요.</TimeAlarmMessage>
-              <TimeAlarmMessage>
-                {getLastTimeString(data.time)}
-              </TimeAlarmMessage>
-            </TimeAlramBox>
-            <RemindBookmarkTitle>{data.title}</RemindBookmarkTitle>
-          </RemindHistoryItem>
-        );
-      })}
+      {historyItem.length === 0 ? (
+        <EmptyHistoryBox>
+          <EmptyHistorySpan>최근 3일간</EmptyHistorySpan>
+          <EmptyHistorySpan>알림이 발송된 도토리가 없어요.</EmptyHistorySpan>
+        </EmptyHistoryBox>
+      ) : (
+        historyItem.map((data, idx) => {
+          return (
+            <RemindHistoryItem key={`${data.title}_${idx}`}>
+              <TimeAlramBox>
+                <TimeAlarmMessage>리마인드 알림이 도착했어요.</TimeAlarmMessage>
+                <TimeAlarmMessage>
+                  {getLastTimeString(data.time)}
+                </TimeAlarmMessage>
+              </TimeAlramBox>
+              <RemindBookmarkTitle>{data.title}</RemindBookmarkTitle>
+            </RemindHistoryItem>
+          );
+        })
+      )}
     </RemindHistoryBox>
   );
 }
