@@ -23,9 +23,9 @@ function AuthTemplate({ children, AuthType }: AuthTemplateProps): ReactElement {
 
       <AuthInner>
         <GoogleLoginButton />
-        {/* <AuthDivider /> TODO(dohyun) 2차때 주석 해제 */}
+        <AuthDivider />
         {children}
-        {/* <AuthLinked AuthType={AuthType} /> */}
+        <AuthLinked AuthType={AuthType} />
       </AuthInner>
     </>
   );
