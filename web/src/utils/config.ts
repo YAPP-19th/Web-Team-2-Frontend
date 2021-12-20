@@ -2,9 +2,6 @@
 export const GOOGLE_CLIENT_ID =
   '291594006814-9tmu29asficp56tn7q8ronumev1s39ru.apps.googleusercontent.com';
 
-export const firebaseVapidKey =
-  'AAAA9dM-h1Y:APA91bFTatFAP7g_sRQsCX8bQtRHe6FAZHU16DLq7n5fAWbgicgiORoWwsY4ex8fHotfBVIe20Tt-XmaJo91POFmgt2OHPBtAL0izrFZP1PmZ9PdEjAftnfrI1YKUmZaP5Uual4bZ7qK';
-
 export const EMOJI_URL = 'https://abs-0.twimg.com/emoji/v2/svg';
 
 export const AGREEMENT_TERMS_AND_CONDITIONS = `

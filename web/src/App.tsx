@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import Footer from 'components/footer';
 import Header from 'components/header';
 import { initializeApp } from 'firebase/app';
@@ -43,20 +44,18 @@ function App(): ReactElement {
     measurementId: 'G-BZE4CWPKM3',
   };
 
-  initializeApp(firebaseConfig);
+  const firebaseApp = initializeApp(firebaseConfig);
 
-  const messaging = getMessaging();
+  const messaging = getMessaging(firebaseApp);
+
   getToken(messaging, {
     vapidKey:
-      'AAAA9dM-h1Y:APA91bFTatFAP7g_sRQsCX8bQtRHe6FAZHU16DLq7n5fAWbgicgiORoWwsY4ex8fHotfBVIe20Tt-XmaJo91POFmgt2OHPBtAL0izrFZP1PmZ9PdEjAftnfrI1YKUmZaP5Uual4bZ7qK',
+      'BB4rW8tHZBgipv_-mPt-l9HLoab-J05S_vWQSfMveQt6ua9kCvvN-LuBwIEH5wWWo1KAKTJq58rg4AeFu8_anEc',
   })
     .then((currentToken) => {
       if (currentToken) {
         console.log(currentToken);
-        // Send the token to your server and update the UI if necessary
-        // ...
       } else {
-        // Show permission request UI
         console.log(
           'No registration token available. Request permission to generate one.',
         );
