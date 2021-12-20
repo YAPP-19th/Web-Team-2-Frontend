@@ -23,6 +23,7 @@
     "react-query-devtools": "^2.6.3",
     "react-router-dom": "^6.0.1",
     "react-scripts": "4.0.3",
+    "react-textarea-autosize": "^8.3.3",
     "react-twemoji-picker": "github:brianhung/emojipicker",
     "recoil": "^0.4.1",
     "styled-components": "^5.3.1",
