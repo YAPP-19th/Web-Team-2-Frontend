@@ -1,4 +1,5 @@
 import { login } from 'api/authAPI';
+import { getMessaging, getToken } from 'firebase/messaging';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { auth } from 'models/auth';
 import { useCallback } from 'react';
@@ -12,7 +13,7 @@ import { tutorialModalState } from 'recoil/atoms/tutorialState';
 import { userState } from 'recoil/atoms/userState';
 import Path from 'routes/path';
 import { setLoginData } from 'utils/auth';
-import { GOOGLE_CLIENT_ID } from 'utils/config';
+import { firebaseVapidKey, GOOGLE_CLIENT_ID } from 'utils/config';
 
 interface GoogleLoginTypes {
   onGoogleLogin: (
@@ -29,20 +30,22 @@ export default function useGoogleLogin(): GoogleLoginTypes {
   const onGoogleLogin = useCallback(async (response) => {
     const { profileObj } = response;
 
-    // const request: auth.ILoginRequest = {
-    //   email: profileObj.email,
-    //   image: profileObj.imageUrl,
-    //   name: profileObj.name,
-    //   socialType: 'google',
-    // };
+    const messaging = getMessaging();
+    const firebaseToken = await getToken(messaging, {
+      vapidKey: firebaseVapidKey,
+    }).then((currentToken) => {
+      if (currentToken) {
+        return currentToken;
+      }
+      return '';
+    });
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const request: any = {
+    const request: auth.ILoginRequest = {
       email: profileObj.email,
       image: profileObj.imageUrl,
       name: profileObj.name,
       socialType: 'google',
-      fcmToken: 'Asd',
+      fcmToken: firebaseToken,
     };
 
     try {
