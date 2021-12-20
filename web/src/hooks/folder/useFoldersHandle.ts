@@ -177,6 +177,7 @@ export default function useFoldersHandle(): IFoldersHandle {
       onSuccess: (_, itemId: ItemId) => {
         deleteDataInFolders(itemId);
         queryClient.invalidateQueries(QueryKey.SUBFOLDER_CONTENTS);
+        queryClient.invalidateQueries(QueryKey.BOOKMARK_CONTENTS);
       },
       onError: () => {
         console.log('폴더 삭제를 실패했습니다.');
