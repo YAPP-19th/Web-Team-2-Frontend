@@ -23,6 +23,7 @@ const RemindListItemWrapper = styled.a`
 const RemindItemLeftBox = styled.div`
   width: 94px;
   height: 100%;
+  position: relative;
 `;
 
 const RemindItemDefaultImage = styled.div`
@@ -39,7 +40,9 @@ const RemindItemImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 10px 0 0 10px;
+  border-radius: 9px 0 0 9px;
+  position: absolute;
+  left: -0.031rem;
 `;
 
 const RemindItemRightBox = styled.div`
