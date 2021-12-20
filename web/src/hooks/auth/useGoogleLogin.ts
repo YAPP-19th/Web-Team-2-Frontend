@@ -29,20 +29,12 @@ export default function useGoogleLogin(): GoogleLoginTypes {
   const onGoogleLogin = useCallback(async (response) => {
     const { profileObj } = response;
 
-    // const request: auth.ILoginRequest = {
-    //   email: profileObj.email,
-    //   image: profileObj.imageUrl,
-    //   name: profileObj.name,
-    //   socialType: 'google',
-    // };
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const request: any = {
+    const request: auth.ILoginRequest = {
       email: profileObj.email,
       image: profileObj.imageUrl,
       name: profileObj.name,
       socialType: 'google',
-      fcmToken: 'Asd',
+      fcmToken: 'firebaseToken',
     };
 
     try {
