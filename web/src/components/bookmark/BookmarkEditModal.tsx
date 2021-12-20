@@ -71,8 +71,9 @@ const InputText = styled.div`
   margin-right: 6px;
 `;
 
-const InputCount = styled.div`
-  color: ${(props) => props.theme.color.gray};
+const InputCount = styled.div<{ active: boolean }>`
+  color: ${(props) =>
+    props.active ? props.theme.color.primary : props.theme.color.gray};
 `;
 
 const EditInput = styled(TextareaAutosize)`
@@ -105,11 +106,12 @@ function BookmarkEditModal({
   onToggleModal,
   isOpenMenu,
 }: BookmarkEditModalProps): ReactElement {
+  const TEXT_MAX_LENGTH = 100;
   const [title, setTitle] = useState(isOpenMenu.title);
-
   const { onEditBookmark } = useHandleBookmark();
+
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    if (e.target.value.length > 100) {
+    if (e.target.value.length > TEXT_MAX_LENGTH) {
       return;
     }
     setTitle(e.target.value);
@@ -123,7 +125,9 @@ function BookmarkEditModal({
           <ModalContent>
             <InputInfo>
               <InputText>제목</InputText>
-              <InputCount>{title.length}/100</InputCount>
+              <InputCount active={title.length === TEXT_MAX_LENGTH}>
+                {title.length}/{TEXT_MAX_LENGTH}
+              </InputCount>
             </InputInfo>
             <EditInput value={title} onChange={onChange} />
           </ModalContent>
