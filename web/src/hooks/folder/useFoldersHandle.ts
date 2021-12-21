@@ -177,6 +177,7 @@ export default function useFoldersHandle(): IFoldersHandle {
       onSuccess: (_, itemId: ItemId) => {
         deleteDataInFolders(itemId);
         queryClient.invalidateQueries(QueryKey.SUBFOLDER_CONTENTS);
+        queryClient.invalidateQueries(QueryKey.BOOKMARK_CONTENTS);
       },
       onError: () => {
         console.log('폴더 삭제를 실패했습니다.');
@@ -195,6 +196,7 @@ export default function useFoldersHandle(): IFoldersHandle {
       changeFolderState(mutateTree(folders, itemId, { data: { name, emoji } }));
       queryClient.invalidateQueries(QueryKey.SUBFOLDER_CONTENTS);
       queryClient.invalidateQueries(QueryKey.BOOKMARK_CONTENTS);
+      queryClient.invalidateQueries(QueryKey.PAGE_PATH_CONTENTS);
     } catch (e) {
       console.log('폴더 이름, 이모지 수정에 실패했습니다');
     }

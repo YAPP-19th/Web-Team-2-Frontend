@@ -1,6 +1,6 @@
 import transitions from 'assets/styles/transitions';
 import SimpleButton from 'components/common/SimpleButton';
-import SimpleInput from 'components/common/SimpleInput';
+import TextareaAutosize from 'react-textarea-autosize';
 import useHandleBookmark from 'hooks/bookmark/useHandleBookmark';
 import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
@@ -22,16 +22,12 @@ const ModalTemplateWrapper = styled.div`
 
 const Inner = styled.div`
   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 9999;
   background-color: ${(props) => props.theme.color.white};
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  margin: auto;
   width: 468px;
-  height: 213px;
-  max-height: 255px;
   border-radius: 12px;
   animation: ${transitions.fadeIn} 0.4s ease-in-out;
 `;
@@ -40,7 +36,7 @@ const Background = styled.div`
   display: block;
   width: 100%;
   height: 100%;
-  background-color: #000;
+  background-color: ${(props) => props.theme.color.black};
   position: absolute;
   left: 0;
   top: 0;
@@ -49,6 +45,7 @@ const Background = styled.div`
 
 const ModalStyled = styled.div`
   padding: 26px 24px 24px;
+  height: 100%;
 `;
 
 const ModalTitle = styled.div`
@@ -74,12 +71,19 @@ const InputText = styled.div`
   margin-right: 6px;
 `;
 
-const InputCount = styled.div`
-  color: ${(props) => props.theme.color.gray};
+const InputCount = styled.div<{ active: boolean }>`
+  color: ${(props) =>
+    props.active ? props.theme.color.primary : props.theme.color.gray};
 `;
 
-const EditInput = styled(SimpleInput)`
+const EditInput = styled(TextareaAutosize)`
   margin-bottom: 24px;
+  resize: none;
+  outline: none;
+  width: 100%;
+  border-radius: 4px;
+  border: solid 1px ${(props) => props.theme.color.grayLight};
+  padding: 6px 10px;
 `;
 
 const ModalContent = styled.div`
@@ -102,11 +106,12 @@ function BookmarkEditModal({
   onToggleModal,
   isOpenMenu,
 }: BookmarkEditModalProps): ReactElement {
+  const TEXT_MAX_LENGTH = 100;
   const [title, setTitle] = useState(isOpenMenu.title);
-
   const { onEditBookmark } = useHandleBookmark();
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (title.length >= 100) {
+
+  const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    if (e.target.value.length > TEXT_MAX_LENGTH) {
       return;
     }
     setTitle(e.target.value);
@@ -120,14 +125,11 @@ function BookmarkEditModal({
           <ModalContent>
             <InputInfo>
               <InputText>제목</InputText>
-              <InputCount>{title.length}/100</InputCount>
+              <InputCount active={title.length === TEXT_MAX_LENGTH}>
+                {title.length}/{TEXT_MAX_LENGTH}
+              </InputCount>
             </InputInfo>
-            <EditInput
-              width="100%"
-              height="35px"
-              value={title}
-              onChange={onChange}
-            />
+            <EditInput value={title} onChange={onChange} />
           </ModalContent>
           <ModalButtonGroup>
             <CancelButton

@@ -41,7 +41,7 @@ const Background = styled.div`
   display: block;
   width: 100%;
   height: 100%;
-  background-color: #000;
+  background-color: ${(props) => props.theme.color.black};
   position: absolute;
   left: 0;
   top: 0;

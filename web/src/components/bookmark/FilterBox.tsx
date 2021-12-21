@@ -58,9 +58,8 @@ const BallonText = styled.span`
   position: absolute;
   top: 9px;
   left: 13px;
-  color: ${(props) => props.theme.color.primary};
+  color: ${(props) => props.theme.color.grayDarkest};
   font-size: 10px;
-  font-weight: 500;
   line-height: normal;
 `;
 

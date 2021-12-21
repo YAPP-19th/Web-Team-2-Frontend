@@ -40,3 +40,4 @@ export { ReactComponent as LogoGreenIcon } from './Logo_green.svg';
 export { ReactComponent as More16Icon } from './More_16.svg';
 export { ReactComponent as PlusIcon } from './Plus.svg';
 export { ReactComponent as PlusWhiteIcon } from './Plus_white.svg';
+export { ReactComponent as TrashBallonIcon } from './Trash_Ballon.svg';

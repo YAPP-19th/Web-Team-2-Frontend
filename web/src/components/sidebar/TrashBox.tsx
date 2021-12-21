@@ -1,10 +1,35 @@
-import { SelectedTrashIcon, UnselectedTrashIcon } from 'assets/icons';
+import {
+  SelectedTrashIcon,
+  TrashBallonIcon,
+  UnselectedTrashIcon,
+} from 'assets/icons';
+import transitions from 'assets/styles/transitions';
 import React, { ReactElement } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Path from 'routes/path';
 import styled from 'styled-components';
 
-const TrashWrapper = styled.div`
+const TrashBallonBox = styled.div`
+  position: relative;
+  display: none;
+  animation: ${transitions.fadeIn} 0.4s ease-in-out;
+`;
+
+const TrashBallonText = styled.span`
+  position: absolute;
+  top: 17px;
+  left: 13px;
+  line-height: normal;
+  color: ${(props) => props.theme.color.grayDarkest};
+`;
+
+const TrashBoxWrapper = styled.div`
+  &:hover ${TrashBallonBox} {
+    display: block;
+  }
+`;
+
+const TrashContent = styled.div`
   display: flex;
   height: 21px;
   width: 166px;
@@ -21,14 +46,6 @@ const TrashIconBox = styled.div`
   }
 `;
 
-/**
-TODO - recoil state로 폴더 select 상태 정의 필요
-*/
-
-const UnselectedTrash = styled(UnselectedTrashIcon)``;
-
-// const SelectedTrash = styled(SelectedTrashIcon)``;
-
 const TrashName = styled.span<{ active: boolean }>`
   height: 100%;
   color: ${(props) =>
@@ -44,12 +61,22 @@ function TrashBox(): ReactElement {
   const { folderId } = useParams();
   const isActive = folderId === 'trash';
   return (
-    <TrashWrapper onClick={() => navigate(Path.TrashPage)}>
-      <TrashIconBox>
-        {isActive ? <SelectedTrashIcon /> : <UnselectedTrash />}
-      </TrashIconBox>
-      <TrashName active={isActive}>휴지통</TrashName>
-    </TrashWrapper>
+    <TrashBoxWrapper>
+      <TrashContent onClick={() => navigate(Path.TrashPage)}>
+        <TrashIconBox>
+          {isActive ? <SelectedTrashIcon /> : <UnselectedTrashIcon />}
+        </TrashIconBox>
+        <TrashName active={isActive}>휴지통</TrashName>
+      </TrashContent>
+
+      <TrashBallonBox>
+        <TrashBallonIcon />
+        <TrashBallonText>
+          휴지통의 도토리는
+          <br /> 30일 뒤 완전히 사라져요!
+        </TrashBallonText>
+      </TrashBallonBox>
+    </TrashBoxWrapper>
   );
 }
 
