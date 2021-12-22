@@ -1,7 +1,7 @@
 import { of } from 'await-of';
 import axios, { AxiosRequestHeaders, AxiosResponse, Method } from 'axios';
 
-import { getStorageTokens } from '../helper/storageHelper';
+import { getStorageTokens } from '../helper';
 
 const api = axios.create({
   baseURL: 'https://dotoriham.duckdns.org/',
@@ -18,7 +18,8 @@ export async function request<R, P extends unknown>(
     api.request<R>({
       method,
       url,
-      params,
+      params: method === 'get' && params,
+      data: method === 'post' && params,
       headers: {
         accessToken: `Bearer ${accessToken}`,
         ...headers,
