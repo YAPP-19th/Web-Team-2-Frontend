@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useEffect, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import Tree, {
   ItemId,
   mutateTree,
@@ -13,8 +13,6 @@ import {
   selectedFolderState,
 } from 'recoil/atoms/folderState';
 import { useRecoilState } from 'recoil';
-import { getParentFolders } from 'api/folderAPI';
-import produce from 'immer';
 
 const FolderListWrapper = styled.div`
   position: relative;
@@ -74,47 +72,28 @@ const FolderTitle = styled.span<{ active: boolean }>`
 `;
 
 function FolderListInModal(): ReactElement {
-  const { data } = useFoldersQueries();
-  const [folders, setFolders] = useState<TreeData>(initialFolderState);
+  const { data } = useFoldersQueries(); // 폴더 목록 react-query로 가져왔음
+  const [folders, setFolders] = useState<TreeData>(initialFolderState); // 폴더 상태
   const [selectedFolder, setSelectedFolder] =
-    useRecoilState(selectedFolderState);
+    useRecoilState(selectedFolderState); // 클릭해서 선택된 폴더들
 
+  // react-query로 가져온 폴더목록을 폴더 상태에 넣어줌
   useEffect(() => {
     if (!data) return;
     setFolders(data);
   }, [data]);
 
+  // 폴더 확장
   const onExpandFolder = (itemId: ItemId) => {
     setFolders(mutateTree(folders, itemId, { isExpanded: true }));
   };
 
+  // 폴더 접기
   const onCollapseFolder = (itemId: ItemId) => {
     setFolders(mutateTree(folders, itemId, { isExpanded: false }));
   };
 
-  const onExpandParentFolder = useCallback(async () => {
-    try {
-      const parentFolderIdList = await getParentFolders(selectedFolder.id);
-      setFolders((prev) =>
-        produce(prev, (draft) => {
-          const newObj = draft;
-          parentFolderIdList.forEach((parentFolderItem) => {
-            if (String(parentFolderItem.folderId) !== selectedFolder.id) {
-              newObj.items[parentFolderItem.folderId].isExpanded = true;
-            }
-          });
-        }),
-      );
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.log('부모 폴더 id 조회 실패');
-    }
-  }, [selectedFolder]);
-
-  useEffect(() => {
-    if (selectedFolder.id && data?.rootId === 'root') onExpandParentFolder();
-  }, [selectedFolder.id, data]);
-
+  // 각 폴더 아이템
   const renderFolderItem = ({
     item,
     onExpand,
