@@ -48,6 +48,5 @@ export namespace auth {
     image: string;
     socialType: string;
     isRegistered: boolean;
-    fcmToken: string;
   }
 }

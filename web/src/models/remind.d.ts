@@ -25,7 +25,6 @@ export namespace remind {
     deleteTime: null | string;
     delete: false;
     description: string;
-    fcmToken: string;
     image: string;
     saveTime: string;
   }
