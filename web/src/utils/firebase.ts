@@ -1,6 +1,6 @@
-import { initializeApp } from 'firebase/app';
+import { getMessaging, getToken } from 'firebase/messaging';
 
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: 'AIzaSyBQ2hhmKBy2S00dMIl1XTnGQbzKasSbVwY',
   authDomain: 'dotoriham-dfee3.firebaseapp.com',
   projectId: 'dotoriham-dfee3',
@@ -10,4 +10,11 @@ const firebaseConfig = {
   measurementId: 'G-BZE4CWPKM3',
 };
 
-export const firebaseApp = initializeApp(firebaseConfig);
+export const getFCMToken = (): Promise<string> => {
+  const messaging = getMessaging();
+  const currentToken = getToken(messaging, {
+    vapidKey:
+      'BB4rW8tHZBgipv_-mPt-l9HLoab-J05S_vWQSfMveQt6ua9kCvvN-LuBwIEH5wWWo1KAKTJq58rg4AeFu8_anEc',
+  });
+  return currentToken;
+};
