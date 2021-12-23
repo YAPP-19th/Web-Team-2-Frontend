@@ -13,7 +13,6 @@ import { userState } from 'recoil/atoms/userState';
 import Path from 'routes/path';
 import { setLoginData } from 'utils/auth';
 import { GOOGLE_CLIENT_ID } from 'utils/config';
-import { getFCMToken } from 'utils/firebase';
 
 interface GoogleLoginTypes {
   onGoogleLogin: (
@@ -30,14 +29,14 @@ export default function useGoogleLogin(): GoogleLoginTypes {
   const onGoogleLogin = useCallback(async (response) => {
     const { profileObj } = response;
 
-    const userFCMToken = await getFCMToken();
+    // const userFCMToken = await getFCMToken();
 
     const request: auth.ILoginRequest = {
       email: profileObj.email,
       image: profileObj.imageUrl,
       name: profileObj.name,
       socialType: 'google',
-      fcmToken: userFCMToken,
+      fcmToken: 'userFCMToken',
     };
 
     try {
