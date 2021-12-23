@@ -38,7 +38,7 @@ export namespace auth {
   }
 
   export interface IUserRemindInfo {
-    remindCycle: string;
+    remindCycle: number;
     remindToggle: boolean;
   }
 
@@ -48,5 +48,6 @@ export namespace auth {
     image: string;
     socialType: string;
     isRegistered: boolean;
+    fcmToken: string;
   }
 }

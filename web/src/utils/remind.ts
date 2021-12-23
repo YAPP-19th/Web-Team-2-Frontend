@@ -13,7 +13,7 @@ export function changeRemindToggleLocalInfo(isRemind: boolean): void {
   }
 }
 
-export function changeRemindCycleLocalInfo(cycle: string): void {
+export function changeRemindCycleLocalInfo(cycle: number): void {
   const localStorageItem = localStorage.getItem(
     LOCAL_STORAGE_KEY.USER_REMIND_INFO,
   );

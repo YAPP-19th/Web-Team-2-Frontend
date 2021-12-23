@@ -9,7 +9,7 @@ const initialState: IUserInfo = {
   name: '',
   email: '',
   image: '',
-  remindCycle: '',
+  remindCycle: 7,
   remindToggle: false,
 };
 

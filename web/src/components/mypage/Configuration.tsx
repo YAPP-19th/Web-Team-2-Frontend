@@ -39,11 +39,11 @@ const RemindSettingButtonGroup = styled.div`
 
 function Configuration(): ReactElement {
   const userInfo = useRecoilValue(userState);
-  const remindCycle = ['3', '7', '14', '30'];
+  const remindCycle = [3, 7, 14, 30];
   const [isRemind, onToggleRemind] = useToggle(userInfo.remindToggle);
   const [selectedCycle, setSelectedCycle] = useState(userInfo.remindCycle);
 
-  const onChangeSelectedCycle = (cycle: string) => {
+  const onChangeSelectedCycle = (cycle: number) => {
     setSelectedCycle(cycle);
   };
 
@@ -58,7 +58,7 @@ function Configuration(): ReactElement {
   );
 
   const { mutate: mutateRemindCycleChange } = useMutation(
-    (cycle: string) => setRemindCycle({ remindCycle: cycle }),
+    (cycle: number) => setRemindCycle({ remindCycle: cycle }),
     {
       onSuccess: () => {
         // eslint-disable-next-line no-console
