@@ -38,7 +38,7 @@ export namespace auth {
   }
 
   export interface IUserRemindInfo {
-    remindCycle: string;
+    remindCycle: number;
     remindToggle: boolean;
   }
 

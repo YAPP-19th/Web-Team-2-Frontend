@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 export namespace remind {
   export interface IRemindSetCycleRequest {
-    remindCycle: string;
+    remindCycle: number;
   }
 
   export interface IRemindSetCycleResponse {}
@@ -25,7 +25,6 @@ export namespace remind {
     deleteTime: null | string;
     delete: false;
     description: string;
-    fcmToken: string[];
     image: string;
     saveTime: string;
   }

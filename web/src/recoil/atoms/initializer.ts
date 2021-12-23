@@ -26,7 +26,7 @@ export const getInitialUserInfo = ({ set }: MutableSnapshot): void => {
     name: '',
     email: '',
     image: '',
-    remindCycle: '7',
+    remindCycle: 7,
     remindToggle: false,
   });
 };
