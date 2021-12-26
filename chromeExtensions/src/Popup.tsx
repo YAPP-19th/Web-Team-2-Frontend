@@ -7,22 +7,25 @@ import { getMetaDataByUrl } from './helper/metaHelper';
 import { PageMain } from './page/PageMain';
 
 function executeScript(msg: any, callback: any) {
-  chrome.tabs.query({ active: true, currentWindow: true }, function (tab) {
-    const tabId: any = tab[0].id;
-    const exec = chrome.tabs.executeScript;
-
-    exec(tabId, { code: `var msg = ${JSON.stringify(msg)}` }, function () {
-      if (chrome.runtime.lastError) {
-        console.log(chrome.runtime.lastError.message);
-        callback && callback(undefined);
-        return;
-      }
-
-      exec(tabId, { file: 'inject.js' }, function (response) {
-        callback && callback(response[0]);
+  if(chrome?.tabs?.query) {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tab) {
+      const tabId: any = tab[0].id;
+      const exec = chrome.tabs.executeScript;
+  
+      exec(tabId, { code: `var msg = ${JSON.stringify(msg)}` }, function () {
+        if (chrome.runtime.lastError) {
+          console.log(chrome.runtime.lastError.message);
+          callback && callback(undefined);
+          return;
+        }
+  
+        exec(tabId, { file: 'inject.js' }, function (response) {
+          callback && callback(response[0]);
+        });
       });
     });
-  });
+  }
+ 
 }
 
 export default function Popup(): ReactElement {

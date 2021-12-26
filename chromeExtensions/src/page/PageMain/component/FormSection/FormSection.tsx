@@ -1,6 +1,7 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 
 import { AlarmIcon, OgImage } from '..';
+import { FolderListInModal } from '../../../../component';
 import { IMetaData } from '../../../../contexts';
 import { IDtoDotori, DtoFolderList, DtoFolder } from '../../../../domain';
 import {
@@ -77,13 +78,7 @@ export function FormSection({
       </InputArticle>
       <HorizontalDivider />
       <Article>
-        <div>
-          {Object.values(dotoriList.items).map((el) => (
-            <div onClick={() => clickFolder(el.id)}>
-              {(el as DtoFolder).data ? (el as DtoFolder).data.name : ''}
-            </div>
-          ))}
-        </div>
+        <FolderListInModal onClick={clickFolder} activeId={folderId} />
         <ButtonArea>
           <Button onClick={saveDotori}>저장하기</Button>
         </ButtonArea>

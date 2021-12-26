@@ -1,8 +1,10 @@
-import { getAccessToken } from 'api/authAPI';
-import ERROR_STATUS_CODE from 'api/errorStatus';
 import axios, { AxiosInstance } from 'axios';
 import qs from 'qs';
-import { getTokens, setTokens } from 'utils/auth';
+
+import { getAccessToken } from '../apies/authAPI';
+import ERROR_STATUS_CODE from '../apies/errorStatus';
+import { getStorageTokens } from '../helper';
+import { setTokens } from '../utils/auth';
 
 export const BASE_URL = 'https://dotoriham.duckdns.org';
 
@@ -47,7 +49,7 @@ export const Client = new HTTP();
 
 Client.intercept().request.use((config: any) => {
   const configs = config;
-  const { accessToken, refreshToken } = getTokens();
+  const { accessToken, refreshToken } = getStorageTokens();
   configs.headers = {
     accessToken: `Bearer ${accessToken}`,
     refreshToken: `Bearer ${refreshToken}`,

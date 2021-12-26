@@ -21,5 +21,5 @@
     "scripts": ["background.js"],
     "persistent": false
   },
-  "content_security_policy": "script-src 'self' 'sha256-kngpAVTRKNIxEj1zoU2TUGEJFEBS51Tp/ZuyNKYMkDM='; object-src 'self'"
+  "content_security_policy": "script-src 'self' 'sha256-C8cR2VWAEZYLhnNi9IDZywaLz0j05rnzKGBzBGcFYcc='; object-src 'self'"
 }

@@ -1,7 +1,8 @@
 import { ItemId, TreeData } from '@atlaskit/tree';
-import { Client } from 'api/http';
 import { AxiosResponse } from 'axios';
-import { folder } from 'models/folder';
+
+import { Client } from '../apies/http';
+import { folder } from '../models/folder';
 
 // 폴더 리스트 조회
 export const getFolders = (): Promise<TreeData> => {

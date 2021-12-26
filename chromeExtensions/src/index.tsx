@@ -1,18 +1,27 @@
 import React from 'react';
 
 import ReactDOM from 'react-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { RecoilRoot } from 'recoil';
 
 import { ProviderMetaData } from './contexts/ContextMetaData';
 import Popup from './Popup';
+import { getInitialUserInfo } from './recoil/atoms/initializer';
 import reportWebVitals from './reportWebVitals';
 import { GlobalStyle } from './styles';
 
+const queryClient = new QueryClient();
+
 ReactDOM.render(
   <React.StrictMode>
-    <GlobalStyle />
-    <ProviderMetaData>
-      <Popup />
-    </ProviderMetaData>
+    <RecoilRoot initializeState={getInitialUserInfo}>
+      <QueryClientProvider client={queryClient}>
+        <GlobalStyle />
+        <ProviderMetaData>
+          <Popup />
+        </ProviderMetaData>
+      </QueryClientProvider>
+    </RecoilRoot>
   </React.StrictMode>,
   document.getElementById('root'),
 );
