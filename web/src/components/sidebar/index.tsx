@@ -6,6 +6,7 @@ import SimpleButton from 'components/common/SimpleButton';
 import useToggle from 'hooks/common/useToggle';
 import useFoldersLoad from 'hooks/folder/useFoldersLoad';
 import Toasts from 'components/common/Toasts';
+import MemberInviteModal from 'components/member/MemberInviteModal';
 import AllFolder from './AllFolder';
 import CabinetBox from './CabinetBox';
 import FolderList from './FolderList';
@@ -57,6 +58,8 @@ function SideBar(): ReactElement {
 
   useFoldersLoad();
   const [isTestOpen, onToggleModal] = useToggle();
+  const [isTestMemberOpen, onToggleMemberModal] = useToggle();
+
   const { isOpenFolderIsFullToast, isOpenCabinetIsFullToast } = toasts;
 
   return (
@@ -88,8 +91,26 @@ function SideBar(): ReactElement {
         style={{ marginTop: '20px' }}
         onClick={onToggleModal}
       />
+
       {isTestOpen && (
         <TestModal isModal={isTestOpen} onToggleModal={onToggleModal} />
+      )}
+
+      {/* 맴버 초대 테스트용 버튼 */}
+      <SimpleButton
+        label="맴버 초대"
+        variant="secondary"
+        width="170px"
+        height="40px"
+        style={{ marginTop: '20px' }}
+        onClick={onToggleMemberModal}
+      />
+
+      {isTestMemberOpen && (
+        <MemberInviteModal
+          isModal={isTestMemberOpen}
+          onToggleModal={onToggleMemberModal}
+        />
       )}
 
       <QuestionButton />
