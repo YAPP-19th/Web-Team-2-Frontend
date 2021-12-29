@@ -114,6 +114,7 @@ export default function useFoldersHandle(): IFoldersHandle {
         prevIndex,
         nextIndex,
       );
+      await queryClient.invalidateQueries(QueryKey.SUBFOLDER_CONTENTS);
     } catch (e) {
       console.log(e);
     }
