@@ -88,8 +88,7 @@ function RemindListItem(props: RemindListItemProps): ReactElement {
     () => deleteRemind(remindData.id),
     {
       onSuccess: () => {
-        // eslint-disable-next-line no-console
-        console.log('success');
+        queryClient.invalidateQueries(QueryKey.BOOKMARK_CONTENTS);
       },
       onSettled: () => {
         queryClient.invalidateQueries(QueryKey.REMIND_CONTENTS);
