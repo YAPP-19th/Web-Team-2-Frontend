@@ -40,6 +40,7 @@ export default function useHandleBookmark(): IUseHandleBookmark {
         remind,
       });
       queryClient.invalidateQueries(QueryKey.BOOKMARK_CONTENTS);
+      queryClient.invalidateQueries(QueryKey.REMIND_CONTENTS);
     } catch (e) {
       console.log(e);
     }
