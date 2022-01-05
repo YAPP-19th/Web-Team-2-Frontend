@@ -6,6 +6,7 @@ import { IBookmarkMenu, IBookmarkOpenMenu } from './BookmarkList';
 interface BookmarkMenuProps {
   isOpen: boolean;
   onToggleModal: IBookmarkMenu;
+  onActiveSelectFolder: () => void;
   isOpenMenu: IBookmarkOpenMenu;
 }
 
@@ -39,6 +40,7 @@ const BookmarkMenuItem = styled.div`
 function BookmarkMenu({
   isOpen,
   onToggleModal,
+  onActiveSelectFolder,
   isOpenMenu,
 }: BookmarkMenuProps): ReactElement {
   const {
@@ -66,6 +68,7 @@ function BookmarkMenu({
   const onClose = () => {
     const { id, title, remindTime } = isOpenMenu;
     onToggleOpenMenu(id, title, false, remindTime);
+    onActiveSelectFolder();
   };
 
   const { targetEl } = useLayerClose(isOpen, onClose);

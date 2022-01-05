@@ -73,3 +73,14 @@ export const deleteSubFolders = (
 ): Promise<AxiosResponse> => {
   return Client.postAxios(`/api/v1/folder/deletes`, requestData);
 };
+
+// 모달로 폴더 이동
+export const moveFolderModal = (
+  prevFolderId: ItemId,
+  nextFolderId: ItemId,
+): Promise<AxiosResponse> => {
+  return Client.patchAxios(`/api/v1/folder/move`, {
+    folderIdList: [prevFolderId],
+    nextFolderId,
+  });
+};

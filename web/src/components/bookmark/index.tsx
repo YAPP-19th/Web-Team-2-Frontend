@@ -194,6 +194,7 @@ function Bookmark(props: Props): ReactElement | null {
         bookmarkList={bookmarkList}
         onToggleSingleChecked={onToggleSingleChecked}
         IsActiveSelectBox={IsActiveSelectBox}
+        onActiveSelectFolder={onActiveSelectFolder}
       />
       {bookmarkList.length !== 0 && (
         <Pagination
@@ -219,7 +220,7 @@ function Bookmark(props: Props): ReactElement | null {
         <FolderMoveModal
           isModal={isMoveModal}
           onToggleModal={onToggleMoveModal}
-          onClick={onMoveBookmarkList}
+          onMoveBookmark={onMoveBookmarkList}
         />
       )}
 

@@ -1,16 +1,17 @@
 import FolderListInModal from 'components/common/FolderListInModal';
 import ModalTemplate from 'components/common/ModalTemplate';
 import SimpleButton from 'components/common/SimpleButton';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useRef } from 'react';
 import PagePath from 'components/pagePath';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import { selectedFolderState } from 'recoil/atoms/folderState';
+import useFoldersHandle from 'hooks/folder/useFoldersHandle';
 
 interface FolderMoveModalProps {
   isModal: boolean;
   onToggleModal: () => void;
-  onClick: () => void;
+  onMoveBookmark?: () => void;
 }
 
 const ModalInner = styled.div`
@@ -72,9 +73,11 @@ const MoveButton = styled(SimpleButton)`
 function FolderMoveModal({
   isModal,
   onToggleModal,
-  onClick,
+  onMoveBookmark,
 }: FolderMoveModalProps): ReactElement {
   const selectedFolder = useRecoilValue(selectedFolderState);
+  const prevFolderId = useRef(selectedFolder.id);
+  const { onMoveFolder } = useFoldersHandle();
 
   return (
     <ModalTemplate
@@ -105,7 +108,11 @@ function FolderMoveModal({
             width="63px"
             height="26px"
             label="확인"
-            onClick={onClick}
+            onClick={() =>
+              onMoveBookmark
+                ? onMoveBookmark()
+                : onMoveFolder(prevFolderId.current, selectedFolder.id)
+            }
           />
         </ButtonGroup>
       </ModalInner>
