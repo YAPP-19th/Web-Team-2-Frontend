@@ -81,7 +81,7 @@ function FolderListInModal(): ReactElement {
       const data = await getFolders();
       setFolders(data);
     };
-    getData();
+    getData(); // @TODO(dohyun) 리팩토링 필요!
   }, []);
 
   const onExpandFolder = (itemId: ItemId) => {
