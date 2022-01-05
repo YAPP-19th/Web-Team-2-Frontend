@@ -79,6 +79,15 @@ function FolderMoveModal({
   const prevFolderId = useRef(selectedFolder.id);
   const { onMoveFolder } = useFoldersHandle();
 
+  const onMove = () => {
+    if (onMoveBookmark) {
+      onMoveBookmark();
+    } else {
+      onMoveFolder(prevFolderId.current, selectedFolder.id);
+    }
+    onToggleModal();
+  };
+
   return (
     <ModalTemplate
       isModal={isModal}
@@ -108,11 +117,7 @@ function FolderMoveModal({
             width="63px"
             height="26px"
             label="확인"
-            onClick={() =>
-              onMoveBookmark
-                ? onMoveBookmark()
-                : onMoveFolder(prevFolderId.current, selectedFolder.id)
-            }
+            onClick={onMove}
           />
         </ButtonGroup>
       </ModalInner>
