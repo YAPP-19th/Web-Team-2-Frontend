@@ -25,6 +25,10 @@ const ModalTitle = styled.div`
   margin-bottom: 8px;
 `;
 
+const PathBox = styled.div`
+  height: 16px;
+`;
+
 const FolderListBox = styled.div`
   width: 408px;
   height: 303px;
@@ -81,8 +85,9 @@ function FolderMoveModal({
     >
       <ModalInner>
         <ModalTitle>위치 선택</ModalTitle>
-
-        <PagePath folderId={selectedFolder.id as string} />
+        <PathBox>
+          <PagePath folderId={selectedFolder.id as string} />
+        </PathBox>
         <FolderListBox>
           <FolderListInModal />
         </FolderListBox>
