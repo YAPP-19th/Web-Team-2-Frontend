@@ -1,16 +1,17 @@
 import FolderListInModal from 'components/common/FolderListInModal';
 import ModalTemplate from 'components/common/ModalTemplate';
 import SimpleButton from 'components/common/SimpleButton';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useRef } from 'react';
 import PagePath from 'components/pagePath';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import { selectedFolderState } from 'recoil/atoms/folderState';
+import useFoldersHandle from 'hooks/folder/useFoldersHandle';
 
 interface FolderMoveModalProps {
   isModal: boolean;
   onToggleModal: () => void;
-  onClick: () => void;
+  onMoveBookmark?: () => void;
 }
 
 const ModalInner = styled.div`
@@ -23,6 +24,10 @@ const ModalTitle = styled.div`
   color: ${(props) => props.theme.color.grayDarkest};
   line-height: 1.5;
   margin-bottom: 8px;
+`;
+
+const PathBox = styled.div`
+  height: 16px;
 `;
 
 const FolderListBox = styled.div`
@@ -68,9 +73,20 @@ const MoveButton = styled(SimpleButton)`
 function FolderMoveModal({
   isModal,
   onToggleModal,
-  onClick,
+  onMoveBookmark,
 }: FolderMoveModalProps): ReactElement {
   const selectedFolder = useRecoilValue(selectedFolderState);
+  const prevFolderId = useRef(selectedFolder.id);
+  const { onMoveFolder } = useFoldersHandle();
+
+  const onMove = () => {
+    if (onMoveBookmark) {
+      onMoveBookmark();
+    } else {
+      onMoveFolder(prevFolderId.current, selectedFolder.id);
+    }
+    onToggleModal();
+  };
 
   return (
     <ModalTemplate
@@ -81,8 +97,9 @@ function FolderMoveModal({
     >
       <ModalInner>
         <ModalTitle>위치 선택</ModalTitle>
-
-        <PagePath folderId={selectedFolder.id as string} />
+        <PathBox>
+          <PagePath folderId={selectedFolder.id as string} />
+        </PathBox>
         <FolderListBox>
           <FolderListInModal />
         </FolderListBox>
@@ -100,7 +117,7 @@ function FolderMoveModal({
             width="63px"
             height="26px"
             label="확인"
-            onClick={onClick}
+            onClick={onMove}
           />
         </ButtonGroup>
       </ModalInner>

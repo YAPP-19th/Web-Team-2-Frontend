@@ -28,6 +28,7 @@ interface BookmarkItemProps {
   isOpenMenu: IBookmarkOpenMenu;
   onToggleModal: IBookmarkMenu;
   onToggleSingleChecked: (bookmarkId: string) => void;
+  onActiveSelectFolder: () => void;
   IsActiveSelectBox: boolean;
 }
 
@@ -210,6 +211,7 @@ function BookmarkItem({
   isOpenMenu,
   onToggleModal,
   onToggleSingleChecked,
+  onActiveSelectFolder,
   IsActiveSelectBox,
 }: BookmarkItemProps): ReactElement {
   const {
@@ -343,6 +345,7 @@ function BookmarkItem({
                       isOpen={isOpenMenu.id === id}
                       isOpenMenu={isOpenMenu}
                       onToggleModal={onToggleModal}
+                      onActiveSelectFolder={onActiveSelectFolder}
                     />
                   )}
                 </OptionButton>

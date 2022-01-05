@@ -17,6 +17,7 @@ import BookmarkItem from './BookmarkItem';
 interface Props {
   bookmarkList: bookmarks.IBookmark[];
   onToggleSingleChecked: (bookmarkId: string) => void;
+  onActiveSelectFolder: () => void;
   IsActiveSelectBox: boolean;
 }
 
@@ -55,7 +56,12 @@ const BlankBox = styled.div`
 `;
 
 function BookmarkList(props: Props): ReactElement {
-  const { bookmarkList, onToggleSingleChecked, IsActiveSelectBox } = props;
+  const {
+    bookmarkList,
+    onToggleSingleChecked,
+    onActiveSelectFolder,
+    IsActiveSelectBox,
+  } = props;
   const [isOpenMenu, setIsOpenMenu] = useState<IBookmarkOpenMenu>({
     id: '',
     title: '',
@@ -128,6 +134,7 @@ function BookmarkList(props: Props): ReactElement {
           isOpenMenu={isOpenMenu}
           onToggleModal={onToggleModal}
           onToggleSingleChecked={onToggleSingleChecked}
+          onActiveSelectFolder={onActiveSelectFolder}
           IsActiveSelectBox={IsActiveSelectBox}
         />
       ))}
@@ -154,7 +161,7 @@ function BookmarkList(props: Props): ReactElement {
         <FolderMoveModal
           isModal={isMoveModal}
           onToggleModal={onToggleMoveModal}
-          onClick={onMoveBookmarkList}
+          onMoveBookmark={onMoveBookmarkList}
         />
       )}
     </BookmarkListWrapper>

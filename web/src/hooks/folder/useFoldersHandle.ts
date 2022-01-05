@@ -11,6 +11,7 @@ import {
   createFolder,
   deleteFolder,
   moveFolder,
+  moveFolderModal,
   updateFolder,
 } from 'api/folderAPI';
 import useToasts from 'hooks/common/useToasts';
@@ -39,6 +40,7 @@ export interface IFoldersHandle {
   onCreateFolder: (parentId: ItemId) => void;
   onCreateCabinet: (cabinetLength: number) => void;
   onDeleteFolder: (itemId: ItemId) => void;
+  onMoveFolder: (prevFolderId: ItemId, nextFolderId: ItemId) => void;
   onChangeFolderInfo: (itemId: ItemId, name: string, emoji: string) => void;
   toasts: IToasts;
   deleteDatasInFolders: (folderIdList: ItemId[]) => Promise<void>;
@@ -203,6 +205,17 @@ export default function useFoldersHandle(): IFoldersHandle {
     }
   };
 
+  // 모달창으로 폴더 이동
+  const onMoveFolder = async (prevFolderId: ItemId, nextFolderId: ItemId) => {
+    try {
+      await moveFolderModal(prevFolderId, nextFolderId);
+      queryClient.invalidateQueries(QueryKey.SUBFOLDER_CONTENTS);
+      queryClient.invalidateQueries(QueryKey.FOLDER_CONTENTS);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return {
     folders,
     onExpandFolder,
@@ -212,6 +225,7 @@ export default function useFoldersHandle(): IFoldersHandle {
     onCreateFolder,
     onCreateCabinet,
     onDeleteFolder,
+    onMoveFolder,
     onChangeFolderInfo,
     toasts,
     deleteDatasInFolders,
