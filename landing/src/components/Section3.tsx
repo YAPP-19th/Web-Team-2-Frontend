@@ -26,8 +26,9 @@ const SectionInner = styled.div`
 
 const ContentBox = styled.div`
   width: 1254px;
-  height: 332px;
+  height: 358px;
   position: relative;
+  overflow: hidden;
   ${media.tablet} {
     display: flex;
     flex-direction: column-reverse;
@@ -39,7 +40,7 @@ const ContentBox = styled.div`
 
 const Description = styled.div`
   position: absolute;
-  top: 0.956rem;
+  top: 2.956rem;
   left: 0;
   z-index: 10;
   ${flexColumn}
@@ -93,7 +94,7 @@ function Section3(): ReactElement {
     <SectionTemplate filled>
       <SectionInner>
         <ContentBox>
-          <Image width="100%" height="100%" src={S3DesktopIMG} />
+          <Image src={S3DesktopIMG} />
           <ResponsiveImageBox>
             <ResponsiveImage src={S3MobileIMG} />
           </ResponsiveImageBox>

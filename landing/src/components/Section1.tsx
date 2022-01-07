@@ -107,12 +107,7 @@ function Section1(): ReactElement {
   return (
     <ResponsiveTemplate filled>
       <SectionInner>
-        <Image
-          width="672px"
-          height="532px"
-          marginRight="108px"
-          src={S1DesktopIMG}
-        />
+        <Image marginRight="108px" src={S1DesktopIMG} />
         <ResponsiveImage src={S1MobileIMG} />
         <ContentBox>
           <SectionTitle variant="secondary">

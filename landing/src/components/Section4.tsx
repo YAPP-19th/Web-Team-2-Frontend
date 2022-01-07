@@ -74,12 +74,7 @@ function Section4(): ReactElement {
   return (
     <SectionTemplate>
       <SectionInner>
-        <ImageStyled
-          width="353px"
-          height="382px"
-          marginRight="241px"
-          src={S4DesktopIMG}
-        />
+        <ImageStyled marginRight="241px" src={S4DesktopIMG} />
         <ResponsiveImage src={S4MobileIMG} />
 
         <ContentBox>

@@ -74,12 +74,7 @@ function Section2(): ReactElement {
   return (
     <SectionTemplate>
       <SectionInner>
-        <ImageStyled
-          width="36.694rem"
-          height="442px"
-          marginRight="160px"
-          src={S2DesktopIMG}
-        />
+        <ImageStyled marginRight="160px" src={S2DesktopIMG} />
         <ResponsiveImageBox>
           <ResponsiveImage src={S2MobileIMG} />
         </ResponsiveImageBox>

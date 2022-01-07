@@ -3,6 +3,8 @@ export { default as LogoSmall } from "./LogoSmall.png";
 export { default as LogoWhite } from "./LogoWhite.png";
 export { default as LogoWhiteSmall } from "./LogoWhiteSmall.png";
 export { default as S1DesktopIMG } from "./S1DesktopIMG.png";
+export { default as S1DesktopIMG2x } from "./S1DesktopIMG@2x.png";
+export { default as S1DesktopIMG3x } from "./S1DesktopIMG@3x.png";
 export { default as S1MobileIMG } from "./S1MobileIMG.png";
 export { default as S2DesktopIMG } from "./S2DesktopIMG.png";
 export { default as S2MobileIMG } from "./S2MobileIMG.png";
