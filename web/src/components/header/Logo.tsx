@@ -15,14 +15,18 @@ const HeaderLogo = styled.div`
 
 const LogoWithText = styled.a`
   display: flex;
-  align-items: end;
+  height: 100%;
+  align-items: center;
 `;
 
 const LogoSpan = styled.span`
   font-family: Cafe24Ssurround;
   color: ${(props) => props.theme.color.link0};
-  font-size: 17px;
+  font-size: 16px;
+  line-height: 51px;
+  height: 100%;
   margin-left: 3.5px;
+  transform: skew(-0.1deg);
 `;
 
 function Logo(): ReactElement {
