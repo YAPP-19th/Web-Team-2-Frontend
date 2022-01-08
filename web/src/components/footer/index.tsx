@@ -37,9 +37,10 @@ const LogoIcon = styled(SymbolGray22Icon)`
 
 const LogoText = styled.span`
   font-family: Cafe24Ssurround;
-  font-size: 17px;
+  font-size: 16px;
   color: ${(props) => props.theme.color.grayDarker};
   line-height: 26px;
+  transform: skew(-0.1deg);
 `;
 
 const FooterMenu = styled.div`

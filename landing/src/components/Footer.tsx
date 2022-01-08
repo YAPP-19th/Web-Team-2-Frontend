@@ -7,20 +7,40 @@ import styled from "styled-components";
 
 const FooterWrapper = styled.footer`
   width: 100%;
-  height: 280px;
+  height: 392px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #48bf91;
   ${flexCenter}
   ${media.tablet} {
-    height: 140px;
+    height: 320px;
   }
   ${media.mobile} {
-    height: 96px;
+    height: 152px;
+  }
+`;
+
+const FooterContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const FooterText = styled.span`
+  font-family: Cafe24Ssurroundair;
+  color: #fff;
+  font-size: 28px;
+  font-weight: 300;
+  margin-bottom: 24px;
+  ${media.mobile} {
+    font-size: 12px;
+    margin-bottom: 8px;
   }
 `;
 
 const FooterLogo = styled.img`
-  width: 273px;
-  margin-right: 44px;
+  margin-bottom: 44px;
   ${media.mobile} {
     display: none;
   }
@@ -30,7 +50,8 @@ const ResponsiveLogo = styled.img`
   display: none;
   ${media.mobile} {
     display: block;
-    margin-right: 19px;
+    margin-bottom: 16px;
+    margin-right: 10px;
   }
 `;
 
@@ -54,12 +75,15 @@ const DownloadButton = styled.button`
 function Footer(): ReactElement {
   return (
     <FooterWrapper>
-      <FooterLogo src={LogoWhite} />
-      <ResponsiveLogo src={LogoWhiteSmall} />
-      <DownloadButton>
-        Download
-        <PointerSmallIcon />
-      </DownloadButton>
+      <FooterContent>
+        <FooterText>지금 바로 다운받으세요!</FooterText>
+        <FooterLogo src={LogoWhite} />
+        <ResponsiveLogo src={LogoWhiteSmall} />
+        <DownloadButton>
+          Download
+          <PointerSmallIcon />
+        </DownloadButton>
+      </FooterContent>
     </FooterWrapper>
   );
 }
