@@ -16,10 +16,12 @@ const SaveButton = styled(SimpleButton)`
 
 interface ProfileEditButtonGroupProps {
   onEditSubmit: () => void;
+  errorMessage: string;
 }
 
 function ProfileEditButtonGroup({
   onEditSubmit,
+  errorMessage,
 }: ProfileEditButtonGroupProps): ReactElement {
   const navigate = useNavigate();
 
@@ -38,6 +40,7 @@ function ProfileEditButtonGroup({
         width="174px"
         height="40px"
         variant="primary"
+        disabled={errorMessage.length > 0}
         onClick={onEditSubmit}
       />
     </ButtonGroupWrapper>

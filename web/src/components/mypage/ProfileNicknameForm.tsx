@@ -45,7 +45,7 @@ function ProfileNicknameForm({
           placeholder="닉네임을 입력해주세요"
           value={nickname}
           onChange={onChangeNickname}
-          onKeyUp={onKeyUpNickname}
+          onBlur={onKeyUpNickname}
         />
         {errorMessage && (
           <NicknameCheckError>{errorMessage}</NicknameCheckError>
