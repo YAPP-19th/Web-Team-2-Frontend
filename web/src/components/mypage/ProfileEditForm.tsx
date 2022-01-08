@@ -44,12 +44,18 @@ function ProfileEditForm(): ReactElement {
 
   // 닉네임 인풋에서 초점을 벗어났을 시에 액션
   const onKeyUpNickname = async () => {
+    if (nickname.length === 0) {
+      setErrorMessage('닉네임을 입력해주세요');
+      return;
+    }
     try {
       await nicknameCheck(nickname);
       setErrorMessage('');
     } catch (e: unknown) {
       if (e instanceof Error) {
-        setErrorMessage(e.message);
+        if (e.message === '이미 존재하는 닉네임입니다') {
+          setErrorMessage(e.message);
+        }
       }
     }
   };
@@ -129,7 +135,10 @@ function ProfileEditForm(): ReactElement {
           onKeyUpNickname={onKeyUpNickname}
         />
 
-        <ProfileEditButtonGroup onEditSubmit={onEditSubmit} />
+        <ProfileEditButtonGroup
+          onEditSubmit={onEditSubmit}
+          errorMessage={errorMessage}
+        />
       </ProfileEditFormWrapper>
     </>
   );
