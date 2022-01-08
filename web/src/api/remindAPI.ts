@@ -30,3 +30,8 @@ export const deleteRemind = (
     `api/v1/remind/${bookmarkId}`,
   );
 };
+
+export const getNewRemindAlarmList =
+  (): Promise<remind.INewRemindAlarmListRequest> => {
+    return Client.getAxios<remind.INewRemindAlarmListResponse>(`api/v1/remind`);
+  };
