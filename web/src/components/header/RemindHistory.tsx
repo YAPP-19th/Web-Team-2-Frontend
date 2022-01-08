@@ -1,3 +1,4 @@
+import useLayerClose from 'hooks/common/useLayerClose';
 import { remind } from 'models/remind';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
@@ -5,6 +6,8 @@ import { getLastTimeString } from 'utils/time';
 
 interface RemindHistoryProps {
   historyItem: remind.INewRemindAlarmListResponse;
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 const RemindHistoryBox = styled.div`
@@ -32,6 +35,9 @@ const RemindHistoryBox = styled.div`
     border-radius: 10px;
     background-clip: padding-box;
     border: 1px solid transparent;
+  }
+  &:hover {
+    cursor: auto;
   }
 `;
 
@@ -82,7 +88,9 @@ const EmptyHistorySpan = styled.span`
 `;
 
 function RemindHistory(props: RemindHistoryProps): ReactElement {
-  const { historyItem } = props;
+  const { historyItem, isOpen, onClose } = props;
+
+  useLayerClose(isOpen, onClose);
 
   return (
     <RemindHistoryBox>
