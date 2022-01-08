@@ -7,7 +7,8 @@ const AuthTitleWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 36px;
+  /* margin-top: 36px; @TODO(dohyun): 2차 범위 개발 되면 이거 주석 해제 후 아래꺼 삭제 */
+  margin-top: 50px;
   margin-bottom: 28px;
 `;
 

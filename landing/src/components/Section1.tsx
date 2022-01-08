@@ -116,7 +116,7 @@ function Section1(): ReactElement {
 
           <Logo src={LogoIMG} />
           <ResponsiveText variant="secondary">
-            다람쥐는, 여러 군데 저장한
+            다람쥐는 여러 군데 저장한
             <ResponsiveNewLine media="desktop" /> 도토리 중 10%만 다시 찾는다고
             해요.
             <ResponsiveNewLine media="desktop" />

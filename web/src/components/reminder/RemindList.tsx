@@ -8,8 +8,6 @@ import {
 } from 'assets/images';
 import useReminderHandleEffect from 'hooks/reminder/useReminderHandleEffect';
 import React, { ReactElement } from 'react';
-import { useRecoilValue } from 'recoil';
-import { userState } from 'recoil/atoms/userState';
 import styled, { css } from 'styled-components';
 import RemindAlertMessage from './RemindAlertMessage';
 import RemindListItem from './RemindListItem';
@@ -76,9 +74,8 @@ function RemindList(): ReactElement {
     SHOW_SLIDE_LENGTH,
     TOTAL_SLIDES,
   } = useReminderHandleEffect();
-  const user = useRecoilValue(userState);
 
-  if (!user.remindToggle) return <RemindAlertMessage />;
+  if (reminds.length === 0) return <RemindAlertMessage />;
 
   return (
     <RemindListWrapper>
