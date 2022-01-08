@@ -32,5 +32,21 @@ export namespace remind {
     remindBookmarkList: IRemindInfo[];
   }
 
+  export interface NewRemindAlarm {
+    id: string;
+    title: string;
+    pushTime: string;
+  }
+
+  export interface INewRemindAlarmListResponse {
+    contents: NewRemindAlarm[];
+  }
+
   export interface IRemindDeleteResponse {}
+
+  export interface IReadRemindAlarmListRequest {
+    bookmarkIdList: string[];
+  }
+
+  export interface IReadRemindAlarmListResponse {}
 }

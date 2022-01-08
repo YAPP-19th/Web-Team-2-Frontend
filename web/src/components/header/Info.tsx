@@ -1,12 +1,15 @@
+import { postReadRemindAlarmList } from 'api/remindAPI';
 import { BellIcon, BellNewIcon } from 'assets/icons';
 import { LogoGreenIMG } from 'assets/images';
-import React, { ReactElement } from 'react';
+import { useNewRemindAlarmQuery } from 'hooks/reminder/useRemindQueries';
+import React, { ReactElement, useState } from 'react';
+import { useMutation } from 'react-query';
 import { Link } from 'react-router-dom';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { bellState } from 'recoil/atoms/bellState';
+import { useRecoilValue } from 'recoil';
 import { userState } from 'recoil/atoms/userState';
 import Path from 'routes/path';
 import styled from 'styled-components';
+import RemindHistory from './RemindHistory';
 
 const HeaderInfo = styled.div`
   width: 72px;
@@ -20,6 +23,7 @@ const BellIconBox = styled.div`
   &:hover {
     cursor: pointer;
   }
+  position: relative;
 `;
 
 const ProfileImg = styled.img`
@@ -32,13 +36,28 @@ const ProfileImg = styled.img`
 `;
 
 function Info(): ReactElement {
-  const [bellAlarm, setBellAlarm] = useRecoilState(bellState);
   const userInfo = useRecoilValue(userState);
+  const [historyOpen, setHistoryOpen] = useState(false);
+  const { data } = useNewRemindAlarmQuery();
+
+  const newRemindId = data?.contents.map((value) => value.id) || [];
+
+  const { mutate: readMutation } = useMutation(
+    () => postReadRemindAlarmList({ bookmarkIdList: newRemindId }),
+    {
+      onSuccess: () => {
+        setHistoryOpen(false);
+      },
+    },
+  );
 
   return (
     <HeaderInfo>
-      <BellIconBox onClick={() => setBellAlarm(!bellAlarm)}>
-        {bellAlarm ? <BellNewIcon /> : <BellIcon />}
+      <BellIconBox
+        onClick={() => (historyOpen ? readMutation() : setHistoryOpen(true))}
+      >
+        {data?.contents.length ? <BellNewIcon /> : <BellIcon />}
+        {historyOpen && data && <RemindHistory historyItem={data} />}
       </BellIconBox>
       <Link to={Path.MyPage}>
         <ProfileImg
