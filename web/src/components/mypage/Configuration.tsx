@@ -88,6 +88,7 @@ function Configuration(): ReactElement {
               <ChipButton
                 label={`${cycle}일`}
                 variant={cycle === selectedCycle ? 'primary' : 'secondary'}
+                disabled={!isRemind}
                 key={cycle}
                 onClick={() => {
                   mutateRemindCycleChange(cycle);

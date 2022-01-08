@@ -23,10 +23,19 @@ const ChipButtonStyled = styled.button<ButtonProps>`
           color: ${props.theme.color.white};
           border: 1px solid ${props.theme.color.primary};
           background-color: ${props.theme.color.primary};
+          &:disabled {
+            background-color: ${props.theme.color.grayLightest};
+            border: none;
+            color: ${props.theme.color.gray};
+            cursor: not-allowed;
+          }
         `
       : css`
           color: ${props.theme.color.grayDark};
           border: 1px solid ${props.theme.color.grayLight};
+          \ &:disabled {
+            cursor: not-allowed;
+          }
         `}
 `;
 
