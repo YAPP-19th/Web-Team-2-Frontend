@@ -1,9 +1,11 @@
+import { postReadRemindAlarmList } from 'api/remindAPI';
 import { BellIcon, BellNewIcon } from 'assets/icons';
 import { LogoGreenIMG } from 'assets/images';
+import { useNewRemindAlarmQuery } from 'hooks/reminder/useRemindQueries';
 import React, { ReactElement, useState } from 'react';
+import { useMutation } from 'react-query';
 import { Link } from 'react-router-dom';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { bellState } from 'recoil/atoms/bellState';
+import { useRecoilValue } from 'recoil';
 import { userState } from 'recoil/atoms/userState';
 import Path from 'routes/path';
 import styled from 'styled-components';
@@ -21,6 +23,7 @@ const BellIconBox = styled.div`
   &:hover {
     cursor: pointer;
   }
+  position: relative;
 `;
 
 const ProfileImg = styled.img`
@@ -32,35 +35,30 @@ const ProfileImg = styled.img`
   }
 `;
 
-// @TODO(jekoo): get remind web push, sort
-const tempData: { time: string; title: string }[] = [
-  { time: '2021-12-17T07:29:55.699Z', title: '제목' },
-  { time: '2021-12-15T07:29:55.699Z', title: '북북마마크크' },
-  { time: '2021-12-13T07:29:55.699Z', title: '북마크제목' },
-  { time: '2021-12-19T07:25:55.699Z', title: '북마크제목' },
-  { time: '2021-12-19T07:28:55.699Z', title: '북마크제목' },
-  { time: '2021-12-12T07:28:55.699Z', title: '북마크제목' },
-  { time: '2021-12-19T07:27:55.699Z', title: '북마크제목' },
-  { time: '2021-12-18T07:01:55.699Z', title: '북마크제목' },
-  { time: '2021-12-18T07:13:55.699Z', title: '북마크제목' },
-];
-
 function Info(): ReactElement {
-  const [bellAlarm, setBellAlarm] = useRecoilState(bellState);
   const userInfo = useRecoilValue(userState);
   const [historyOpen, setHistoryOpen] = useState(false);
+  const { data } = useNewRemindAlarmQuery();
+
+  const newRemindId = data?.contents.map((value) => value.id) || [];
+
+  const { mutate: readMutation } = useMutation(
+    () => postReadRemindAlarmList({ bookmarkIdList: newRemindId }),
+    {
+      onSuccess: () => {
+        setHistoryOpen(false);
+      },
+    },
+  );
 
   return (
     <HeaderInfo>
       <BellIconBox
-        onClick={() => {
-          setBellAlarm(!bellAlarm);
-          setHistoryOpen(!historyOpen);
-        }}
+        onClick={() => (historyOpen ? readMutation() : setHistoryOpen(true))}
       >
-        {bellAlarm ? <BellNewIcon /> : <BellIcon />}
+        {data?.contents.length ? <BellNewIcon /> : <BellIcon />}
+        {historyOpen && data && <RemindHistory historyItem={data} />}
       </BellIconBox>
-      {historyOpen && <RemindHistory historyItem={tempData} />}
       <Link to={Path.MyPage}>
         <ProfileImg
           src={userInfo.image}

@@ -33,8 +33,6 @@ export namespace remind {
     remindBookmarkList: IRemindInfo[];
   }
 
-  export interface INewRemindAlarmListRequest {}
-
   export interface NewRemindAlarm {
     id: string;
     title: string;
@@ -42,8 +40,14 @@ export namespace remind {
   }
 
   export interface INewRemindAlarmListResponse {
-    content: NewRemindAlarm[];
+    contents: NewRemindAlarm[];
   }
 
   export interface IRemindDeleteResponse {}
+
+  export interface IReadRemindAlarmListRequest {
+    bookmarkIdList: string[];
+  }
+
+  export interface IReadRemindAlarmListResponse {}
 }

@@ -1,9 +1,10 @@
+import { remind } from 'models/remind';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import { getLastTimeString } from 'utils/time';
 
 interface RemindHistoryProps {
-  historyItem: { time: string; title: string }[] | [];
+  historyItem: remind.INewRemindAlarmListResponse;
 }
 
 const RemindHistoryBox = styled.div`
@@ -11,7 +12,7 @@ const RemindHistoryBox = styled.div`
   width: 264px;
   height: 295px;
   background: ${(props) => props.theme.color.white};
-  top: 45px;
+  top: 35px;
   z-index: 1;
   display: flex;
   flex-direction: column;
@@ -82,21 +83,22 @@ const EmptyHistorySpan = styled.span`
 
 function RemindHistory(props: RemindHistoryProps): ReactElement {
   const { historyItem } = props;
+
   return (
     <RemindHistoryBox>
-      {historyItem.length === 0 ? (
+      {historyItem.contents.length === 0 ? (
         <EmptyHistoryBox>
           <EmptyHistorySpan>최근 3일간</EmptyHistorySpan>
           <EmptyHistorySpan>알림이 발송된 도토리가 없어요.</EmptyHistorySpan>
         </EmptyHistoryBox>
       ) : (
-        historyItem.map((data, idx) => {
+        historyItem.contents.map((data) => {
           return (
-            <RemindHistoryItem key={`${data.title}_${idx}`}>
+            <RemindHistoryItem key={data.id}>
               <TimeAlramBox>
                 <TimeAlarmMessage>리마인드 알림이 도착했어요.</TimeAlarmMessage>
                 <TimeAlarmMessage>
-                  {getLastTimeString(data.time)}
+                  {getLastTimeString(data.pushTime)}
                 </TimeAlarmMessage>
               </TimeAlramBox>
               <RemindBookmarkTitle>{data.title}</RemindBookmarkTitle>
