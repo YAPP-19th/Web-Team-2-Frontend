@@ -2,7 +2,7 @@ import { getAccessToken } from 'api/authAPI';
 import ERROR_STATUS_CODE from 'api/errorStatus';
 import axios, { AxiosInstance } from 'axios';
 import qs from 'qs';
-import { getTokens, setTokens } from 'utils/auth';
+import { getTokens, logout, setTokens } from 'utils/auth';
 
 export const BASE_URL = 'https://dotoriham.duckdns.org';
 
@@ -74,19 +74,21 @@ Client.intercept().response.use(
         throw new Error('Bad Request');
       // @TODO(jekoo): requestConfig 으로 origin request 처리 검토
       case ERROR_STATUS_CODE.UNAUTHORIZED:
-        return getAccessToken().then((res) => {
-          const { accessToken, refreshToken } = res.data;
-          setTokens({ accessToken, refreshToken });
-          return axios
-            .get(`${BASE_URL}/${requestConfig.url}`, {
-              headers: {
-                accessToken: `Bearer ${accessToken}`,
-                refreshToken: `Bearer ${refreshToken}`,
-                Accept: 'application/json',
-              },
-            })
-            .catch(() => new Error('Authorization Error'));
-        });
+        return getAccessToken()
+          .then((res) => {
+            const { accessToken, refreshToken } = res.data;
+            setTokens({ accessToken, refreshToken });
+            return axios
+              .get(`${BASE_URL}/${requestConfig.url}`, {
+                headers: {
+                  accessToken: `Bearer ${accessToken}`,
+                  refreshToken: `Bearer ${refreshToken}`,
+                  Accept: 'application/json',
+                },
+              })
+              .catch(() => logout());
+          })
+          .catch(() => logout());
       case ERROR_STATUS_CODE.NOT_FOUND:
         throw new Error('Not Found');
       case ERROR_STATUS_CODE.INTERNAL_SERVER_ERROR:
