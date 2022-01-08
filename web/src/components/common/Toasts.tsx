@@ -40,7 +40,7 @@ const ToastsStyled = styled.div<IToastsStyledProps>`
   background-color: rgba(0, 0, 0, 0.8);
   border-radius: 4px;
   position: fixed;
-  bottom: 140px;
+  bottom: 100px;
   left: 50%;
   display: flex;
   align-items: center;
