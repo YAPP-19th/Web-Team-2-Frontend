@@ -2,4 +2,4 @@
 
 ### <div align="center">흩어진 북마크를 보관하고 공유하고 알림을 받아보세요</div>
 
-<img src="/docs/og-image.png"  align="left"  width="100%" />
+<img src="/docs/og-image.png"  align="center" />
