@@ -60,4 +60,33 @@
 
 <br />
 
+## 필수 구성 요소
+
+[Node.js](https://nodejs.org/ko/) 가 설치되어 있어야 합니다.
+
 ## 프로젝트 실행 방법
+
+### Front-End
+
+프로젝트 클론
+
+```shell
+$ git clone https://github.com/YAPP-19th/Web-Team-2-Frontend.git
+```
+
+패키지 설치
+
+```shell
+$ cd web
+$ npm install or yarn install
+```
+
+서버 실행
+
+```shell
+$ npm run start or yarn run start
+```
+
+### Back-End
+
+- [백앤드 Repository](https://github.com/YAPP-19th/Web-Team-2-Backend) 에서 확인해주세요 !
