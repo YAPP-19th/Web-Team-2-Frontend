@@ -6,10 +6,8 @@
 
 ### <div align="center">⚡흩어진 북마크를 보관하고 공유하고 알림을 받아보세요!⚡</div>
 
-<br />
-
 <div align="center">
-    <a href="https://dotoriham.com/">도토리함 바로가기</a>
+    <a href="https://dotoriham.com/">👉도토리함 바로가기👈</a>
 </div>
 
 <br />
