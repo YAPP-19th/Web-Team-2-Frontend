@@ -1,10 +1,10 @@
-# <div align="center"><img src="/docs/icon.png" /> Dotoriham</div>
+# <div align="center"> dotoriham</div>
 
 <div align="center">
     <img src="/docs/og-image.png" />
 </div>
 
-#### <div align="center">⚡흩어진 북마크를 보관하고 공유하고 알림을 받아보세요!⚡</div>
+### <div align="center">⚡흩어진 북마크를 보관하고 공유하고 알림을 받아보세요!⚡</div>
 
 <br />
 
@@ -26,3 +26,38 @@
 - **트리메뉴 구조로 보관**
   - 저장하는 정보의 유형이 다양함에 따라 세분화된 관리가 필요한 사용자들을 위한 기능
   - 1depth로만 저장 가능한 서비스들과 달리 사용자가 지정하는 만큼 세분화하여 북마크를 보관할 수 있게 함으로써 관리의 효율성 증대
+
+<br />
+
+## 팀원소개⚡
+
+| [<img src="https://avatars.githubusercontent.com/ksmfou98" width="500">](https://github.com/ksmfou98) | [<img src="https://avatars.githubusercontent.com/Zigje9" width="500">](https://github.com/Zigje9) | [<img src="https://avatars.githubusercontent.com/gilsangwoo" width="500">](https://github.com/gilsangwoo) |
+| :---------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------: |
+|                                                이도현                                                 |                                              박제구                                               |                                                  길상우                                                   |
+
+<br />
+
+## 개발스택⚡
+
+### Front-End
+
+- React
+- React-Router
+- Recoil
+- Styled-components
+- React-Query
+- Typescript
+
+### Back-End
+
+- [백앤드 Repository](https://github.com/YAPP-19th/Web-Team-2-Backend)
+
+<br />
+
+## API DOCS
+
+[API 문서 보러가기](https://dotoriham.duckdns.org/swagger-ui/index.html#/)
+
+<br />
+
+## 프로젝트 실행 방법
