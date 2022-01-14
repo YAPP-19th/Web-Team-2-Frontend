@@ -11,7 +11,7 @@ export const firebaseConfig = {
   measurementId: 'G-BZE4CWPKM3',
 };
 
-export const getFCMToken = async (): Promise<string> => {
+export const getFCMToken = async (): Promise<string | null> => {
   const messaging = getMessaging();
   return getToken(messaging, {
     vapidKey:
@@ -22,10 +22,10 @@ export const getFCMToken = async (): Promise<string> => {
         return currentToken;
       }
       alert('리마인드 알림을 받기 위해 사이트 알림 권한을 설정해주세요.');
-      return 'null';
+      return null;
     })
     .catch(() => {
       alert('리마인드 알림을 받기 위해 사이트 알림 권한을 설정해주세요.');
-      return 'null';
+      return null;
     });
 };
