@@ -1,4 +1,5 @@
-import { QuestionIcon } from 'assets/icons';
+import { QuestionActiveIcon, QuestionIcon } from 'assets/icons';
+import transitions from 'assets/styles/transitions';
 import useToggle from 'hooks/common/useToggle';
 import React, { ReactElement } from 'react';
 import { useRecoilState } from 'recoil';
@@ -23,6 +24,8 @@ const TutorialMenuBox = styled.div<ITutorialMenuStyled>`
   font-size: 14px;
   font-weight: bold;
   font-family: 'Cafe24Ssurround';
+  animation: ${transitions.fadeIn} 0.2s ease-in-out;
+  z-index: 100;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -45,6 +48,14 @@ const TutorialMenuBox = styled.div<ITutorialMenuStyled>`
         `}
 `;
 
+const LayerBackground = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+`;
+
 function QuestionButton(): ReactElement {
   const [isTutorialMenu, onToggleTutorialMenu] = useToggle();
   const [isTutorialModal, setIsTutorialModal] =
@@ -56,14 +67,25 @@ function QuestionButton(): ReactElement {
 
   return (
     <>
-      <QuestionButtonStyled onClick={onToggleTutorialModal}>
-        <TutorialMenuBox variant="secondary" top={-12} left={40}>
-          알림이 안 와요!
-        </TutorialMenuBox>
-        <TutorialMenuBox variant="primary" top={-60} left={40}>
-          도토리함 가이드
-        </TutorialMenuBox>
-        <QuestionIcon />
+      <QuestionButtonStyled onClick={onToggleTutorialMenu}>
+        {isTutorialMenu ? (
+          <>
+            <TutorialMenuBox variant="secondary" top={-12} left={47}>
+              알림이 안 와요!
+            </TutorialMenuBox>
+            <TutorialMenuBox
+              variant="primary"
+              top={-60}
+              left={47}
+              onClick={onToggleTutorialModal}
+            >
+              도토리함 가이드
+            </TutorialMenuBox>
+            <QuestionActiveIcon />
+          </>
+        ) : (
+          <QuestionIcon />
+        )}
       </QuestionButtonStyled>
 
       {isTutorialModal && (
@@ -72,6 +94,7 @@ function QuestionButton(): ReactElement {
           onToggleModal={onToggleTutorialModal}
         />
       )}
+      {isTutorialMenu && <LayerBackground onClick={onToggleTutorialMenu} />}
     </>
   );
 }
