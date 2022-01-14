@@ -37,7 +37,7 @@ export default function useGoogleLogin(): GoogleLoginTypes {
       image: profileObj.imageUrl,
       name: profileObj.name,
       socialType: 'google',
-      fcmToken: userFCMToken || 'null',
+      fcmToken: userFCMToken,
     };
 
     try {

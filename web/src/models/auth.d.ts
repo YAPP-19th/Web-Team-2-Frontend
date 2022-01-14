@@ -34,7 +34,7 @@ export namespace auth {
   export interface ILoginRequest
     extends Omit<IAuthUserInfo, 'accessToken' | 'refreshToken'> {
     socialType: string;
-    fcmToken: string;
+    fcmToken: string | null;
   }
 
   export interface IUserRemindInfo {

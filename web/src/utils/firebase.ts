@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import { getMessaging, getToken } from 'firebase/messaging';
 
 export const firebaseConfig = {
@@ -10,11 +11,21 @@ export const firebaseConfig = {
   measurementId: 'G-BZE4CWPKM3',
 };
 
-export const getFCMToken = (): Promise<string> => {
+export const getFCMToken = async (): Promise<string | null> => {
   const messaging = getMessaging();
-  const currentToken = getToken(messaging, {
+  return getToken(messaging, {
     vapidKey:
       'BB4rW8tHZBgipv_-mPt-l9HLoab-J05S_vWQSfMveQt6ua9kCvvN-LuBwIEH5wWWo1KAKTJq58rg4AeFu8_anEc',
-  });
-  return currentToken;
+  })
+    .then((currentToken) => {
+      if (currentToken) {
+        return currentToken;
+      }
+      alert('리마인드 알림을 받기 위해 사이트 알림 권한을 설정해주세요.');
+      return null;
+    })
+    .catch(() => {
+      alert('리마인드 알림을 받기 위해 사이트 알림 권한을 설정해주세요.');
+      return null;
+    });
 };
