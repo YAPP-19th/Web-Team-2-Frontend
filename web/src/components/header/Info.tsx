@@ -2,8 +2,7 @@ import { postReadRemindAlarmList } from 'api/remindAPI';
 import { BellIcon, BellNewIcon } from 'assets/icons';
 import { LogoGreenIMG } from 'assets/images';
 import { useNewRemindAlarmQuery } from 'hooks/reminder/useRemindQueries';
-import React, { ReactElement, useState } from 'react';
-import { useMutation } from 'react-query';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { userState } from 'recoil/atoms/userState';
@@ -23,6 +22,7 @@ const BellIconBox = styled.div`
   &:hover {
     cursor: pointer;
   }
+
   position: relative;
 `;
 
@@ -38,26 +38,33 @@ const ProfileImg = styled.img`
 function Info(): ReactElement {
   const userInfo = useRecoilValue(userState);
   const [historyOpen, setHistoryOpen] = useState(false);
+  const [isNew, setNew] = useState(false);
+  const [optimisticUpdate, setOptimisticUpdate] = useState(true);
   const { data } = useNewRemindAlarmQuery();
 
   const newRemindId = data?.contents.map((value) => value.id) || [];
 
-  const { mutate: readMutation } = useMutation(
-    () => postReadRemindAlarmList({ bookmarkIdList: newRemindId }),
-    {
-      onSuccess: () => {
-        setHistoryOpen(false);
-      },
-    },
-  );
+  useEffect(() => {
+    setNew(newRemindId.length > 0);
+  }, [setNew, newRemindId]);
 
   return (
     <HeaderInfo>
       <BellIconBox
-        onClick={() => (historyOpen ? readMutation() : setHistoryOpen(true))}
+        onClick={() => {
+          setHistoryOpen(!historyOpen);
+          setOptimisticUpdate(false);
+          postReadRemindAlarmList({ bookmarkIdList: newRemindId });
+        }}
       >
-        {data?.contents.length ? <BellNewIcon /> : <BellIcon />}
-        {historyOpen && data && <RemindHistory historyItem={data} />}
+        {isNew && optimisticUpdate ? <BellNewIcon /> : <BellIcon />}
+        {data && historyOpen && (
+          <RemindHistory
+            isOpen={historyOpen}
+            onClose={() => setHistoryOpen(false)}
+            historyItem={data}
+          />
+        )}
       </BellIconBox>
       <Link to={Path.MyPage}>
         <ProfileImg
