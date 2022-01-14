@@ -60,6 +60,7 @@ function QuestionButton(): ReactElement {
   const [isTutorialMenu, onToggleTutorialMenu] = useToggle();
   const [isTutorialModal, setIsTutorialModal] =
     useRecoilState(tutorialModalState);
+  const [isRemindTutorialModal, onToggleRemindTutorialModal] = useToggle();
 
   const onToggleTutorialModal = () => {
     setIsTutorialModal(!isTutorialModal);
@@ -70,7 +71,12 @@ function QuestionButton(): ReactElement {
       <QuestionButtonStyled onClick={onToggleTutorialMenu}>
         {isTutorialMenu ? (
           <>
-            <TutorialMenuBox variant="secondary" top={-12} left={47}>
+            <TutorialMenuBox
+              variant="secondary"
+              top={-12}
+              left={47}
+              onClick={onToggleRemindTutorialModal}
+            >
               알림이 안 와요!
             </TutorialMenuBox>
             <TutorialMenuBox
@@ -92,8 +98,18 @@ function QuestionButton(): ReactElement {
         <TutorialModal
           isModal={isTutorialModal}
           onToggleModal={onToggleTutorialModal}
+          tutorialMenu="guideTutorial"
         />
       )}
+
+      {isRemindTutorialModal && (
+        <TutorialModal
+          isModal={isRemindTutorialModal}
+          onToggleModal={onToggleRemindTutorialModal}
+          tutorialMenu="remindTutorial"
+        />
+      )}
+
       {isTutorialMenu && <LayerBackground onClick={onToggleTutorialMenu} />}
     </>
   );

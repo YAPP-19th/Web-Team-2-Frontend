@@ -9,6 +9,7 @@ import TutorialSideButtons from './TutorialSideButtons';
 interface TutorialModalProps {
   isModal: boolean;
   onToggleModal: () => void;
+  tutorialMenu: 'remindTutorial' | 'guideTutorial';
 }
 
 const ModalInnerStyled = styled.div`
@@ -92,6 +93,7 @@ const StepCircle = styled.div<{ active: boolean }>`
 function TutorialModal({
   isModal,
   onToggleModal,
+  tutorialMenu,
 }: TutorialModalProps): ReactElement {
   const {
     Step1Content,
@@ -99,9 +101,13 @@ function TutorialModal({
     Step3Content,
     Step4Content,
     Step5Content,
+    RemindStep1Content,
+    RemindStep2Content,
+    RemindStep3Content,
+    RemindSetp4Content,
   } = TutorialContents;
 
-  const tutorialSteps = [
+  const guideTutorialSteps = [
     {
       label: 'STEP 1',
       description: '아래 설치하기를 클릭하여, 확장 프로그램을 설치해주세요!',
@@ -133,9 +139,36 @@ function TutorialModal({
     },
   ];
 
+  const remindTutorialSteps = [
+    {
+      label: 'STEP 1',
+      description:
+        '마이페이지 > 환경 설정에서 ‘리마인드 알람 받기’를 활성화시켜주세요.',
+      content: <RemindStep1Content />,
+    },
+    {
+      label: 'STEP 2',
+      description: '크롬 상단 더보기 > 설정에 접속해주세요.',
+      content: <RemindStep2Content />,
+    },
+    {
+      label: 'STEP 3',
+      description: '개인정보 및 보안 > 사이트 설정에 접속해주세요.',
+      content: <RemindStep3Content />,
+    },
+    {
+      label: 'STEP 4',
+      description: 'dotoriham.com의 알림 권한을 ‘허용’으로 설정하면 끝!',
+      content: <RemindSetp4Content />,
+    },
+  ];
+
+  const tutorialList =
+    tutorialMenu === 'guideTutorial' ? guideTutorialSteps : remindTutorialSteps;
+
   const [currentStep, setCurrentStep] = useState(0);
-  const { label, description, content } = tutorialSteps[currentStep];
-  const stepLength = tutorialSteps.length - 1;
+  const { label, description, content } = tutorialList[currentStep];
+  const stepLength = tutorialList.length - 1;
 
   const onNextStep = () => {
     if (currentStep + 1 <= stepLength) {
@@ -179,7 +212,7 @@ function TutorialModal({
         />
 
         <TutorialOrder>
-          {tutorialSteps.map((step, index) => (
+          {tutorialList.map((step, index) => (
             <StepCircle key={step.label} active={index === currentStep} />
           ))}
         </TutorialOrder>
