@@ -37,6 +37,7 @@ const TutorialDescription = styled.div`
   center {
     display: flex;
     align-items: center;
+    justify-content: center;
   }
   circle {
     display: inline-block;
@@ -128,7 +129,7 @@ function TutorialModal({
     {
       label: 'STEP 4',
       description:
-        '보관함마다 맴버를 초대하여, 서로가 저장한 도토리를 공유할 수 있어요!',
+        '보관함마다 맴버를 초대하여, 서로가 저장한 도토리를 공유할 수 있어요! <br /> <center>(상반기 내 오픈 예정)</center>',
       content: <Step4Content />,
     },
     {
