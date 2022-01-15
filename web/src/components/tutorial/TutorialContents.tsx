@@ -3,6 +3,10 @@ import {
   Question124IMG,
   Question124IMG2x,
   Question124IMG3x,
+  RemindTutorialStep1IMG,
+  RemindTutorialStep2IMG,
+  RemindTutorialStep3IMG,
+  RemindTutorialStep4IMG,
   TutorialStep2IMG,
   TutorialStep2IMG2x,
   TutorialStep2IMG3x,
@@ -101,11 +105,31 @@ const Step5Content = (): ReactElement => {
   );
 };
 
+const RemindStep1Content = (): ReactElement => {
+  return <StepImgContent margin="0 auto" src={RemindTutorialStep1IMG} />;
+};
+
+const RemindStep2Content = (): ReactElement => {
+  return <StepImgContent margin="0 auto" src={RemindTutorialStep2IMG} />;
+};
+
+const RemindStep3Content = (): ReactElement => {
+  return <StepImgContent margin="0 auto" src={RemindTutorialStep3IMG} />;
+};
+
+const RemindSetp4Content = (): ReactElement => {
+  return <StepImgContent margin="0 auto" src={RemindTutorialStep4IMG} />;
+};
+
 // @TODO(dohyun) 리팩토링 예정
 TutorialContents.Step1Content = Step1Content;
 TutorialContents.Step2Content = Step2Content;
 TutorialContents.Step3Content = Step3Content;
 TutorialContents.Step4Content = Step4Content;
 TutorialContents.Step5Content = Step5Content;
+TutorialContents.RemindStep1Content = RemindStep1Content;
+TutorialContents.RemindStep2Content = RemindStep2Content;
+TutorialContents.RemindStep3Content = RemindStep3Content;
+TutorialContents.RemindSetp4Content = RemindSetp4Content;
 
 export default TutorialContents;

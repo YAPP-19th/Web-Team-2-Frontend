@@ -20,3 +20,7 @@ export { default as TutorialStep4IMG } from './TurorialStep4.png';
 export { default as TutorialStep4IMG2x } from './TurorialStep4@2x.png';
 export { default as TutorialStep4IMG3x } from './TurorialStep4@3x.png';
 export { default as UnionIMG } from './Union.png';
+export { default as RemindTutorialStep1IMG } from './tuto_remind1.png';
+export { default as RemindTutorialStep2IMG } from './tuto_remind2.png';
+export { default as RemindTutorialStep3IMG } from './tuto_remind3.png';
+export { default as RemindTutorialStep4IMG } from './tuto_remind4.png';
