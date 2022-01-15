@@ -1,21 +1,23 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "도토리함",
+  "name": "도토리함",
+  "description": "도토리함 크롬익스텐션입니다.",
   "manifest_version": 2,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "permissions": [
     "tabs",
-    "storage",
-    "<all_urls>"
+    "https://dotoriham.com/",
+    "https://dotoriham.kr/"
   ],
   "browser_action": {
-    "default_popup": "index.html"
+    "default_popup": "index.html",
+    "default_icon": "do_bbO_icon.png",
+    "default_title": "도토리함"
   },
   "icons": {
-    "16": "do_bbO_icon.ico",
-    "32": "do_bbO_icon.ico",
-    "64": "do_bbO_icon.ico",
-    "128": "do_bbO_icon.ico"
+    "16": "do_bbO_icon.png",
+    "48": "do_bbO_icon.png",
+    "128": "do_bbO_icon.png"
   },
   "background": {
     "scripts": ["background.js"],

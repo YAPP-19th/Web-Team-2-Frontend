@@ -1,8 +1,8 @@
 import axios, { AxiosResponse } from 'axios';
 
 import { BASE_URL } from '../apies/http';
+import { getStorageTokens } from '../helper';
 import { auth } from '../models/auth';
-import { getTokens } from '../utils/auth';
 
 export const login = (
   request: auth.ILoginRequest,
@@ -11,7 +11,7 @@ export const login = (
 };
 
 export const getAccessToken = (): Promise<AxiosResponse> => {
-  const { accessToken, refreshToken } = getTokens();
+  const { accessToken, refreshToken } = getStorageTokens();
   const header = {
     accessToken: `Bearer ${accessToken}`,
     refreshToken: `Bearer ${refreshToken}`,

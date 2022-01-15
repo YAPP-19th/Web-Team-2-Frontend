@@ -1,34 +1,16 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement } from 'react';
 
-import { getDotoriList, createDotori } from '../../apies';
+import { createDotori } from '../../apies';
 import { useMetaData } from '../../contexts';
-import { DtoFolderList, IDtoDotori } from '../../domain';
-import { getStorageTokens } from '../../helper';
+import { IDtoDotori } from '../../domain';
 import { ViewPageMain } from './ViewPageMain';
 
-export function PageMain(): ReactElement {
-  const [isLogin, setIsLogin] = useState<boolean>(false);
-  const [dotoriList, setDotoriList] = useState<DtoFolderList>({
-    rootId: 'root',
-    items: {},
-  });
+export interface PageMainProps {
+  isLogin: boolean;
+}
+
+export function PageMain({ isLogin }: PageMainProps): ReactElement {
   const { metaData } = useMetaData();
-  useEffect(() => {
-    const fetch = async () => {
-      const { accessToken } = getStorageTokens();
-      const checkIsLogin = !!accessToken;
-      setIsLogin(checkIsLogin);
-      if (checkIsLogin) {
-        try {
-          const fetchedDotoriList = await getDotoriList();
-          setDotoriList(fetchedDotoriList);
-        } catch (e) {
-          console.error(e);
-        }
-      }
-    };
-    fetch();
-  }, []);
   const saveDotori = async (dotori: IDtoDotori): Promise<void> => {
     try {
       await createDotori(dotori);
@@ -60,10 +42,10 @@ export function PageMain(): ReactElement {
       });
     }
   };
+
   return (
     <ViewPageMain
       isLogin={isLogin}
-      dotoriList={dotoriList}
       metaData={metaData}
       saveDotori={saveDotori}
       login={login}

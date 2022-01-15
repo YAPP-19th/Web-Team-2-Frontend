@@ -5,14 +5,18 @@ export const Wrapper = styled.section`
   display: flex;
 `;
 export const Article = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   padding: 24px;
+`;
+export const FolderWrapper = styled.div`
   flex: 1;
 `;
 export const InputArticle = styled(Article)`
   width: 190px;
   flex: none;
 `;
-
 export const Input = styled.input`
   width: 100%;
   height: 28px;
@@ -51,6 +55,7 @@ export const HorizontalDivider = styled.hr`
 `;
 
 export const ButtonArea = styled.div`
+  flex: none;
   padding-top: 20px;
   background-color: #ffffff;
 `;

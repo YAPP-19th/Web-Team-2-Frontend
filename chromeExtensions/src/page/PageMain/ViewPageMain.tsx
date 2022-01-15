@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from 'react';
 
 import { IMetaData } from '../../contexts';
-import { DtoFolderList, IDtoDotori } from '../../domain';
+import { IDtoDotori } from '../../domain';
 import {
   LoginSection,
   FormSection,
@@ -18,7 +18,6 @@ import {
 
 interface IProps {
   isLogin: boolean;
-  dotoriList: DtoFolderList;
   metaData: IMetaData;
   saveDotori: (dotori: IDtoDotori) => Promise<void>;
   login: () => void;
@@ -28,7 +27,6 @@ interface IProps {
 
 export function ViewPageMain({
   isLogin,
-  dotoriList,
   metaData,
   saveDotori: propSaveDotori,
   login,
@@ -54,11 +52,7 @@ export function ViewPageMain({
         <LoginSection login={login} signUp={signUp} />
       ) : (
         [
-          <FormSection
-            saveDotori={saveDotori}
-            dotoriList={dotoriList}
-            metaData={metaData}
-          />,
+          <FormSection saveDotori={saveDotori} metaData={metaData} />,
           <CompletionSection />,
         ].map((component, index) => {
           if (step === index) {

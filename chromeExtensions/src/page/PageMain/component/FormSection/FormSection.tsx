@@ -3,7 +3,7 @@ import React, { ReactElement, useEffect, useState } from 'react';
 import { AlarmIcon, OgImage } from '..';
 import { FolderListInModal } from '../../../../component';
 import { IMetaData } from '../../../../contexts';
-import { IDtoDotori, DtoFolderList, DtoFolder } from '../../../../domain';
+import { IDtoDotori } from '../../../../domain';
 import {
   AlarmArea,
   AlarmIconWrapper,
@@ -16,17 +16,16 @@ import {
   InputArticle,
   ButtonArea,
   Wrapper,
+  FolderWrapper,
 } from './FormSection.styled';
 
 interface IProps {
   saveDotori: (dotori: IDtoDotori) => Promise<void>;
-  dotoriList: DtoFolderList;
   metaData: IMetaData;
 }
 
 export function FormSection({
   saveDotori: propSaveDotori,
-  dotoriList,
   metaData,
 }: IProps): ReactElement {
   const [url, setUrl] = useState<IDtoDotori['url']>('');
@@ -78,7 +77,9 @@ export function FormSection({
       </InputArticle>
       <HorizontalDivider />
       <Article>
-        <FolderListInModal onClick={clickFolder} activeId={folderId} />
+        <FolderWrapper>
+          <FolderListInModal onClick={clickFolder} activeId={folderId} />
+        </FolderWrapper>
         <ButtonArea>
           <Button onClick={saveDotori}>저장하기</Button>
         </ButtonArea>
