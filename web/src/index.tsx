@@ -19,6 +19,8 @@ ReactDOM.render(
   document.getElementById('root'),
 );
 
+ReactGA.initialize('G-0D65J5TYYD');
+
 function sendToAnalytics() {
   ReactGA.ga('send', 'event', {
     eventCategory: 'Web Vitals',
