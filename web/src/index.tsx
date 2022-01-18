@@ -1,6 +1,7 @@
 import 'normalize.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ReactGA from 'react-ga4';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { getInitialUserInfo } from 'recoil/atoms/initializer';
@@ -18,4 +19,14 @@ ReactDOM.render(
   document.getElementById('root'),
 );
 
-reportWebVitals();
+function sendToAnalytics() {
+  ReactGA.ga('send', 'event', {
+    eventCategory: 'Web Vitals',
+    eventAction: 'temp',
+    eventValue: Math.round(1),
+    eventLabel: 'G-0D65J5TYYD',
+    nonInteraction: true,
+  });
+}
+
+reportWebVitals(sendToAnalytics);
