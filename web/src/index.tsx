@@ -21,12 +21,20 @@ ReactDOM.render(
 
 ReactGA.initialize('G-0D65J5TYYD');
 
-function sendToAnalytics() {
+function sendToAnalytics({
+  id,
+  name,
+  value,
+}: {
+  id: string;
+  name: string;
+  value: number;
+}) {
   ReactGA.ga('send', 'event', {
-    eventCategory: 'Web Vitals',
-    eventAction: 'temp',
-    eventValue: Math.round(1),
-    eventLabel: 'G-0D65J5TYYD',
+    eventCategory: 'web-vitals',
+    eventAction: name,
+    eventValue: Math.round(name === 'CLS' ? value * 1000 : value),
+    eventLabel: id,
     nonInteraction: true,
   });
 }
