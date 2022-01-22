@@ -16,6 +16,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'import/extensions': 'off',
     'import/no-unresolved': 'off',
+    'prettier/prettier': ['error', { endOfLine: 'auto' }],
     'import/order': [
       'error',
       {

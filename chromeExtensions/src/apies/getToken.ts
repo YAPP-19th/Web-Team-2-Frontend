@@ -1,7 +1,7 @@
 import { getStorageTokens } from '../helper/storageHelper';
 import { request } from './request';
 
-export const getToken = () => {
+export const getToken = (): Promise<unknown> => {
   const { accessToken, refreshToken } = getStorageTokens();
   const header = {
     accessToken: `Bearer ${accessToken}`,
