@@ -55,7 +55,13 @@ const Step1Content = (): ReactElement => {
   return (
     <Step1ContentStyled>
       <Symbol32Icon />
-      <Step1Linked href="#">도토리함 설치하기</Step1Linked>
+      <Step1Linked
+        href="https://chrome.google.com/webstore/detail/dotoriham/bmmjockgbmhknhnojebkhghcdgpgjdim?hl=ko"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        도토리함 설치하기
+      </Step1Linked>
       <Symbol32Icon />
     </Step1ContentStyled>
   );

@@ -15,7 +15,7 @@ export default function useLoggedInUserReplace(): void {
         pathname === SendPasswordPage ||
         pathname === ResetPasswordPage
       ) {
-        navigate(-1);
+        navigate('/');
       }
     }
   }, []);
