@@ -38,11 +38,12 @@ const ButtonStyled = css`
   font-size: 12px;
 `;
 
-const DownloadButton = styled.button`
+const DownloadButton = styled.a`
   ${ButtonStyled}
   margin-right: 24px;
   background-color: #48bf91;
   border: 1px solid #48bf91;
+  text-align: center;
   color: #fff;
   ${media.mobile} {
     margin-right: 0;
@@ -72,7 +73,11 @@ function Header(): ReactElement {
       <HeaderInner>
         <HeaderLogo src={LogoSmall} />
         <HeaderButtonGroup>
-          <DownloadButton>
+          <DownloadButton
+            href="https://chrome.google.com/webstore/detail/dotoriham/bmmjockgbmhknhnojebkhghcdgpgjdim?hl=ko"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <ButtonText>다운로드</ButtonText>
           </DownloadButton>
           <LinkButton

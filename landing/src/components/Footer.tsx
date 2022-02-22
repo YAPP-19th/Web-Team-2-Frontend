@@ -55,7 +55,7 @@ const ResponsiveLogo = styled.img`
   }
 `;
 
-const DownloadButton = styled.button`
+const DownloadButton = styled.a`
   width: 174px;
   height: 3.463rem;
   border: solid 2px #fff;
@@ -79,7 +79,11 @@ function Footer(): ReactElement {
         <FooterText>지금 바로 다운받으세요!</FooterText>
         <FooterLogo src={LogoWhite} />
         <ResponsiveLogo src={LogoWhiteSmall} />
-        <DownloadButton>
+        <DownloadButton
+          href="https://chrome.google.com/webstore/detail/dotoriham/bmmjockgbmhknhnojebkhghcdgpgjdim?hl=ko"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Download
           <PointerSmallIcon />
         </DownloadButton>

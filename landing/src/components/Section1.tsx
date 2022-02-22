@@ -88,7 +88,7 @@ const StrongText = styled.div`
   }
 `;
 
-const DownloadButton = styled.button`
+const DownloadButton = styled.a`
   width: 156px;
   height: 3.1rem;
   border-radius: 1.975rem;
@@ -129,7 +129,11 @@ function Section1(): ReactElement {
             </StrongText>
           </ResponsiveText>
 
-          <DownloadButton>
+          <DownloadButton
+            href="https://chrome.google.com/webstore/detail/dotoriham/bmmjockgbmhknhnojebkhghcdgpgjdim?hl=ko"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             DownLoad
             <PointerIcon />
           </DownloadButton>
