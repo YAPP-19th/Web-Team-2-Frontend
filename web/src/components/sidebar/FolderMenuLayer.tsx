@@ -49,12 +49,8 @@ function FolderMenuLayer({
   onToggleModal,
 }: FolderMenuLayerProps): ReactElement {
   const { left, top } = positionStyle;
-  const {
-    onToggleDeleteModal,
-    onToggleMenuLayer,
-    onToggleMoveModal,
-    onToggleRenameModal,
-  } = onToggleModal;
+  const { onToggleDeleteModal, onToggleMenuLayer, onToggleRenameModal } =
+    onToggleModal;
 
   const onMenuClick = (onTogglefunc: () => void) => {
     onTogglefunc();
@@ -65,10 +61,6 @@ function FolderMenuLayer({
     {
       name: '이름 변경',
       onClick: onToggleRenameModal,
-    },
-    {
-      name: '이동',
-      onClick: onToggleMoveModal,
     },
     {
       name: '삭제',
